@@ -1,6 +1,7 @@
 <template>
     
 <p>hello</p>
+<p>test</p>
 
 </template>
 
