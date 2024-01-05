@@ -27,6 +27,11 @@ const router = createRouter({
       path: '/FavoratePage',
       name: 'FavoratePage',
       component: () => import('../views/FavoratePage.vue')
+    },
+    {
+      path: '/UserRewritePage',
+      name: 'UserRewritePage',
+      component: () => import('../views/UserRewritePage.vue')
     }
   ]
 })

@@ -21,7 +21,7 @@
             <br><br>
             <span class="spanP">電話</span>　　　　　　　　　<span class="infoSpan">09**-9***99</span>
             <br><br><br>
-            　　　　　　　　　　　　　　　　　<button type="button" class="btn">編輯</button>
+            　　　　　　　　　　　　　　　　　<button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
         </div>
     </div>
 </div>
@@ -36,6 +36,9 @@ export default {
     methods: {
         goFavorate(){
             this.$router.push('/FavoratePage')
+        },
+        goUserRewrite(){
+            this.$router.push('/UserRewritePage')
         }
     },
     mounted() {

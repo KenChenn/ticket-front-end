@@ -180,15 +180,13 @@ export default {
     .down {
         width: 100%;
         height: 89%;
-
-
         .signUp {
             width: 48%;
             height: 75%;
             background-color: #89A071;
             margin: auto;
             margin-top: -10px;
-            border-radius: 30px;
+            border-radius: 10px;
         }
 
         .ppp {
