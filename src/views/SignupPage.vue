@@ -9,7 +9,7 @@
         <div class="down">
             <h1 class="ppp">帳號註冊</h1>
             <div class="signUp">
-                <br>
+                
                 <span class="allPP">使用者名稱</span>
                 <br>
                 <input type="text" class="allInput" v-model="username">
@@ -45,7 +45,7 @@
                 <input type="text" class="allInput" v-model="phoneNumber">
                 <br>
                 <span v-if="!isValidPhoneNumber" class="warning">請輸入 10 碼手機格式</span>
-                <br><br>
+                <br>
                 <button type="button" class="btn" @click="register()">註冊</button>
             </div>
         </div>
@@ -185,7 +185,6 @@ export default {
             height: 75%;
             background-color: #89A071;
             margin: auto;
-            margin-top: -10px;
             border-radius: 10px;
         }
 
@@ -216,6 +215,7 @@ export default {
         .warning {
             margin-left: 40%;
             color: #F5A352;
+            font-size: 0.8rem;
         }
 
         .btn {
