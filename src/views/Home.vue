@@ -1,9 +1,9 @@
+
 <template>
-    
-<p>hello</p>
-<p>test</p>
-<button type="button" @click="this.go()">去登入</button>
-<button @click="this.goUserInfo()">去個資頁</button>
+<!-- <button type="button" @click="this.go()">去登入</button>
+<button @click="this.goUserInfo()">去個資頁</button> -->
+
+
 
 </template>
 
