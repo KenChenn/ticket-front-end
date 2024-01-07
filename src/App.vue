@@ -20,16 +20,22 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  width: 100vw;
+  width: 100%;
   height: 10vh;
   background-color: #f9b572;
   display: flex;
   justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .content {
-  width: 100vw;
+  width: 100%;
   height: 90vh;
   background-color: #FAF8ED;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>
