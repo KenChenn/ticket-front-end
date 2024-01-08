@@ -9,12 +9,21 @@
         <div class="down">
             <h1 class="ppp">帳號註冊</h1>
             <div class="signUp">
-                
+                <br>
+                <span class="allPP">帳號</span>
+                <br>
+                <input type="text" class="allInput" v-model="account">
+                <br>
+                <span v-if="!isAccount" class="warning">請輸入帳號</span>
+                <span v-if="isReapeatAccount" class="warning">此帳號已經註冊過</span>
+                <br>
+
                 <span class="allPP">使用者名稱</span>
                 <br>
                 <input type="text" class="allInput" v-model="username">
                 <br>
                 <span v-if="!isUsername" class="warning">請輸入使用者名稱</span>
+                <span v-if="isReapeatUsername" class="warning">此使用者名稱已經註冊過</span>
                 <br>
 
                 <span class="allP">Email</span>
@@ -22,6 +31,14 @@
                 <input type="text" class="allInput" v-model="email">
                 <br>
                 <span v-if="!isValidEmail" class="warning">請輸入正確 Email 格式</span>
+
+                <br>
+
+                <span class="allP">真實姓名</span>
+                <br>
+                <input type="text" class="allInput" v-model="name">
+                <br>
+                <span v-if="!isValidName" class="warning">請輸入正確姓名格式</span>
                 <br>
 
                 <span class="allP">生日</span>
@@ -42,7 +59,7 @@
 
                 <span class="allPP">手機號碼</span>
                 <br>
-                <input type="text" class="allInput" v-model="phoneNumber">
+                <input type="text" class="allInput" v-model="phoneNumber" @input="filterNonNumeric">
                 <br>
                 <span v-if="!isValidPhoneNumber" class="warning">請輸入 10 碼手機格式</span>
                 <br>
@@ -52,20 +69,31 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
+            account: "",
             username: "",
             email: "",
+            name: "",
             birthday: "",
             password: "",
             phoneNumber: "",
-            showPassword: false,
+            //確認是否輸入
+            isAccount: true,
             isUsername: true,
             isBirthday: true,
+            //確認輸入格式正確
             isValidEmail: true,
             isValidPassword: true,
             isValidPhoneNumber: true,
+            isValidName: true,
+            //確認輸入資料是否已存在
+            isReapeatUsername: false,
+            isReapeatAccount: false,
+
+            showPassword: false,
             accountList: []
         }
     },
@@ -74,14 +102,16 @@ export default {
             this.$router.push('/LoginPage')
         },
         register() {
-            if (!this.username && !this.email && !this.birthday && !this.password && !this.phoneNumber) {
+            if (!this.account && !this.username && !this.email && !this.birthday && !this.password && !this.phoneNumber && !this.name) {
                 alert("請輸入註冊資訊");
                 return;
             }
 
-            //確認輸入使用者名稱 + 生日
+            //確認輸入帳號 + 使用者名稱 + 生日
             this.isUsername = !!this.username;
+            this.isAccount = !!this.account
             this.isBirthday = !!this.birthday;
+
 
             //確認mail格式
             const mail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
@@ -92,35 +122,64 @@ export default {
             //確認手機號碼格式
             const tel = /^09\d{8}$/
             this.isValidPhoneNumber = tel.test(this.phoneNumber);
+            //確認真實姓名格式
+            const realName = /^[\u4e00-\u9fa5]{1,3}(?:·[\u4e00-\u9fa5]{1,2})*$/
+            this.isValidName = realName.test(this.name)
 
-            if (this.isUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber) {
+
+            if (this.isAccount && this.isUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName) {
                 const account = {
+                    account: this.account,
                     username: this.username,
                     email: this.email,
                     birthday: this.birthday,
                     password: this.password,
                     phoneNumber: this.phoneNumber,
+                    realName: this.name
                 }
                 // console.log(this.accountList);
-                this.accountList.push(account)
-                localStorage.setItem("account", JSON.stringify(this.accountList))
-                this.$router.push('/LoginPage')
+                // this.accountList.push(account)
+                axios({
+                    url: 'http://localhost:8080/api/user_signup',
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: {
+                        account: this.account,
+                        password: this.password,
+                        realname: this.name,
+                        username: this.username,
+                        email: this.email,
+                        born_date: this.birthday,
+                        phone: this.phoneNumber,
+                    },
+                }).then(res => {
+                    console.log(res.data.rtncode);
+                    if (res.data.rtncode == "ACCOUNT_EXISTED") {
+                        this.isReapeatAccount = true
+                    } else {
+                        this.isReapeatAccount = false
+                    };
+                    if (res.data.rtncode == "USERNAME_ALREADY_IN_USE") {
+                        this.isReapeatUsername = true
+                    } else {
+                        this.isReapeatUsername = false
+                    };
+                    if (res.data.rtncode == "SUCCESSFUL") {
+                        this.$router.push('/LoginPage')
+                        console.log("註冊成功");
+                    }
+                })
             }
         },
-        passwordVisibility(){
+        filterNonNumeric(event) {
+            // console.log(event.target.value)
+            // 使用正则表达式过滤非数字字符
+            this.phoneNumber = event.target.value.replace(/[^\d]/g, '')
+        },
+        passwordVisibility() {
             this.showPassword = !this.showPassword;
-        }
-
-    },
-    mounted() {
-        //獲取先前註冊帳號資料庫
-        const storedAccountList = localStorage.getItem("account");
-        // console.log(storedAccountList);
-        if (storedAccountList) {
-            this.accountList = JSON.parse(storedAccountList);
-            // console.log(this.accountList);
-        } else {
-            this.accountList = []
         }
     },
     computed: {

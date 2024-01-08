@@ -9,15 +9,15 @@
         <div class="down">
             <h1 class="pp">帳號登入</h1>
             <div class="login">
-                <h4 class="loginInP">Mail</h4>
-                <input type="text" class="inputClass" v-model="loginEmail">
-                <span v-if="!isEntityEmail" class="warning">請輸入 Email</span>
-                <span v-if="!isCorrectEmail" class="warning">Email 輸入錯誤</span>
+                <h4 class="loginInP">帳號</h4>
+                <input type="text" class="inputClass" v-model="loginAccount">
+                <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
                 <br>
                 <h4 class="loginInP2">密碼</h4>
-                <input type="text" class="inputClass" v-model="loginPassword">
+                <input :type="showPassword ? 'text' : 'password'" class="inputClass" v-model="loginPassword">
+                <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <span v-if="!isEntityPassword" class="warning">請輸入密碼</span>
-                <span v-if="!isCorrectPassword" class="warning">密碼輸入錯誤</span>
                 <br>
                 <button type="button" class="loginBtn" @click="login()">登入</button>
             </div>
@@ -25,15 +25,16 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
-            loginEmail: "",
+            loginAccount: "",
             loginPassword: "",
-            isEntityEmail: true,
+            isEntityAccount: true,
             isEntityPassword: true,
-            isCorrectEmail: true,
-            isCorrectPassword: true,
+
+            showPassword: false,
         }
     },
     methods: {
@@ -42,32 +43,37 @@ export default {
         },
         login() {
             //確認輸入帳號 + 密碼
-            this.isEntityEmail = !!this.loginEmail
+            this.isEntityAccount = !!this.loginAccount
             this.isEntityPassword = !!this.loginPassword
 
             //確認輸入正確帳號 + 密碼
-            const loginList = JSON.parse(localStorage.getItem("account"));
-            if (this.loginEmail && this.loginPassword) {
-                for (let i = 0; i < loginList.length; i++) {
-                    if (loginList[i].email == this.loginEmail) {
-                        this.isCorrectEmail = true
-                        if (loginList[i].password == this.loginPassword) {
-                            this.isCorrectPassword = true
-                            console.log("登入成功");
-                        } else {
-                            this.isCorrectPassword = false
-                        }
-                        break;
+            if (this.loginAccount && this.loginPassword) {
+                axios({
+                    url: 'http://localhost:8080/api/user_login',
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: {
+                        account: this.loginAccount,
+                        password: this.loginPassword,
+                    },
+                }).then(res => {
+                    console.log(res.data)
+                    if (res.data.rtncode == "SUCCESSFUL") {
+                        console.log("登入成功");
+                        this.$router.push('/UserInfoPage');
                     } else {
-                        this.isCorrectEmail = false
+                        alert("登入失敗");
+                        return;
                     }
-                }
+                })
             }
+        },
+        passwordVisibility() {
+            this.showPassword = !this.showPassword;
         }
     },
-    mounted() {
-
-    }
 }
 </script>
 <style lang="scss">
