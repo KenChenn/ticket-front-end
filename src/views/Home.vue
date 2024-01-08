@@ -19,13 +19,12 @@
     <div class="navigate">
       <div class="page">
         <RouterLink to="/Popular" class="link">熱門活動</RouterLink>
-        <RouterView />
       </div>
       <div class="page">
         <RouterLink to="/Soon" class="link">即將開始</RouterLink>
-        <RouterView />
       </div>
     </div>
+    <RouterView />
   </div>
 </template>
 
