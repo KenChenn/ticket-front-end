@@ -38,7 +38,12 @@ const router = createRouter({
       path: '/UserRewritePage',
       name: 'UserRewritePage',
       component: () => import('../views/UserRewritePage.vue')
-    }
+    },
+    {
+      path: '/CreateHoste',
+      name: 'CreateHost',
+      component: () => import('../views/CreateHost.vue')
+    },
   ]
 })
 

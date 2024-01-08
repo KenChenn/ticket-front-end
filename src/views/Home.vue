@@ -2,6 +2,7 @@
 <template>
   <!-- <button type="button" @click="this.go()">去登入</button>
 <button @click="this.goUserInfo()">去個資頁</button> -->
+<button @click="this.goCreateHost">去建立主辦單位頁</button>
 
   <div class="bgCarousel">
     <el-carousel height="auto" autoplay >
@@ -101,7 +102,10 @@ export default {
     },
     goUserInfo() {
       this.$router.push('/UserInfoPage')
-    }
+    },
+    goCreateHost() {
+      this.$router.push('/CreateHoste')
+    },
   },
   mounted() {
 
