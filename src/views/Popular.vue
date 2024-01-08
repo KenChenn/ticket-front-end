@@ -1,6 +1,8 @@
 <!--  -->
 <template>
-    <div class='content'></div>
+    <div class="show">
+
+    </div>
 </template>
 
 <script steup>
