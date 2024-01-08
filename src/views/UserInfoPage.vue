@@ -27,6 +27,7 @@
 </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -34,16 +35,27 @@ export default {
         }
     },
     methods: {
-        goFavorate(){
+        goFavorate() {
             this.$router.push('/FavoratePage')
         },
-        goUserRewrite(){
+        goUserRewrite() {
             this.$router.push('/UserRewritePage')
-        }
+        },
     },
     mounted() {
-
-    }
+        axios({
+            url: 'http://localhost:8080/api/get_user_basic_data',
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                account: this.loginAccount,
+            },
+        }).then(res => {
+            console.log(res.data)
+        })
+    },
 }
 </script>
 <style lang="scss">
@@ -131,4 +143,5 @@ export default {
             border-radius: 10px;
         }
     }
-}</style>
+}
+</style>
