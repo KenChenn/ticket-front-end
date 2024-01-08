@@ -4,14 +4,14 @@
 <button @click="this.goUserInfo()">去個資頁</button> -->
 
   <div class="bgCarousel">
-    <el-carousel height="auto" autoplay >
-      <el-carousel-item style="height: 90vh">
+    <el-carousel height="auto" autoplay>
+      <el-carousel-item style="height: 80vh">
         <h3 class="small justify-center" text="2xl">height 100px</h3>
       </el-carousel-item>
-      <el-carousel-item style="height: 90vh">
+      <el-carousel-item style="height: 80vh">
         <h3 class="small justify-center" text="2xl">height 200px</h3>
       </el-carousel-item>
-      <el-carousel-item style="height: 90vh">
+      <el-carousel-item style="height: 80vh">
         <h3 class="small justify-center" text="2xl">height 300px</h3>
       </el-carousel-item>
     </el-carousel>
@@ -19,50 +19,44 @@
     <div class="navigate">
       <div class="page">
         <RouterLink to="/Popular" class="link">熱門活動</RouterLink>
+        <RouterView />
       </div>
       <div class="page">
         <RouterLink to="/Soon" class="link">即將開始</RouterLink>
+        <RouterView />
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
-.el-carousel-item{
-  background-size: cover;
-  background-attachment: fixed;
-  overflow-x: hidden;
-}
+<style scoped lang="scss">
 .carousel-item {
     color: #475669;
     opacity: 0.75;
     margin: 0;
     text-align: center;
   }
+.el-carousel-item {
+  // color: #475669;
+  // opacity: 0.75;
+  // display: flex;
+  // align-items: center;
+  // margin: 0;
+  // text-align: center;
+  // height: 100%;
+  background-attachment: fixed;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
 
-  .el-carousel__item h3 {
-    color: #475669;
-    opacity: 0.75;
-    display: flex;
-    align-items: center;
-    margin: 0;
-    text-align: center;
-    height: 100%;
-  }
-
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce6;
-  }
-</style>
-
-<style scoped lang="scss">
-
+// .bgCarousel{
+// }
 .navigate {
-  width: 100% ;
+  width: 100%;
   height: 10vh;
   display: flex;
   justify-content: center;
