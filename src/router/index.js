@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import('../views/SignupPage.vue')
     },
     {
+      path: '/OrderTracking',
+      name: 'OrderTracking',
+      component: () => import('../views/OrderTracking.vue')
+    },
+    {
       path: '/UserInfoPage',
       name: 'UserInfoPage',
       component: () => import('../views/UserInfoPage.vue')
@@ -27,7 +32,12 @@ const router = createRouter({
     {
       path: '/FavoratePage',
       name: 'FavoratePage',
-      // component: () => import('../views/FavoratePage.vue')
+      component: () => import('../views/FavoratePage.vue')
+    },
+    {
+      path: '/UserRewritePage',
+      name: 'UserRewritePage',
+      component: () => import('../views/UserRewritePage.vue')
     }
   ]
 })

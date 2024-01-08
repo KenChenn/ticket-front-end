@@ -78,90 +78,92 @@ export default {
 
     .up {
         width: 100%;
-        height: 60px;
+        height: 11%;
         background-color: #F9B572;
         display: flex;
         position: relative;
 
         .fa-solid {
             position: absolute;
-            font-size: 1rem;
-            left: 325px;
-            top: 22px;
             color: #E6E1C8;
+            font-size: 1rem;
+            top: 33%;
+            left: 25.5%;
         }
 
         .search {
-            width: 150px;
-            height: 25px;
-            margin-top: 15px;
-            margin-left: 320px;
+            width: 11%;
+            height: 47%;
             border-radius: 10px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
+            margin-left: 25%;
+            margin-top: 1%;
         }
 
         .signUpp {
-            margin-left: 350px;
-            margin-right: 15px;
-            color: #FAF8ED;
             font-size: 1rem;
+            margin-left: 30%;
+            color: #FAF8ED;
         }
 
         .loginp {
-            color: #FAF8ED;
             font-size: 1rem;
+            margin-left: 2%;
+            color: #FAF8ED;
         }
     }
 
     .down {
+        width: 100%;
+        height: 89%;
+
         .pp {
-            margin-top: 20px;
-            margin-left: 330px;
+            margin-left: 27%;
             color: #4D5C44;
         }
 
         .login {
-            width: 600px;
-            height: 350px;
+            width: 48%;
+            height: 75%;
             background-color: #89A071;
             margin: auto;
-            margin-top: -25px;
-            border-radius: 30px;
+            margin-top: -2%;
+            border-radius: 10px;
 
             .loginInP {
-                margin-left: 280px;
-                font-size: 25px;
+                margin-left: 45%;
+                font-size: 1.6rem;
                 padding-top: 15px;
                 color: #4D5C44;
             }
 
             .loginInP2 {
-                margin-left: 280px;
-                font-size: 25px;
+                margin-left: 45%;
+                font-size: 1.6rem;
                 margin-top: 20px;
                 color: #4D5C44;
             }
 
             .inputClass {
-                height: 20px;
-                width: 300px;
-                margin-left: 150px;
-                margin-top: 5px;
-                border-radius: 5px;
+                width: 47%;
+                height: 6%;
+                margin-left: 26%;
+                margin-top: 1%;
+                border-radius: 10px;
                 border: 1pt solid #89A071;
                 background-color: #FAF8ED;
             }
 
             .loginBtn {
-                height: 30px;
-                width: 50px;
+                height: 10%;
+                width: 10%;
                 background-color: #F9B572;
                 border: 1pt solid #F9B572;
                 color: #FAF8ED;
-                margin-left: 280px;
                 border-radius: 10px;
-                margin-top: 10px;
+                margin-left: 46%;
+                margin-top: 5%;
             }
 
             .warning {
