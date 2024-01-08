@@ -1,11 +1,11 @@
 <template>
     <div class="main">
-        <div class="up">
+        <!-- <div class="up">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="search">
             <p class="signUpp">註冊</p>
             <p class="loginp" @click="this.goLogin()">登入</p>
-        </div>
+        </div> -->
         <div class="down">
             <h1 class="ppp">帳號註冊</h1>
             <div class="signUp">
@@ -34,8 +34,8 @@
                 <span class="allP">密碼</span>
                 <br>
                 <input class="allInput" v-model="password" :type="showPassword ? 'text' : 'password'">
-                <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
-                <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <br>
                 <span v-if="!isValidPassword" class="warning">請輸入 8 ~ 16 碼英文 + 數字</span>
                 <br>
@@ -226,11 +226,10 @@ export default {
             margin-left: 48%;
 
         }
-
-        .fa-solid {
+        .eye{
             position: absolute;
             left: 61.5%;
-            top: 65%
+            top: 68.5%
         }
     }
 }

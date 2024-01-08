@@ -1,12 +1,12 @@
 <template lang="">
 <div class="main">
-    <div class="up">
+    <!-- <div class="up">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" class="search">
         <p class="favorateP" @click="this.goFavorate()">最愛清單</p>
         <p class="orderP">訂單查詢</p>
         <p class="logoutP">登出</p>
-    </div>
+    </div> -->
     <div class="down">
         <h1 class="pp">個人資料</h1>
         <div class="info">
