@@ -1,11 +1,11 @@
 <template>
     <div class="main">
-        <div class="up">
+        <!-- <div class="up">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="search">
             <p class="signUpp">註冊</p>
             <p class="loginp" @click="this.goLogin()">登入</p>
-        </div>
+        </div> -->
         <div class="down">
             <h1 class="ppp">帳號註冊</h1>
             <div class="signUp">

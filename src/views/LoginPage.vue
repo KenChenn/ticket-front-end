@@ -1,11 +1,11 @@
 <template>
     <div class="main">
-        <div class="up">
+        <!-- <div class="up">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="search">
             <p class="signUpp" @click="this.goSignUp()">註冊</p>
             <p class="loginp">登入</p>
-        </div>
+        </div> -->
         <div class="down">
             <h1 class="pp">帳號登入</h1>
             <div class="login">
@@ -74,6 +74,9 @@ export default {
             this.showPassword = !this.showPassword;
         }
     },
+    components: {
+        UserInfoPage
+    }
 }
 </script>
 <style lang="scss">
