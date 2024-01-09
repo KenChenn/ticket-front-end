@@ -46,7 +46,10 @@
       </div>
     </div>
     <RouterView />
-    
+
+    <div class="footer">
+
+    </div>
   </div>
 </template>
 
@@ -93,9 +96,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px 10px 0 0;
+    border-radius: 30px 30px 0 0;
     background-color: #748e63;
-
+    font-size: 2rem;
     // border: 1px solid black;
     a {
       color: #faf8ed;
@@ -103,5 +106,9 @@
     }
   }
 }
-
+.footer{
+  width: 100%;
+  height: 10vh;
+  background-color: #faf8ed;
+}
 </style>
