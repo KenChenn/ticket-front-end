@@ -40,9 +40,19 @@ const router = createRouter({
       component: () => import('../views/UserRewritePage.vue')
     },
     {
-      path: '/CreateHoste',
+      path: '/CreateHost',
       name: 'CreateHost',
       component: () => import('../views/CreateHost.vue')
+    },
+    {
+      path: '/EditHost',
+      name: 'EditHost',
+      component: () => import('../views/EditHost.vue')
+    },
+    {
+      path: '/BuyTicketPage',
+      name: 'BuyTicketPage',
+      component: () => import('../views/BuyTicketPage.vue')
     },
   ]
 })

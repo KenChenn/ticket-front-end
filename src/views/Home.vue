@@ -3,6 +3,8 @@
   <!-- <button type="button" @click="this.go()">去登入</button>
 <button @click="this.goUserInfo()">去個資頁</button> -->
 <button @click="this.goCreateHost">去建立主辦單位頁</button>
+<button @click="this.goEditHost">去編輯主辦單位頁</button>
+<button @click="this.goBuyTicketPage">去購票頁</button>
 
   <div class="bgCarousel">
     <el-carousel height="auto" autoplay >
@@ -104,11 +106,17 @@ export default {
       this.$router.push('/UserInfoPage')
     },
     goCreateHost() {
-      this.$router.push('/CreateHoste')
+      this.$router.push('/CreateHost')
     },
+    goEditHost(){
+      this.$router.push('/EditHost')
+    },
+    goBuyTicketPage(){
+      this.$router.push('/BuyTicketPage')
+    }
   },
   mounted() {
-
+    
   }
 }
 </script>
