@@ -104,7 +104,7 @@ export default {
       this.$router.push('/UserInfoPage')
     },
     goCreateHost() {
-      this.$router.push('/CreateHoste')
+      this.$router.push('/CreateHost')
     },
   },
   mounted() {

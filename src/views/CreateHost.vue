@@ -41,7 +41,6 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
 export default {
     data() {
         return {
@@ -78,36 +77,39 @@ export default {
             const tel = /^09\d{8}$/
             this.isValidPhone = tel.test(this.phone);
 
-            if (this.name && this.email && this.phone && this.address && this.url && this.sns) {
-                axios({
-                    url: 'http://localhost:8080/api/add_organizer',
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    data: {
-                        name: this.name,
-                        email: this.email,
-                        phone: this.phone,
-                        address: this.address,
-                        url: this.url,
-                        sns: this.sns,
-                    },
-                }).then(res => {
-                    console.log(res.data)
-                    if (res.data.rtncode == "SUCCESSFUL") {
-                        console.log("新增成功");
-                        // this.$router.push('/UserInfoPage');
-                    } else if (res.data.rtncode == "ORGANIZER_EXISTED") {
-                        this.isReapeatName = true
-                    } else if (res.data.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
-                        alert("請先登入");
-                    }
-                    else {
-                        alert("新增失敗");
-                        return;
-                    }
-                })
+            if (this.name && this.email && this.phone) {
+                fetch('http://localhost:8080/api/add_organizer',
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify({
+                            name: this.name,
+                            email: this.email,
+                            phone: this.phone,
+                            address: this.address,
+                            url: this.url,
+                            sns: this.sns,
+                        }),
+                    }).then(response => response.json())
+                    .then(res => {
+                        console.log(res.rtncode)
+                        if (res.rtncode == "SUCCESSFUL") {
+                            console.log("新增成功");
+                            this.$router.push('/ManageHostPage');
+                        } else if (res.rtncode == "ORGANIZER_EXISTED") {
+                            this.isReapeatName = true
+                        } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
+                            alert("請先登入");
+                        } else {
+                            alert("新增失敗");
+                            return;
+                        }
+                    })
+
+
             }
         },
         filterNonNumeric(event) {
