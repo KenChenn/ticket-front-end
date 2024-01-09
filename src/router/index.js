@@ -69,6 +69,11 @@ const router = createRouter({
       component: () => import('../views/BuyTicketPage.vue')
     },
     {
+      path: '/ActivityAndHostPage',
+      name: 'ActivityAndHostPage',
+      component: () => import('../views/ActivityAndHostPage.vue')
+    },
+    {
       path: '/CreateActivities',
       name: 'CreateActivities',
       component: () => import('../views/CreateActivities.vue')

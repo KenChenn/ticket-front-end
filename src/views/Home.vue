@@ -6,6 +6,8 @@
 <button @click="this.goCreateHost">去建立主辦單位頁</button>
 <button @click="this.goEditHost">去編輯主辦單位頁</button>
 <button @click="this.goBuyTicketPage">去購票頁</button>
+<button @click="this.goHA">去創建活動/主辦管理單位</button>
+
 
   <div class="bgCarousel">
     <el-carousel height="auto" autoplay>
@@ -121,7 +123,10 @@ export default {
     },
     goBuyTicketPage(){
       this.$router.push('/BuyTicketPage')
-    }
+    },
+    goHA(){
+      this.$router.push('/ActivityAndHostPage')
+    },
   },
   mounted() {
     
