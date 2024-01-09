@@ -16,7 +16,7 @@
         </div>
         <div class="down">
             <br>
-            　　　　　　　　　　　　　　　　<span class="downInfoP">票種</span>　　　　　　　　　　　　　　　　　　<span class="downInfoP">售價</span>
+            　　　　　　　　　　　　　　　　　　　　<span class="downInfoP">票種</span>　　　　　　　　　　　　　　　　　　　　<span class="downInfoP">售價</span>
             <br><br>
             <div class="ticket1">
                 <br>
@@ -44,7 +44,7 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
     width: 100vw;
     height: 150vh;
