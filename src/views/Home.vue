@@ -6,6 +6,9 @@
       }
     },
     methods: {
+      tabChange(){
+
+      },
       go() {
         this.$router.push('/LoginPage')
       },
@@ -38,12 +41,14 @@
 
     <!-- 下方導行列 -->
     <div class="navigate">
-      <div class="page">
-        <RouterLink to="/Popular">熱門活動</RouterLink>
-      </div>
-      <div class="page">
-        <RouterLink to="/Soon">即將開始</RouterLink>
-      </div>
+      <RouterLink to="/Popular" class="tab">
+        熱門活動
+      </RouterLink>
+      
+        <RouterLink to="/Soon" class="tab">
+          即將開始
+        </RouterLink>
+      
     </div>
     <RouterView />
 
@@ -88,7 +93,7 @@
   display: flex;
   justify-content: center;
 
-  .page {
+  .tab {
     width: 20%;
     height: 100%;
     margin-left: 2%;
@@ -98,12 +103,11 @@
     align-items: center;
     border-radius: 30px 30px 0 0;
     background-color: #748e63;
+    color: #faf8ed;
     font-size: 2rem;
+    text-decoration: none;
+
     // border: 1px solid black;
-    a {
-      color: #faf8ed;
-      text-decoration: none;
-    }
   }
 }
 .footer{

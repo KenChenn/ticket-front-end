@@ -15,7 +15,7 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <div class="show">
+        <RouterLink to="/" class="show">
             <!-- 節目圖片 -->
             <div class="showImg">
                 <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
@@ -32,98 +32,8 @@ export default {
                     ON SALE
                 </p>
             </div>
-        </div>
+        </RouterLink>
 
-        <div class="show">
-            <!-- 節目圖片 -->
-            <div class="showImg">
-                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
-            </div>
-            <!-- 節目開售日期 -->
-            <div class="showDate">
-                <p>
-                    2024/12/31 Wed
-                </p>
-            </div>
-            <!-- 節目狀態 -->
-            <div class="showStatus">
-                <p>
-                    ON SALE
-                </p>
-            </div>
-        </div>
-        <div class="show">
-            <!-- 節目圖片 -->
-            <div class="showImg">
-                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
-            </div>
-            <!-- 節目開售日期 -->
-            <div class="showDate">
-                <p>
-                    2024/12/31 Wed
-                </p>
-            </div>
-            <!-- 節目狀態 -->
-            <div class="showStatus">
-                <p>
-                    ON SALE
-                </p>
-            </div>
-        </div>
-        <div class="show">
-            <!-- 節目圖片 -->
-            <div class="showImg">
-                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
-            </div>
-            <!-- 節目開售日期 -->
-            <div class="showDate">
-                <p>
-                    2024/12/31 Wed
-                </p>
-            </div>
-            <!-- 節目狀態 -->
-            <div class="showStatus">
-                <p>
-                    ON SALE
-                </p>
-            </div>
-        </div>
-        <div class="show">
-            <!-- 節目圖片 -->
-            <div class="showImg">
-                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
-            </div>
-            <!-- 節目開售日期 -->
-            <div class="showDate">
-                <p>
-                    2024/12/31 Wed
-                </p>
-            </div>
-            <!-- 節目狀態 -->
-            <div class="showStatus">
-                <p>
-                    ON SALE
-                </p>
-            </div>
-        </div>
-        <div class="show">
-            <!-- 節目圖片 -->
-            <div class="showImg">
-                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
-            </div>
-            <!-- 節目開售日期 -->
-            <div class="showDate">
-                <p>
-                    2024/12/31 Wed
-                </p>
-            </div>
-            <!-- 節目狀態 -->
-            <div class="showStatus">
-                <p>
-                    ON SALE
-                </p>
-            </div>
-        </div>
     </div>
 </template>
 
