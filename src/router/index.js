@@ -10,24 +10,19 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: ()=>import('../views/Home.vue'),
-      children:[{
+      children:[
+        {
+        path:'/',
+        component:Popular,
+      },
+      {
         path:'Soon',
         component:Soon,
       },{
         path:'Popular',
         component:Popular,
       }],
-
     },
-    // {
-    //   path: '/Popular',
-    //   name: 'Popular',
-    //   component: ()=>import('../views/Popular.vue'),
-      
-    // },    {
-    //   path: '/Soon',
-    //   name: 'Soon',
-    // },
     {
       path: '/LoginPage',
       name: 'LoginPage',

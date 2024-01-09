@@ -1,3 +1,23 @@
+  <script>
+  export default {
+    data() {
+      return {
+  
+      }
+    },
+    methods: {
+      go() {
+        this.$router.push('/LoginPage')
+      },
+      goUserInfo() {
+        this.$router.push('/UserInfoPage')
+      }
+    },
+    mounted() {
+  
+    }
+  }
+  </script>
 
 <template>
   <!-- <button type="button" @click="this.go()">去登入</button>
@@ -16,19 +36,26 @@
       </el-carousel-item>
     </el-carousel>
 
+    <!-- 下方導行列 -->
     <div class="navigate">
       <div class="page">
-        <RouterLink to="/Popular" class="link">熱門活動</RouterLink>
+        <RouterLink to="/Popular">熱門活動</RouterLink>
       </div>
       <div class="page">
-        <RouterLink to="/Soon" class="link">即將開始</RouterLink>
+        <RouterLink to="/Soon">即將開始</RouterLink>
       </div>
     </div>
     <RouterView />
+    
   </div>
 </template>
 
 <style scoped lang="scss">
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .carousel-item {
     color: #475669;
     opacity: 0.75;
@@ -52,8 +79,6 @@
   background-color: #d3dce6;
 }
 
-// .bgCarousel{
-// }
 .navigate {
   width: 100%;
   height: 10vh;
@@ -78,26 +103,5 @@
     }
   }
 }
+
 </style>
-
-<script>
-
-export default {
-  data() {
-    return {
-
-    }
-  },
-  methods: {
-    go() {
-      this.$router.push('/LoginPage')
-    },
-    goUserInfo() {
-      this.$router.push('/UserInfoPage')
-    }
-  },
-  mounted() {
-
-  }
-}
-</script>
