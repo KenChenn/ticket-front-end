@@ -11,27 +11,30 @@
         <h1 class="pp">個人資料</h1>
         <div class="info">
             <br><br>
-            <span class="spanP spanP2">使用者名稱</span>　　　　　　　<span class="infoSpan">user</span>
+            <span class="spanP">使用者名稱</span>　　　　　　　<span class="infoSpan">{{this.user}}</span>
             <br><br>
-            <span class="spanP">Email</span>　　　　　　　　<span class="infoSpan">example@gmail.com</span>
+            <span class="spanP">Email</span>　　　　　　　　<span class="infoSpan">{{this.email}}</span>
             <br><br>
-            <span class="spanP">生日</span>　　　　　　　　　<span class="infoSpan">1999/12/28</span>
+            <span class="spanP">生日</span>　　　　　　　　　<span class="infoSpan">{{this.birth}}</span>
             <br><br>
-            <span class="spanP">密碼</span>　　　　　　　　　<span class="infoSpan">********</span>
-            <br><br>
-            <span class="spanP">電話</span>　　　　　　　　　<span class="infoSpan">09**-9***99</span>
+            <span class="spanP">電話</span>　　　　　　　　　<span class="infoSpan">{{this.phone}}</span>
             <br><br><br>
             　　　　　　　　　　　　　　　　　<button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
+        <!-- <UserRewritePage v-bind:user="this.user" :email="this.email" :birth="this.birth" :phone="this.phone" /> -->
         </div>
     </div>
 </div>
 </template>
 <script>
 import axios from 'axios'
+// import UserRewritePage from './UserRewritePage.vue'
 export default {
     data() {
         return {
-            
+            user: "",
+            email: "",
+            birth: "",
+            phone: "",
         }
     },
     methods: {
@@ -53,9 +56,16 @@ export default {
                 account: $cookies.get("account"),
             },
         }).then(res => {
-            console.log(res.data)
+            console.log(res.data.data)
+            this.user = res.data.data.username
+            this.email = res.data.data.email
+            this.birth = res.data.data.bornDate
+            this.phone = res.data.data.phone
         })
     },
+    // components: {
+    //     UserRewritePage
+    // }
 }
 </script>
 <style lang="scss" scoped>
