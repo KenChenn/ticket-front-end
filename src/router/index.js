@@ -83,6 +83,11 @@ const router = createRouter({
       name: 'AdminLoginPage',
       component: () => import('../views/AdminLoginPage.vue')
     },
+    {
+      path: '/ManageHostPage',
+      name: 'ManageHostPage',
+      component: () => import('../views/ManageHostPage.vue')
+    },
   ]
 })
 
