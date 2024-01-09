@@ -1,8 +1,8 @@
 <template>
     <div class="main">
         <div class="up">
-            <button class="host">主辦單<br>位管理</button>
-            <button class="act">建立<br>活動</button>
+            <button class="host" @click="this.goManageHostPage()">主辦單<br>位管理</button>
+            <button class="act" @click="this.goCreateActivities()">建立<br>活動</button> 
         </div>
         <div class="down">
             <div class="actSq">
@@ -29,7 +29,12 @@ export default {
         }
     },
     methods: {
-
+        goManageHostPage(){
+            this.$router.push('/ManageHostPage')
+        },
+        goCreateActivities(){
+            this.$router.push('/CreateActivities')
+        }
     },
     mounted() {
 
