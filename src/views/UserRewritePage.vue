@@ -14,50 +14,122 @@
                 <br>
                 <span class="allPP">使用者名稱</span>
                 <br>
-                <input type="text" class="allInput">
+                <input type="text" class="allInput" v-model="editedUser">
+                <span v-if="!isUsername" class="warning">請輸入使用者名稱</span>
+                <span v-if="isReapeatUsername" class="warning">此使用者名稱已經註冊過</span>
                 <br>
                 <span class="allP">Email</span>
                 <br>
-                <input type="text" class="allInput">
+                <input type="text" class="allInput" value="" v-model="editedEmail">
+                <span v-if="!isValidEmail" class="warning">請輸入正確 Email 格式</span>
                 <br>
                 <span class="allP">生日</span>
                 <br>
-                <input type="date" class="allInput">
-                <br>
-                <span class="allP">密碼</span>
-                <br>
-                <input class="allInput">
+                <input type="date" class="allInput" disabled v-model="editedBirth">
                 <br>
                 <span class="allPP">手機號碼</span>
                 <br>
-                <input type="text" class="allInput">
+                <input type="text" class="allInput" value="" v-model="editedPhone" @input="filterNonNumeric">
+                <span v-if="!isValidPhoneNumber" class="warning">請輸入 10 碼手機格式</span>
                 <br><br>
-                <button type="button" class="btn">完成</button>
+                <button type="button" class="btn" @click="edit()">完成</button>
 
             </div>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
+            editedUser: "",
+            editedEmail: "",
+            editedPhone: "",
+            editedBirth:"",
+
+            isUsername: true,
+            isValidEmail: true,
+            isValidPhoneNumber: true,
+            isReapeatUsername: false,
 
         }
     },
-    methods: {
 
+    methods: {
+        edit() {
+            this.isUsername = !!this.editedUser;
+            //確認mail格式
+            const mail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
+            this.isValidEmail = mail.test(this.editedEmail);
+            //確認手機號碼格式
+            const tel = /^09\d{8}$/
+            this.isValidPhoneNumber = tel.test(this.editedPhone);
+
+            if (this.isUsername && this.isValidEmail && this.isValidPhoneNumber) {
+                axios({
+                    url: 'http://localhost:8080/api/user_data_update',
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: {
+                        account: $cookies.get("account"),
+                        username: this.editedUser,
+                        email: this.editedEmail,
+                        phone: this.editedPhone,
+                    },
+                }).then(res => {
+                    console.log(res.data)
+                    if (res.data.rtncode == "USERNAME_ALREADY_IN_USE") {
+                        this.isReapeatUsername = true
+                    } else {
+                        this.isReapeatUsername = false
+                    };
+                    if (res.data.rtncode == "SUCCESSFUL") {
+                        this.$router.push('/UserInfoPage')
+                        console.log("更改成功");
+                    }
+                    // this.user = res.data.data.username
+                    // this.email = res.data.data.email
+                    // this.birth = res.data.data.bornDate
+                    // this.phone = res.data.data.phone
+                })
+
+            }
+        },
+        filterNonNumeric(event) {
+            // console.log(event.target.value)
+            // 使用正则表达式过滤非数字字符
+            this.editedPhone = event.target.value.replace(/[^\d]/g, '')
+        },
     },
     mounted() {
-
+        axios({
+            url: 'http://localhost:8080/api/get_user_basic_data',
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                account: $cookies.get("account"),
+            },
+        }).then(res => {
+            // console.log(res.data.data)
+            this.editedUser = res.data.data.username
+            this.editedEmail = res.data.data.email
+            this.editedBirth = res.data.data.bornDate
+            this.editedPhone = res.data.data.phone
+        })
     }
 }
 </script>
 <style lang="scss">
-.main{
+.main {
     width: 100vw;
     height: 100vh;
     background-color: #FAF8ED;
+
     .up {
         width: 100%;
         height: 11%;
@@ -100,72 +172,76 @@ export default {
             font-size: 1rem;
         }
     }
-    .down{
+
+    .down {
         width: 100%;
         height: 89%;
+
         .ppp {
             margin-left: 27%;
             color: #4D5C44;
         }
-        .reWriteSq{
+
+        .reWriteSq {
             width: 48%;
             height: 75%;
             background-color: #89A071;
             margin: auto;
             margin-top: -10px;
             border-radius: 10px;
+
             .signUp {
-            width: 48%;
-            height: 75%;
-            background-color: #89A071;
-            margin: auto;
-            margin-top: -10px;
-            border-radius: 10px;
-        }
+                width: 48%;
+                height: 75%;
+                background-color: #89A071;
+                margin: auto;
+                margin-top: -10px;
+                border-radius: 10px;
+            }
 
-        .ppp {
-            margin-left: 27%;
-            color: #4D5C44;
-        }
+            .ppp {
+                margin-left: 27%;
+                color: #4D5C44;
+            }
 
-        .allInput {
-            width: 47%;
-            height: 6%;
-            margin-left: 28%;
-            border-radius: 10px;
-            background-color: #FAF8ED;
-            border: 1pt solid #FAF8ED;
-        }
+            .allInput {
+                width: 47%;
+                height: 6%;
+                margin-left: 28%;
+                border-radius: 10px;
+                background-color: #FAF8ED;
+                border: 1pt solid #FAF8ED;
+            }
 
-        .allP {
-            margin-left: 48%;
-            color: #4D5C44;
-        }
+            .allP {
+                margin-left: 48%;
+                color: #4D5C44;
+            }
 
-        .allPP {
-            margin-left: 45%;
-            color: #4D5C44;
-        }
+            .allPP {
+                margin-left: 45%;
+                color: #4D5C44;
+            }
 
-        .warning {
-            margin-left: 40%;
-            color: #F5A352;
-        }
+            .warning {
+                margin-left: 40%;
+                color: #F5A352;
+            }
 
-        .btn {
-            background-color: #F9B572;
-            border: 1pt solid #F9B572;
-            color: #FAF8ED;
-            border-radius: 10px;
-            margin-left: 48%;
+            .btn {
+                background-color: #F9B572;
+                border: 1pt solid #F9B572;
+                color: #FAF8ED;
+                border-radius: 10px;
+                margin-left: 48%;
 
-        }
+            }
 
-        .fa-solid {
-            position: absolute;
-            left: 61.5%;
-            top: 65%
-        }
+            .fa-solid {
+                position: absolute;
+                left: 61.5%;
+                top: 65%
+            }
         }
     }
 }
