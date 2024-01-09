@@ -1,26 +1,4 @@
-  <script>
-  export default {
-    data() {
-      return {
-  
-      }
-    },
-    methods: {
-      tabChange(){
 
-      },
-      go() {
-        this.$router.push('/LoginPage')
-      },
-      goUserInfo() {
-        this.$router.push('/UserInfoPage')
-      }
-    },
-    mounted() {
-  
-    }
-  }
-  </script>
 
 <template>
   <!-- <button type="button" @click="this.go()">去登入</button>
