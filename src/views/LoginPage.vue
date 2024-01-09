@@ -62,6 +62,7 @@ export default {
                     console.log(res.data)
                     if (res.data.rtncode == "SUCCESSFUL") {
                         console.log("登入成功");
+                        $cookies.set("account",this.loginAccount)
                         this.$router.push('/UserInfoPage');
                     } else {
                         alert("登入失敗");

@@ -31,7 +31,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
-
+            
         }
     },
     methods: {
@@ -50,7 +50,7 @@ export default {
                 "Content-Type": "application/json"
             },
             data: {
-                account: this.loginAccount,
+                account: $cookies.get("account"),
             },
         }).then(res => {
             console.log(res.data)
