@@ -53,11 +53,11 @@ export default {
 
     <!-- 下方導行列 -->
     <div class="navigate">
-      <RouterLink to="/Popular" class="tab">
+      <RouterLink to="/Popular" active-class="active">
         熱門活動
       </RouterLink>
 
-      <RouterLink to="/Soon" class="tab">
+      <RouterLink to="/Soon" active-class="active">
         即將開始
       </RouterLink>
 
@@ -108,8 +108,8 @@ export default {
   height: 10vh;
   display: flex;
   justify-content: center;
-
-  .tab {
+}
+.navigate a {
     width: 20%;
     height: 100%;
     margin-left: 2%;
@@ -122,10 +122,12 @@ export default {
     color: #faf8ed;
     font-size: 2rem;
     text-decoration: none;
-
-    // border: 1px solid black;
-  }
 }
+    // border: 1px solid black;
+    .navigate a.active{
+      background-color: #99B080;
+    }
+
 
 .footer {
   width: 100%;
