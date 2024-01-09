@@ -10,7 +10,7 @@
         <span class="title">訂單查詢</span>
         <span class="tip">未付款為橘色卡片</span>
     </div>
-    <div class="alreadyPaid" >
+    <div class="content" >
         <div class="up">
             <p class="name">活動名稱</p>
             <p class="nameAbout">{{ this.nameAbout }}</p>
@@ -42,9 +42,6 @@
 
 
     </div>
-    <div class="unpaid">
-
-    </div> 
 </body>
 </template>
 <script>
@@ -60,10 +57,12 @@ export default {
     }
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="scss" >
 body{
     width: 100%;
     height: 110vh;
+    padding: 0;
+    margin: 0;
     background-color: #faf8ed;
 }
 .header{
@@ -73,11 +72,11 @@ body{
     background-color: #F9B572;
     position: fixed;
     top: 0;
-    // position: relative;
+    z-index: 5;
     .fa-solid{
         position: absolute;
         font-size: 30px;
-        left:10.5%;
+        left:15.5%;
         top: 30%;
         color: #E6E1C8;
         z-index: 10;
@@ -87,10 +86,10 @@ body{
         width: 17%;
         height: 70%;
         top: 15%;
-        left: 10%;
+        left: 15%;
         padding-left: 3%;
         border-radius: 10px;
-        border: 1pt solid #FAF8ED ;
+        border: 0 ;
         background-color: #FAF8ED;
         font-size: 25px;
     }
@@ -99,7 +98,7 @@ body{
         background-color: transparent;
         color: #FAF8ED;
         font-size: 30px;
-        right: 18%;
+        right: 23%;
         top: 20%;
         border: 0;
     }
@@ -108,7 +107,7 @@ body{
         background-color: transparent;
         color: #FAF8ED;
         font-size: 30px;
-        right: 10%;
+        right: 14%;
         top: 20%;
         border: 0;
     }
@@ -116,13 +115,14 @@ body{
 }
 .top{
     margin-top: 10vh;
-    margin-left: 10vw;
+    margin-left: 15vw;
+    padding-top: 10vh;
     .title{
         margin: 0;
         font-size: 50px;
         color: #4D5C44;
-        font-weight: 500;
-        margin-right: 54vw;
+        font-weight: 600;
+        margin-right: 44vw;
     }
     .tip{
         margin: 0;
@@ -130,32 +130,36 @@ body{
         color: #4D5C44;
     }
 }
-    .alreadyPaid{
-        width: 80vw;
-        height: 85vh;
-        margin-left: 10vw;
+    .content{
+        width: 70vw;
+        height: 80vh;
+        margin-left: 15vw;
         background-color: #99b080;
         border-radius: 25px;
         font-size: 35px;
         margin-bottom: 15vh;
+        position: relative;
         .up{
-            padding-top: 3vh;
-            text-align: center;
+            position: absolute;
+            width: 100%;
+            top: 3vh;
             font-size: 40px;
             .name{
                 margin: 0;
                 font-weight: 600;
                 color: #4D5C44;
+                text-align: center;
             }
             .nameAbout{
                 color: #FAF8ED;
                 margin: 0;
+                text-align: center;
             }
         }
         .down{
             position: absolute;
             width: 80vw;
-            top: 40%;
+            top: 25%;
             display: flex;
             .left{
                 width: 40%;
@@ -164,8 +168,9 @@ body{
                 position: relative;
                 .picture{
                     position: absolute;
+                    top: 0;
                     border-radius: 20px;
-                    width: 28vw;
+                    width: 25vw;
                 }
                 .state{
                     position: absolute;
@@ -194,11 +199,9 @@ body{
             }
             .right{
                 position: absolute;
-                left: 40%;
-                width: 58%;
+                left: 36%;
+                width: 50%;
                 height: 60vh;
-                // padding-right: 3%;
-                // padding-left: 1%;
                 .one{
                     position: absolute;
                     width: 100%;
@@ -218,7 +221,7 @@ body{
                 }
                 .two{
                     position: absolute;
-                    top: 25%;
+                    top: 23%;
                     width: 100%;
                     .place{
                         color: #4D5C44;
@@ -230,11 +233,12 @@ body{
                         color: #FAF8ED;
                         margin: 0;
                         text-align: center;
+                        word-wrap:break-word;
                     }
                 }
                 .three{
                     position: absolute;
-                    top: 73%;
+                    top: 68%;
                     width: 100%;
                     .seat{
                         color: #4D5C44;
@@ -252,7 +256,5 @@ body{
 
             }
         }
-    }
-    .unpaid{
     }
 </style>

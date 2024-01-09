@@ -25,6 +25,9 @@
 <template>
   <!-- <button type="button" @click="this.go()">去登入</button>
 <button @click="this.goUserInfo()">去個資頁</button> -->
+<button @click="this.goCreateHost">去建立主辦單位頁</button>
+<button @click="this.goEditHost">去編輯主辦單位頁</button>
+<button @click="this.goBuyTicketPage">去購票頁</button>
 
   <div class="bgCarousel">
     <el-carousel height="auto" autoplay>
@@ -58,11 +61,11 @@
   </div>
 </template>
 
-<style scoped lang="scss">
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+<style lang="scss" scoped>
+.el-carousel-item{
+  background-size: cover;
+  background-attachment: fixed;
+  overflow-x: hidden;
 }
 .carousel-item {
     color: #475669;
@@ -116,3 +119,34 @@
   background-color: #faf8ed;
 }
 </style>
+
+<script>
+
+export default {
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+    go() {
+      this.$router.push('/LoginPage')
+    },
+    goUserInfo() {
+      this.$router.push('/UserInfoPage')
+    },
+    goCreateHost() {
+      this.$router.push('/CreateHost')
+    },
+    goEditHost(){
+      this.$router.push('/EditHost')
+    },
+    goBuyTicketPage(){
+      this.$router.push('/BuyTicketPage')
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>

@@ -1,11 +1,11 @@
 <template lang="">
     <div class="main">
-        <div class="up">
+        <!-- <div class="up">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" class="search">
         <p class="orderP">訂單查詢</p>
         <p class="logoutP">登出</p>
-        </div>
+        </div> -->
         <div class="down">
             <h1 class="pp">最愛列表</h1>
             <div class="favSq">
@@ -37,7 +37,7 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
     width: 100vw;
     height: 150vh;

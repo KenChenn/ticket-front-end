@@ -1,12 +1,12 @@
 <template lang="">
 <div class="main">
-    <div class="up">
+    <!-- <div class="up">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" class="search">
         <p class="favorateP" @click="this.goFavorate()">最愛清單</p>
         <p class="orderP">訂單查詢</p>
         <p class="logoutP">登出</p>
-    </div>
+    </div> -->
     <div class="down">
         <h1 class="pp">個人資料</h1>
         <div class="info">
@@ -27,26 +27,38 @@
 </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
-
+            
         }
     },
     methods: {
-        goFavorate(){
+        goFavorate() {
             this.$router.push('/FavoratePage')
         },
-        goUserRewrite(){
+        goUserRewrite() {
             this.$router.push('/UserRewritePage')
-        }
+        },
     },
     mounted() {
-
-    }
+        axios({
+            url: 'http://localhost:8080/api/get_user_basic_data',
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                account: $cookies.get("account"),
+            },
+        }).then(res => {
+            console.log(res.data)
+        })
+    },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
     width: 100vw;
     height: 100vh;
@@ -131,4 +143,5 @@ export default {
             border-radius: 10px;
         }
     }
-}</style>
+}
+</style>

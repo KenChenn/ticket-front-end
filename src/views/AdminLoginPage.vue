@@ -25,7 +25,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 export default {
     data() {
         return {
@@ -38,9 +37,6 @@ export default {
         }
     },
     methods: {
-        goSignUp() {
-            this.$router.push('/SignupPage')
-        },
         login() {
             //確認輸入帳號 + 密碼
             this.isEntityAccount = !!this.loginAccount
@@ -48,27 +44,27 @@ export default {
 
             //確認輸入正確帳號 + 密碼
             if (this.loginAccount && this.loginPassword) {
-                axios({
-                    url: 'http://localhost:8080/api/user_login',
+                fetch('http://localhost:8080/admin/login', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    data: {
+                    credentials: 'include',
+                    body: JSON.stringify({
                         account: this.loginAccount,
                         password: this.loginPassword,
-                    },
-                }).then(res => {
-                    console.log(res.data)
-                    if (res.data.rtncode == "SUCCESSFUL") {
-                        console.log("登入成功");
-                        $cookies.set("account",this.loginAccount)
-                        this.$router.push('/UserInfoPage');
-                    } else {
-                        alert("登入失敗");
-                        return;
-                    }
-                })
+                    }),
+                }).then(response => response.json())
+                    .then(res => {
+                        console.log(res.rtncode)
+                        if (res.rtncode == "SUCCESSFUL") {
+                            console.log("登入成功");
+                            this.$router.push('/CreateHost');
+                        } else {
+                            alert("登入失敗");
+                            return;
+                        }
+                    })
             }
         },
         passwordVisibility() {
@@ -77,7 +73,7 @@ export default {
     },
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .main {
     width: 100vw;
     height: 100vh;
@@ -133,7 +129,7 @@ export default {
         .login {
             width: 48%;
             height: 75%;
-            background-color: #89A071;
+            background-color: #F9B572;
             margin: auto;
             margin-top: -2%;
             border-radius: 10px;
@@ -158,15 +154,15 @@ export default {
                 margin-left: 26%;
                 margin-top: 1%;
                 border-radius: 10px;
-                border: 1pt solid #89A071;
+                border: 1pt solid #F9B572;
                 background-color: #FAF8ED;
             }
 
             .loginBtn {
                 height: 10%;
                 width: 10%;
-                background-color: #F9B572;
-                border: 1pt solid #F9B572;
+                background-color: #89A071;
+                border: 1pt solid #89A071;
                 color: #FAF8ED;
                 border-radius: 10px;
                 margin-left: 46%;
@@ -175,7 +171,7 @@ export default {
 
             .warning {
                 margin-left: 43%;
-                color: #F5A352;
+                color: #4D5C44;
             }
         }
     }
