@@ -77,7 +77,7 @@ export default {
             const tel = /^09\d{8}$/
             this.isValidPhone = tel.test(this.phone);
 
-            if (this.name && this.email && this.phone) {
+            if (this.isEntityName && this.isEntityEmail && this.isEntityPhone && this.isValidEmail && this.isValidPhone) {
                 fetch('http://localhost:8080/api/add_organizer',
                     {
                         method: "POST",
@@ -108,8 +108,6 @@ export default {
                             return;
                         }
                     })
-
-
             }
         },
         filterNonNumeric(event) {
