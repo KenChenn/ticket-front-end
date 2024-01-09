@@ -37,6 +37,11 @@ const router = createRouter({
       path: '/UserRewritePage',
       name: 'UserRewritePage',
       component: () => import('../views/UserRewritePage.vue')
+    },
+    {
+      path: '/CreateActivities',
+      name: 'CreateActivities',
+      component: () => import('../views/CreateActivities.vue')
     }
   ]
 })
