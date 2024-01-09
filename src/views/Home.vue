@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .el-carousel-item{
   background-size: cover;
   background-attachment: fixed;
