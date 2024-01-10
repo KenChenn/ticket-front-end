@@ -11,7 +11,6 @@
             <div class="signUp">
                 <br>
                 <span class="allPP">帳號</span>
-                <br>
                 <input type="text" class="allInput" v-model="account">
                 <br>
                 <span v-if="!isAccount" class="warning">請輸入帳號</span>
@@ -19,7 +18,6 @@
                 <br>
 
                 <span class="allPP">使用者名稱</span>
-                <br>
                 <input type="text" class="allInput" v-model="username">
                 <br>
                 <span v-if="!isUsername" class="warning">請輸入使用者名稱</span>
@@ -27,7 +25,6 @@
                 <br>
 
                 <span class="allP">Email</span>
-                <br>
                 <input type="text" class="allInput" v-model="email">
                 <br>
                 <span v-if="!isValidEmail" class="warning">請輸入正確 Email 格式</span>
@@ -35,21 +32,18 @@
                 <br>
 
                 <span class="allP">真實姓名</span>
-                <br>
                 <input type="text" class="allInput" v-model="name">
                 <br>
                 <span v-if="!isValidName" class="warning">請輸入正確姓名格式</span>
                 <br>
 
                 <span class="allP">生日</span>
-                <br>
                 <input type="date" class="allInput" v-model="birthday" :max="maxBirthday">
                 <br>
                 <span v-if="!isBirthday" class="warning">請輸入生日</span>
                 <br>
 
                 <span class="allP">密碼</span>
-                <br>
                 <input class="allInput" v-model="password" :type="showPassword ? 'text' : 'password'">
                 <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
                 <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
@@ -58,7 +52,6 @@
                 <br>
 
                 <span class="allPP">手機號碼</span>
-                <br>
                 <input type="text" class="allInput" v-model="phoneNumber" @input="filterNonNumeric">
                 <br>
                 <span v-if="!isValidPhoneNumber" class="warning">請輸入 10 碼手機格式</span>
@@ -195,12 +188,12 @@ export default {
 <style lang="scss" scoped>
 .main {
     width: 100vw;
-    height: 100vh;
+    height: 130vh;
     background-color: #FAF8ED;
 
     .up {
         width: 100%;
-        height: 11%;
+        height: 0%;
         background-color: #F9B572;
         display: flex;
         position: relative;
@@ -238,9 +231,9 @@ export default {
 
     .down {
         width: 100%;
-        height: 89%;
+        height: 95%;
         .signUp {
-            width: 48%;
+            width: 55%;
             height: 75%;
             background-color: #89A071;
             margin: auto;
@@ -254,7 +247,7 @@ export default {
 
         .allInput {
             width: 47%;
-            height: 6%;
+            height: 4%;
             margin-left: 28%;
             border-radius: 10px;
             background-color: #FAF8ED;
@@ -287,8 +280,8 @@ export default {
         }
         .eye{
             position: absolute;
-            left: 61.5%;
-            top: 68.5%
+            left: 63%;
+            top: 95.5%
         }
     }
 }

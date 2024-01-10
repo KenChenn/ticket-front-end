@@ -100,6 +100,26 @@ const router = createRouter({
       name: "Detail",
       component: () => import("../views/Detail.vue"),
     },
+    { 
+      path: "/BuyNoticePage",
+      name: "BuyNoticePage",
+      component: () => import("../views/BuyNoticePage.vue"),
+    },
+    {
+      path: "/TicketNoticePage",
+      name: "TicketNoticePage",
+      component: () => import("../views/TicketNoticePage.vue"),
+    },
+    {
+      path: "/GetTicketPage",
+      name: "GetTicketPage",
+      component: () => import("../views/GetTicketPage.vue"),
+    },
+    {
+      path: "/CencelTicketPage",
+      name: "CencelTicketPage",
+      component: () => import("../views/CencelTicketPage.vue"),
+    },
   ],
 });
 
