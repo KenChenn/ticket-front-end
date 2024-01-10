@@ -68,22 +68,27 @@
     </div>
 
     <div class="down">
-        <p>相關討論</p>
+        <div class="title">
+            相關討論
+        </div>
 
         <div class="forum">
             <!-- 討論區發言 -->
             <div class="discussion">
-                <!-- 使用者名字 -->
-                <div class="user">
-                    <span>
-                        user
-                    </span>
-                </div>
-                <!-- 發言內容 -->
-                <div class="content">
-                    <span>
-                        Hello world
-                    </span>
+                <div class="circle"></div>
+                <div class="info">
+                    <!-- 使用者名字 -->
+                    <div class="user">
+                        <span>
+                            user
+                        </span>
+                    </div>
+                    <!-- 發言內容 -->
+                    <div class="content">
+                        <span>
+                            Hello world
+                        </span>
+                    </div>
                 </div>
 
             </div>
@@ -177,28 +182,51 @@ export default {
 }
 
 .down {
-    width: 100%;
-    height: auto;
+    // height: auto;
     background-color: #99B080;
-    p{
-        // border: 1px solid black;
-        height: 10vh;
-        color: #FAF8ED;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 2rem;
-    }
 }
-.forum{
+
+.title {
+    // border: 1px solid black;
+    height: 10vh;
+    color: #FAF8ED;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.forum {
     padding: 0% 15% 5% 15%;
 }
-.discussion{
+
+.discussion {
     width: 100%;
-    height: 15vh;
+    height: auto;
     margin-bottom: 10vh;
-    border: 1px solid black;
+    // border: 1px solid black;
     background-color: #89A071;
     border-radius: 15px;
+    display: flex;
+}
+.circle {
+    width: 5%;
+    height: 5vh;
+    background-color: #F5A352;
+    margin: 2% 2% 0% 2%;
+    clip-path: circle(50% at 50% 50%);
+}
+.info{
+    width: 85%;
+    margin: 2%;
+    color: #FAF8ED;
+    // border: 1px black solid;
+    .user{
+        font-size: 2rem;
+    }
+    .content{
+        margin: 1%;
+        font-size: 1.5rem;
+    }
 }
 </style>
