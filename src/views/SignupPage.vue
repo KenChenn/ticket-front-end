@@ -54,7 +54,7 @@
                 <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
                 <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <br>
-                <span v-if="!isValidPassword" class="warning">請輸入 8 ~ 16 碼英文 + 數字</span>
+                <span v-if="!isValidPassword" class="warning">請輸入 7 ~ 16 碼英文 + 數字</span>
                 <br>
 
                 <span class="allPP">手機號碼</span>
@@ -117,7 +117,7 @@ export default {
             const mail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
             this.isValidEmail = mail.test(this.email);
             //確認密碼格式
-            const pwd = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
+            const pwd = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,16}$/
             this.isValidPassword = pwd.test(this.password);
             //確認手機號碼格式
             const tel = /^09\d{8}$/

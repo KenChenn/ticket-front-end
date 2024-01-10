@@ -59,7 +59,7 @@ export default {
                         console.log(res.rtncode)
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("登入成功");
-                            this.$router.push('/CreateHost');
+                            this.$router.push('/ActivityAndHostPage');
                         } else {
                             alert("登入失敗");
                             return;
