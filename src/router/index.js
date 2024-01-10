@@ -61,9 +61,9 @@ const router = createRouter({
       component: () => import("../views/CreateHost.vue"),
     },
     {
-      path: "/EditHost",
-      name: "EditHost",
-      component: () => import("../views/EditHost.vue"),
+      path: '/EditHost/:id',
+      name: 'EditHost',
+      component: () => import('../views/EditHost.vue')
     },
     {
       path: "/BuyTicketPage",
