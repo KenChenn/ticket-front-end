@@ -60,6 +60,11 @@ const router = createRouter({
       component: () => import('../views/CreateActivities.vue')
     },
     {
+      path: '/EditingActivity',
+      name: 'EditingActivity',
+      component: () => import('../views/EditingActivity.vue')
+    },
+    {
       path: '/AdminLoginPage',
       name: 'AdminLoginPage',
       component: () => import('../views/AdminLoginPage.vue')
