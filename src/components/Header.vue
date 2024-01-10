@@ -54,7 +54,7 @@ export default {
       .searchBar {
         height: 60%;
         border: none;
-        border-radius: 10px;
+        border-radius: 5px;
       }
     }
 

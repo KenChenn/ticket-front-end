@@ -15,8 +15,8 @@
                 <br>
                 <h4 class="loginInP2">密碼</h4>
                 <input :type="showPassword ? 'text' : 'password'" class="inputClass" v-model="loginPassword">
-                <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
-                <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <span v-if="!isEntityPassword" class="warning">請輸入密碼</span>
                 <br>
                 <button type="button" class="loginBtn" @click="login()">登入</button>
@@ -45,7 +45,6 @@ export default {
             //確認輸入帳號 + 密碼
             this.isEntityAccount = !!this.loginAccount
             this.isEntityPassword = !!this.loginPassword
-
             //確認輸入正確帳號 + 密碼
             if (this.loginAccount && this.loginPassword) {
                 axios({
@@ -89,14 +88,6 @@ export default {
         background-color: #F9B572;
         display: flex;
         position: relative;
-
-        .fa-solid {
-            position: absolute;
-            color: #E6E1C8;
-            font-size: 1rem;
-            top: 33%;
-            left: 25.5%;
-        }
 
         .search {
             width: 11%;
@@ -163,7 +154,7 @@ export default {
             }
 
             .loginBtn {
-                height: 10%;
+                height: 8%;
                 width: 10%;
                 background-color: #F9B572;
                 border: 1pt solid #F9B572;
@@ -171,8 +162,8 @@ export default {
                 border-radius: 10px;
                 margin-left: 46%;
                 margin-top: 5%;
+                font-size: 1rem;
             }
-
             .warning {
                 margin-left: 43%;
                 color: #F5A352;
