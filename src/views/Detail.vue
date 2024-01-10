@@ -1,129 +1,125 @@
 <template >
-    <div class="main">
-        <div class="up">
-            <br><br>
-            <div class="mainPicSq">
+    <div class="up">
+        <div class="showArea">
+            <div class="showImg">
                 <!-- 節目圖片 -->
-                <div class="picSq">
-
-                </div>
-
-                <!-- 節目資訊 -->
-                <div class="picInfo">
-                    <br>
-                    <i class="fa-regular fa-calendar-days icon"></i><span class="infoP">2024/01/31(周三) 19:30(+0800)</span>
-                    <br>
-                    <i class="fa-solid fa-location-dot icon"></i><span class="infoP">Legacy Taipei / 台北市中正區八德路一段一號</span>
-                    <br>
-                    <i class="fa-solid fa-user icon"></i><span class="infoP">主辦單位 躍演</span>
-                </div>
+                <img src="../../public/material/3-4_1200X630_V3_medium.png">
             </div>
-        </div>
-        <div class="down">
-            <br>
-            <span class="downInfoP">票種</span><span class="downInfoP">售價</span>
-            <br><br>
 
-            <div class="ticket1">
+            <!-- 節目資訊 -->
+            <div class="showInfo">
                 <br>
-                <span class="ticketP ticketP1 ">預售票</span>
-                <span class="ticketP ticketP2 ">TWD$</span>
-                <span class="ticketP ticketP3 ">1200</span>
-                <button class="btn">購買</button>
+                <i class="fa-regular fa-calendar-days"></i>
+                <!-- 時間 -->
+                <span>
+                    2024/01/31(周三) 19:30(+0800)
+                </span>
+                <br>
+                <i class="fa-solid fa-location-dot"></i>
+                <!-- 地點 -->
+                <span>
+                    Legacy Taipei / 台北市中正區八德路一段一號
+                </span>
+                <br>
+                <i class="fa-solid fa-user"></i>
+                <!-- 主辦 -->
+                <span>
+                    主辦單位 躍演
+                </span>
             </div>
 
-            <br>
         </div>
     </div>
+
+    <div class="mid">
+        <div class="linkArea">
+            <RouterLink to="/Popular" active-class="active" >
+                立即購票
+            </RouterLink>
+            <RouterLink to="/Popular" active-class="active" >
+                活動介紹
+            </RouterLink>
+            <RouterLink to="/Popular" active-class="active" >
+                注意事項
+            </RouterLink>
+            <RouterLink to="/Popular" active-class="active" >
+                購買提醒
+            </RouterLink>
+            <RouterLink to="/Popular" active-class="active" >
+                取票方式
+            </RouterLink>
+            <RouterLink to="/Popular" active-class="active" >
+                退票歸定
+            </RouterLink>            
+        </div>
+    </div>
+
+    <div class="down">
+
+    </div>
 </template>
+
 <script>
 export default {
     data() {
         return {
-
+            
         }
     },
-    methods: {
 
-    },
-    mounted() {
-
-    }
 }
 </script>
+
 <style lang="scss" scoped>
-.main {
+.up {
     width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
 
-    .up {
-        width: 100%;
-        height: 65vh;
+    .showArea {
+        width: 70%;
+        height: 90%;
+        background-color: #F5A352;
+        margin: auto;
 
-        .mainPicSq {
-            width: 60%;
-            height: 85%;
-            background-color: #F5A352;
-            margin: auto;
+        .showImg {
+            width: 100%;
+            height: 80%;
 
-            .picSq {
+            img {
+                height: 100%;
                 width: 100%;
-                height: 70%;
-                background-image: url("../views/BELUCA.png");
-                background-repeat: round;
+                object-fit: cover;
             }
+        }
 
-            .picInfo {
-                width: 100%;
-                height: 30%;
+        .showInfo {
+            width: 100%;
+            height: 20%;
 
-                border: 1px black solid;
-                .icon {
-                    color: #FAF8ED;
-                    font-size: 1.5rem;
-                }
-
-                .infoP {
-                    color: #FAF8ED;
-                    font-size: 1.5rem;
-                }
+            // border: 1px black solid;
+            i,
+            span {
+                color: #FAF8ED;
+                font-size: 1.5rem;
+                margin-left: 5%;
+                line-height: 1.8rem;
             }
         }
     }
+}
 
-    .down {
-        width: 100%;
-        height: 25vh;
-        background-color: #89A071;
+.mid {
+    background-color: #FAF8ED;
 
-        .downInfoP {
-            color: #FAF8ED;
-            font-size: 1.1rem;
-        }
-        .ticket1{
-            width: 60%;
-            height: 25%;
-            background-color: #748E63;
-            margin-left: 20%;
-        } 
-        .ticketP{
-            color: #FAF8ED;
-            font-size: 1.1rem;
-        }
-        .ticketP1{
-            margin-left: 1%;
-            margin-right: 34%;
-        }
-        .ticketP3{
-            margin-right: 30%;
-        }
-        .btn{
-            width: 10%;
-            height: 45%;
-            background-color: #F5A352;
-            border: 1pt solid #F5A352;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            color: #FAF8ED;
-        }
-    }
-}</style>
+    padding: 2% 15%;
+    border: 1px solid black;
+}
+
+.down {
+    width: 100%;
+    height: 50vh;
+    background-color: #89A071;
+}
+</style>
