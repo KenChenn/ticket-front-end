@@ -62,7 +62,7 @@ export default {
             height: 25px;
             margin-top: 15px;
             margin-left: 320px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
         }
@@ -93,7 +93,7 @@ export default {
             background-color: #F5A352;
             margin: auto;
             margin-top: -1%;
-            border-radius: 10px;
+            border-radius: 15px;
             
             .name{
                 position: absolute;
@@ -113,7 +113,7 @@ export default {
                 position: absolute;
                 width: 32%;
                 height: 35%;
-                border-radius: 10px;
+                border-radius: 15px;
                 background-image: url("../views/BELUCA.png");
                 background-repeat: round;
                 top:28%;

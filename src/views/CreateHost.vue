@@ -77,7 +77,7 @@ export default {
             const tel = /^09\d{8}$/
             this.isValidPhone = tel.test(this.phone);
 
-            if (this.name && this.email && this.phone) {
+            if (this.isEntityName && this.isEntityEmail && this.isEntityPhone && this.isValidEmail && this.isValidPhone) {
                 fetch('http://localhost:8080/api/add_organizer',
                     {
                         method: "POST",
@@ -108,8 +108,6 @@ export default {
                             return;
                         }
                     })
-
-
             }
         },
         filterNonNumeric(event) {
@@ -146,7 +144,7 @@ export default {
             background-color: #F5BF89;
             margin: auto;
             margin-top: -2%;
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         .spanP {
@@ -175,7 +173,7 @@ export default {
             width: 47%;
             height: 4%;
             margin-left: 28%;
-            border-radius: 10px;
+            border-radius: 15px;
             background-color: #FAF8ED;
             border: 1pt solid #FAF8ED;
         }
@@ -184,7 +182,7 @@ export default {
             background-color: #89A071;
             border: 1pt solid #89A071;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-left: 48%;
         }
 

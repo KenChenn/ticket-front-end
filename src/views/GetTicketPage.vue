@@ -1,8 +1,4 @@
 <template >
-    <button @click="this.goNotice()">暫時用注意事項</button>
-    <button @click="this.goBuyNotice()">暫時用購買提醒</button>
-    <button @click="this.goGetTicketPage()">暫時取票說明</button>
-    <button @click="this.goCencelTicketPage()">退票規定</button>
     <div class="up">
         <div class="showArea">
             <div class="showImg">
@@ -35,17 +31,17 @@
         </div>
     </div>
     <div class="down">
-        <br>
-        　　　　　　　　　　　　　　　　　　　　<span class="downInfoP">票種</span>　　　　　　　　　　　　　　　　　　　　<span class="downInfoP">售價</span>
-        <br><br>
-        <div class="ticket1">
-            <br>
-            <span class="ticketP ticketP1 ">預售票</span>
-            <span class="ticketP ticketP2 ">TWD$</span>
-            <span class="ticketP ticketP3 ">1200</span>
-            <button class="btn">購買</button>
+        <h1 class="noticeP">取票方式</h1>
+        <div class="textArea">
+            開放取票日期為該場次開演前 5 天，故 2024/01/14 起，可至訂單查詢查看取票資訊，方可至7-11 ibon取票。<br>
+            取票方式為【ibon取票】，取票時每筆將酌收$30手續費，於7-11超商門市付款時以現金方式支付。<br>
+            ibon取票流程說明：<br>
+            (1)請於ibon機台點選：【購票/取票/訂房】→【售票系統】→【取票】→【拓元售票系統】。<br>
+            (2)請依照系統畫面指示，分別輸入【取票序號、取票號碼】，並列印取票繳費單。（取票序號及取票號碼，可於【訂單查詢】中查看）<br>
+            (3)請持取票繳費單至該門市櫃台付款及領取正式ibon票券。<br>
+            付款完成之訂單，逾期未取票者視同售出，恕不接受退票或退費。<br>
+            現場票務服務處恕無法提供取票服務，請於節目演出結束前自行至7-11超商門市完成取票。<br>
         </div>
-        <br>
     </div>
 </template>
 <script>
@@ -56,18 +52,7 @@ export default {
         }
     },
     methods: {
-        goNotice() {
-            this.$router.push('/TicketNoticePage')
-        },
-        goBuyNotice() {
-            this.$router.push('/BuyNoticePage')
-        },
-        goGetTicketPage() {
-            this.$router.push('/GetTicketPage')
-        },
-        goCencelTicketPage(){
-            this.$router.push('/CencelTicketPage')
-        },
+
     },
     mounted() {
 
@@ -116,42 +101,20 @@ export default {
 
 .down {
     width: 100%;
-    height: 30%;
+    height: 60%;
     background-color: #99B080;
 
-    .downInfoP {
-        color: #FAF8ED;
-        font-size: 1.1rem;
+    .noticeP {
+        color: #F5BF89;
+        margin-left: 15%;
     }
 
-    .ticket1 {
-        width: 60%;
-        height: 25%;
-        background-color: #748E63;
-        margin-left: 20%;
-    }
-
-    .ticketP {
-        color: #FAF8ED;
-        font-size: 1.1rem;
-    }
-
-    .ticketP1 {
-        margin-left: 1%;
-        margin-right: 34%;
-    }
-
-    .ticketP3 {
-        margin-right: 30%;
-    }
-
-    .btn {
-        width: 10%;
-        height: 45%;
-        background-color: #F5A352;
-        border: 1pt solid #F5A352;
-        border-radius: 15px;
-        font-size: 1.1rem;
+    .textArea {
+        width: 70%;
+        height: 80%;
+        margin: auto;
+        // overflow-y: scroll;
         color: #FAF8ED;
     }
-}</style>
+}
+</style>

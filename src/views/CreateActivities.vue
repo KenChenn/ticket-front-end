@@ -169,8 +169,8 @@ body {
         top: 15%;
         left: 15%;
         padding-left: 3%;
-        border-radius: 10px;
-        border: 0;
+        border-radius: 15px;
+        border: 0 ;
         background-color: #FAF8ED;
         font-size: 25px;
     }
@@ -185,9 +185,7 @@ body {
         border: 0;
     }
 }
-
-.top {
-    margin-top: 10vh;
+.top{
     margin-left: 15vw;
     padding-top: 5vh;
 
@@ -264,11 +262,10 @@ body {
         border: 0;
         border-radius: 20px;
     }
-
-    input[type="radio"] {
-        width: 30px;
-        height: 30px;
-        accent-color: #748e63;
+    input[type="radio"]{
+    width: 30px;
+    height: 30px;
+    accent-color: #748e63;//改變radio顏色
     }
 
     .name {

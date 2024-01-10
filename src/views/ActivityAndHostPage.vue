@@ -57,7 +57,7 @@ export default {
             border: 1pt solid #89A071;
             font-size: 1.5rem;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-left: 20%;
             margin-right: 35%;
             margin-top: 2%;
@@ -69,7 +69,7 @@ export default {
             border: 1pt solid #89A071;
             font-size: 1.5rem;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 2%;
         }
     }
@@ -81,7 +81,7 @@ export default {
             height: 90%;
             background-color: #F5BF89;
             margin-left: 20%;
-            border-radius: 10px;
+            border-radius: 15px;
             .sqUp{
                 width: 100%;
                 height: 15%;
@@ -97,7 +97,7 @@ export default {
                 .hensyu{
                     width: 13%;
                     height: 1.6rem;
-                    border-radius: 10px;
+                    border-radius: 15px;
                     background-color: #F5A352;
                     border: 1pt solid #F5A352;
                     color: #FAF8ED;
@@ -107,7 +107,7 @@ export default {
                 .cencel{
                     width: 13%;
                     height: 1.6rem;
-                    border-radius: 10px;
+                    border-radius: 15px;
                     background-color: #DB3A3A;
                     border: 1pt solid #DB3A3A;
                     color: #FAF8ED;

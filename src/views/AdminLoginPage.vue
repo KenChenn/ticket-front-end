@@ -59,7 +59,7 @@ export default {
                         console.log(res.rtncode)
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("登入成功");
-                            this.$router.push('/CreateHost');
+                            this.$router.push('/ActivityAndHostPage');
                         } else {
                             alert("登入失敗");
                             return;
@@ -97,7 +97,7 @@ export default {
         .search {
             width: 11%;
             height: 47%;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
             margin-left: 25%;
@@ -132,7 +132,7 @@ export default {
             background-color: #F9B572;
             margin: auto;
             margin-top: -2%;
-            border-radius: 10px;
+            border-radius: 15px;
 
             .loginInP {
                 margin-left: 45%;
@@ -153,7 +153,7 @@ export default {
                 height: 6%;
                 margin-left: 26%;
                 margin-top: 1%;
-                border-radius: 10px;
+                border-radius: 15px;
                 border: 1pt solid #F9B572;
                 background-color: #FAF8ED;
             }
@@ -164,7 +164,7 @@ export default {
                 background-color: #89A071;
                 border: 1pt solid #89A071;
                 color: #FAF8ED;
-                border-radius: 10px;
+                border-radius: 15px;
                 margin-left: 46%;
                 margin-top: 5%;
             }

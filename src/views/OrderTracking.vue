@@ -88,7 +88,7 @@ body{
         top: 15%;
         left: 15%;
         padding-left: 3%;
-        border-radius: 10px;
+        border-radius: 15px;
         border: 0 ;
         background-color: #FAF8ED;
         font-size: 25px;
@@ -114,7 +114,6 @@ body{
             
 }
 .top{
-    margin-top: 10vh;
     margin-left: 15vw;
     padding-top: 10vh;
     .title{

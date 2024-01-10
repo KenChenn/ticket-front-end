@@ -15,8 +15,8 @@
                 <br>
                 <h4 class="loginInP2">密碼</h4>
                 <input :type="showPassword ? 'text' : 'password'" class="inputClass" v-model="loginPassword">
-                <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
-                <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <span v-if="!isEntityPassword" class="warning">請輸入密碼</span>
                 <br>
                 <button type="button" class="loginBtn" @click="login()">登入</button>
@@ -45,7 +45,6 @@ export default {
             //確認輸入帳號 + 密碼
             this.isEntityAccount = !!this.loginAccount
             this.isEntityPassword = !!this.loginPassword
-
             //確認輸入正確帳號 + 密碼
             if (this.loginAccount && this.loginPassword) {
                 axios({
@@ -90,18 +89,10 @@ export default {
         display: flex;
         position: relative;
 
-        .fa-solid {
-            position: absolute;
-            color: #E6E1C8;
-            font-size: 1rem;
-            top: 33%;
-            left: 25.5%;
-        }
-
         .search {
             width: 11%;
             height: 47%;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
             margin-left: 25%;
@@ -136,7 +127,7 @@ export default {
             background-color: #89A071;
             margin: auto;
             margin-top: -2%;
-            border-radius: 10px;
+            border-radius: 15px;
 
             .loginInP {
                 margin-left: 45%;
@@ -157,22 +148,22 @@ export default {
                 height: 6%;
                 margin-left: 26%;
                 margin-top: 1%;
-                border-radius: 10px;
+                border-radius: 15px;
                 border: 1pt solid #89A071;
                 background-color: #FAF8ED;
             }
 
             .loginBtn {
-                height: 10%;
+                height: 8%;
                 width: 10%;
                 background-color: #F9B572;
                 border: 1pt solid #F9B572;
                 color: #FAF8ED;
-                border-radius: 10px;
+                border-radius: 15px;
                 margin-left: 46%;
                 margin-top: 5%;
+                font-size: 1rem;
             }
-
             .warning {
                 margin-left: 43%;
                 color: #F5A352;

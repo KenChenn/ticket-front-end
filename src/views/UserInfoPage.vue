@@ -1,12 +1,5 @@
 <template lang="">
 <div class="main">
-    <!-- <div class="up">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" class="search">
-        <p class="favorateP" @click="this.goFavorate()">最愛清單</p>
-        <p class="orderP">訂單查詢</p>
-        <p class="logoutP">登出</p>
-    </div> -->
     <div class="down">
         <h1 class="pp">個人資料</h1>
         <div class="info">
@@ -19,7 +12,8 @@
             <br><br>
             <span class="spanP">電話</span>　　　　　　　　　<span class="infoSpan">{{this.phone}}</span>
             <br><br><br>
-            　　　　　　　　　　　　　　　　　<button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
+            <button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
+            <button type="button" class="btn2" @click="this.goEditPwdPage()">修改密碼</button>
         <!-- <UserRewritePage v-bind:user="this.user" :email="this.email" :birth="this.birth" :phone="this.phone" /> -->
         </div>
     </div>
@@ -38,12 +32,12 @@ export default {
         }
     },
     methods: {
-        goFavorate() {
-            this.$router.push('/FavoratePage')
-        },
         goUserRewrite() {
             this.$router.push('/UserRewritePage')
         },
+        goEditPwdPage(){
+            this.$router.push('/EditPwdPage')
+        }
     },
     mounted() {
         axios({
@@ -94,7 +88,7 @@ export default {
             height: 25px;
             margin-top: 15px;
             margin-left: 320px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
         }
@@ -147,10 +141,24 @@ export default {
         }
 
         .btn {
+            width: 10%;
+            height: 7%;
             background-color: #F9B572;
             border: 1pt solid #F9B572;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
+            margin-left: 30%;
+            margin-right: 20%;
+            font-size: 0.9rem;
+        }
+        .btn2{
+            width: 13%;
+            height: 7%;
+            background-color: #F9B572;
+            border: 1pt solid #F9B572;
+            color: #FAF8ED;
+            border-radius: 15px;
+            font-size: 0.9rem;
         }
     }
 }
