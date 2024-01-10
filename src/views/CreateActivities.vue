@@ -69,7 +69,6 @@ export default {
                 return Promise.resolve();
             })).then(() => {
                 setTimeout(() => {
-                    console.log(this.map.get("visionPicture"));
                     fetch('http://localhost:8080/api/add_commodity', {
                         method: "POST",
                         headers: {
@@ -77,14 +76,14 @@ export default {
                         },
                         credentials: 'include',
                         body: JSON.stringify({
-                            codename: "testText3",
-                            name: "testText3",
-                            introduction: "testText3",
+                            codename: "齁樓_2",
+                            name: "HOLOLIVE演唱會",
+                            introduction: "HOLOLIVE演唱會",
                             enity: true,
-                            startDate: "2024-02-05",
-                            endDate: "2024-02-15",
-                            place: "testText5",
-                            organizer: "testText6",
+                            startDate: "2024-03-30",
+                            endDate: "2024-05-25",
+                            place: "日本",
+                            organizer: "SONY MUSIC",
                             keyvisualImg: this.map.get("visionPicture"),
                             introduceImg1: this.map.get("introducePicture1"),
                             introduceImg2: this.map.get("introducePicture2"),
