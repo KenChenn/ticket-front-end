@@ -52,7 +52,7 @@ export default {
             background-color: #89A071;
             margin-left: 20%;
             margin-top: -1%;
-            border-radius: 10px;
+            border-radius: 15px;
             .spanP1{
                 margin-left: 43%;
                 font-size: 1.2rem;
@@ -71,7 +71,7 @@ export default {
             .allInput{
                 height: 5%;
                 width: 44%;
-                border-radius: 10px;
+                border-radius: 15px;
                 border: 1pt solid #FAF8ED;
                 background-color: #FAF8ED;
                 margin-left: 28%;
@@ -83,7 +83,7 @@ export default {
                 background-color: #F5A352;
                 border: 1pt solid #F5A352;
                 color: #FAF8ED;
-                border-radius: 10px;
+                border-radius: 15px;
                 margin-left: 46%;
             }
         }

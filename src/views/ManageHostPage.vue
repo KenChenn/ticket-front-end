@@ -44,7 +44,7 @@ export default {
             height: 30%;
             background-color: #89A071;
             border: 1pt solid #89A071;
-            border-radius: 10px;
+            border-radius: 15px;
             font-size: 1.2rem;
             color: #FAF8ED;
             margin-top: 4.5%;
@@ -61,12 +61,12 @@ export default {
             height: 90%;
             background-color: #F5BF89;
             margin-left: 20%;
-            border-radius: 10px;
+            border-radius: 15px;
 
             .editBtn {
                 width: 13%;
                 height: 1.6rem;
-                border-radius: 10px;
+                border-radius: 15px;
                 background-color: #F5A352;
                 border: 1pt solid #F5A352;
                 color: #FAF8ED;
@@ -77,7 +77,7 @@ export default {
             .cencelBtn {
                 width: 13%;
                 height: 1.6rem;
-                border-radius: 10px;
+                border-radius: 15px;
                 background-color: #DB3A3A;
                 border: 1pt solid #DB3A3A;
                 color: #FAF8ED;
