@@ -89,7 +89,6 @@ body{
     }
 }
 .top{
-    margin-top: 10vh;
     margin-left: 15vw;
     padding-top: 5vh;
     .title{
@@ -162,7 +161,7 @@ body{
     input[type="radio"]{
     width: 30px;
     height: 30px;
-    accent-color: #748e63;
+    accent-color: #748e63;//改變radio顏色
     }
     .name{
         position: absolute;

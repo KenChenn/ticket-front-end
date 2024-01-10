@@ -79,19 +79,19 @@ const router = createRouter({
       component: () => import('../views/CreateActivities.vue')
     },
     {
+      path: '/EditingActivity',
+      name: 'EditingActivity',
+      component: () => import('../views/EditingActivity.vue')
+    },
+    {
       path: '/AdminLoginPage',
       name: 'AdminLoginPage',
       component: () => import('../views/AdminLoginPage.vue')
     },
     {
-      path: '/ManageHostPage',
-      name: 'ManageHostPage',
-      component: () => import('../views/ManageHostPage.vue')
-    },
-    {
-      path: '/EditPwdPage',
-      name: 'EditPwdPage',
-      component: () => import('../views/EditPwdPage.vue')
+      path: '/SessionsAndSeats',
+      name: 'SessionsAndSeats',
+      component: () => import('../views/SessionsAndSeats.vue')
     },
   ]
 })

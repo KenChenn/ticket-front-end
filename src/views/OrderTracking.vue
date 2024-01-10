@@ -114,7 +114,6 @@ body{
             
 }
 .top{
-    margin-top: 10vh;
     margin-left: 15vw;
     padding-top: 10vh;
     .title{
