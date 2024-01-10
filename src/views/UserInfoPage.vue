@@ -88,7 +88,7 @@ export default {
             height: 25px;
             margin-top: 15px;
             margin-left: 320px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
         }
@@ -146,7 +146,7 @@ export default {
             background-color: #F9B572;
             border: 1pt solid #F9B572;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-left: 30%;
             margin-right: 20%;
             font-size: 0.9rem;
@@ -157,7 +157,7 @@ export default {
             background-color: #F9B572;
             border: 1pt solid #F9B572;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
             font-size: 0.9rem;
         }
     }

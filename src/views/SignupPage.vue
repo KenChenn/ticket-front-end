@@ -48,7 +48,7 @@
                 <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
                 <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <br>
-                <span v-if="!isValidPassword" class="warning">請輸入 8 ~ 16 碼英文 + 數字</span>
+                <span v-if="!isValidPassword" class="warning">請輸入 7 ~ 16 碼英文 + 數字</span>
                 <br>
 
                 <span class="allPP">手機號碼</span>
@@ -110,7 +110,7 @@ export default {
             const mail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
             this.isValidEmail = mail.test(this.email);
             //確認密碼格式
-            const pwd = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
+            const pwd = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,16}$/
             this.isValidPassword = pwd.test(this.password);
             //確認手機號碼格式
             const tel = /^09\d{8}$/
@@ -201,7 +201,7 @@ export default {
         .search {
             width: 11%;
             height: 47%;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
             margin-left: 25%;
@@ -237,7 +237,7 @@ export default {
             height: 75%;
             background-color: #89A071;
             margin: auto;
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         .ppp {
@@ -249,7 +249,7 @@ export default {
             width: 47%;
             height: 4%;
             margin-left: 28%;
-            border-radius: 10px;
+            border-radius: 15px;
             background-color: #FAF8ED;
             border: 1pt solid #FAF8ED;
         }
@@ -274,7 +274,7 @@ export default {
             background-color: #F9B572;
             border: 1pt solid #F9B572;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-left: 48%;
 
         }

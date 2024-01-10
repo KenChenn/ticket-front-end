@@ -7,18 +7,21 @@
                 <span class="allPP">主辦單位名稱*</span>
                 <br>
                 <input type="text" class="allInput" v-model="editname">
+                <br>
                 <span v-if="!isEntityName" class="warning">請輸入主辦單位名稱</span>
                 <span v-if="isReapeatName" class="warning">主辦單位名稱已存在</span>
                 <br><br>
                 <span class="allP">mail*</span>
                 <br>
                 <input type="text" class="allInput" v-model="editemail">
+                <br>
                 <span v-if="!isEntityEmail" class="warning">請輸入mail</span>
                 <span v-if="!isValidEmail" class="warning">mail 格式輸入錯誤</span>
                 <br><br>
                 <span class="allP">電話*</span>
                 <br>
                 <input type="number" class="allInput" v-model="editphone" @input="filterNonNumeric">
+                <br>
                 <span v-if="!isEntityPhone" class="warning">請輸入電話</span>
                 <span v-if="!isValidPhone" class="warning">請輸入 10 碼手機格式</span>
                 <br><br>
@@ -44,6 +47,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            nowId: 0,
             id: 0,
             editname: "",
             editemail: "",
@@ -100,7 +104,7 @@ export default {
                         console.log(res.rtncode)
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("更新成功");
-                            // this.$router.push('/ManageHostPage');
+                            this.$router.push('/ManageHostPage');
                         } else if (res.rtncode == "ORGANIZER_EXISTED") {
                             this.isReapeatName = true
                         } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
@@ -128,14 +132,20 @@ export default {
                 credentials: 'include',
             }).then(response => response.json())
             .then(res => {
-                console.log(res.organizer)
-                this.id = res.organizer[0].id
-                this.editname = res.organizer[0].name
-                this.editemail = res.organizer[0].email
-                this.editphone = res.organizer[0].phone
-                this.editaddress = res.organizer[0].address
-                this.editurl = res.organizer[0].url
-                this.editsns = res.organizer[0].sns
+                // console.log(res.organizer)
+                this.nowId = this.$route.params.id
+                res.organizer.forEach(host => {
+                    if (host.id == this.nowId) {
+                        // console.log(host);
+                        this.id = host.id
+                        this.editname = host.name
+                        this.editemail = host.email
+                        this.editphone = host.phone
+                        this.editaddress = host.address
+                        this.editurl = host.url
+                        this.editsns = host.sns
+                    }
+                });
             })
     }
 }
@@ -162,7 +172,7 @@ export default {
             background-color: #F5BF89;
             margin: auto;
             margin-top: -2%;
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         .spanP {
@@ -191,7 +201,7 @@ export default {
             width: 47%;
             height: 4%;
             margin-left: 28%;
-            border-radius: 10px;
+            border-radius: 15px;
             background-color: #FAF8ED;
             border: 1pt solid #FAF8ED;
         }
@@ -200,7 +210,7 @@ export default {
             background-color: #89A071;
             border: 1pt solid #89A071;
             color: #FAF8ED;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-left: 48%;
         }
     }

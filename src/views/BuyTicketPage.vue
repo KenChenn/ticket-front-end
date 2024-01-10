@@ -150,7 +150,7 @@ export default {
         height: 45%;
         background-color: #F5A352;
         border: 1pt solid #F5A352;
-        border-radius: 10px;
+        border-radius: 15px;
         font-size: 1.1rem;
         color: #FAF8ED;
     }

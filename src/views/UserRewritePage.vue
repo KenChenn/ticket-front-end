@@ -150,7 +150,7 @@ export default {
             height: 25px;
             margin-top: 15px;
             margin-left: 320px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
         }
@@ -188,7 +188,7 @@ export default {
             background-color: #89A071;
             margin: auto;
             margin-top: -10px;
-            border-radius: 10px;
+            border-radius: 15px;
 
             .signUp {
                 width: 48%;
@@ -196,7 +196,7 @@ export default {
                 background-color: #89A071;
                 margin: auto;
                 margin-top: -10px;
-                border-radius: 10px;
+                border-radius: 15px;
             }
 
             .ppp {
@@ -208,7 +208,7 @@ export default {
                 width: 47%;
                 height: 6%;
                 margin-left: 28%;
-                border-radius: 10px;
+                border-radius: 15px;
                 background-color: #FAF8ED;
                 border: 1pt solid #FAF8ED;
             }
@@ -232,7 +232,7 @@ export default {
                 background-color: #F9B572;
                 border: 1pt solid #F9B572;
                 color: #FAF8ED;
-                border-radius: 10px;
+                border-radius: 15px;
                 margin-left: 48%;
 
             }

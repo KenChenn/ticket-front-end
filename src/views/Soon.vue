@@ -80,7 +80,7 @@ export default {
     .showStatus {
         width: 30%;
         height: 15%;
-        border-radius: 10px;
+        border-radius: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
