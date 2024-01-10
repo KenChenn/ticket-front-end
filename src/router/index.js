@@ -88,6 +88,11 @@ const router = createRouter({
       name: 'ManageHostPage',
       component: () => import('../views/ManageHostPage.vue')
     },
+    {
+      path: '/EditPwdPage',
+      name: 'EditPwdPage',
+      component: () => import('../views/EditPwdPage.vue')
+    },
   ]
 })
 
