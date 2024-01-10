@@ -1,5 +1,6 @@
 <template>
     <body>
+        <!-- {{this.map.get('visionPicture')  }} -->
         <!-- <img :src="this.map.get('visionPicture')"> -->
         <div class="header">
             <i class="fa-solid fa-magnifying-glass" @click="search"></i>
@@ -68,6 +69,7 @@ export default {
                 return Promise.resolve();
             })).then(() => {
                 setTimeout(() => {
+                    console.log(this.map.get("visionPicture"));
                     fetch('http://localhost:8080/api/add_commodity', {
                         method: "POST",
                         headers: {
@@ -97,7 +99,7 @@ export default {
         },
         imgConvert(key, data) {
             return new Promise((resolve) => {
-                imageConversion.compress(data, 0.6).then((res) => {
+                imageConversion.compressAccurately(data, 80).then((res) => {
                     let reader = new FileReader();
                     if (res) {
                         reader.readAsDataURL(res)

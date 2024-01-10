@@ -34,6 +34,7 @@ export default {
             isEntityPassword: true,
 
             showPassword: false,
+            
         }
     },
     methods: {
@@ -71,6 +72,9 @@ export default {
             this.showPassword = !this.showPassword;
         }
     },
+    mounted() {
+
+    }
 }
 </script>
 <style lang="scss">
