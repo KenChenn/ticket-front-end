@@ -4,16 +4,36 @@ export default {
   data() {
     return {
       // account:true,
+      dataList: []
     };
   },
-  methods:{
-    signOut(){
+  methods: {
+    signOut() {
       this.$router.push("/"),
-      this.account = false
+        this.account = false
     }
   },
-  mounted(){
-
+  methods: {
+    //連接搜尋的API
+    search() {
+      console.log(this.searchData)
+      fetch('http://localhost:8080/api/search_commodity', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.searchData
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          this.dataList = data;
+          console.log(this.dataList)
+        })
+        .catch(error => console.log(error))
+      console.log()
+    },
   },
   components: {
     RouterLink,
@@ -21,47 +41,68 @@ export default {
 };
 </script>
 <template>
-
   <div class="headerShow">
-    <!-- 搜尋欄 -->
-    <div class="searchBar">
-      <i class="fa-solid fa-magnifying-glass" @click="search"></i>
-      <input type="search" class="searchInput">
-    </div>
+    <div class="navigate">
+      <!-- 搜尋欄 -->
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
+        <input type="text" class="searchBar" v-model="searchData">
+      </div>
 
-    <div class="isLogIn" v-if="account"> 
-      <!-- 已登入 -->
-      <button type="button" class="signOut" @click="signOut">登出</button>
-      <!-- <RouterLink to="/" class="signOut" >登出</RouterLink> -->
-    </div>
-    <div class="notLogin" v-else>
-      <!-- 未登入 -->
-      <RouterLink to="/SignupPage" class="register">註冊</RouterLink>
-      <RouterLink to="/LoginPage" class="logIn">登入</RouterLink>
-    </div>
-  </div>
+      <div class="headerShow">
+        <!-- 搜尋欄 -->
+        <div class="searchBar">
+          <i class="fa-solid fa-magnifying-glass" @click="search"></i>
+          <input type="search" class="searchInput">
+        </div>
 
+        <div class="isLogIn" v-if="account">
+          <!-- 已登入 -->
+          <button type="button" class="signOut" @click="signOut">登出</button>
+          <!-- <RouterLink to="/" class="signOut" >登出</RouterLink> -->
+        </div>
+        <div class="notLogin" v-else>
+          <!-- 未登入 -->
+          <RouterLink to="/SignupPage" class="register">註冊</RouterLink>
+          <RouterLink to="/LoginPage" class="logIn">登入</RouterLink>
+        </div>
+      </div>
+    </div>
+    </div>
 </template>
 
 <style scoped lang="scss">
-.headerShow{
-  width: 100%;
-  height: 10vh;
-  margin-top: 0;
-  background-color: #F9B572;
-  position: fixed;
-  top: 0;
-  z-index: 5;
-  .searchBar{
-    .fa-solid{
-      position: absolute;
-      font-size: 30px;
-      left: 15.5%;
-      top: 30%;
-      color: #E6E1C8;
-      z-index: 10;
+.headerShow {
+  .navigate {
+    width: 70vw;
+    height: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .search {
+      width: 20vw;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      // border: 1px black solid;
+      i {
+        color: #e6e1c8;
+        position: absolute;
+        margin-left: 0.5rem;
+      }
+
+      .searchBar {
+        height: 60%;
+        border: none;
+        border-radius: 5px;
+      }
     }
-    .searchInput{
+
+    .searchInput {
       position: absolute;
       width: 17%;
       height: 70%;
@@ -69,13 +110,14 @@ export default {
       left: 15%;
       padding-left: 3%;
       border-radius: 15px;
-      border: 0 ;
+      border: 0;
       background-color: #FAF8ED;
       font-size: 25px;
     }
   }
-  .isLogIn{
-    .signOut{
+
+  .isLogIn {
+    .signOut {
       position: absolute;
       color: #FAF8ED;
       background-color: transparent;
@@ -86,8 +128,9 @@ export default {
       padding: 0;
     }
   }
-  .notLogin{
-    .register{
+
+  .notLogin {
+    .register {
       position: absolute;
       text-decoration: none;
       color: #FAF8ED;
@@ -95,7 +138,8 @@ export default {
       right: 21%;
       top: 20%
     }
-    .logIn{
+
+    .logIn {
       position: absolute;
       text-decoration: none;
       color: #FAF8ED;
@@ -105,5 +149,4 @@ export default {
     }
   }
 }
-
 </style>
