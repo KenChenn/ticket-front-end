@@ -1,11 +1,5 @@
 <template>
 <body>
-    <div class="header">
-        <i class="fa-solid fa-magnifying-glass" @click="search"></i>
-        <input type="search" class="search">
-        <button type="button" class="orderTracking">訂單查詢</button>
-        <button type="button" class="signOut">登出</button>
-    </div>
     <div class="top">
         <span class="title">訂單查詢</span>
         <span class="tip">未付款為橘色卡片</span>
@@ -115,7 +109,7 @@ body{
 }
 .top{
     margin-left: 15vw;
-    padding-top: 10vh;
+    padding-top: 5vh;
     .title{
         margin: 0;
         font-size: 50px;

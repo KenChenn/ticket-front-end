@@ -144,8 +144,7 @@ body {
     height: 190vh;
     background-color: #faf8ed;
 }
-
-.header {
+.header{
     width: 100%;
     height: 10vh;
     margin-top: 0;
@@ -153,30 +152,27 @@ body {
     position: fixed;
     top: 0;
     z-index: 5;
-
-    .fa-solid {
+    .fa-solid{
         position: absolute;
         font-size: 30px;
-        left: 15.5%;
+        left:15.5%;
         top: 30%;
         color: #E6E1C8;
         z-index: 10;
-    }
-
-    .search {
+        }
+    .search{
         position: absolute;
         width: 17%;
         height: 70%;
         top: 15%;
         left: 15%;
         padding-left: 3%;
-        border-radius: 15px;
+        border-radius: 10px;
         border: 0 ;
         background-color: #FAF8ED;
         font-size: 25px;
     }
-
-    .signOut {
+    .signOut{
         position: absolute;
         background-color: transparent;
         color: #FAF8ED;
@@ -248,8 +244,8 @@ body {
         width: 50%;
         height: 3.6%;
         text-indent: 0;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        background-color: transparent;
+        border-radius: 0;
     }
 
     textarea {

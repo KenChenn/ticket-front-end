@@ -1,10 +1,5 @@
 <template>
     <body>
-        <div class="header">
-            <i class="fa-solid fa-magnifying-glass" @click="search"></i>
-            <input type="search" class="search">
-            <button type="button" class="signOut">登出</button>
-        </div>
         <div class="top">
             <span class="title">編輯活動</span>
             <span class="tip">*為必填</span>
@@ -144,8 +139,8 @@
             width: 50%;
             height: 3.6%;
             text-indent: 0;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
+            background-color: transparent;
+            border-radius: 0;
         }
         textarea{
             width: 60%;
