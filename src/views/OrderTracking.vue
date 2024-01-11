@@ -1,11 +1,5 @@
 <template>
 <body>
-    <div class="header">
-        <i class="fa-solid fa-magnifying-glass" @click="search"></i>
-        <input type="search" class="search">
-        <button type="button" class="orderTracking">訂單查詢</button>
-        <button type="button" class="signOut">登出</button>
-    </div>
     <div class="top">
         <span class="title">訂單查詢</span>
         <span class="tip">未付款為橘色卡片</span>
@@ -65,57 +59,9 @@ body{
     margin: 0;
     background-color: #faf8ed;
 }
-.header{
-    width: 100%;
-    height: 10vh;
-    margin-top: 0;
-    background-color: #F9B572;
-    position: fixed;
-    top: 0;
-    z-index: 5;
-    .fa-solid{
-        position: absolute;
-        font-size: 30px;
-        left:15.5%;
-        top: 30%;
-        color: #E6E1C8;
-        z-index: 10;
-        }
-    .search{
-        position: absolute;
-        width: 17%;
-        height: 70%;
-        top: 15%;
-        left: 15%;
-        padding-left: 3%;
-        border-radius: 10px;
-        border: 0 ;
-        background-color: #FAF8ED;
-        font-size: 25px;
-    }
-    .orderTracking{
-        position: absolute;
-        background-color: transparent;
-        color: #FAF8ED;
-        font-size: 30px;
-        right: 23%;
-        top: 20%;
-        border: 0;
-    }
-    .signOut{
-        position: absolute;
-        background-color: transparent;
-        color: #FAF8ED;
-        font-size: 30px;
-        right: 14%;
-        top: 20%;
-        border: 0;
-    }
-            
-}
 .top{
     margin-left: 15vw;
-    padding-top: 10vh;
+    padding-top: 5vh;
     .title{
         margin: 0;
         font-size: 50px;
