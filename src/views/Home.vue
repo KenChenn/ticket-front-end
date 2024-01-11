@@ -53,7 +53,7 @@ export default {
 
     <!-- 下方導行列 -->
     <div class="navigate">
-      <RouterLink to="/Popular" active-class="active">
+      <RouterLink to="/Popular" active-class="active" v-bind:class="active">
         熱門活動
       </RouterLink>
 
@@ -109,24 +109,26 @@ export default {
   display: flex;
   justify-content: center;
 }
+
 .navigate a {
-    width: 20%;
-    height: 100%;
-    margin-left: 2%;
-    margin-right: 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px 30px 0 0;
-    background-color: #748e63;
-    color: #faf8ed;
-    font-size: 2rem;
-    text-decoration: none;
+  width: 20%;
+  height: 100%;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 30px 0 0;
+  background-color: #748e63;
+  color: #faf8ed;
+  font-size: 4dvh;
+  text-decoration: none;
 }
-    // border: 1px solid black;
-    .navigate a.active{
-      background-color: #99B080;
-    }
+
+// border: 1px solid black;
+.navigate a.active {
+  background-color: #99B080;
+}
 
 
 .footer {
