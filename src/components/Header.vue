@@ -2,7 +2,34 @@
 import { RouterLink, RouterView } from "vue-router";
 export default {
   data() {
-    return {};
+    return {
+      searchData:"",
+      dataList:[
+
+      ]
+    };
+  },
+  methods: {
+    //連接搜尋的API
+    search() {
+            console.log(this.searchData)
+            fetch('http://localhost:8080/api/search_commodity', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: this.searchData
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.dataList = data;
+                    console.log(this.dataList)
+                })
+                .catch(error => console.log(error))
+            console.log()
+        },
   },
   components: {
     RouterLink,
@@ -14,8 +41,8 @@ export default {
     <div class="navigate">
       <!-- 搜尋欄 -->
       <div class="search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" class="searchBar">
+        <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
+        <input type="text" class="searchBar" v-model="searchData">
       </div>
 
       <!-- 註冊/登入 -->
@@ -25,7 +52,7 @@ export default {
       </div>
     </div>
 
-    
+
   </div>
 </template>
 
@@ -45,12 +72,14 @@ export default {
       display: flex;
       align-items: center;
       position: relative;
+
       // border: 1px black solid;
-      i{
+      i {
         color: #e6e1c8;
         position: absolute;
         margin-left: 0.5rem;
       }
+
       .searchBar {
         height: 60%;
         border: none;
