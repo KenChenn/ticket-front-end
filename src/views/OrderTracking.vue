@@ -2,39 +2,33 @@
 <body>
     <div class="top">
         <span class="title">訂單查詢</span>
-        <span class="tip">未付款為橘色卡片</span>
     </div>
-    <div class="content" >
-        <div class="up">
-            <p class="name">活動名稱</p>
-            <p class="nameAbout">{{ this.nameAbout }}</p>
-        </div>
-        <div class="down">
-            <div class="left">
-                <img src="https://t.kfs.io/upload_images/187458/kktix%E4%B8%BB%E8%A6%96%E8%A6%BA_%E8%87%89%E6%9B%B8%E8%B2%BC%E6%96%87%E9%99%84%E5%9C%96_EDM1200x630_medium.jpg" class="picture">
-                <span class="state">狀態</span>
-                <span class="stateAbout">已付款</span>
-                <p></p>
-                <span class="orderNumber">訂單編號</span>
-                <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}</span>
+    <div class="content" :style="{ backgroundColor: payment ? '#99b080' : '#f5a352' }">
+        <div class="left">
+            <div class="picture">
+                <img src="https://t.kfs.io/upload_images/187458/kktix%E4%B8%BB%E8%A6%96%E8%A6%BA_%E8%87%89%E6%9B%B8%E8%B2%BC%E6%96%87%E9%99%84%E5%9C%96_EDM1200x630_medium.jpg">
             </div>
-            <div class="right">
-                <div class="one">
-                    <p class="date">演出日期</p>
-                    <p class="dateAbout">{{ this.dateAbout }}</p>
-                </div>
-                <div class="two">
-                    <p class="place">演出地點</p>
-                    <p class="placeAbout">{{ this.placeAbout }}</p>
-                </div>
-                <div class="three">
-                    <p class="seat">座位</p>
-                    <p class="seatAbout">{{ this.seatAbout }}</p>
-                </div>
+            <span class="state">狀態</span>
+            <span class="stateAbout" :style="{ color: payment ? '#FAF8ED' : '#DB3A3A' }">{{ payment ? '已付款' : '未付款' }}</span>
+            <span class="orderNumber">訂單編號</span>
+            <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}000000</span>
+            <span class="seat">座位</span>
+            <span class="seatAbout">{{ this.seatAbout }}E區xx號</span>
+        </div>
+        <div class="right">
+            <div class="up">
+                <p class="name">活動名稱</p>
+                <p class="nameAbout">{{ this.nameAbout }}YERIN 1st FANMEETING〈WOORIN & I 〉 IN TAIPEI</p>
+            </div>
+            <div class="middle">
+                <p class="date">演出日期</p>
+                <p class="dateAbout">{{ this.dateAbout }}2024 年 1 月 14 日(週日) 18:00</p>
+            </div>
+            <div class="down">
+                <p class="place">演出地點</p>
+                <p class="placeAbout">{{ this.placeAbout }}CLAPPER STUDIO (三創生活園區 5 樓、台北市中正區市民大道三段 2 號)</p>
             </div>
         </div>
-
-
     </div>
 </body>
 </template>
@@ -47,6 +41,7 @@ export default {
             dateAbout:"",
             placeAbout:"",
             seatAbout:"",
+            payment:true,   //付款狀態
         }
     }
 }
@@ -59,54 +54,6 @@ body{
     margin: 0;
     background-color: #faf8ed;
 }
-.header{
-    width: 100%;
-    height: 10vh;
-    margin-top: 0;
-    background-color: #F9B572;
-    position: fixed;
-    top: 0;
-    z-index: 5;
-    .fa-solid{
-        position: absolute;
-        font-size: 30px;
-        left:15.5%;
-        top: 30%;
-        color: #E6E1C8;
-        z-index: 10;
-        }
-    .search{
-        position: absolute;
-        width: 17%;
-        height: 70%;
-        top: 15%;
-        left: 15%;
-        padding-left: 3%;
-        border-radius: 15px;
-        border: 0 ;
-        background-color: #FAF8ED;
-        font-size: 25px;
-    }
-    .orderTracking{
-        position: absolute;
-        background-color: transparent;
-        color: #FAF8ED;
-        font-size: 30px;
-        right: 23%;
-        top: 20%;
-        border: 0;
-    }
-    .signOut{
-        position: absolute;
-        background-color: transparent;
-        color: #FAF8ED;
-        font-size: 30px;
-        right: 14%;
-        top: 20%;
-        border: 0;
-    }
-            
-}
 .top{
     margin-left: 15vw;
     padding-top: 5vh;
@@ -117,137 +64,125 @@ body{
         font-weight: 600;
         margin-right: 44vw;
     }
-    .tip{
-        margin: 0;
-        font-size: 25px;
-        color: #4D5C44;
-    }
 }
-    .content{
-        width: 70vw;
-        height: 80vh;
-        margin-left: 15vw;
-        background-color: #99b080;
-        border-radius: 25px;
-        font-size: 35px;
-        margin-bottom: 15vh;
+.content{
+    width: 70vw;
+    height: 40vh;
+    margin-left: 15vw;
+    background-color: #99b080;
+    border-radius: 15px;
+    position: relative;
+    font-size: 20px;
+
+    .left{
+        position: absolute;
+        width: 30%;
+        height: 90%;
+        top: 5%;
+        left: 5%;
         position: relative;
+        .picture{
+            width: 100%;
+            height: 60%;
+            
+            img{
+                width: 100%;
+                height: 100%;
+                border-radius: 15px;
+            }
+        }
+        .state{
+            position: absolute;
+            color: #5b6852;
+            font-weight: 600;
+            top: 63%;
+            left: 3%;
+        }
+        .stateAbout{
+            position: absolute;
+            color: #FAF8ED;
+            top: 63%;
+            left: 55%;
+
+        }
+        .orderNumber{
+            position: absolute;
+            color: #5b6852;
+            font-weight: 600;
+            top: 76.5%;
+            left: 3%;
+        }
+        .orderNumberAbout{
+            position: absolute;
+            color: #FAF8ED;
+            top: 76.5%;
+            left: 55%;
+        }
+        .seat{
+            position: absolute;
+            color: #5b6852;
+            font-weight: 600;
+            top: 90%;
+            left: 3%;
+        }
+        .seatAbout{
+            position: absolute;
+            color: #FAF8ED;
+            top: 90%;
+            left: 55%;
+        }
+    }
+    .right{
+        position: absolute;
+        width: 55%;
+        height: 90%;
+        top: 5%;
+        right: 5%;
+        p{
+            margin: 0;
+        }
         .up{
             position: absolute;
             width: 100%;
-            top: 3vh;
-            font-size: 40px;
+            top: 5%;
             .name{
-                margin: 0;
+                color: #5b6852;
                 font-weight: 600;
-                color: #4D5C44;
                 text-align: center;
             }
             .nameAbout{
                 color: #FAF8ED;
-                margin: 0;
+                text-align: center;
+            }
+        }
+        .middle{
+            position: absolute;
+            width: 100%;
+            top: 34%;
+            .date{
+                color: #5b6852;
+                font-weight: 600;
+                text-align: center;
+            }
+            .dateAbout{
+                color: #FAF8ED;
                 text-align: center;
             }
         }
         .down{
             position: absolute;
-            width: 80vw;
-            top: 25%;
-            display: flex;
-            .left{
-                width: 40%;
-                height: 60vh;
-                padding-left: 3%;
-                position: relative;
-                .picture{
-                    position: absolute;
-                    top: 0;
-                    border-radius: 20px;
-                    width: 25vw;
-                }
-                .state{
-                    position: absolute;
-                    color: #4D5C44;
-                    font-weight: 600;
-                    top: 60%;
-                }
-                .stateAbout{
-                    position: absolute;
-                    color: #FAF8ED;
-                    top: 60%;
-                    left: 50%;
-                }
-                .orderNumber{
-                    position: absolute;
-                    color: #4D5C44;
-                    top: 75%;
-                    font-weight: 600;
-                }
-                .orderNumberAbout{
-                    position: absolute;
-                    color: #FAF8ED;
-                    top: 75%;
-                    left: 50%;
-                }
+            width: 100%;
+            top: 60%;
+            .place{
+                color: #5b6852;
+                font-weight: 600;
+                text-align: center;
             }
-            .right{
-                position: absolute;
-                left: 36%;
-                width: 50%;
-                height: 60vh;
-                .one{
-                    position: absolute;
-                    width: 100%;
-
-                    .date{
-                        color: #4D5C44;
-                        margin: 1%;
-                        margin-top: 0;
-                        font-weight: 600;
-                        text-align: center;
-                    }
-                    .dateAbout{
-                        color: #FAF8ED;
-                        margin: 0;
-                        text-align: center;
-                    }
-                }
-                .two{
-                    position: absolute;
-                    top: 23%;
-                    width: 100%;
-                    .place{
-                        color: #4D5C44;
-                        margin: 1%;
-                        font-weight: 600;
-                        text-align: center;
-                    }
-                    .placeAbout{
-                        color: #FAF8ED;
-                        margin: 0;
-                        text-align: center;
-                        word-wrap:break-word;
-                    }
-                }
-                .three{
-                    position: absolute;
-                    top: 68%;
-                    width: 100%;
-                    .seat{
-                        color: #4D5C44;
-                        margin: 1%;
-                        font-weight: 600;
-                        text-align: center;
-                    }
-                    .seatAbout{
-                        color: #FAF8ED;
-                        margin: 0;
-                        text-align: center;
-    
-                    }
-                }
-
+            .placeAbout{
+                color: #FAF8ED;
+                text-align: center;
             }
         }
     }
+}
 </style>
