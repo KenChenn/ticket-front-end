@@ -1,8 +1,11 @@
 <template>
     <div class="main">
         <div class="up">
+            <!-- 主辦單位管理按鈕 -->
             <button class="host" @click="this.goManageHostPage()">主辦單<br>位管理</button>
-            <button class="act" @click="this.goCreateActivities()">建立<br>活動</button> 
+            
+            <!-- 建立活動按鈕 -->
+            <button class="act" @click="this.goCreateActivities()">建立<br>活動</button>
         </div>
         <div class="down">
             <div class="actSq">
@@ -11,6 +14,18 @@
                     <span class="actSpan">活動名稱</span>
                 </div>
                 <div class="sqDown">
+
+                    <!-- 活動區域 -->
+                    <div class="plusAct">
+                        <button class="hensyu">編輯</button>
+                        <span class="spanName">xxxxLIve</span>
+                        <button class="cencel">刪除</button>
+                    </div>
+                    <div class="plusAct">
+                        <button class="hensyu">編輯</button>
+                        <span class="spanName">xxxxLIve</span>
+                        <button class="cencel">刪除</button>
+                    </div>
                     <div class="plusAct">
                         <button class="hensyu">編輯</button>
                         <span class="spanName">xxxxLIve</span>
@@ -29,10 +44,10 @@ export default {
         }
     },
     methods: {
-        goManageHostPage(){
+        goManageHostPage() {
             this.$router.push('/ManageHostPage')
         },
-        goCreateActivities(){
+        goCreateActivities() {
             this.$router.push('/CreateActivities')
         }
     },
@@ -42,83 +57,103 @@ export default {
 }
 </script>
 <style lang="scss">
-.main{
+.main {
     width: 100%;
-    height: 110%;
+    height: 100%;
     background-color: #FAF8ED;
-    .up{
-        width: 100%;
-        height: 30%;
+
+    // justify-content: center;
+    .up {
+        width: 70%;
+        height: 20%;
+        margin-left: 15%;
         display: flex;
-        .host{
-            height: 60%;
-            width: 12%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .host {
+            height: 70%;
+            width: 25%;
             background-color: #89A071;
             border: 1pt solid #89A071;
-            font-size: 1.5rem;
+            font-size: 3vh;
+            line-height: 6vh;
             color: #FAF8ED;
-            border-radius: 15px;
-            margin-left: 20%;
-            margin-right: 35%;
-            margin-top: 2%;
+            border-radius: 2vh;
         }
-        .act{
-            height: 60%;
-            width: 12%;
+        .act {
+            height: 70%;
+            width: 25%;
             background-color: #89A071;
             border: 1pt solid #89A071;
-            font-size: 1.5rem;
+            font-size: 3vh;
+            line-height: 6vh;
             color: #FAF8ED;
-            border-radius: 15px;
-            margin-top: 2%;
+            border-radius: 2vh;
         }
     }
-    .down{
+
+    .down {
         width: 100%;
-        height: 70%;
-        .actSq{
-            width: 59%;
+        height: 80%;
+        // border: 1px solid black;
+
+        .actSq {
+            width: 70%;
             height: 90%;
             background-color: #F5BF89;
-            margin-left: 20%;
-            border-radius: 15px;
-            .sqUp{
+            margin-left: 15%;
+            border-radius: 2vh;
+
+            .sqUp {
                 width: 100%;
                 height: 15%;
-                .actSpan{
+                // border: 1px solid black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .actSpan {
                     color: #4D5C44;
-                    font-size: 1.3rem;
-                    margin-left: 44%;
+                    font-size:3vh;
                 }
             }
-            .sqDown{
+
+            .sqDown {
                 width: 100%;
                 height: 85%;
-                .hensyu{
-                    width: 13%;
-                    height: 1.6rem;
-                    border-radius: 15px;
-                    background-color: #F5A352;
-                    border: 1pt solid #F5A352;
-                    color: #FAF8ED;
-                    margin-left: 3%;
-                    margin-right: 28%;
-                }
-                .cencel{
-                    width: 13%;
-                    height: 1.6rem;
-                    border-radius: 15px;
-                    background-color: #DB3A3A;
-                    border: 1pt solid #DB3A3A;
-                    color: #FAF8ED;
-                }
-                .spanName{
-                    font-size: 1.3rem;
-                    margin-right: 28%;
-                    color: #4D5C44;
+                padding: 2%;
+                // border: 1px solid black;
+                .plusAct{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 2%;
+                    .hensyu {
+                        width: 10%;
+                        height: 20%;
+                        border-radius: 10vh;
+                        font-size: 2vh;
+                        background-color: #F5A352;
+                        border: 1pt solid #F5A352;
+                        color: #FAF8ED;
+                    }
+    
+                    .spanName {
+                        font-size: 2vh;
+                        color: #4D5C44;
+                        
+                    }
+                    .cencel {
+                        width: 10%;
+                        height: 20%;
+                        border-radius: 10vh;
+                        font-size: 2vh;
+                        background-color: #DB3A3A;
+                        border: 1pt solid #DB3A3A;
+                        color: #FAF8ED;
+                    }
+    
                 }
             }
         }
     }
-}
-</style>
+}</style>

@@ -186,7 +186,7 @@ export default {
         margin-bottom: 5vh;
         background-color: #748E63;
         border-radius: 15px;
-        font-size: 1.5rem;
+        font-size: 3vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -245,7 +245,7 @@ export default {
 
     .content {
         margin: 1%;
-        font-size: 1.5rem;
+        font-size: 3vh;
     }
 }
 </style>

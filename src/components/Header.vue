@@ -53,7 +53,9 @@ export default {
         <!-- 搜尋欄 -->
         <div class="searchBar">
           <i class="fa-solid fa-magnifying-glass" @click="search"></i>
-          <input type="search" class="searchInput">
+
+          <!-- <input type="search" class="searchInput"> -->
+
         </div>
 
         <div class="isLogIn" v-if="account">
@@ -76,7 +78,7 @@ export default {
   .navigate {
     width: 70vw;
     height: 100%;
-    font-size: 1.5rem;
+    font-size: 3vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
