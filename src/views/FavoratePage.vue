@@ -3,30 +3,30 @@
         <div class="top">
             <span class="title">最愛列表</span>
         </div>
-        <div class="content" :style="{ backgroundColor: payment ? '#f5a352' : '#99b080' }">
+        <div class="content" :style="{ backgroundColor: aboutToStart ? '#f5a352' : '#99b080' }">
             <div class="left">
                 <div class="picture">
                     <img src="https://t.kfs.io/upload_images/187458/kktix%E4%B8%BB%E8%A6%96%E8%A6%BA_%E8%87%89%E6%9B%B8%E8%B2%BC%E6%96%87%E9%99%84%E5%9C%96_EDM1200x630_medium.jpg">
                 </div>
                 <span class="state">狀態</span>
-                <span class="stateAbout" :style="{ color: payment ? '#DB3A3A' : '#FAF8ED' }">{{ payment ? '即將開始' : '尚未開始' }}</span>
+                <span class="stateAbout" :style="{ color: aboutToStart ? '#DB3A3A' : '#FAF8ED' }">{{ aboutToStart ? '即將開始' : '尚未開始' }}</span>
                 <span class="orderNumber">訂單編號</span>
-                <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}000000</span>
+                <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}</span>
                 <span class="seat">座位</span>
-                <span class="seatAbout">{{ this.seatAbout }}E區xx號</span>
+                <span class="seatAbout">{{ this.seatAbout }}</span>
             </div>
             <div class="right">
                 <div class="up">
                     <p class="name">活動名稱</p>
-                    <p class="nameAbout">{{ this.nameAbout }}YERIN 1st FANMEETING〈WOORIN & I 〉 IN TAIPEI</p>
+                    <p class="nameAbout">{{ this.nameAbout }}</p>
                 </div>
                 <div class="middle">
                     <p class="date">演出日期</p>
-                    <p class="dateAbout">{{ this.dateAbout }}2024 年 1 月 14 日(週日) 18:00</p>
+                    <p class="dateAbout">{{ this.dateAbout }}</p>
                 </div>
                 <div class="down">
                     <p class="place">演出地點</p>
-                    <p class="placeAbout">{{ this.placeAbout }}CLAPPER STUDIO (三創生活園區 5 樓、台北市中正區市民大道三段 2 號)</p>
+                    <p class="placeAbout">{{ this.placeAbout }}</p>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                 dateAbout:"",
                 placeAbout:"",
                 seatAbout:"",
-                payment:true,   //付款狀態
+                aboutToStart:true,   //開始狀態
             }
         }
     }

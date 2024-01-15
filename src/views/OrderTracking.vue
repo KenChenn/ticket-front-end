@@ -11,22 +11,22 @@
             <span class="state">狀態</span>
             <span class="stateAbout" :style="{ color: payment ? '#FAF8ED' : '#DB3A3A' }">{{ payment ? '已付款' : '未付款' }}</span>
             <span class="orderNumber">訂單編號</span>
-            <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}000000</span>
+            <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}</span>
             <span class="seat">座位</span>
-            <span class="seatAbout">{{ this.seatAbout }}E區xx號</span>
+            <span class="seatAbout">{{ this.seatAbout }}</span>
         </div>
         <div class="right">
             <div class="up">
                 <p class="name">活動名稱</p>
-                <p class="nameAbout">{{ this.nameAbout }}YERIN 1st FANMEETING〈WOORIN & I 〉 IN TAIPEI</p>
+                <p class="nameAbout">{{ this.nameAbout }}</p>
             </div>
             <div class="middle">
                 <p class="date">演出日期</p>
-                <p class="dateAbout">{{ this.dateAbout }}2024 年 1 月 14 日(週日) 18:00</p>
+                <p class="dateAbout">{{ this.dateAbout }}</p>
             </div>
             <div class="down">
                 <p class="place">演出地點</p>
-                <p class="placeAbout">{{ this.placeAbout }}CLAPPER STUDIO (三創生活園區 5 樓、台北市中正區市民大道三段 2 號)</p>
+                <p class="placeAbout">{{ this.placeAbout }}</p>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@ export default {
             dateAbout:"",
             placeAbout:"",
             seatAbout:"",
-            payment:true,   //付款狀態
+            // payment:true,   //付款狀態
         }
     }
 }
