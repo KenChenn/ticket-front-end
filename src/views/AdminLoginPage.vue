@@ -7,7 +7,10 @@
             <p class="loginp">登入</p>
         </div> -->
         <div class="down">
-            <h1 class="pp">帳號登入</h1>
+            <div class="title">
+                帳號登入
+            </div>
+
             <div class="login">
                 <h4 class="loginInP">帳號</h4>
                 <input type="text" class="inputClass" v-model="loginAccount">
@@ -34,7 +37,7 @@ export default {
             isEntityPassword: true,
 
             showPassword: false,
-            
+
         }
     },
     methods: {
@@ -79,8 +82,7 @@ export default {
 </script>
 <style lang="scss">
 .main {
-    width: 100vw;
-    height: 100vh;
+    height: 90vh;
     background-color: #FAF8ED;
 
     .up {
@@ -101,7 +103,7 @@ export default {
         .search {
             width: 11%;
             height: 47%;
-            border-radius: 15px;
+            border-radius: 2vh;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
             margin-left: 25%;
@@ -125,57 +127,82 @@ export default {
         width: 100%;
         height: 100%;
 
-        .pp {
-            margin-left: 27%;
+        .title {
+            width: 70%;
+            height: 10vh;
+            // border: 1px solid black;
+            margin-left: 15%;
             color: #4D5C44;
+            font-size: 4vh;
+            display: flex;
+            align-items: end;
         }
 
         .login {
-            width: 48%;
+            width: 70%;
             height: 75%;
             background-color: #F9B572;
             margin: auto;
-            margin-top: -2%;
-            border-radius: 15px;
+            border-radius: 2vh;
 
             .loginInP {
-                margin-left: 45%;
-                font-size: 1.6rem;
-                padding-top: 15px;
+                width: 100%;
+                height: 10vh;
+                display: flex;
+                justify-content: center;
+                align-items: end;
+                font-size: 3vh;
                 color: #4D5C44;
+                // border: 1px solid black;
             }
 
             .loginInP2 {
-                margin-left: 45%;
-                font-size: 1.6rem;
-                margin-top: 20px;
+                width: 100%;
+                height: 10vh;
+                display: flex;
+                justify-content: center;
+                align-items: end;
+                font-size: 3vh;
                 color: #4D5C44;
+                // border: 1px solid black;
             }
 
             .inputClass {
-                width: 47%;
-                height: 6%;
-                margin-left: 26%;
+                // border: 1px solid black;
+                width: 50%;
+                height: 10%;
+                margin-left: 25%;
                 margin-top: 1%;
-                border-radius: 15px;
+                border-radius: 10vh;
                 border: 1pt solid #F9B572;
                 background-color: #FAF8ED;
+            }
+
+            .fa-solid {
+                font-size: 3vh;
+                color: #FAF8ED;
             }
 
             .loginBtn {
                 height: 10%;
                 width: 10%;
-                background-color: #89A071;
-                border: 1pt solid #89A071;
+                background-color: #748E63;
+                border: 1pt solid #748E63;
                 color: #FAF8ED;
-                border-radius: 15px;
-                margin-left: 46%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 2vh;
+                margin: auto;
                 margin-top: 5%;
+                font-size: 2.5vh;
             }
 
             .warning {
+                // border: 1px solid black;
                 margin-left: 43%;
                 color: #4D5C44;
+                font-size: 2.5vh;
             }
         }
     }
