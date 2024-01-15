@@ -2,12 +2,12 @@
 export default {
   data() {
     return {
-
+      selectedTab: '1'
     }
   },
   methods: {
-    tabChange() {
-
+    selectTab(tab) {
+      this.selectedTab = tab;
     },
     go() {
       this.$router.push('/LoginPage')
@@ -53,14 +53,12 @@ export default {
 
     <!-- 下方導行列 -->
     <div class="navigate">
-      <RouterLink to="/Popular" active-class="active" v-bind:class="active">
+      <RouterLink to="/Popular" value="1" :class="{ 'active': this.selectedTab == '1' }" @click="selectTab('1')">
         熱門活動
       </RouterLink>
-
-      <RouterLink to="/Soon" active-class="active">
+      <RouterLink to="/Soon" value="2" :class="{ 'active': this.selectedTab === '2' }" @click="selectTab('2')">
         即將開始
       </RouterLink>
-
     </div>
     <RouterView />
 
@@ -108,29 +106,25 @@ export default {
   height: 10vh;
   display: flex;
   justify-content: center;
+
+  a {
+    width: 20%;
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px 30px 0 0;
+    background-color: #748e63;
+    color: #faf8ed;
+    font-size: 4dvh;
+    text-decoration: none;
+  }
+  .active {
+    background-color: #99B080;
+  }
 }
-
-.navigate a {
-  width: 20%;
-  height: 100%;
-  margin-left: 2%;
-  margin-right: 2%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px 30px 0 0;
-  background-color: #748e63;
-  color: #faf8ed;
-  font-size: 4dvh;
-  text-decoration: none;
-}
-
-// border: 1px solid black;
-.navigate a.active {
-  background-color: #99B080;
-}
-
-
 .footer {
   width: 100%;
   height: 10vh;

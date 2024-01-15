@@ -125,6 +125,11 @@ const router = createRouter({
       name: "EditPwdPage",
       component: () => import("../views/EditPwdPage.vue"),
     },
+    {
+      path: "/Introduction",
+      name: "Introduction",
+      component: () => import("../views/Introduction.vue"),
+    },
   ],
 });
 

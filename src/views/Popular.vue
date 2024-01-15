@@ -15,7 +15,7 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <router-link to="/" class="show">
+        <router-link to="/Detail" class="show">
             <!-- 節目圖片 -->
             <div class="showImg">
                 <img src="../../public/material/3-4_1200X630_V3_medium.png">
@@ -80,13 +80,13 @@ export default {
     }
 
     .showStatus {
-        width: 30%;
+        width: 40%;
         height: 15%;
         border-radius: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 65%;
+        margin-left: 55%;
         background-color: #F5A352;
         font-size: 2dvh;
 

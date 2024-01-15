@@ -15,7 +15,7 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <RouterLink to="/" class="show">
+        <RouterLink to="/Detail" class="show">
             <!-- 節目圖片 -->
             <div class="showImg">
                 <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
@@ -80,13 +80,13 @@ export default {
     }
 
     .showStatus {
-        width: 30%;
+        width: 40%;
         height: 15%;
         border-radius: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 65%;
+        margin-left: 55%;
         background-color: #F5A352;
         font-size: 2dvh;
 
