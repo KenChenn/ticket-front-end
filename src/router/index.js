@@ -129,6 +129,9 @@ const router = createRouter({
       path: "/ManageHostPage",
       name: "ManageHostPage",
       component: () => import("../views/ManageHostPage.vue"),
+      path: "/Introduction",
+      name: "Introduction",
+      component: () => import("../views/Introduction.vue"),
     },
   ],
 });
