@@ -6,7 +6,8 @@ export default {
     return {
       ...mapState(counter, ['dataList']),
       searchData: "",
-      dataList:[]
+      dataList:[],
+      selectedTab: '1'
     }
   },
   computed: {
@@ -14,7 +15,9 @@ export default {
   methods: {
     ...mapActions(counter, ["saveSearchData"]),
     tabChange() {
-
+},
+    selectTab(tab) {
+      this.selectedTab = tab;
     },
     go() {
       this.$router.push('/LoginPage')
@@ -83,34 +86,55 @@ export default {
   </div>
 
   <div class="bgCarousel">
-    <el-carousel height="auto" autoplay>
-      <el-carousel-item style="height: 80vh">
-        <h3 class="small justify-center" text="2xl">height 100px</h3>
-      </el-carousel-item>
-      <el-carousel-item style="height: 80vh">
-        <h3 class="small justify-center" text="2xl">height 200px</h3>
-      </el-carousel-item>
-      <el-carousel-item style="height: 80vh">
-        <h3 class="small justify-center" text="2xl">height 300px</h3>
-      </el-carousel-item>
-    </el-carousel>
 
-    <!-- 下方導行列 -->
-    <div class="navigate">
-      <RouterLink to="/Popular" active-class="active">
-        熱門活動
-      </RouterLink>
-
-      <RouterLink to="/Soon" active-class="active">
-        即將開始
-      </RouterLink>
-
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="../../public/material/3-4_1200X630_V3_medium.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
+  </div>
+
+
+  <!-- 下方導行列 -->
+  <div class="navigate">
+    <RouterLink to="/Popular" value="1" :class="{ 'active': this.selectedTab == '1' }" @click="selectTab('1')">
+      熱門活動
+    </RouterLink>
+    <RouterLink to="/Soon" value="2" :class="{ 'active': this.selectedTab === '2' }" @click="selectTab('2')">
+      即將開始
+    </RouterLink>
+  </div>
+  <div class="routeArea">
     <RouterView />
+  </div>
 
-    <div class="footer">
-
-    </div>
+  <div class="footer">
   </div>
 </template>
 
@@ -162,36 +186,31 @@ export default {
   background-attachment: fixed;
   overflow-x: hidden;
 }
+.bgCarousel {
 
-.carousel-item {
-  color: #475669;
-  opacity: 0.75;
-  margin: 0;
-  text-align: center;
-}
+  position: fixed;
+  top:10vh;
+  width: 100%;
+  z-index: 0;
+  // opacity: 0.2;
 
-.el-carousel-item {
-  // color: #475669;
-  // opacity: 0.75;
-  // display: flex;
-  // align-items: center;
-  // margin: 0;
-  // text-align: center;
-  // height: 100%;
-  background-attachment: fixed;
-}
+  .carousel-inner {
+    width: 100%;
+    height: 80vh;
+  }
 
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
+  .carousel-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+  }
 }
 
 .navigate {
   width: 100%;
   height: 10vh;
+  margin-top: 80vh;
   display: flex;
   justify-content: center;
 }
@@ -216,8 +235,36 @@ export default {
   background-color: #99B080;
 }
 
+  //position: relative;
+  //z-index: 5;
+  // border: 1px solid black;
+  a {
+    width: 20%;
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px 30px 0 0;
+    background-color: #748e63;
+    color: #faf8ed;
+    font-size: 4dvh;
+    text-decoration: none;
+  }
 
+  .active {
+    background-color: #99B080;
+  }
+
+
+.routeArea{
+  position: relative;
+  z-index: 5;
+}
 .footer {
+  position: relative;
+  z-index: 5;
   width: 100%;
   height: 10vh;
   background-color: #faf8ed;

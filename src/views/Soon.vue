@@ -24,6 +24,7 @@ export default {
 
         <!-- 節目卡片區域 -->
         <RouterLink to="/" class="show" v-for="(item,index) in this.dataList">
+        <RouterLink to="/Detail" class="show">
             <!-- 節目圖片 -->
             <div class="showImg">
                 <img :src="item.keyvisualImg ">
@@ -53,7 +54,8 @@ export default {
                 <img :src="item.keyvisualImg ">
             </div> -->
         </RouterLink>
-
+    </RouterLink>
+        
     </div>
 </template>
 
@@ -82,8 +84,9 @@ export default {
     margin-bottom: 10vh;
     background-color: #748E63;
     color: #FAF8ED;
+    text-decoration: none;
     border-radius: 20px;
-
+    
     .showImg {
         height: 60%;
         width: 100%;
@@ -97,24 +100,27 @@ export default {
     }
 
     .showDate {
-        width: 60%;
+        width: 80%;
         height: 20%;
-        font-size: 1.5rem;
+        font-size: 3.2dvh;
+        margin-left: 5%;
         display: flex;
-        justify-content: end;
         align-items: center;
+
         // border: 1px black solid;
     }
 
     .showStatus {
-        width: 30%;
+        width: 40%;
         height: 15%;
         border-radius: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 65%;
+        margin-left: 55%;
         background-color: #F5A352;
+        font-size: 2dvh;
+
     }
-}
-</style>
+
+}</style>

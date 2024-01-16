@@ -8,7 +8,6 @@
 
             <!-- 節目資訊 -->
             <div class="showInfo">
-                <br>
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
                 <span>
@@ -32,38 +31,34 @@
     </div>
 
     <div class="mid">
-        <div class="linkArea">
-            <div class="link">
-                <RouterLink to="/">
-                    立即購票
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    活動介紹
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    注意事項
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    購買提醒
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    取票方式
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    退票規定
-                </RouterLink>
-            </div>
+
+        <!-- 加入最愛按鈕 -->
+        <div class="likeArea">
+            <button>
+                <i class="fa-solid fa-heart-circle-plus"> 加入最愛</i>
+            </button>
         </div>
+
+        <div class="linkArea">
+            <RouterLink to="/BuyTicketPage" class="link">
+                立即購票
+            </RouterLink>
+            <RouterLink to="/Introduction" class="link">
+                活動介紹
+            </RouterLink>
+            <RouterLink to="/" class="link">
+                注意事項
+            </RouterLink>
+            <RouterLink to="/" class="link">
+                購買提醒
+            </RouterLink>
+            <RouterLink to="/" class="link">
+                取票方式
+            </RouterLink>
+            <RouterLink to="/" class="link">
+                退票規定
+            </RouterLink>
+    </div>
 
     </div>
 
@@ -119,14 +114,14 @@ export default {
         height: 90%;
         background-color: #F5A352;
         margin: auto;
-        border-radius: 20px;
+        border-radius: 2vh;
 
         .showImg {
             width: 100%;
             height: 80%;
 
             img {
-                border-radius: 20px 20px 0 0;
+                border-radius: 2vh 2vh 0 0;
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -141,9 +136,9 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 1.5rem;
+                font-size: 3vh;
                 margin-left: 5%;
-                line-height: 1.8rem;
+                line-height: 5vh;
             }
         }
     }
@@ -152,34 +147,54 @@ export default {
 .mid {
     height: 50vh;
     background-color: #FAF8ED;
-    padding: 2% 15% 5% 15%;
+    padding: 0% 15% 5% 15%;
     // border: 1px solid black;
 }
 
+.likeArea {
+    width: 100%;
+    height: 10vh;
+    // border: 1px black solid;
+    margin-bottom: 5vh;
+
+    button {
+        width: 100%;
+        height: 100%;
+        border-radius: 2vh;
+        border: none;
+        font-size: 3vh;
+        color: #DB3A3A;
+        background-color: none;
+        border: #DB3A3A solid 5px;
+        button:active{
+            background-color: none;
+            border:solid #DB3A3A 1px;
+        }
+    }
+}
+
 .linkArea {
-    height: 100%;
+    height: 70%;
     // border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-}
 
-.link {
-    width: 30%;
-    height: 40%;
-    margin-bottom: 10vh;
-    background-color: #748E63;
-    border-radius: 15px;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    a {
-        color: #FAF8ED;
+    .link {
+        width: 30%;
+        height: 40%;
+        margin-bottom: 5vh;
+        background-color: #748E63;
+        border-radius: 15px;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-decoration: none;
+        color: #FAF8ED;
     }
 }
+
 
 .down {
     // height: auto;
@@ -209,22 +224,26 @@ export default {
     border-radius: 15px;
     display: flex;
 }
+
 .circle {
-    width: 5%;
-    height: 5vh;
+    width: 3vw;
+    height: 3vw;
     background-color: #F5A352;
-    margin: 2% 2% 0% 2%;
+    margin: 2% 2% 0% 2%;    
     clip-path: circle(50% at 50% 50%);
 }
-.info{
-    width: 85%;
+
+.info {
+    width: auto;
     margin: 2%;
     color: #FAF8ED;
+
     // border: 1px black solid;
-    .user{
+    .user {
         font-size: 2rem;
     }
-    .content{
+
+    .content {
         margin: 1%;
         font-size: 1.5rem;
     }
