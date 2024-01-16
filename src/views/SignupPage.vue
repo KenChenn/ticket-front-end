@@ -9,53 +9,66 @@
         <div class="down">
             <div class="title">
                 帳號註冊
-                <span>
+                <p>
                     所有必填
-                </span>
+                </p>
             </div>
 
             <div class="signUp">
 
-                <div class="allP">帳號</div>
-                <input type="text" class="allInput" v-model="account">
-                <div class="warning">
-                    <span v-if="!isAccount">請輸入帳號</span>
-                    <span v-if="isReapeatAccount">此帳號已經註冊過</span>
+                <div class="allP">
+                    <span>帳號</span>
+                    <input type="text" class="allInput" v-model="account">
+                    <div class="warning">
+                        <span v-if="!isAccount">請輸入帳號</span>
+                        <span v-if="isReapeatAccount">此帳號已經註冊過</span>
+                    </div>
                 </div>
-                <div class="allP">使用者名稱</div>
-                <input type="text" class="allInput" v-model="username">
-                <div class="warning">
-                    <span v-if="!isUsername">請輸入使用者名稱</span>
-                    <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                <div class="allP">
+                    <span>使用者名稱</span>
+                    <input type="text" class="allInput" v-model="username">
+                    <div class="warning">
+                        <span v-if="!isUsername">請輸入使用者名稱</span>
+                        <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                    </div>
                 </div>
-                <div class="allP">Email</div>
-                <input type="text" class="allInput" v-model="email">
-                <div class="warning">
-                    <span v-if="!isValidEmail">請輸入正確 Email 格式</span>
+                <div class="allP">
+                    <span>Email</span>
+                    <input type="text" class="allInput" v-model="email">
+                    <div class="warning">
+                        <span v-if="!isValidEmail">請輸入正確 Email 格式</span>
+                    </div>
                 </div>
-                <div class="allP">真實姓名</div>
-                <input type="text" class="allInput" v-model="name">
-                <div class="warning">
-                    <span v-if="!isValidName">請輸入正確姓名格式</span>
+                <div class="allP">
+                    <span>真實姓名</span>
+                    <input type="text" class="allInput" v-model="name">
+                    <div class="warning">
+                        <span v-if="!isValidName">請輸入正確姓名格式</span>
+                    </div>
                 </div>
-                <div class="allP">生日</div>
-                <input type="date" class="allInput" v-model="birthday" :max="maxBirthday">
-                <div class="warning">
-                    <span v-if="!isBirthday">請輸入生日</span>
+                <div class="allP">
+                    <span>生日</span>
+                    <input type="date" class="allInput" v-model="birthday" :max="maxBirthday">
+                    <div class="warning">
+                        <span v-if="!isBirthday">請輸入生日</span>
+                    </div>
                 </div>
-                <div class="allP">密碼</div>
-                <input class="allInput" v-model="password" :type="showPassword ? 'text' : 'password'">
-                <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
-                <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
-                <div class="warning">
-                    <span v-if="!isValidPassword">請輸入 7 ~ 16 碼英文 + 數字</span>
+                <div class="allP">
+                    <span>密碼</span>
+                    <input class="allInput" v-model="password" :type="showPassword ? 'text' : 'password'">
+                    <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
+                    <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
+                    <div class="warning">
+                        <span v-if="!isValidPassword">請輸入 7 ~ 16 碼英文 + 數字</span>
+                    </div>
                 </div>
-                <div class="allP">手機號碼</div>
-                <input type="text" class="allInput" v-model="phoneNumber" @input="filterNonNumeric">
-                <div class="warning">
-                    <span v-if="!isValidPhoneNumber">請輸入 10 碼手機格式</span>
+                <div class="allP">
+                    <span>手機號碼</span>
+                    <input type="text" class="allInput" v-model="phoneNumber" @input="filterNonNumeric">
+                    <div class="warning">
+                        <span v-if="!isValidPhoneNumber">請輸入 10 碼手機格式</span>
+                    </div>
                 </div>
-
                 <button type="button" class="btn" @click="register()">註冊</button>
             </div>
         </div>
@@ -244,47 +257,46 @@ export default {
             display: flex;
             justify-content: space-between;
 
-            span {
+            p {
                 font-size: 2dvh;
             }
         }
 
         .signUp {
             width: 70%;
-            height: auto;
-            // background-color: #89A071;
-            border: 5px solid#89A071;
+            height: 70vh;
+            border: 0.5vh solid#89A071;
             margin: auto;
             border-radius: 2vh;
-            padding: 2%;
+            padding: 3%;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .allInput {
-            width: 50%;
-            height: 5%;
+            width: 80%;
             font-size: 3dvh;
-            margin-left: 25%;
-            border-radius: 1vh;
             background-color: #FAF8ED;
             border: 0;
-            border-bottom: #DB3A3A 1px solid;
-            text-align: center;
+            border-bottom: #89A071 0.3vh solid;
+            color: #4D5C44;
         }
 
         .allP {
-            width: 100%;
-            height: 6%;
-            font-size: 3dvh;
+            width: 50%;
+            font-size: 2.5dvh;
             color: #4D5C44;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            // border: 1px black solid;
         }
-
+        .allP span{
+            width: 100%;
+            height: 30%;
+            display: flex;
+        }
         i {
             margin-left: 1%;
-            font-size: 3dvh;
-            color: #FAF8ED;
+            font-size: 2dvh;
+            color: #4D5C44;
         }
 
         .warning {
@@ -294,20 +306,17 @@ export default {
             justify-content: center;
             color: #DB3A3A;
             font-size: 2dvh;
-            // border: 1px solid black;
         }
 
         .btn {
-            background-color: #F9B572;
-            border: 1pt solid #F9B572;
-            color: #FAF8ED;
-            height: 5%;
-            width: 10%;
-            margin-top: 1%;
-            border-radius: 2vh;
-            margin-left: 45%;
-            justify-content: center;
-            align-items: center;
+            width: 14%;
+                height: 10%;
+                background-color: #F9B572;
+                border: 0;
+                color: #FAF8ED;
+                border-radius: 10vh;
+                margin-left: 43%;
+                font-size: 2.5dvh;
         }
 
     }

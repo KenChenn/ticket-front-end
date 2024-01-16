@@ -7,33 +7,30 @@
         </div>
         <div class="down">
             <div class="editSq">
-
                 <span class="spanP1">請輸入舊密碼</span>
-
                 <input type="text" class="allInput" v-model="nowPwd">
                 <div class="warning">
-                    <span v-if="!isNowPwd" >請輸入舊密碼</span>
-                    <span v-if="!isCorrectNowPwd" >舊密碼輸入錯誤</span>
+                    <span v-if="!isNowPwd">請輸入舊密碼</span>
                 </div>
-
+                <div class="warning">
+                    <span v-if="!isCorrectNowPwd">舊密碼輸入錯誤</span>
+                </div>
                 <span class="spanP2">輸入新密碼</span>
-
                 <input type="text" class="allInput" v-model="newPwd">
-
                 <div class="warning">
-                    <span v-if="!isNewPwd" >請輸入新密碼</span>
+                    <span v-if="!isNewPwd">請輸入新密碼</span>
                 </div>
                 <div class="warning">
-                    <span v-if="!isValidNewPwd" >請輸入 7 ~ 16 碼包含英文數字</span>
-                    <span v-if="!isCorrectNewPwd" >舊密碼與新密碼一致</span>
-                    </div>
+                    <span v-if="!isValidNewPwd">請輸入 7 ~ 16 碼包含英文數字</span>
+                    <span v-if="!isCorrectNewPwd">舊密碼與新密碼一致</span>
+                </div>
                 <span class="spanP3">確認密碼</span>
 
                 <input type="text" class="allInput" v-model="againPwd">
                 <div class="warning">
-                <span v-if="!isAgainPwd" >請確認密碼</span>
-                <span v-if="!isCorrectAgainPwd" >與新密碼輸入不一致</span>
-                    </div>
+                    <span v-if="!isAgainPwd">請確認密碼</span>
+                    <span v-if="!isCorrectAgainPwd">與新密碼輸入不一致</span>
+                </div>
                 <button type="button" class="btn" @click="changePwd()">確認</button>
             </div>
         </div>
@@ -135,10 +132,10 @@ export default {
     .editSq {
         width: 70%;
         height: 70vh;
-        background-color: #99B080;
+        border: 0.5vh solid#89A071;
         border-radius: 2vh;
         margin-left: 15%;
-        padding: 5% 0;
+        padding: 3% 0;
 
         .spanP1 {
             width: 100%;
@@ -167,20 +164,21 @@ export default {
 
         .allInput {
             width: 50%;
-            border-radius: 2vh;
             font-size: 2.5dvh;
             margin-bottom: 1%;
             border: 0;
             background-color: #FAF8ED;
+            color: #4D5C44;
+            border-bottom: 0.3vh solid #89A071;
             margin-left: 25%;
             text-align: center;
         }
 
         .btn {
             width: 14%;
-            height: 10%;
+            height: 7%;
             font-size: 2.5dvh;
-            background-color: #F5A352;
+            background-color: #F9B572;
             border: 0;
             color: #FAF8ED;
             border-radius: 2vh;
@@ -188,7 +186,6 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 5%;
         }
 
         .warning {

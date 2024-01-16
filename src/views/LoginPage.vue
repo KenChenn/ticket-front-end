@@ -14,7 +14,7 @@
                 <div class="loginInP">帳號</div>
                 <input type="text" class="inputClass" v-model="loginAccount">
                 <div class="warning">
-                    <span v-if="!isEntityAccount" class="warning">請輸入帳</span>
+                    <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
                 </div>
 
                 <div class="loginInP">密碼</div>
@@ -131,10 +131,10 @@ export default {
         .login {
             width: 70%;
             height: 70vh;
-            background-color: #99B080;
+            border: 0.5vh solid#89A071;
             margin: auto;
             border-radius: 2vh;
-            padding: 5% 0;
+            padding: 10% 0;
 
             .loginInP {
                 height: 5vh;
@@ -149,12 +149,12 @@ export default {
             .inputClass {
                 width: 50%;
                 margin-left: 25%;
-                border-radius: 2vh;
                 font-size: 2.5dvh;
                 margin-bottom: 1%;
                 border: 0;
                 background-color: #FAF8ED;
-                text-align: center;
+                border-bottom: 0.3vh solid#89A071;
+                color: #4D5C44;
             }
             i{
                 margin-left: 1%;
@@ -167,7 +167,7 @@ export default {
                 background-color: #F9B572;
                 border: 0;
                 color: #FAF8ED;
-                border-radius: 2vh;
+                border-radius: 10vh;
                 margin-left: 43%;
                 margin-top: 5%;
                 font-size: 2.5dvh;
@@ -180,7 +180,7 @@ export default {
                 justify-content: center;
                 color: #DB3A3A;
                 font-size: 2dvh;
-                margin-bottom: 1%;
+                margin-bottom: 5%;
             }
         }
     }
