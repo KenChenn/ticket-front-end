@@ -12,16 +12,19 @@
             </div>
 
             <div class="login">
-                <h4 class="loginInP">帳號</h4>
+                <div class="loginInP">帳號</div>
                 <input type="text" class="inputClass" v-model="loginAccount">
-                <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
-                <br>
-                <h4 class="loginInP2">密碼</h4>
+                <div class="warning">
+                    <span v-if="!isEntityAccount" >請輸入帳號</span>
+                </div>
+
+                <div class="loginInP">密碼</div>
                 <input :type="showPassword ? 'text' : 'password'" class="inputClass" v-model="loginPassword">
                 <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
                 <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
-                <span v-if="!isEntityPassword" class="warning">請輸入密碼</span>
-                <br>
+                <div class="warning">
+                <span v-if="!isEntityPassword" >請輸入密碼</span>
+                    </div>
                 <button type="button" class="loginBtn" @click="login()">登入</button>
             </div>
         </div>
@@ -88,14 +91,14 @@ export default {
     .up {
         //width: 100%;
         //height: 11%;
-        background-color: #F9B572;
+        background-color: #F5BF89;
         display: flex;
         position: relative;
 
         .fa-solid {
             position: absolute;
             color: #E6E1C8;
-            font-size: 1rem;
+            font-size: 2dvh;
             top: 33%;
             left: 25.5%;
         }
@@ -111,13 +114,13 @@ export default {
         }
 
         .signUpp {
-            font-size: 1rem;
+            font-size: 2dvh;
             margin-left: 30%;
             color: #FAF8ED;
         }
 
         .loginp {
-            font-size: 1rem;
+            font-size: 2dvh;
             margin-left: 2%;
             color: #FAF8ED;
         }
@@ -133,36 +136,26 @@ export default {
             // border: 1px solid black;
             margin-left: 15%;
             color: #4D5C44;
-            font-size: 4vh;
+            font-size: 4dvh;
             display: flex;
             align-items: end;
         }
 
         .login {
             width: 70%;
-            height: 75%;
-            background-color: #F9B572;
+            height: 70vh;
+            background-color: #F5BF89;
             margin: auto;
             border-radius: 2vh;
+            padding: 5% 0;
 
             .loginInP {
                 width: 100%;
-                height: 10vh;
+                height: 5vh;
                 display: flex;
                 justify-content: center;
                 align-items: end;
-                font-size: 3vh;
-                color: #4D5C44;
-                // border: 1px solid black;
-            }
-
-            .loginInP2 {
-                width: 100%;
-                height: 10vh;
-                display: flex;
-                justify-content: center;
-                align-items: end;
-                font-size: 3vh;
+                font-size: 3dvh;
                 color: #4D5C44;
                 // border: 1px solid black;
             }
@@ -170,24 +163,25 @@ export default {
             .inputClass {
                 // border: 1px solid black;
                 width: 50%;
-                height: 10%;
                 margin-left: 25%;
-                margin-top: 1%;
-                border-radius: 10vh;
-                border: 1pt solid #F9B572;
+                margin-bottom: 1%;
+                border-radius: 2vh;
+                font-size: 2.5dvh;
+                border: 0;
                 background-color: #FAF8ED;
+                text-align: center;
             }
-
-            .fa-solid {
-                font-size: 3vh;
+            i{
+                margin-left: 1%;
+                font-size: 3dvh;
                 color: #FAF8ED;
             }
 
             .loginBtn {
                 height: 10%;
-                width: 10%;
+                width: 14%;
                 background-color: #748E63;
-                border: 1pt solid #748E63;
+                border: 0;
                 color: #FAF8ED;
                 display: flex;
                 justify-content: center;
@@ -195,14 +189,17 @@ export default {
                 border-radius: 2vh;
                 margin: auto;
                 margin-top: 5%;
-                font-size: 2.5vh;
+                font-size: 2.5dvh;
             }
 
             .warning {
-                // border: 1px solid black;
-                margin-left: 43%;
-                color: #4D5C44;
-                font-size: 2.5vh;
+                height: 5%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                color: #DB3A3A;
+                font-size: 2dvh;
+                margin-bottom: 1%;
             }
         }
     }

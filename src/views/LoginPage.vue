@@ -7,18 +7,24 @@
             <p class="loginp">登入</p>
         </div> -->
         <div class="down">
-            <h1 class="pp">帳號登入</h1>
+            <div class="title">
+                帳號登入
+            </div>
             <div class="login">
-                <h4 class="loginInP">帳號</h4>
+                <div class="loginInP">帳號</div>
                 <input type="text" class="inputClass" v-model="loginAccount">
-                <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
-                <br>
-                <h4 class="loginInP2">密碼</h4>
+                <div class="warning">
+                    <span v-if="!isEntityAccount" class="warning">請輸入帳</span>
+                </div>
+
+                <div class="loginInP">密碼</div>
                 <input :type="showPassword ? 'text' : 'password'" class="inputClass" v-model="loginPassword">
                 <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
                 <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
-                <span v-if="!isEntityPassword" class="warning">請輸入密碼</span>
-                <br>
+                <div class="warning">
+                    <span v-if="!isEntityPassword" class="warning">請輸入密碼</span>
+                </div>
+
                 <button type="button" class="loginBtn" @click="login()">登入</button>
             </div>
         </div>
@@ -61,7 +67,7 @@ export default {
                     console.log(res.data)
                     if (res.data.rtncode == "SUCCESSFUL") {
                         console.log("登入成功");
-                        $cookies.set("account",this.loginAccount)
+                        $cookies.set("account", this.loginAccount)
                         this.$router.push('/UserInfoPage');
                     } else {
                         alert("登入失敗");
@@ -78,13 +84,19 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
-    width: 100vw;
-    height: 100vh;
-    background-color: #FAF8ED;
-
+    
+    .title {
+        width: 70%;
+        height: 10vh;
+        margin-left: 15%;
+        color: #4D5C44;
+        font-size: 4dvh;
+        display: flex;
+        align-items: end;
+        // border: 1px solid black;
+        display: flex;
+    }
     .up {
-        //width: 100%;
-        //height: 11%;
         background-color: #F9B572;
         display: flex;
         position: relative;
@@ -116,57 +128,59 @@ export default {
         width: 100%;
         height: 100%;
 
-        .pp {
-            margin-left: 27%;
-            color: #4D5C44;
-        }
-
         .login {
-            width: 48%;
-            height: 75%;
-            background-color: #89A071;
+            width: 70%;
+            height: 70vh;
+            background-color: #99B080;
             margin: auto;
-            margin-top: -2%;
-            border-radius: 15px;
+            border-radius: 2vh;
+            padding: 5% 0;
 
             .loginInP {
-                margin-left: 45%;
-                font-size: 1.6rem;
-                padding-top: 15px;
+                height: 5vh;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                font-size: 3dvh;
                 color: #4D5C44;
-            }
-
-            .loginInP2 {
-                margin-left: 45%;
-                font-size: 1.6rem;
-                margin-top: 20px;
-                color: #4D5C44;
+                // border: 1px solid black;
             }
 
             .inputClass {
-                width: 47%;
-                height: 6%;
-                margin-left: 26%;
-                margin-top: 1%;
-                border-radius: 15px;
-                border: 1pt solid #89A071;
+                width: 50%;
+                margin-left: 25%;
+                border-radius: 2vh;
+                font-size: 2.5dvh;
+                margin-bottom: 1%;
+                border: 0;
                 background-color: #FAF8ED;
+                text-align: center;
+            }
+            i{
+                margin-left: 1%;
+                font-size: 3dvh;
+                color: #FAF8ED;
+            }
+            .loginBtn {
+                width: 14%;
+                height: 10%;
+                background-color: #F9B572;
+                border: 0;
+                color: #FAF8ED;
+                border-radius: 2vh;
+                margin-left: 43%;
+                margin-top: 5%;
+                font-size: 2.5dvh;
             }
 
-            .loginBtn {
-                height: 8%;
-                width: 10%;
-                background-color: #F9B572;
-                border: 1pt solid #F9B572;
-                color: #FAF8ED;
-                border-radius: 15px;
-                margin-left: 46%;
-                margin-top: 5%;
-                font-size: 1rem;
-            }
             .warning {
-                margin-left: 43%;
-                color: #F5A352;
+                height: 5%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                color: #DB3A3A;
+                font-size: 2dvh;
+                margin-bottom: 1%;
             }
         }
     }

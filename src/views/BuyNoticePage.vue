@@ -8,7 +8,6 @@
 
             <!-- 節目資訊 -->
             <div class="showInfo">
-                <br>
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
                 <span>
@@ -27,11 +26,13 @@
                     主辦單位 躍演
                 </span>
             </div>
-
         </div>
     </div>
+
     <div class="down">
-        <h1 class="noticeP">購買提醒</h1>
+        <div class="title">
+            購買提醒
+        </div>
         <div class="textArea">
             欲購票者，請參考【拓元會員加入辦法】，需進行手機驗證，才可開始購票，未完成驗證者，恕無法購票，建議提早完成。<br>
             單筆訂單限購4張，可支援行動裝置購票。<br>
@@ -89,12 +90,14 @@ export default {
         height: 90%;
         background-color: #F5A352;
         margin: auto;
+        border-radius: 2vh;
 
         .showImg {
             width: 100%;
             height: 80%;
 
             img {
+                border-radius: 2vh 2vh 0 0;
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -111,7 +114,7 @@ export default {
                 color: #FAF8ED;
                 font-size: 3vh;
                 margin-left: 5%;
-                line-height: 1.8rem;
+                line-height: 5vh;
             }
         }
     }
@@ -119,20 +122,24 @@ export default {
 
 .down {
     width: 100%;
-    height: 90%;
     background-color: #99B080;
+    padding-bottom: 5%;
 
-    .noticeP {
+    .title {
+        // border: 1px solid black;
+        height: 10vh;
         color: #F5BF89;
-        margin-left: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4dvh;
     }
+}
 
-    .textArea {
-        width: 70%;
-        height: 80%;
-        margin: auto;
-        overflow-y: scroll;
-        color: #FAF8ED;
-    }
+.textArea {
+    width: 70%;
+    margin: auto;
+    color: #FAF8ED;
+    font-size: 2.5dvh;
 }
 </style>

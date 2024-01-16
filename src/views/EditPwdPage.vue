@@ -1,34 +1,39 @@
 <template>
     <div class="main">
         <div class="up">
-            <br>
-            <h1 class="editP">編輯資訊</h1>
+            <div class="title">
+                編輯資訊
+            </div>
         </div>
         <div class="down">
             <div class="editSq">
-                <br><br>
+
                 <span class="spanP1">請輸入舊密碼</span>
-                <br>
+
                 <input type="text" class="allInput" v-model="nowPwd">
-                <br>
-                <span v-if="!isNowPwd" class="warning">請輸入舊密碼</span>
-                <span v-if="!isCorrectNowPwd" class="warning">舊密碼輸入錯誤</span>
-                <br>
+                <div class="warning">
+                    <span v-if="!isNowPwd" >請輸入舊密碼</span>
+                    <span v-if="!isCorrectNowPwd" >舊密碼輸入錯誤</span>
+                </div>
+
                 <span class="spanP2">輸入新密碼</span>
-                <br>
+
                 <input type="text" class="allInput" v-model="newPwd">
-                <br>
-                <span v-if="!isNewPwd" class="warning">請輸入新密碼</span>
-                <span v-if="!isValidNewPwd" class="warning">請輸入 7 ~ 16 碼密碼格式</span>
-                <span v-if="!isCorrectNewPwd" class="warning">舊密碼與新密碼一致</span>
-                <br>
+
+                <div class="warning">
+                    <span v-if="!isNewPwd" >請輸入新密碼</span>
+                </div>
+                <div class="warning">
+                    <span v-if="!isValidNewPwd" >請輸入 7 ~ 16 碼包含英文數字</span>
+                    <span v-if="!isCorrectNewPwd" >舊密碼與新密碼一致</span>
+                    </div>
                 <span class="spanP3">確認密碼</span>
-                <br>
+
                 <input type="text" class="allInput" v-model="againPwd">
-                <br>
-                <span v-if="!isAgainPwd" class="warning">請確認密碼</span>
-                <span v-if="!isCorrectAgainPwd" class="warning">與新密碼輸入不一致</span>
-                <br><br>
+                <div class="warning">
+                <span v-if="!isAgainPwd" >請確認密碼</span>
+                <span v-if="!isCorrectAgainPwd" >與新密碼輸入不一致</span>
+                    </div>
                 <button type="button" class="btn" @click="changePwd()">確認</button>
             </div>
         </div>
@@ -114,68 +119,87 @@ export default {
 </script>
 <style lang="scss">
 .main {
-    width: 100vw;
-    height: 100vh;
-    background-color: #FAF8ED;
-
-    .up {
-        width: 100%;
-        height: 20%;
-
-        .editP {
-            color: #4D5C44;
-            margin-left: 20%;
-        }
+    .title {
+        width: 70%;
+        height: 10vh;
+        margin-left: 15%;
+        color: #4D5C44;
+        font-size: 4dvh;
+        display: flex;
+        align-items: end;
+        // border: 1px solid black;
+        display: flex;
+        justify-content: space-between;
     }
 
-    .down {
-        width: 100%;
-        height: 80%;
+    .editSq {
+        width: 70%;
+        height: 70vh;
+        background-color: #99B080;
+        border-radius: 2vh;
+        margin-left: 15%;
+        padding: 5% 0;
 
-        .editSq {
-            width: 59%;
-            height: 90%;
-            background-color: #89A071;
-            margin-left: 20%;
-            margin-top: -1%;
-            border-radius: 15px;
-            .spanP1{
-                margin-left: 43%;
-                font-size: 1.2rem;
-                color: #4D5C44;
-            }
+        .spanP1 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            // border: 1px black solid;
+            font-size: 3dvh;
+            color: #4D5C44;
+        }
 
-            .spanP2 {
-                margin-left: 44%;
-                font-size: 1.2rem;
-                color: #4D5C44;
-            }
+        .spanP2 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            font-size: 3dvh;
+            color: #4D5C44;
+        }
 
-            .spanP3 {
-                margin-left: 45%;
-                font-size: 1.2rem;
-                color: #4D5C44;
-            }
+        .spanP3 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            font-size: 3dvh;
+            color: #4D5C44;
+        }
 
-            .allInput {
-                height: 5%;
-                width: 44%;
-                border-radius: 15px;
-                border: 1pt solid #FAF8ED;
-                background-color: #FAF8ED;
-                margin-left: 28%;
-                margin-bottom: 3%;
-            }
+        .allInput {
+            width: 50%;
+            border-radius: 2vh;
+            font-size: 2.5dvh;
+            margin-bottom: 1%;
+            border: 0;
+            background-color: #FAF8ED;
+            margin-left: 25%;
+            text-align: center;
+        }
 
-            .btn {
-                width: 10%;
-                height: 7%;
-                background-color: #F5A352;
-                border: 1pt solid #F5A352;
-                color: #FAF8ED;
-                border-radius: 15px;
-                margin-left: 46%;
-            }
+        .btn {
+            width: 14%;
+            height: 10%;
+            font-size: 2.5dvh;
+            background-color: #F5A352;
+            border: 0;
+            color: #FAF8ED;
+            border-radius: 2vh;
+            margin-left: 43%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5%;
+        }
+
+        .warning {
+            height: 5%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            color: #DB3A3A;
+            font-size: 2dvh;
+            margin-bottom: 1%;
+            // border: 1px solid black;
         }
     }
 }

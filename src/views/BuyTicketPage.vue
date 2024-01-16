@@ -1,8 +1,8 @@
 <template >
-    <button @click="this.goNotice()">暫時用注意事項</button>
+    <!-- <button @click="this.goNotice()">暫時用注意事項</button>
     <button @click="this.goBuyNotice()">暫時用購買提醒</button>
     <button @click="this.goGetTicketPage()">暫時取票說明</button>
-    <button @click="this.goCencelTicketPage()">退票規定</button>
+    <button @click="this.goCencelTicketPage()">退票規定</button> -->
     <div class="up">
         <div class="showArea">
             <div class="showImg">
@@ -12,7 +12,6 @@
 
             <!-- 節目資訊 -->
             <div class="showInfo">
-                <br>
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
                 <span>
@@ -35,14 +34,16 @@
         </div>
     </div>
     <div class="down">
-        <br>
-        　　　　　　　　　　　　　　　　　　　　<span class="downInfoP">票種</span>　　　　　　　　　　　　　　　　　　　　<span class="downInfoP">售價</span>
-        <br><br>
-        <div class="ticket1">
-            <br>
-            <span class="ticketP ticketP1 ">預售票</span>
-            <span class="ticketP ticketP2 ">TWD$</span>
-            <span class="ticketP ticketP3 ">1200</span>
+        <div class="title">
+            <span>票種</span>
+            <span>售價</span>
+            <span></span>
+        </div>
+
+        <div class="ticket">
+
+            <span>預售票</span>
+            <span>TWD$1200</span>
             <button class="btn">購買</button>
         </div>
         <br>
@@ -65,7 +66,7 @@ export default {
         goGetTicketPage() {
             this.$router.push('/GetTicketPage')
         },
-        goCencelTicketPage(){
+        goCencelTicketPage() {
             this.$router.push('/CencelTicketPage')
         },
     },
@@ -86,12 +87,14 @@ export default {
         height: 90%;
         background-color: #F5A352;
         margin: auto;
+        border-radius: 2vh;
 
         .showImg {
             width: 100%;
             height: 80%;
 
             img {
+                border-radius: 2vh 2vh 0 0;
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -106,9 +109,9 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 3vh;
+                font-size: 3dvh;
                 margin-left: 5%;
-                line-height: 1.8rem;
+                line-height: 5vh;
             }
         }
     }
@@ -116,42 +119,54 @@ export default {
 
 .down {
     width: 100%;
-    height: 30%;
     background-color: #99B080;
+    padding: 0% 15% 5% 15%;
 
-    .downInfoP {
+    // border: 1px solid black;
+    .title {
+        height: 10vh;
+        color: #F5BF89;
+        display: flex;
+        // border: 1px solid black;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 4dvh;
+        padding: 2%;
+        span{
+            width: 10%;
+            // border: 1px solid black;
+            margin-left: 0%;
+        }
+    }
+}
+
+.ticket{
+    width: 100%;
+    height: 10vh;
+    background-color: #748E63;
+    border-radius: 2vh;        
+    align-items: center;
+    display: flex;
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    span {
         color: #FAF8ED;
-        font-size: 1.1rem;
+        font-size: 2.5dvh;
     }
+}
 
-    .ticket1 {
-        width: 60%;
-        height: 25%;
-        background-color: #748E63;
-        margin-left: 20%;
-    }
 
-    .ticketP {
-        color: #FAF8ED;
-        font-size: 1.1rem;
-    }
-
-    .ticketP1 {
-        margin-left: 1%;
-        margin-right: 34%;
-    }
-
-    .ticketP3 {
-        margin-right: 30%;
-    }
-
-    .btn {
-        width: 10%;
-        height: 45%;
-        background-color: #F5A352;
-        border: 1pt solid #F5A352;
-        border-radius: 15px;
-        font-size: 1.1rem;
-        color: #FAF8ED;
-    }
-}</style>
+.btn {
+    width: 10%;
+    height: 100%;
+    background-color: #F5A352;
+    border: 1pt solid #F5A352;
+    border-radius: 2vh;
+    font-size: 2.5dvh;
+    color: #FAF8ED;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>

@@ -76,7 +76,7 @@ export default {
             width: 25%;
             background-color: #89A071;
             border: 1pt solid #89A071;
-            font-size: 3vh;
+            font-size: 3dvh;
             line-height: 6vh;
             color: #FAF8ED;
             border-radius: 2vh;
@@ -86,7 +86,7 @@ export default {
             width: 25%;
             background-color: #89A071;
             border: 1pt solid #89A071;
-            font-size: 3vh;
+            font-size: 3dvh;
             line-height: 6vh;
             color: #FAF8ED;
             border-radius: 2vh;
@@ -114,7 +114,7 @@ export default {
                 align-items: center;
                 .actSpan {
                     color: #4D5C44;
-                    font-size:3vh;
+                    font-size:3dvh;
                 }
             }
 
@@ -130,23 +130,23 @@ export default {
                     .hensyu {
                         width: 10%;
                         height: 20%;
-                        border-radius: 10vh;
-                        font-size: 2vh;
+                        border-radius: 2vh;
+                        font-size: 2dvh;
                         background-color: #F5A352;
                         border: 1pt solid #F5A352;
                         color: #FAF8ED;
                     }
     
                     .spanName {
-                        font-size: 2vh;
+                        font-size: 2dvh;
                         color: #4D5C44;
                         
                     }
                     .cencel {
                         width: 10%;
                         height: 20%;
-                        border-radius: 10vh;
-                        font-size: 2vh;
+                        border-radius: 2vh;
+                        font-size: 2dvh;
                         background-color: #DB3A3A;
                         border: 1pt solid #DB3A3A;
                         color: #FAF8ED;

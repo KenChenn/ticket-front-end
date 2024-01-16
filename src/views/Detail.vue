@@ -46,16 +46,16 @@
             <RouterLink to="/Introduction" class="link">
                 活動介紹
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/TicketNoticePage" class="link">
                 注意事項
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/BuyNoticePage" class="link">
                 購買提醒
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/GetTicketPage" class="link">
                 取票方式
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/CencelTicketPage" class="link">
                 退票規定
             </RouterLink>
     </div>
@@ -136,7 +136,7 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 3vh;
+                font-size: 3dvh;
                 margin-left: 5%;
                 line-height: 5vh;
             }
@@ -162,7 +162,7 @@ export default {
         height: 100%;
         border-radius: 2vh;
         border: none;
-        font-size: 3vh;
+        font-size: 3dvh;
         color: #DB3A3A;
         background-color: none;
         border: #DB3A3A solid 5px;
@@ -185,8 +185,8 @@ export default {
         height: 40%;
         margin-bottom: 5vh;
         background-color: #748E63;
-        border-radius: 15px;
-        font-size: 3vh;
+        border-radius: 2vh;
+        font-size: 3dvh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -199,17 +199,17 @@ export default {
 .down {
     // height: auto;
     background-color: #99B080;
+    .title {
+        // border: 1px solid black;
+        height: 10vh;
+        color: #F5BF89;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4dvh;
+    }
 }
 
-.title {
-    // border: 1px solid black;
-    height: 10vh;
-    color: #FAF8ED;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-}
 
 .forum {
     padding: 0% 15% 5% 15%;
@@ -221,7 +221,7 @@ export default {
     margin-bottom: 10vh;
     // border: 1px solid black;
     background-color: #89A071;
-    border-radius: 15px;
+    border-radius: 2vh;
     display: flex;
 }
 
@@ -240,12 +240,12 @@ export default {
 
     // border: 1px black solid;
     .user {
-        font-size: 2rem;
+        font-size: 2.5dvh;
     }
 
     .content {
         margin: 1%;
-        font-size: 3vh;
+        font-size: 2.5dvh;
     }
 }
 </style>

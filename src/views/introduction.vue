@@ -123,7 +123,7 @@ export default {
         color: #F5BF89;
         display: flex;
         align-items: center;
-        font-size: 5dvh;
+        font-size: 4dvh;
     }
     .information {
         font-size: 2.5dvh;
