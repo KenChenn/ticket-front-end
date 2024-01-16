@@ -1,13 +1,21 @@
 <script >
+import {mapState,mapActions} from 'pinia';
+import counter from '../stores/counter';
 export default {
     data() {
         return {
-
+            // ...mapState(counter,['dataList','testArray','test']),
         }
     },
-    methods: {
+    computed: {
+        ...mapState(counter, ['dataList','testArray','test'])
     },
-
+    methods: {
+        ...mapActions(counter,[]),
+    },
+    mounted() {
+        this.search()
+    },
 }
 </script>
 
@@ -15,15 +23,21 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <RouterLink to="/" class="show">
+        <RouterLink to="/" class="show" v-for="(item,index) in this.dataList">
             <!-- 節目圖片 -->
             <div class="showImg">
-                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
+                <img :src="item.keyvisualImg ">
+            </div>
+            <div>
+                <!-- 節目名稱 -->
+                <p>
+                    {{ item.name }}
+                </p>
             </div>
             <!-- 節目開售日期 -->
             <div class="showDate">
                 <p>
-                    2024/12/31 Wed
+                    {{ item.startDate }}
                 </p>
             </div>
             <!-- 節目狀態 -->
@@ -32,6 +46,12 @@ export default {
                     ON SALE
                 </p>
             </div>
+            
+            <!-- //測試 -->
+            <!-- <div class="one" v-for="(item,index) in this.dataList">
+                <p class="text"> {{ item.codename }}</p>
+                <img :src="item.keyvisualImg ">
+            </div> -->
         </RouterLink>
 
     </div>
@@ -45,6 +65,15 @@ export default {
     justify-content: space-between;
     background-color: #99B080;
     padding: 5% 10% 0% 10%;
+
+    .one{
+        height: 200px;
+        width: 200px;
+        background-color: #FAF8ED;
+        .text{
+            color: black;
+        }
+    }
 }
 
 .show {
