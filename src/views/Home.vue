@@ -1,11 +1,18 @@
 <script>
+import { mapState, mapActions } from 'pinia';
+import counter from '../stores/counter';
 export default {
   data() {
     return {
-
+      ...mapState(counter, ['dataList']),
+      searchData: "",
+      dataList:[]
     }
   },
+  computed: {
+  },
   methods: {
+    ...mapActions(counter, ["saveSearchData"]),
     tabChange() {
 
     },
@@ -23,7 +30,37 @@ export default {
     },
     goBuyTicketPage() {
       this.$router.push('/BuyTicketPage')
-    }
+    },
+    //連接搜尋的API
+    search() {
+      console.log("123")
+
+      fetch('http://localhost:8080/api/search_commodity', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.searchData
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.commodityList);
+          this.dataList = data.commodityList;
+          this.saveSearchData(this.dataList)
+          console.log(this.dataList)
+          // 將資料存儲到 Local Storage 中，使用 'searchData' 作為鑰匙
+          localStorage.setItem('searchDataList', this.dataList);
+        })
+        .catch(error => console.log(error))
+      //   console.log(this.dataList);
+
+      // setTimeout(() => {
+      //   console.log(this.dataList);
+      // }, 1000);
+      
+    },
   },
   mounted() {
 
@@ -34,9 +71,16 @@ export default {
 <template>
   <!-- <button type="button" @click="this.go()">去登入</button>
 <button @click="this.goUserInfo()">去個資頁</button> -->
-  <button @click="this.goCreateHost">去建立主辦單位頁</button>
+  <!-- <button @click="this.goCreateHost">去建立主辦單位頁</button>
   <button @click="this.goEditHost">去編輯主辦單位頁</button>
-  <button @click="this.goBuyTicketPage">去購票頁</button>
+  <button @click="this.goBuyTicketPage">去購票頁</button> -->
+
+  <div class="header">
+    <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
+    <input type="text" class="search" v-model="searchData">
+    <button type="button" class="signinBtn">註冊</button>
+    <button type="button" class="logininBtn">登入</button>
+  </div>
 
   <div class="bgCarousel">
     <el-carousel height="auto" autoplay>
@@ -71,6 +115,48 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.header {
+  width: 100%;
+  height: 10vh;
+  background-color: #F9B572;
+  position: relative;
+
+  .fa-magnifying-glass {
+    position: absolute;
+    font-size: 1.5rem;
+    color: #E6E1C8;
+    top: 30%;
+    left: 28.5%;
+  }
+
+  .search {
+    height: 60%;
+    width: 20%;
+    background-color: #FAF8ED;
+    border: 1pt solid #FAF8ED;
+    border-radius: 5px;
+    margin-left: 28%;
+  }
+
+  .signinBtn {
+    background-color: #F9B572;
+    border: 1pt solid #F9B572;
+    margin-top: 0.5%;
+    font-size: 1.3rem;
+    color: #FAF8ED;
+    margin-left: 20%;
+    margin-right: 5%;
+  }
+
+  .logininBtn {
+    background-color: #F9B572;
+    border: 1pt solid #F9B572;
+    margin-top: 0.5%;
+    font-size: 1.3rem;
+    color: #FAF8ED;
+  }
+}
+
 .el-carousel-item {
   background-size: cover;
   background-attachment: fixed;
@@ -109,29 +195,30 @@ export default {
   display: flex;
   justify-content: center;
 }
+
 .navigate a {
-    width: 20%;
-    height: 100%;
-    margin-left: 2%;
-    margin-right: 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px 30px 0 0;
-    background-color: #748e63;
-    color: #faf8ed;
-    font-size: 2rem;
-    text-decoration: none;
+  width: 20%;
+  height: 100%;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 30px 0 0;
+  background-color: #748e63;
+  color: #faf8ed;
+  font-size: 2rem;
+  text-decoration: none;
 }
-    // border: 1px solid black;
-    .navigate a.active{
-      background-color: #99B080;
-    }
+
+// border: 1px solid black;
+.navigate a.active {
+  background-color: #99B080;
+}
 
 
 .footer {
   width: 100%;
   height: 10vh;
   background-color: #faf8ed;
-}
-</style>
+}</style>

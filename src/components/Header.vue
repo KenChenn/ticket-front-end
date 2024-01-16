@@ -4,7 +4,7 @@ export default {
   data() {
     return {
       // account:true,
-      dataList: []
+      dataList: [],
     };
   },
   methods: {
@@ -14,26 +14,7 @@ export default {
     }
   },
   methods: {
-    //連接搜尋的API
-    search() {
-      console.log(this.searchData)
-      fetch('http://localhost:8080/api/search_commodity', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: this.searchData
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          this.dataList = data;
-          console.log(this.dataList)
-        })
-        .catch(error => console.log(error))
-      console.log()
-    },
+    
   },
   components: {
     RouterLink,
@@ -45,16 +26,17 @@ export default {
     <div class="navigate">
       <!-- 搜尋欄 -->
       <div class="search">
-        <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
+        <i class="fa-solid fa-magnifying-glass" ></i>
         <input type="text" class="searchBar" v-model="searchData">
+        <BUtton type="button">搜尋</BUtton>
       </div>
 
       <div class="headerShow">
         <!-- 搜尋欄 -->
-        <div class="searchBar">
-          <i class="fa-solid fa-magnifying-glass" @click="search"></i>
+        <!-- <div class="searchBar">
+          <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
           <input type="search" class="searchInput">
-        </div>
+        </div> -->
 
         <div class="isLogIn" v-if="account">
           <!-- 已登入 -->
