@@ -36,8 +36,6 @@ export default {
     },
     //連接搜尋的API
     search() {
-      console.log("123")
-
       fetch('http://localhost:8080/api/search_commodity', {
         method: "POST",
         headers: {
@@ -66,7 +64,7 @@ export default {
     },
   },
   mounted() {
-
+    this.search()
   }
 }
 </script>
