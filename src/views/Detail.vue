@@ -58,7 +58,7 @@
             <RouterLink to="/" class="link">
                 退票規定
             </RouterLink>
-    </div>
+        </div>
 
     </div>
 
@@ -69,7 +69,7 @@
 
         <div class="forum">
             <!-- 討論區發言 -->
-            <div class="discussion">
+            <div class="discussion" >
                 <div class="circle"></div>
                 <div class="info">
                     <!-- 使用者名字 -->
@@ -108,6 +108,22 @@ export default {
         counter().setHeaderLink(null);
         next();
     },
+    mounted() {
+        fetch('http://localhost:8080/api/get_comments',
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                            
+                        }),
+            }).then(response => response.json())
+            .then(res => {
+                console.log(res);
+            })
+    }
 }
 </script>
 
@@ -175,9 +191,10 @@ export default {
         color: #DB3A3A;
         background-color: none;
         border: #DB3A3A solid 5px;
-        button:active{
+
+        button:active {
             background-color: none;
-            border:solid #DB3A3A 1px;
+            border: solid #DB3A3A 1px;
         }
     }
 }
@@ -238,7 +255,7 @@ export default {
     width: 3vw;
     height: 3vw;
     background-color: #F5A352;
-    margin: 2% 2% 0% 2%;    
+    margin: 2% 2% 0% 2%;
     clip-path: circle(50% at 50% 50%);
 }
 
