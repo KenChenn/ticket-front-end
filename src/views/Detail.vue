@@ -3,27 +3,27 @@
         <div class="showArea">
             <div class="showImg">
                 <!-- 節目圖片 -->
-                <img src="../../public/material/3-4_1200X630_V3_medium.png">
+                <img v-if="this.codeList[0]" :src="this.codeList[0].keyvisualImg">
             </div>
 
             <!-- 節目資訊 -->
             <div class="showInfo">
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
-                <span>
-                    2024/01/31(周三) 19:30(+0800)
+                <span v-if="this.codeList[0]">
+                    {{ this.codeList[0].startDate }}
                 </span>
                 <br>
                 <i class="fa-solid fa-location-dot"></i>
                 <!-- 地點 -->
-                <span>
-                    Legacy Taipei / 台北市中正區八德路一段一號
+                <span v-if="this.codeList[0]">
+                    {{ this.codeList[0].place }}
                 </span>
                 <br>
                 <i class="fa-solid fa-user"></i>
                 <!-- 主辦 -->
-                <span>
-                    主辦單位 躍演
+                <span v-if="this.codeList[0]">
+                    {{ this.codeList[0].organizer }}
                 </span>
             </div>
 
@@ -46,19 +46,19 @@
             <RouterLink to="/Introduction" class="link">
                 活動介紹
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/TicketNoticePage" class="link">
                 注意事項
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/BuyNoticePage" class="link">
                 購買提醒
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/GetTicketPage" class="link">
                 取票方式
             </RouterLink>
-            <RouterLink to="/" class="link">
+            <RouterLink to="/CencelTicketPage" class="link">
                 退票規定
             </RouterLink>
-    </div>
+        </div>
 
     </div>
 
@@ -95,11 +95,56 @@
 export default {
     data() {
         return {
-
+            codeList: [],
+            trackerList:[],
+            commodityCodenameList:[]
         }
     },
-
+    methods: {
+        codeInfo() {
+            fetch('http://localhost:8080/api/get_commodity', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    codename: this.$route.params.codename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.codeList = data.commodityList;
+                    console.log(this.codeList)
+                })
+                .catch(error => console.log(error))
+        },
+        searchFavorate(){
+            fetch('http://localhost:8080/api/checktrack', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tracker:
+                    commodityCodename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.codeList = data.commodityList;
+                    console.log(this.codeList)
+                })
+                .catch(error => console.log(error))
+        }
+    },
+    mounted() {
+        
+    },
+    created() {
+        this.codeInfo()
+    }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -166,9 +211,10 @@ export default {
         color: #DB3A3A;
         background-color: none;
         border: #DB3A3A solid 5px;
-        button:active{
+
+        button:active {
             background-color: none;
-            border:solid #DB3A3A 1px;
+            border: solid #DB3A3A 1px;
         }
     }
 }
@@ -229,7 +275,7 @@ export default {
     width: 3vw;
     height: 3vw;
     background-color: #F5A352;
-    margin: 2% 2% 0% 2%;    
+    margin: 2% 2% 0% 2%;
     clip-path: circle(50% at 50% 50%);
 }
 

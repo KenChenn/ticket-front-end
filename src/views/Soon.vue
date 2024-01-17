@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             // ...mapState(counter,['dataList','testArray','test']),
+            codename:"/Detail/", // /原本的/變數內容
         }
     },
     computed: {
@@ -14,7 +15,7 @@ export default {
         ...mapActions(counter,[]),
     },
     mounted() {
-        this.search()
+        
     },
 }
 </script>
@@ -23,26 +24,26 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <RouterLink to="/" class="show" v-for="(item,index) in this.dataList">
-        <RouterLink to="/Detail" class="show">
+        <RouterLink  to="/" class="show" v-for="(item,index) in this.dataList" >
+        <RouterLink :to= "codename" class="show"  @click="this.codename = this.codename + item.codename">
             <!-- 節目圖片 -->
-            <div class="showImg">
+            <div class="showImg" @click="this.codename = this.codename + item.codename" >
                 <img :src="item.keyvisualImg ">
             </div>
-            <div>
+            <div @click="this.codename = this.codename + item.codename">
                 <!-- 節目名稱 -->
                 <p>
                     {{ item.name }}
                 </p>
             </div>
             <!-- 節目開售日期 -->
-            <div class="showDate">
+            <div class="showDate" @click="this.codename = this.codename + item.codename">
                 <p>
                     {{ item.startDate }}
                 </p>
             </div>
             <!-- 節目狀態 -->
-            <div class="showStatus">
+            <div class="showStatus" @click="this.codename = this.codename + item.codename">
                 <p>
                     ON SALE
                 </p>

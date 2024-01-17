@@ -96,7 +96,7 @@ const router = createRouter({
       component: () => import("../views/SessionsAndSeats.vue"),
     },
     {
-      path: "/Detail",
+      path: "/Detail/:codename",
       name: "Detail",
       component: () => import("../views/Detail.vue"),
     },
