@@ -1,44 +1,50 @@
 <template>
-<body>
-    <div class="top">
-        <span class="title">場次及座位</span>
-        <button type="button" class="completeEditing">完成編輯</button>
-    </div>
-    <div class="content">
-        <div class="startAll">
-            <span class="start">活動開始時間</span>
-            <input type="datetime-local" class="startAbout">
-            <button type="button" class="deleteEvent">刪除場次</button>
+    <body>
+        <div class="top">
+            <span class="title">場次及座位</span>
+            <button type="button" class="completeEditing" @click="createActtivity">建立活動</button>
         </div>
+        <div class="content" v-for="(item, index) in this.sessionList" :key="index">
+            <div class="startAll">
+                <span class="start">活動開始時間</span>
+                <input type="datetime-local" class="startAbout" v-model="item.showDateTime" :min="minShowDateTime">
+                <span v-if="!isEmptyShowDateTime" class="error errorShowDateTime">請輸入活動開始時間</span>
+                <button type="button" class="deleteEvent" @click="deleteEvent(index)">刪除場次</button>
+            </div>
 
-        <div class="onSaleAll">
-            <span class="onSale">開售時間</span>
-            <input type="datetime-local" class="onSaleAbout">
-        </div>
+            <div class="onSaleAll">
+                <span class="onSale">開售時間</span>
+                <input type="datetime-local" class="onSaleAbout" v-model="item.startSellDateTime" :min="minStartSellDateTime">
+                <span v-if="!isEmptyStartSellDateTime" class="error errorStartSellDateTime">請輸入開售時間</span>
+            </div>
 
-        <div class="stopSaleAll">
-            <span class="stopSale">停售時間</span>
-            <input type="datetime-local" class="stopSaleAbout">
-        </div>
+            <div class="stopSaleAll">
+                <span class="stopSale">停售時間</span>
+                <input type="datetime-local" class="stopSaleAbout" v-model="item.endSellDateTime"
+                    @click="EndSellDateTime(item.startSellDateTime)" :min="minEndSellDateTime">
+                <span v-if="!isEmptyEndSellDateTime" class="error errorEndSellDateTime">請輸入停售時間</span>
+            </div>
 
-        <div class="up">
-            <span class="area">區域名稱</span>
-            <span class="seat">可出售座位數</span>
-            <span class="price">座位價格</span>
-            <button type="button" class="addArea">新增區域</button>
+            <div class="nameArea">
+                <span class="area">區域名稱</span>
+                <span class="seat">可出售座位數</span>
+                <span class="price">座位價格</span>
+                <span v-if="!isEmptyArea" class="error errorArea">請輸入區域名稱 </span>
+                <span v-if="!isEmptySeat" class="error errorSeat">請輸入可出售座位數 </span>
+                <span v-if="!isEmptyPrice" class="error errorPrice">請輸入座位價格 </span>
+                <button type="button" class="addArea" @click="addArea(index)">新增區域</button>
+            </div>
+            <div class="aboutArea" v-for="(areaItem, areaIndex) in item.seatData" :key="areaIndex">
+                <input type="text" class="areaAbout" v-model="areaItem.area">
+                <input type="number" class="seatAbout" v-model="areaItem.maxSeatNum">
+                <input type="number" class="priceAbout" v-model="areaItem.price">
+                <button type="button" class="deleteArea" @click="deleteArea(index, areaIndex)">刪除區域</button>
+            </div>
         </div>
-        <div class="down">
-            <input type="text" class="areaAbout">
-            <input type="number" class="seatAbout">
-            <input type="number" class="priceAbout">
-            <button type="button" class="deleteArea">刪除區域</button>
+        <div class="footer">
+            <button type="button" class="addEvent" @click="addEvent">新增場次</button>
         </div>
-        
-    </div>
-    <div class="footer">
-        <button type="button" class="addEvent">新增場次</button>
-    </div>
-</body>
+    </body>
 </template>
 <script>
 // import { tr } from 'element-plus/es/locale';
@@ -300,44 +306,6 @@ export default {
 body{
     background-color: #faf8ed;
 }
-.header{
-    width: 100%;
-    height: 10vh;
-    margin-top: 0;
-    background-color: #F9B572;
-    position: fixed;
-    top: 0;
-    z-index: 5;
-    .fa-solid{
-        position: absolute;
-        font-size: 30px;
-        left:15.5%;
-        top: 30%;
-        color: #E6E1C8;
-        z-index: 10;
-        }
-    .search{
-        position: absolute;
-        width: 17%;
-        height: 70%;
-        top: 15%;
-        left: 15%;
-        padding-left: 3%;
-        border-radius: 15px;
-        border: 0 ;
-        background-color: #FAF8ED;
-        font-size: 25px;
-    }
-    .signOut{
-        position: absolute;
-        background-color: transparent;
-        color: #FAF8ED;
-        font-size: 30px;
-        right: 14%;
-        top: 20%;
-        border: 0;
-    }
-}
 .top{
     width: 70vw;
     height: 100%;
@@ -381,12 +349,7 @@ body{
         font-size: 3dvh;
         margin: 0;
     }
-    p{
-        color: #4D5C44;
-        font-size: 3dvh;
-        margin: 0;
-        font-weight: 600;
-    }
+
 
     input {
         width: 30%;
@@ -427,7 +390,7 @@ body{
         margin-bottom: 5%;
         .onSale{
             margin-left: 2.5%;
-            margin-right: 15.5%;
+            margin-right: 21%;
         }
         .onSaleAbout{
             text-align: center;
@@ -438,13 +401,13 @@ body{
 
         .stopSale{
             margin-left: 2.5%;
-            margin-right: 15.5%;
+            margin-right: 21%;
         }
         .stopSaleAbout{
             text-align: center;
         }
     }
-    .up{
+    .nameArea{
         display: flex;
         justify-content: space-between;
         .area{
@@ -467,7 +430,7 @@ body{
         border-radius: 1.5vh;
         }
     }
-    .down{
+    .aboutArea{
         display: flex;
         justify-content: space-between;
         margin-top: 1.5%;
@@ -494,64 +457,6 @@ body{
             border: 0;
             border-radius: 1.5vh;
             
-        }
-    }
-
-    .aboutArea {
-        width: 100%;
-        height: 44%;
-        position: absolute;
-        margin-top: 35%;
-        // z-index: -1;
-        // background-color: black;
-        display: flex;
-
-        .aboutLeft {
-            width: 100%;
-            overflow-y: auto;
-
-            .About {
-                width: 100%;
-                height: 20%;
-                margin-top: 10px;
-                // border: 1px solid black;
-
-                .areaAbout {
-                    width: 17%;
-                    height: 80%;
-                    margin-left: 8%;
-                }
-
-                .seatAbout {
-                    width: 23%;
-                    height: 80%;
-                    margin-left: 4%;
-                }
-
-                .priceAbout {
-                    width: 23%;
-                    height: 80%;
-                    margin-left: 3%;
-                }
-
-                .deleteArea {
-                    width: 11vw;
-                    background-color: #db3a3a;
-                    font-size: 30px;
-                    color: #faf8ed;
-                    border: 0;
-                    border-radius: 17px;
-                    margin-top: 0.5%;
-                    margin-left: 2%;
-                }
-            }
-
-        }
-
-        .aboutRight {
-            width: 20%;
-
-
         }
     }
 
