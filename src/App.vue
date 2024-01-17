@@ -11,7 +11,7 @@ export default {
 
 <template>
   <div class="header">
-  <Header />
+  <!-- <Header /> -->
   </div>
 
   <div class="content">
