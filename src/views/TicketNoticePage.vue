@@ -115,7 +115,7 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 1.5rem;
+                font-size: 3vh;
                 margin-left: 5%;
                 line-height: 1.8rem;
             }

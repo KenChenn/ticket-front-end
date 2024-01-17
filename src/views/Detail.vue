@@ -182,7 +182,7 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 3vh;
+                font-size: 3dvh;
                 margin-left: 5%;
                 line-height: 5vh;
             }
@@ -206,16 +206,21 @@ export default {
     button {
         width: 100%;
         height: 100%;
-        border-radius: 2vh;
+        border-radius: 1.5vh;
         border: none;
-        font-size: 3vh;
+        font-size: 3dvh;
         color: #DB3A3A;
-        background-color: none;
-        border: #DB3A3A solid 5px;
-
-        button:active {
-            background-color: none;
-            border: solid #DB3A3A 1px;
+        background-color: #FAF8ED;
+        border: #DB3A3A solid 0.5vh;
+        &:hover{
+            transition: 0.1s linear;
+            scale: 1.05;
+            background-color: #ffffff;
+        }
+        &:active{
+            scale: 0.95;
+            background-color: #DB3A3A;
+            color: #FAF8ED;
         }
     }
 }
@@ -232,13 +237,23 @@ export default {
         height: 40%;
         margin-bottom: 5vh;
         background-color: #748E63;
-        border-radius: 15px;
-        font-size: 1.5rem;
+        border-radius: 1.5vh;
+        font-size: 3dvh;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
         color: #FAF8ED;
+        &:hover{
+            background-color: #608349;
+            transition: 0.1s linear;
+            scale: 1.05;
+        }
+        &:active{
+            scale: 0.95;
+            background-color: #4D5C44;
+            color: #FAF8ED;
+        }
     }
 }
 
@@ -246,17 +261,17 @@ export default {
 .down {
     // height: auto;
     background-color: #99B080;
+    .title {
+        // border: 1px solid black;
+        height: 10vh;
+        color: #ffc68d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4dvh;
+    }
 }
 
-.title {
-    // border: 1px solid black;
-    height: 10vh;
-    color: #FAF8ED;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-}
 
 .forum {
     padding: 0% 15% 5% 15%;
@@ -265,34 +280,34 @@ export default {
 .discussion {
     width: 100%;
     height: auto;
-    margin-bottom: 10vh;
+    margin-bottom: 5%;
     // border: 1px solid black;
-    background-color: #89A071;
-    border-radius: 15px;
+    background-color: #748E63;
+    border-radius: 2vh;
     display: flex;
-}
-
-.circle {
-    width: 3vw;
-    height: 3vw;
-    background-color: #F5A352;
-    margin: 2% 2% 0% 2%;
-    clip-path: circle(50% at 50% 50%);
-}
-
-.info {
-    width: auto;
-    margin: 2%;
-    color: #FAF8ED;
-
-    // border: 1px black solid;
-    .user {
-        font-size: 2rem;
+    .circle {
+        width: 3vw;
+        height: 3vw;
+        background-color: #F5A352;
+        margin: 2% 2% 0% 2%;    
+        clip-path: circle(50% at 50% 50%);
     }
-
-    .content {
-        margin: 1%;
-        font-size: 1.5rem;
+    
+    .info {
+        width: auto;
+        margin: 2%;
+        color: #FAF8ED;
+    
+        // border: 1px black solid;
+        .user {
+            font-size: 2.5dvh;
+        }
+    
+        .content {
+            margin: 1%;
+            font-size: 2.5dvh;
+        }
     }
 }
+
 </style>

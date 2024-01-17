@@ -1,19 +1,26 @@
 <template lang="">
 <div class="main">
     <div class="down">
-        <h1 class="pp">個人資料</h1>
-        <div class="info">
-            <br><br>
-            <span class="spanP">使用者名稱</span>　　　　　　　<span class="infoSpan">{{this.user}}</span>
-            <br><br>
-            <span class="spanP">Email</span>　　　　　　　　<span class="infoSpan">{{this.email}}</span>
-            <br><br>
-            <span class="spanP">生日</span>　　　　　　　　　<span class="infoSpan">{{this.birth}}</span>
-            <br><br>
-            <span class="spanP">電話</span>　　　　　　　　　<span class="infoSpan">{{this.phone}}</span>
-            <br><br><br>
-            <button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
-            <button type="button" class="btn2" @click="this.goEditPwdPage()">修改密碼</button>
+        <div class="title">
+                個人資料
+            </div>
+            <div class="info">           
+            <span class="spanP">使用者名稱</span>
+            <span class="infoSpan">{{this.user}}111</span>
+                        
+            <span class="spanP">Email</span>
+            <span class="infoSpan">{{this.email}}1111</span>
+                        
+            <span class="spanP">生日</span>
+            <span class="infoSpan">{{this.birth}}1111</span>
+                        
+            <span class="spanP">電話</span>
+            <span class="infoSpan">{{this.phone}}1111</span>
+                        
+            <div class="btnArea">
+                <button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
+                <button type="button" class="btn" @click="this.goEditPwdPage()">修改密碼</button>
+            </div>
         <!-- <UserRewritePage v-bind:user="this.user" :email="this.email" :birth="this.birth" :phone="this.phone" /> -->
         </div>
     </div>
@@ -36,7 +43,7 @@ export default {
         goUserRewrite() {
             this.$router.push('/UserRewritePage')
         },
-        goEditPwdPage(){
+        goEditPwdPage() {
             this.$router.push('/EditPwdPage')
         }
     },
@@ -74,10 +81,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
-    width: 100vw;
-    height: 100vh;
-    background-color: #FAF8ED;
-
     .up {
         width: 100%;
         height: 60px;
@@ -125,50 +128,67 @@ export default {
         width: 100%;
         height: 89%;
 
-        .pp {
-            margin-left: 27%;
+        .title {
+            width: 70%;
+            height: 10vh;
+            margin-left: 15%;
             color: #4D5C44;
+            font-size: 4dvh;
+            display: flex;
+            align-items: end;
+            // border: 1px solid black;
+            display: flex;
         }
 
         .info {
-            width: 48%;
-            height: 75%;
-            background-color: #89A071;
+            width: 70%;
+            height: 70vh;
+            border: 0.5vh solid#89A071;
             margin: auto;
-            margin-top: -10px;
-            border-radius: 40px;
+            border-radius: 2vh;
+            padding: 3% 0;
         }
 
         .spanP {
-            font-size: 1.3rem;
-            margin-left: 20%;
+            height: 5vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            font-size: 3dvh;
             color: #4D5C44;
         }
 
         .infoSpan {
-            font-size: 1.2rem;
+            height: 5vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            font-size: 2.5dvh;
             color: #4D5C44;
+            margin-bottom: 1%;
         }
 
-        .btn {
-            width: 10%;
-            height: 7%;
-            background-color: #F9B572;
-            border: 1pt solid #F9B572;
-            color: #FAF8ED;
-            border-radius: 15px;
-            margin-left: 30%;
-            margin-right: 20%;
-            font-size: 0.9rem;
-        }
-        .btn2{
-            width: 13%;
-            height: 7%;
-            background-color: #F9B572;
-            border: 1pt solid #F9B572;
-            color: #FAF8ED;
-            border-radius: 15px;
-            font-size: 0.9rem;
+        .btnArea {
+            width: 70%;
+            height: 5vh;
+            margin-left: 15%;
+            display: flex;
+            justify-content: space-around;
+            // border: black 1px solid;
+            .btn {
+                width: 20%;
+                height: 100%;
+                background-color: #F9B572;
+                border: 0;
+                color: #FAF8ED;
+                border-radius: 10vh;
+                font-size: 2.5dvh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+
         }
     }
 }

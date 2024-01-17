@@ -7,56 +7,73 @@
             <p class="loginp" @click="this.goLogin()">登入</p>
         </div> -->
         <div class="down">
-            <h1 class="ppp">帳號註冊</h1>
+            <div class="title">
+                帳號註冊
+                <p>
+                    所有必填
+                </p>
+            </div>
+
             <div class="signUp">
-                <br>
-                <span class="allPP">帳號</span>
-                <input type="text" class="allInput" v-model="account">
-                <br>
-                <span v-if="!isAccount" class="warning">請輸入帳號</span>
-                <span v-if="isReapeatAccount" class="warning">此帳號已經註冊過</span>
-                <br>
 
-                <span class="allPP">使用者名稱</span>
-                <input type="text" class="allInput" v-model="username">
-                <br>
-                <span v-if="!isUsername" class="warning">請輸入使用者名稱</span>
-                <span v-if="isReapeatUsername" class="warning">此使用者名稱已經註冊過</span>
-                <br>
+                <div class="allP">
+                    <span>帳號</span>
+                    <input type="text" class="allInput" v-model="account">
+                    <div class="warning">
+                        <span v-if="!isAccount">請輸入帳號</span>
+                        <span v-if="isReapeatAccount">此帳號已經註冊過</span>
+                    </div>
+                </div>
+                <div class="allP">
+                    <span>使用者名稱</span>
+                    <input type="text" class="allInput" v-model="username">
+                    <div class="warning">
+                        <span v-if="!isUsername">請輸入使用者名稱</span>
+                        <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                    </div>
+                </div>
+                <div class="allP">
+                    <span>Email</span>
+                    <input type="text" class="allInput" v-model="email">
+                    <div class="warning">
+                        <span v-if="!isValidEmail">請輸入正確 Email 格式</span>
+                    </div>
+                </div>
+                <div class="allP">
+                    <span>真實姓名</span>
+                    <input type="text" class="allInput" v-model="name">
+                    <div class="warning">
+                        <span v-if="!isValidName">請輸入正確姓名格式</span>
+                    </div>
+                </div>
+                <div class="allP">
+                    <span>生日</span>
+                    <input type="date" class="allInput" v-model="birthday" :max="maxBirthday">
+                    <div class="warning">
+                        <span v-if="!isBirthday">請輸入生日</span>
+                    </div>
+                </div>
+                <div class="allP">
+                    <span>密碼</span>
+                    <input class="allInput" v-model="password" :type="showPassword ? 'text' : 'password'">
+                    <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
+                    <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
+                    <div class="warning">
+                        <span v-if="!isValidPassword">請輸入 7 ~ 16 碼英文 + 數字</span>
+                    </div>
+                </div>
+                <div class="allP">
+                    <span>手機號碼</span>
+                    <input type="text" class="allInput" v-model="phoneNumber" @input="filterNonNumeric">
+                    <div class="warning">
+                        <span v-if="!isValidPhoneNumber">請輸入 10 碼手機格式</span>
+                    </div>
+                </div>
+                <button type="button" class="btn" @click="register()">
+                    註冊                    
+                </button>
 
-                <span class="allP">Email</span>
-                <input type="text" class="allInput" v-model="email">
-                <br>
-                <span v-if="!isValidEmail" class="warning">請輸入正確 Email 格式</span>
 
-                <br>
-
-                <span class="allP">真實姓名</span>
-                <input type="text" class="allInput" v-model="name">
-                <br>
-                <span v-if="!isValidName" class="warning">請輸入正確姓名格式</span>
-                <br>
-
-                <span class="allP">生日</span>
-                <input type="date" class="allInput" v-model="birthday" :max="maxBirthday">
-                <br>
-                <span v-if="!isBirthday" class="warning">請輸入生日</span>
-                <br>
-
-                <span class="allP">密碼</span>
-                <input class="allInput" v-model="password" :type="showPassword ? 'text' : 'password'">
-                <i class="fa-solid fa-eye-slash eye" v-show="!showPassword" @click="passwordVisibility()"></i>
-                <i class="fa-solid fa-eye eye" v-show="showPassword" @click="passwordVisibility()"></i>
-                <br>
-                <span v-if="!isValidPassword" class="warning">請輸入 7 ~ 16 碼英文 + 數字</span>
-                <br>
-
-                <span class="allPP">手機號碼</span>
-                <input type="text" class="allInput" v-model="phoneNumber" @input="filterNonNumeric">
-                <br>
-                <span v-if="!isValidPhoneNumber" class="warning">請輸入 10 碼手機格式</span>
-                <br>
-                <button type="button" class="btn" @click="register()">註冊</button>
             </div>
         </div>
     </div>
@@ -187,9 +204,8 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-    width: 100vw;
-    height: 130vh;
-    background-color: #FAF8ED;
+    // width: 100%;
+    // // height: 130vh;
 
     .up {
         width: 100%;
@@ -230,59 +246,97 @@ export default {
     }
 
     .down {
-        width: 100%;
-        height: 95%;
-        .signUp {
-            width: 55%;
-            height: 75%;
-            background-color: #89A071;
-            margin: auto;
-            border-radius: 15px;
+        padding-bottom: 5%;
+        background-color: #FAF8ED;
+
+        .title {
+            width: 70%;
+            height: 10vh;
+            margin-left: 15%;
+            color: #4D5C44;
+            font-size: 4dvh;
+            display: flex;
+            align-items: end;
+            // border: 1px solid black;
+            display: flex;
+            justify-content: space-between;
+
+            p {
+                font-size: 2dvh;
+            }
         }
 
-        .ppp {
-            margin-left: 27%;
-            color: #4D5C44;
+        .signUp {
+            width: 70%;
+            height: 70vh;
+            border: 0.5vh solid#89A071;
+            margin: auto;
+            border-radius: 2vh;
+            padding: 3%;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .allInput {
-            width: 47%;
-            height: 4%;
-            margin-left: 28%;
-            border-radius: 15px;
+            width: 80%;
+            font-size: 3dvh;
+            margin-top: 1%;
+            border: 0;
             background-color: #FAF8ED;
-            border: 1pt solid #FAF8ED;
+            border-bottom: #89A071 0.3vh solid;
+            color: #4D5C44;
+            &:focus{
+                outline: 0;
+            }
         }
 
         .allP {
-            margin-left: 48%;
+            width: 50%;
+            font-size: 3dvh;
             color: #4D5C44;
+            // border: 1px black solid;
         }
-
-        .allPP {
-            margin-left: 45%;
+        .allP span{
+            width: 100%;
+            height: 30%;
+            display: flex;
+        }
+        i {
+            margin-left: 1%;
+            font-size: 2dvh;
             color: #4D5C44;
         }
 
         .warning {
-            margin-left: 40%;
-            color: #F5A352;
-            font-size: 0.8rem;
+            height: 3vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            color: #DB3A3A;
+            font-size: 2dvh;
         }
 
         .btn {
-            background-color: #F9B572;
-            border: 1pt solid #F9B572;
-            color: #FAF8ED;
-            border-radius: 15px;
-            margin-left: 48%;
-
+            width: 14%;
+                height: 10%;
+                border:0.3vh solid #4D5C44;
+                // border: 0;
+                color: #4D5C44;
+                border-radius: 1.5vh;
+                margin-left: 43%;
+                font-size: 2.5dvh;
+                &:hover{
+                    transition: 0.1s linear;
+                    color: #FAF8ED;
+                    border:0;
+                    background-color: #F5A352;
+                    scale: 1.1;
+                }
+                &:active{
+                    scale: 0.95;
+                }
         }
-        .eye{
-            position: absolute;
-            left: 63%;
-            top: 95.5%
-        }
+        
     }
 }
 </style>

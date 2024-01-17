@@ -60,11 +60,24 @@ export default {
         <input type="search" class="searchInput" v-model="searchData">
       </div>
 
-      <div class="isLogIn" v-if="account">
-        <!-- 已登入 -->
-        <div class="link" v-if="headerLink">
-          <RouterLink to="/FavoratePage" class="favoratePage" >最愛清單</RouterLink>
-          <RouterLink to="/OrderTracking" class="orderTracking" >訂單查詢</RouterLink>
+      <div class="headerShow">
+        <!-- 搜尋欄 -->
+        <div class="searchBar">
+          <i class="fa-solid fa-magnifying-glass" @click="search"></i>
+
+          <!-- <input type="search" class="searchInput"> -->
+
+        </div>
+
+        <div class="isLogIn" v-if="account">
+          <!-- 已登入 -->
+          <button type="button" class="signOut" @click="signOut">登出</button>
+          <!-- <RouterLink to="/" class="signOut" >登出</RouterLink> -->
+        </div>
+        <div class="notLogin" v-else>
+          <!-- 未登入 -->
+          <RouterLink to="/SignupPage" class="register">註冊</RouterLink>
+          <RouterLink to="/LoginPage" class="logIn">登入</RouterLink>
         </div>
         <button type="button" class="signOut" @click="this.signOut()">登出</button>
       </div>
@@ -78,18 +91,36 @@ export default {
 
 <style scoped lang="scss">
 .headerShow {
-  width: 100%;
-  height: 10vh;
-  background-color: #F9B572;
-  position: fixed;
-  z-index: 5;
-  .searchBar{
-    width: 20%;
-    height: 70%;
-    position: relative;
-    left: 15vw;
-    font-size: 30px;
-    i {
+  .navigate {
+    width: 70vw;
+    height: 100%;
+    font-size: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .search {
+      width: 20vw;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      // border: 1px black solid;
+      i {
+        color: #e6e1c8;
+        position: absolute;
+        margin-left: 0.5rem;
+      }
+
+      .searchBar {
+        height: 60%;
+        border: none;
+        border-radius: 5px;
+      }
+    }
+
+    .searchInput {
       position: absolute;
       color: #e6e1c8;
       top: 35%;
