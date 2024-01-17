@@ -91,7 +91,7 @@ export default {
     .showArea {
         width: 70%;
         height: 90%;
-        background-color: #F5A352;
+        background-color: #FFC68D;
         margin: auto;
         border-radius: 2vh;
 
