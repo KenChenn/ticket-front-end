@@ -69,73 +69,152 @@ export default {
                 return Promise.resolve();
             })).then(() => {
                 setTimeout(() => {
-                    fetch('http://localhost:8080/api/add_commodity', {
+                    fetch('http://localhost:8080/api/add_commodity_and_session', {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
                         },
                         credentials: 'include',
                         body: JSON.stringify({
-                            codename: "齁樓_2",
-                            name: "HOLOLIVE演唱會",
-                            introduction: "HOLOLIVE演唱會",
-                            enity: true,
-                            startDate: "2024-03-30",
-                            endDate: "2024-05-25",
-                            place: "日本",
-                            organizer: "SONY MUSIC",
-                            keyvisualImg: this.map.get("visionPicture"),
-                            introduceImg1: this.map.get("introducePicture1"),
-                            introduceImg2: this.map.get("introducePicture2"),
+                            // codename: "齁樓_3",
+                            // name: "HOLOLIVE演唱會",
+                            // introduction: "HOLOLIVE演唱會",
+                            // enity: true,
+                            // startDate: "2024-01-02",
+                            // endDate: "2024-01-09",
+                            // place: "日本",
+                            // organizer: "SONY MUSIC",
+                            // keyvisualImg: this.map.get("visionPicture"),
+                            // introduceImg1: this.map.get("introducePicture1"),
+                            // introduceImg2: this.map.get("introducePicture2"),
+                                "codeName": "24_YOASOBI",
+                                "name": "YOASOBI台灣演唱會",
+                                "introduction": "演唱會介紹",
+                                "entity": true,
+                                "startDate": "2024-01-18",
+                                "endDate": "2024-01-20",
+                                "place": "小巨蛋",
+                                "keyvisual_img": "string",
+                                "introduce_img1": "string",
+                                "introduce_img2": "string",
+                                "organizer": "SONY娛樂股份有限公司",
+                                "sessionData": [
+                                    {
+                                        "commodity_codename": "24_YOASOBI",
+                                        "showDateTime": "2024-01-18T18:00",
+                                        "startSellDateTime": "2024-01-13T12:00",
+                                        "endSellDateTime": "2024-01-17T23:59",
+                                        "seatData": [
+                                            {
+                                                "area": "VIP",
+                                                "maxSeatNum": 10,
+                                                "price": 5000
+                                            },
+                                            {
+                                                "area": "VIP2",
+                                                "maxSeatNum": 20,
+                                                "price": 4000
+                                            },
+                                            {
+                                                "area": "1F",
+                                                "maxSeatNum": 50,
+                                                "price": 3500
+                                            },
+                                            {
+                                                "area": "2F",
+                                                "maxSeatNum": 100,
+                                                "price": 3000
+                                            },
+                                            {
+                                                "area": "3F",
+                                                "maxSeatNum": 200,
+                                                "price": 2000
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "commodity_codename": "24_YOASOBI",
+                                        "showDateTime": "2024-01-20T18:00",
+                                        "startSellDateTime": "2024-01-15T12:00",
+                                        "endSellDateTime": "2024-01-19T23:59",
+                                        "seatData": [
+                                            {
+                                                "area": "VIP",
+                                                "maxSeatNum": 10,
+                                                "price": 5000
+                                            },
+                                            {
+                                                "area": "VIP2",
+                                                "maxSeatNum": 20,
+                                                "price": 4000
+                                            },
+                                            {
+                                                "area": "1F",
+                                                "maxSeatNum": 50,
+                                                "price": 3500
+                                            },
+                                            {
+                                                "area": "2F",
+                                                "maxSeatNum": 100,
+                                                "price": 3000
+                                            },
+                                            {
+                                                "area": "3F",
+                                                "maxSeatNum": 200,
+                                                "price": 2000
+                                            }
+                                        ]
+                                    }
+                                ]
                         }),
                     }).then(response => response.json())
-                        .then(res => {
-                            console.log(res);
-                        })
-                }, 1000);
-            }
-            )
-        },
-        imgConvert(key, data) {
-            return new Promise((resolve) => {
-                imageConversion.compressAccurately(data, 80).then((res) => {
-                    let reader = new FileReader();
-                    if (res) {
-                        reader.readAsDataURL(res)
-                    }
-                    reader.onload = () => {
-                        let base64 = reader.result;
-                        this.map.set(key, base64);
-                        resolve(base64);
-                    };
-                });
-
-            });
-        },
-        // imgConvert(data) {
-        //     return((resolve) => {
-        //         let reader = new FileReader();
-        //         reader.readAsDataURL(data)
-        //         reader.onload = () => {
-        //             let base64 = reader.result;
-        //             resolve(base64)
-        //         };
-        //     })
-        // },
-        convertBlob(data) {
-            let byteString = window.atob(data.split(',')[1]);
-            let mimeString = data.split(',')[0].split(':')[1].split(';')[0];
-            let ab = new ArrayBuffer(byteString.length);
-            let ia = new Uint8Array(ab);
-            for (let i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i)
-            }
-            return new Blob([ab], { type: mimeString })
+                    .then(res => {
+                        console.log(res);
+                    })
+            }, 1000);
         }
+            )
     },
-    mounted() {
+    imgConvert(key, data) {
+        return new Promise((resolve) => {
+            imageConversion.compressAccurately(data, 80).then((res) => {
+                let reader = new FileReader();
+                if (res) {
+                    reader.readAsDataURL(res)
+                }
+                reader.onload = () => {
+                    let base64 = reader.result;
+                    this.map.set(key, base64);
+                    resolve(base64);
+                };
+            });
 
+        });
+    },
+    // imgConvert(data) {
+    //     return((resolve) => {
+    //         let reader = new FileReader();
+    //         reader.readAsDataURL(data)
+    //         reader.onload = () => {
+    //             let base64 = reader.result;
+    //             resolve(base64)
+    //         };
+    //     })
+    // },
+    convertBlob(data) {
+        let byteString = window.atob(data.split(',')[1]);
+        let mimeString = data.split(',')[0].split(':')[1].split(';')[0];
+        let ab = new ArrayBuffer(byteString.length);
+        let ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i)
+        }
+        return new Blob([ab], { type: mimeString })
     }
+},
+mounted() {
+
+}
 }
 </script> 
 <style scoped lang="scss">
@@ -171,7 +250,7 @@ body {
         left: 15%;
         padding-left: 3%;
         border-radius: 15px;
-        border: 0 ;
+        border: 0;
         background-color: #FAF8ED;
         font-size: 25px;
     }
@@ -186,7 +265,8 @@ body {
         border: 0;
     }
 }
-.top{
+
+.top {
     margin-left: 15vw;
     padding-top: 5vh;
 
@@ -263,10 +343,11 @@ body {
         border: 0;
         border-radius: 20px;
     }
-    input[type="radio"]{
-    width: 30px;
-    height: 30px;
-    accent-color: #748e63;//改變radio顏色
+
+    input[type="radio"] {
+        width: 30px;
+        height: 30px;
+        accent-color: #748e63; //改變radio顏色
     }
 
     .name {
