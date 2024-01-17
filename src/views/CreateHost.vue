@@ -103,6 +103,7 @@ export default {
                             this.isReapeatName = true
                         } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                             alert("請先登入");
+                            this.$router.push('/AdminLoginPage');
                         } else {
                             alert("新增失敗");
                             return;
