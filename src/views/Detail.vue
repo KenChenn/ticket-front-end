@@ -3,28 +3,27 @@
         <div class="showArea">
             <div class="showImg">
                 <!-- 節目圖片 -->
-                <img src="../../public/material/3-4_1200X630_V3_medium.png">
+                <img v-if="this.codeList[0]" :src="this.codeList[0].keyvisualImg">
             </div>
 
             <!-- 節目資訊 -->
             <div class="showInfo">
-                <br>
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
-                <span>
-                    2024/01/31(周三) 19:30(+0800)
+                <span v-if="this.codeList[0]">
+                    {{ this.codeList[0].startDate }}
                 </span>
                 <br>
                 <i class="fa-solid fa-location-dot"></i>
                 <!-- 地點 -->
-                <span>
-                    Legacy Taipei / 台北市中正區八德路一段一號
+                <span v-if="this.codeList[0]">
+                    {{ this.codeList[0].place }}
                 </span>
                 <br>
                 <i class="fa-solid fa-user"></i>
                 <!-- 主辦 -->
-                <span>
-                    主辦單位 躍演
+                <span v-if="this.codeList[0]">
+                    {{ this.codeList[0].organizer }}
                 </span>
             </div>
 
@@ -32,37 +31,33 @@
     </div>
 
     <div class="mid">
+
+        <!-- 加入最愛按鈕 -->
+        <div class="likeArea">
+            <button>
+                <i class="fa-solid fa-heart-circle-plus"> 加入最愛</i>
+            </button>
+        </div>
+
         <div class="linkArea">
-            <div class="link">
-                <RouterLink to="/">
-                    立即購票
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    活動介紹
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    注意事項
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    購買提醒
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    取票方式
-                </RouterLink>
-            </div>
-            <div class="link">
-                <RouterLink to="/">
-                    退票規定
-                </RouterLink>
-            </div>
+            <RouterLink to="/BuyTicketPage" class="link">
+                立即購票
+            </RouterLink>
+            <RouterLink to="/Introduction" class="link">
+                活動介紹
+            </RouterLink>
+            <RouterLink to="/TicketNoticePage" class="link">
+                注意事項
+            </RouterLink>
+            <RouterLink to="/BuyNoticePage" class="link">
+                購買提醒
+            </RouterLink>
+            <RouterLink to="/GetTicketPage" class="link">
+                取票方式
+            </RouterLink>
+            <RouterLink to="/CencelTicketPage" class="link">
+                退票規定
+            </RouterLink>
         </div>
 
     </div>
@@ -97,14 +92,60 @@
 </template>
 
 <script>
+import counter from '../stores/counter'
 export default {
     data() {
         return {
-
+            codeList: [],
+            trackerList:[],
+            commodityCodenameList:[]
         }
     },
-
+    methods: {
+        codeInfo() {
+            fetch('http://localhost:8080/api/get_commodity', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    codename: this.$route.params.codename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.codeList = data.commodityList;
+                    console.log(this.codeList)
+                })
+                .catch(error => console.log(error))
+        },
+        searchFavorate(){
+            fetch('http://localhost:8080/api/checktrack', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tracker:
+                    commodityCodename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.codeList = data.commodityList;
+                    console.log(this.codeList)
+                })
+                .catch(error => console.log(error))
+        }
+    },
+    mounted() {
+        
+    },
+    created() {
+        this.codeInfo()
+    }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -119,14 +160,14 @@ export default {
         height: 90%;
         background-color: #F5A352;
         margin: auto;
-        border-radius: 20px;
+        border-radius: 2vh;
 
         .showImg {
             width: 100%;
             height: 80%;
 
             img {
-                border-radius: 20px 20px 0 0;
+                border-radius: 2vh 2vh 0 0;
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -141,9 +182,9 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 1.5rem;
+                font-size: 3dvh;
                 margin-left: 5%;
-                line-height: 1.8rem;
+                line-height: 5vh;
             }
         }
     }
@@ -152,49 +193,85 @@ export default {
 .mid {
     height: 50vh;
     background-color: #FAF8ED;
-    padding: 2% 15% 5% 15%;
+    padding: 0% 15% 5% 15%;
     // border: 1px solid black;
 }
 
+.likeArea {
+    width: 100%;
+    height: 10vh;
+    // border: 1px black solid;
+    margin-bottom: 5vh;
+
+    button {
+        width: 100%;
+        height: 100%;
+        border-radius: 1.5vh;
+        border: none;
+        font-size: 3dvh;
+        color: #DB3A3A;
+        background-color: #FAF8ED;
+        border: #DB3A3A solid 0.5vh;
+        &:hover{
+            transition: 0.1s linear;
+            scale: 1.05;
+            background-color: #ffffff;
+        }
+        &:active{
+            scale: 0.95;
+            background-color: #DB3A3A;
+            color: #FAF8ED;
+        }
+    }
+}
+
 .linkArea {
-    height: 100%;
+    height: 70%;
     // border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-}
 
-.link {
-    width: 30%;
-    height: 40%;
-    margin-bottom: 10vh;
-    background-color: #748E63;
-    border-radius: 15px;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    a {
-        color: #FAF8ED;
+    .link {
+        width: 30%;
+        height: 40%;
+        margin-bottom: 5vh;
+        background-color: #748E63;
+        border-radius: 1.5vh;
+        font-size: 3dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-decoration: none;
+        color: #FAF8ED;
+        &:hover{
+            background-color: #608349;
+            transition: 0.1s linear;
+            scale: 1.05;
+        }
+        &:active{
+            scale: 0.95;
+            background-color: #4D5C44;
+            color: #FAF8ED;
+        }
     }
 }
+
 
 .down {
     // height: auto;
     background-color: #99B080;
+    .title {
+        // border: 1px solid black;
+        height: 10vh;
+        color: #ffc68d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4dvh;
+    }
 }
 
-.title {
-    // border: 1px solid black;
-    height: 10vh;
-    color: #FAF8ED;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-}
 
 .forum {
     padding: 0% 15% 5% 15%;
@@ -203,30 +280,34 @@ export default {
 .discussion {
     width: 100%;
     height: auto;
-    margin-bottom: 10vh;
+    margin-bottom: 5%;
     // border: 1px solid black;
-    background-color: #89A071;
-    border-radius: 15px;
+    background-color: #748E63;
+    border-radius: 2vh;
     display: flex;
-}
-.circle {
-    width: 5%;
-    height: 5vh;
-    background-color: #F5A352;
-    margin: 2% 2% 0% 2%;
-    clip-path: circle(50% at 50% 50%);
-}
-.info{
-    width: 85%;
-    margin: 2%;
-    color: #FAF8ED;
-    // border: 1px black solid;
-    .user{
-        font-size: 2rem;
+    .circle {
+        width: 3vw;
+        height: 3vw;
+        background-color: #F5A352;
+        margin: 2% 2% 0% 2%;    
+        clip-path: circle(50% at 50% 50%);
     }
-    .content{
-        margin: 1%;
-        font-size: 1.5rem;
+    
+    .info {
+        width: auto;
+        margin: 2%;
+        color: #FAF8ED;
+    
+        // border: 1px black solid;
+        .user {
+            font-size: 2.5dvh;
+        }
+    
+        .content {
+            margin: 1%;
+            font-size: 2.5dvh;
+        }
     }
 }
+
 </style>

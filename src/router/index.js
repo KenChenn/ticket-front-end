@@ -61,7 +61,7 @@ const router = createRouter({
       component: () => import("../views/CreateHost.vue"),
     },
     {
-      path: '/EditHost/:id',
+      path: '/EditHost',
       name: 'EditHost',
       component: () => import('../views/EditHost.vue')
     },
@@ -96,7 +96,7 @@ const router = createRouter({
       component: () => import("../views/SessionsAndSeats.vue"),
     },
     {
-      path: "/Detail",
+      path: "/Detail/:codename",
       name: "Detail",
       component: () => import("../views/Detail.vue"),
     },
@@ -124,6 +124,16 @@ const router = createRouter({
       path: "/EditPwdPage",
       name: "EditPwdPage",
       component: () => import("../views/EditPwdPage.vue"),
+    },
+    {
+      path: "/ManageHostPage",
+      name: "ManageHostPage",
+      component: () => import("../views/ManageHostPage.vue")
+    },
+    {
+      path: "/Introduction",
+      name: "Introduction",
+      component: () => import("../views/Introduction.vue"),
     },
   ],
 });

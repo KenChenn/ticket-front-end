@@ -1,19 +1,33 @@
 <template>
     <div class="main">
         <div class="up">
-            <button class="host" @click="this.goManageHostPage()">主辦單<br>位管理</button>
-            <button class="act" @click="this.goCreateActivities()">建立<br>活動</button> 
+            <!-- 主辦單位管理按鈕 -->
+            <button class="host" @click="this.goManageHostPage()">主辦單位管理</button>
+
+            <!-- 建立活動按鈕 -->
+            <button class="act" @click="this.goCreateActivities()">建立活動</button>
         </div>
         <div class="down">
             <div class="actSq">
                 <div class="sqUp">
-                    <br>
                     <span class="actSpan">活動名稱</span>
                 </div>
                 <div class="sqDown">
+
+                    <!-- 活動區域 -->
                     <div class="plusAct">
                         <button class="hensyu">編輯</button>
-                        <span class="spanName">xxxxLIve</span>
+                        <div class="spanName">xxxxLIve</div>
+                        <button class="cencel">刪除</button>
+                    </div>
+                    <div class="plusAct">
+                        <button class="hensyu">編輯</button>
+                        <div class="spanName">xxxxLIve</div>
+                        <button class="cencel">刪除</button>
+                    </div>
+                    <div class="plusAct">
+                        <button class="hensyu">編輯</button>
+                        <div class="spanName">xxxxLIve</div>
                         <button class="cencel">刪除</button>
                     </div>
                 </div>
@@ -29,10 +43,10 @@ export default {
         }
     },
     methods: {
-        goManageHostPage(){
+        goManageHostPage() {
             this.$router.push('/ManageHostPage')
         },
-        goCreateActivities(){
+        goCreateActivities() {
             this.$router.push('/CreateActivities')
         }
     },
@@ -41,84 +55,125 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-.main{
+<style lang="scss" scoped>
+.main {
     width: 100%;
-    height: 110%;
+    height: 100%;
     background-color: #FAF8ED;
-    .up{
-        width: 100%;
-        height: 30%;
+
+    button:hover {
+        transition: 0.1s linear;
+        color: #FAF8ED;
+        background-color: #4D5C44;
+        scale: 1.1;
+    }
+
+    button:active {
+        scale: 0.95;
+    }
+
+    // justify-content: center;
+    .up {
+        width: 70%;
+        height: 20%;
+        margin-left: 15%;
         display: flex;
-        .host{
-            height: 60%;
-            width: 12%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .host {
+            height: 70%;
+            width: 25%;
             background-color: #89A071;
-            border: 1pt solid #89A071;
-            font-size: 1.5rem;
+            border: 0;
+            font-size: 3dvh;
+            line-height: 6vh;
             color: #FAF8ED;
-            border-radius: 15px;
-            margin-left: 20%;
-            margin-right: 35%;
-            margin-top: 2%;
+            border-radius: 1vh;
         }
-        .act{
-            height: 60%;
-            width: 12%;
+
+        .act {
+            height: 70%;
+            width: 25%;
             background-color: #89A071;
-            border: 1pt solid #89A071;
-            font-size: 1.5rem;
+            border: 0;
+            font-size: 3dvh;
+            line-height: 6vh;
             color: #FAF8ED;
-            border-radius: 15px;
-            margin-top: 2%;
+            border-radius: 1vh;
         }
     }
-    .down{
+
+    .down {
         width: 100%;
-        height: 70%;
-        .actSq{
-            width: 59%;
-            height: 90%;
-            background-color: #F5BF89;
-            margin-left: 20%;
-            border-radius: 15px;
-            .sqUp{
+        height: 80%;
+        // border: 1px solid black;
+
+        .actSq {
+            width: 70%;
+            height: 65vh;
+            // background-color: #F5BF89;
+            border: #F5BF89 0.5vh solid;
+            margin-left: 15%;
+            border-radius: 2vh;
+
+            .sqUp {
                 width: 100%;
                 height: 15%;
-                .actSpan{
+                // border: 1px solid black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .actSpan {
                     color: #4D5C44;
-                    font-size: 1.3rem;
-                    margin-left: 44%;
+                    font-size: 3dvh;
                 }
             }
-            .sqDown{
+
+            .sqDown {
                 width: 100%;
                 height: 85%;
-                .hensyu{
-                    width: 13%;
-                    height: 1.6rem;
-                    border-radius: 15px;
-                    background-color: #F5A352;
-                    border: 1pt solid #F5A352;
-                    color: #FAF8ED;
-                    margin-left: 3%;
-                    margin-right: 28%;
-                }
-                .cencel{
-                    width: 13%;
-                    height: 1.6rem;
-                    border-radius: 15px;
-                    background-color: #DB3A3A;
-                    border: 1pt solid #DB3A3A;
-                    color: #FAF8ED;
-                }
-                .spanName{
-                    font-size: 1.3rem;
-                    margin-right: 28%;
-                    color: #4D5C44;
+                padding: 2%;
+
+                // border: 1px solid black;
+                .plusAct {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 2%;
+
+                    .hensyu {
+                        width: 10%;
+                        height: 20%;
+                        border-radius: 10vh;
+                        font-size: 2dvh;
+                        background-color: #F5A352;
+                        border: 0;
+                        color: #FAF8ED;
+                    }
+
+                    .spanName {
+                        width: 100%;
+                        font-size: 2dvh;
+                        display: flex;
+                        justify-content: center;
+                        color: #4D5C44;
+                        border-bottom: #F5A352 0.3vh solid;
+                    }
+
+                    .cencel {
+                        width: 10%;
+                        height: 20%;
+                        border-radius: 10vh;
+                        font-size: 2dvh;
+                        background-color: #DB3A3A;
+                        border: 0;
+                        color: #FAF8ED;
+                    }
+
                 }
             }
         }
     }
-}
-</style>
+}</style>

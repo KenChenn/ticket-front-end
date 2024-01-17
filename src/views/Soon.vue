@@ -1,13 +1,22 @@
 <script >
+import {mapState,mapActions} from 'pinia';
+import counter from '../stores/counter';
 export default {
     data() {
         return {
-
+            // ...mapState(counter,['dataList','testArray','test']),
+            codename:"/Detail/", // /原本的/變數內容
         }
     },
-    methods: {
+    computed: {
+        ...mapState(counter, ['dataList','testArray','test'])
     },
-
+    methods: {
+        ...mapActions(counter,[]),
+    },
+    mounted() {
+        
+    },
 }
 </script>
 
@@ -15,25 +24,39 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <RouterLink to="/" class="show">
+        <RouterLink  to="/" class="show" v-for="(item,index) in this.dataList" >
+        <RouterLink :to= "codename" class="show"  @click="this.codename = this.codename + item.codename">
             <!-- 節目圖片 -->
-            <div class="showImg">
-                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
+            <div class="showImg" @click="this.codename = this.codename + item.codename" >
+                <img :src="item.keyvisualImg ">
+            </div>
+            <div @click="this.codename = this.codename + item.codename">
+                <!-- 節目名稱 -->
+                <p>
+                    {{ item.name }}
+                </p>
             </div>
             <!-- 節目開售日期 -->
-            <div class="showDate">
+            <div class="showDate" @click="this.codename = this.codename + item.codename">
                 <p>
-                    2024/12/31 Wed
+                    {{ item.startDate }}
                 </p>
             </div>
             <!-- 節目狀態 -->
-            <div class="showStatus">
+            <div class="showStatus" @click="this.codename = this.codename + item.codename">
                 <p>
                     ON SALE
                 </p>
             </div>
+            
+            <!-- //測試 -->
+            <!-- <div class="one" v-for="(item,index) in this.dataList">
+                <p class="text"> {{ item.codename }}</p>
+                <img :src="item.keyvisualImg ">
+            </div> -->
         </RouterLink>
-
+    </RouterLink>
+        
     </div>
 </template>
 
@@ -45,6 +68,15 @@ export default {
     justify-content: space-between;
     background-color: #99B080;
     padding: 5% 10% 0% 10%;
+
+    .one{
+        height: 200px;
+        width: 200px;
+        background-color: #FAF8ED;
+        .text{
+            color: black;
+        }
+    }
 }
 
 .show {
@@ -53,8 +85,9 @@ export default {
     margin-bottom: 10vh;
     background-color: #748E63;
     color: #FAF8ED;
+    text-decoration: none;
     border-radius: 20px;
-
+    
     .showImg {
         height: 60%;
         width: 100%;
@@ -68,24 +101,27 @@ export default {
     }
 
     .showDate {
-        width: 60%;
+        width: 80%;
         height: 20%;
-        font-size: 1.5rem;
+        font-size: 3.2dvh;
+        margin-left: 5%;
         display: flex;
-        justify-content: end;
         align-items: center;
+
         // border: 1px black solid;
     }
 
     .showStatus {
-        width: 30%;
+        width: 40%;
         height: 15%;
         border-radius: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 65%;
+        margin-left: 55%;
         background-color: #F5A352;
+        font-size: 2dvh;
+
     }
-}
-</style>
+
+}</style>

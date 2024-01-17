@@ -8,37 +8,37 @@
         <p class="logoutP">登出</p>
         </div> -->
         <div class="down">
-            <h1 class="ppp">編輯資訊</h1>
+            <div class="title">
+                編輯資訊
+            </div>
             <div class="reWriteSq">
 
-                <br>
-                <span class="allPP">使用者名稱</span>
-                <br>
+                <span class="allP">使用者名稱</span>
                 <input type="text" class="allInput" v-model="editedUser">
-                <span v-if="!isUsername" class="warning">請輸入使用者名稱</span>
-                <span v-if="isReapeatUsername" class="warning">此使用者名稱已經註冊過</span>
-                <br>
+                <div class="warning">
+                    <span v-if="!isUsername">請輸入使用者名稱</span>
+                    <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                </div>
                 <span class="allP">Email</span>
-                <br>
                 <input type="text" class="allInput" value="" v-model="editedEmail">
-                <span v-if="!isValidEmail" class="warning">請輸入正確 Email 格式</span>
-                <br>
+                <div class="warning">
+                    <span v-if="!isValidEmail">請輸入正確 Email 格式</span>
+                </div>
                 <span class="allP">生日</span>
-                <br>
-                <input type="date" class="allInput" disabled v-model="editedBirth">
-                <br>
-                <span class="allPP">手機號碼</span>
-                <br>
+                <input type="date" class="allInput" disabled v-model="editedBirth" style="text-align: center;">
+                <span class="allP">手機號碼</span>
                 <input type="text" class="allInput" value="" v-model="editedPhone" @input="filterNonNumeric">
-                <span v-if="!isValidPhoneNumber" class="warning">請輸入 10 碼手機格式</span>
-                <br><br>
-                <button type="button" class="btn" @click="edit()">完成</button>
+                <div class="warning">
+                    <span v-if="!isValidPhoneNumber">請輸入 10 碼手機格式</span>
+                </div>
+                <br> <button type="button" class="btn" @click="edit()">完成</button>
 
             </div>
         </div>
     </div>
 </template>
 <script>
+import counter from '../stores/counter'
 import axios from 'axios'
 export default {
     data() {
@@ -46,7 +46,7 @@ export default {
             editedUser: "",
             editedEmail: "",
             editedPhone: "",
-            editedBirth:"",
+            editedBirth: "",
 
             isUsername: true,
             isValidEmail: true,
@@ -121,13 +121,20 @@ export default {
             this.editedBirth = res.data.data.bornDate
             this.editedPhone = res.data.data.phone
         })
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
+    },
 }
 </script>
 <style lang="scss" scoped>
-.main{
-    width: 100vw;
-    height: 100vh;
+.main {
     background-color: #FAF8ED;
 
     .up {
@@ -174,73 +181,69 @@ export default {
     }
 
     .down {
-        width: 100%;
-        height: 89%;
 
-        .ppp {
-            margin-left: 27%;
+        .title {
+            width: 70%;
+            height: 10vh;
+            margin-left: 15%;
             color: #4D5C44;
+            font-size: 4dvh;
+            display: flex;
+            align-items: end;
+            // border: 1px solid black;
+            display: flex;
         }
 
         .reWriteSq {
-            width: 48%;
-            height: 75%;
-            background-color: #89A071;
+            width: 70%;
+            height: 70vh;
+            border: 0.5vh solid#89A071;
             margin: auto;
-            margin-top: -10px;
-            border-radius: 15px;
-
-            .signUp {
-                width: 48%;
-                height: 75%;
-                background-color: #89A071;
-                margin: auto;
-                margin-top: -10px;
-                border-radius: 15px;
-            }
-
-            .ppp {
-                margin-left: 27%;
-                color: #4D5C44;
-            }
+            border-radius: 2vh;
+            padding: 3% 0;
 
             .allInput {
-                width: 47%;
-                height: 6%;
-                margin-left: 28%;
-                border-radius: 15px;
+                width: 50%;
+                margin-left: 25%;
+                font-size: 2.5dvh;
+                margin-bottom: 1%;
+                border: 0;
+                color: #4D5C44;
                 background-color: #FAF8ED;
-                border: 1pt solid #FAF8ED;
+                border-bottom: 0.3vh solid#89A071;
             }
 
             .allP {
-                margin-left: 48%;
-                color: #4D5C44;
-            }
-
-            .allPP {
-                margin-left: 45%;
+                height: 5vh;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                font-size: 3dvh;
                 color: #4D5C44;
             }
 
             .warning {
-                margin-left: 40%;
-                color: #F5A352;
+                height: 5%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                color: #DB3A3A;
+                font-size: 2dvh;
             }
 
             .btn {
+                width: 14%;
+                height: 7%;
                 background-color: #F9B572;
-                border: 1pt solid #F9B572;
+                border: 0;
                 color: #FAF8ED;
-                border-radius: 15px;
-                margin-left: 48%;
-
-            }
-
-            .fa-solid {
-                position: absolute;
-                left: 61.5%;
-                top: 65%
+                border-radius: 10vh;
+                margin-left: 43%;
+                margin-bottom: 3%;
+                font-size: 2.5dvh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
     }

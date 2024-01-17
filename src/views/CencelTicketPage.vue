@@ -8,7 +8,6 @@
 
             <!-- 節目資訊 -->
             <div class="showInfo">
-                <br>
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
                 <span>
@@ -31,7 +30,7 @@
         </div>
     </div>
     <div class="down">
-        <h1 class="noticeP">退票規定</h1>
+        <div class="title">退票規定</div>
         <div class="textArea">
             依文化部於中華民國107年5月16日文藝字第10710128232號公告修定之『藝文表演票券定型化契約應記載及不得記載事項』第六條-退換票之申請與手續費，如常見問題說明所示。本節目退票方案訂定如下說明。<br>
 個人因素退票者，每張票券須酌收票面金額5%手續費。相關服務費用與寄回郵資非屬票價部分不在退費範圍之內。<br>
@@ -58,6 +57,7 @@ ATM虛擬帳號付款者：請下載及填寫退票申請表並附上票券正�
     </div>
 </template>
 <script>
+import counter from '../stores/counter'
 export default {
     data() {
         return {
@@ -69,7 +69,16 @@ export default {
     },
     mounted() {
 
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
+    },
 }
 </script>
 <style lang="scss" scoped>
@@ -84,12 +93,14 @@ export default {
         height: 90%;
         background-color: #F5A352;
         margin: auto;
+        border-radius: 2vh;
 
         .showImg {
             width: 100%;
             height: 80%;
 
             img {
+                border-radius: 2vh 2vh 0 0;
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -104,9 +115,9 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 1.5rem;
+                font-size: 3dvh;
                 margin-left: 5%;
-                line-height: 1.8rem;
+                line-height: 5vh;
             }
         }
     }
@@ -114,19 +125,23 @@ export default {
 
 .down {
     width: 100%;
-    height: 90%;
-    background-color: #99B080;
+    background-color: #99B080;    
+    padding: 0% 15% 5% 15%;
 
-    .noticeP {
-        color: #F5BF89;
-        margin-left: 15%;
+
+    .title {
+        height: 10vh;
+        color: #ffc68d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4dvh;
     }
-
+    
     .textArea {
-        width: 70%;
-        height: 80%;
+        // border: 1px solid black;
+        font-size: 2.5dvh;
         margin: auto;
-        overflow-y: scroll;
         color: #FAF8ED;
     }
 }

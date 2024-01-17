@@ -2,40 +2,51 @@
     <body>
         <!-- {{this.map.get('visionPicture')  }} -->
         <!-- <img :src="this.map.get('visionPicture')"> -->
-        <div class="header">
-            <i class="fa-solid fa-magnifying-glass" @click="search"></i>
-            <input type="search" class="search">
-            <button type="button" class="signOut">登出</button>
-        </div>
         <div class="top">
             <span class="title">建立活動</span>
             <span class="tip">*為必填</span>
         </div>
         <div class="content">
             <span class="name">活動名稱*</span>
-            <input type="text" class="nameAbout">
+            <input type="text" class="nameAbout" v-model="name">
+            <br>
+            <span v-if="!isEntityName" class="warning">請輸入活動名稱</span>
             <span class="num">活動代號*</span>
-            <input type="text" class="numAbout">
+            <input type="text" class="numAbout" v-model="codename">
+            <br>
+            <span v-if="!isEntityCodeName" class="warning">請輸入活動代號</span>
             <span class="unit">主辦單位*</span>
-            <select name="" id="" class="unitAbout">
-                <option value="">主辦單位名稱</option>
-                <option value="">主辦單位名稱</option>
+            <select name="" id="" class="unitAbout" v-model="organizer">
+                <option value="" hidden>主辦單位名稱</option>
+                <option v-for="name in nameList" :value="name">{{ name }}</option>
             </select>
+            <br>
+            <span v-if="!isEntityOrganizer" class="warning">請選取主辦單位</span>
             <span class="entity">是否為實體活動*</span>
             <span class="yes">是</span>
-            <input type="radio" name="radio" class="yesAbout">
+            <input type="radio" name="radio" class="yesAbout" v-model="enity" value="true">
             <span class="no">否</span>
-            <input type="radio" name="radio" class="noAbout">
-            <span class="place">地點</span>
-            <input type="text" class="placeAbout">
-            <span class="illustrate">活動說明</span>
-            <textarea name="" id="" cols="30" rows="10" class="illustrateAbout"></textarea>
+            <input type="radio" name="radio" class="noAbout" v-model="enity" value="false">
+            <br>
+            <span v-if="!isEntityEnity" class="warning">請選取是否為實體活動</span>
+            <span class="place">地點*</span>
+            <input type="text" class="placeAbout" v-model="place">
+            <span v-if="!isEntityPlace" class="warning">請輸入地點</span>
+            <span class="illustrate">活動說明*</span>
+            <textarea name="" id="" cols="30" rows="10" class="illustrateAbout" v-model="introduction"></textarea>
+            <span v-if="!isEntityIntroduction" class="warning">請輸入活動說明</span>
             <span class="vision">主視覺圖</span>
-            <input type="file" class="visionPicture img">
+            <input type="file" class="visionPicture img" @change="handleFileChange">
+            <span v-if="fileSizeError" class="error">檔案大小超過1MB限制</span>
+            <span v-if="fileTypeError" class="error">請選擇 JPEG 類型檔案</span>
             <span class="introduce1">座位或介紹圖片/1</span>
-            <input type="file" class="introducePicture1 img">
+            <input type="file" class="introducePicture1 img" @change="handleFileChange1">
+            <span v-if="fileSizeError1" class="error">圖片/1 檔案大小超過1MB限制</span>
+            <span v-if="fileTypeError1" class="error">圖片/1 請選擇 JPEG 類型檔案</span>
             <span class="introduce2">座位或介紹圖片/2</span>
-            <input type="file" class="introducePicture2 img">
+            <input type="file" class="introducePicture2 img" @change="handleFileChange2">
+            <span v-if="fileSizeError2" class="error">圖片/2 檔案大小超過1MB限制</span>
+            <span v-if="fileTypeError2" class="error">圖片/2 請選擇 JPEG 類型檔案</span>
             <button type="button" class="establish" @click="test()">確認</button>
         </div>
 
@@ -43,7 +54,7 @@
 </template>
 
 <script setup>
-import * as imageConversion from 'image-conversion';;
+import * as imageConversion from 'image-conversion';
 </script>
 
 <script>
@@ -53,14 +64,54 @@ export default {
         return {
             imgStr: "data:image/jpeg;base64,",
             map: new Map(),
+            nameList: [],
 
+            codename: "",
+            name: "",
+            introduction: "",
+            enity: false,
+            place: "",
+            organizer: "",
+            keyvisualImg: "",
+            introduceImg1: "",
+            introduceImg2: "",
+
+            //確認輸入
+            isEntityName: true,
+            isEntityCodeName: true,
+            isEntityOrganizer: true,
+            isEntityEnity: true,
+            isEntityPlace: true,
+            isEntityIntroduction: true,
+
+            //照片限制
+            fileError: true,
+            fileSizeError: false,
+            fileTypeError: false,
+            fileSizeError1: false,
+            fileTypeError1: false,
+            fileSizeError2: false,
+            fileTypeError2: false,
         }
     },
     methods: {
-        send() {
-
-        },
         test() {
+            if (!this.fileSizeError && !this.fileTypeError && !this.fileSizeError1 && !this.fileTypeError1 && !this.fileSizeError2 && !this.fileTypeError2) {
+                this.fileError = true
+            } else {
+                this.fileError = false
+            }
+            // console.log(this.fileError);
+
+            //確認必填
+            this.isEntityName = !!this.name;
+            this.isEntityCodeName = !!this.codename;
+            this.isEntityOrganizer = !!this.organizer;
+            this.isEntityEnity = !!this.enity
+            this.isEntityPlace = !!this.place
+            this.isEntityIntroduction = !!this.introduction
+            // console.log(this.enity);
+
             let array = document.querySelectorAll(".img");
             Promise.all(Array.from(array).map((item) => {
                 if (item.files[0] != undefined) {
@@ -69,152 +120,142 @@ export default {
                 return Promise.resolve();
             })).then(() => {
                 setTimeout(() => {
-                    fetch('http://localhost:8080/api/add_commodity_and_session', {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        credentials: 'include',
-                        body: JSON.stringify({
-                            // codename: "齁樓_3",
-                            // name: "HOLOLIVE演唱會",
-                            // introduction: "HOLOLIVE演唱會",
-                            // enity: true,
-                            // startDate: "2024-01-02",
-                            // endDate: "2024-01-09",
-                            // place: "日本",
-                            // organizer: "SONY MUSIC",
-                            // keyvisualImg: this.map.get("visionPicture"),
-                            // introduceImg1: this.map.get("introducePicture1"),
-                            // introduceImg2: this.map.get("introducePicture2"),
-                                "codeName": "24_YOASOBI",
-                                "name": "YOASOBI台灣演唱會",
-                                "introduction": "演唱會介紹",
-                                "entity": true,
-                                "startDate": "2024-01-18",
-                                "endDate": "2024-01-20",
-                                "place": "小巨蛋",
-                                "keyvisual_img": "string",
-                                "introduce_img1": "string",
-                                "introduce_img2": "string",
-                                "organizer": "SONY娛樂股份有限公司",
-                                "sessionData": [
-                                    {
-                                        "commodity_codename": "24_YOASOBI",
-                                        "showDateTime": "2024-01-18T18:00",
-                                        "startSellDateTime": "2024-01-13T12:00",
-                                        "endSellDateTime": "2024-01-17T23:59",
-                                        "seatData": [
-                                            {
-                                                "area": "VIP",
-                                                "maxSeatNum": 10,
-                                                "price": 5000
-                                            },
-                                            {
-                                                "area": "VIP2",
-                                                "maxSeatNum": 20,
-                                                "price": 4000
-                                            },
-                                            {
-                                                "area": "1F",
-                                                "maxSeatNum": 50,
-                                                "price": 3500
-                                            },
-                                            {
-                                                "area": "2F",
-                                                "maxSeatNum": 100,
-                                                "price": 3000
-                                            },
-                                            {
-                                                "area": "3F",
-                                                "maxSeatNum": 200,
-                                                "price": 2000
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "commodity_codename": "24_YOASOBI",
-                                        "showDateTime": "2024-01-20T18:00",
-                                        "startSellDateTime": "2024-01-15T12:00",
-                                        "endSellDateTime": "2024-01-19T23:59",
-                                        "seatData": [
-                                            {
-                                                "area": "VIP",
-                                                "maxSeatNum": 10,
-                                                "price": 5000
-                                            },
-                                            {
-                                                "area": "VIP2",
-                                                "maxSeatNum": 20,
-                                                "price": 4000
-                                            },
-                                            {
-                                                "area": "1F",
-                                                "maxSeatNum": 50,
-                                                "price": 3500
-                                            },
-                                            {
-                                                "area": "2F",
-                                                "maxSeatNum": 100,
-                                                "price": 3000
-                                            },
-                                            {
-                                                "area": "3F",
-                                                "maxSeatNum": 200,
-                                                "price": 2000
-                                            }
-                                        ]
-                                    }
-                                ]
-                        }),
-                    }).then(response => response.json())
-                    .then(res => {
-                        console.log(res);
-                    })
-            }, 1000);
-        }
+                    if (this.isEntityName && this.isEntityCodeName && this.isEntityOrganizer && this.isEntityEnity && this.isEntityIntroduction && this.isEntityPlace && this.fileError) {
+                        localStorage.setItem("acttivity", JSON.stringify({
+                            codename: this.codename,
+                            name: this.name,
+                            introduction: this.introduction,
+                            enity: this.enity,
+                            place: this.place,
+                            organizer: this.organizer,
+                            sessionData: [],
+                            keyvisualImg: this.map.get("visionPicture"),
+                            introduceImg1: this.map.get("introducePicture1"),
+                            introduceImg2: this.map.get("introducePicture2"),
+                        }))
+                        this.$router.push('/SessionsAndSeats');
+                    }
+                }, 1000);
+            }
             )
-    },
-    imgConvert(key, data) {
-        return new Promise((resolve) => {
-            imageConversion.compressAccurately(data, 80).then((res) => {
-                let reader = new FileReader();
-                if (res) {
-                    reader.readAsDataURL(res)
-                }
-                reader.onload = () => {
-                    let base64 = reader.result;
-                    this.map.set(key, base64);
-                    resolve(base64);
-                };
+        },
+        imgConvert(key, data) {
+            return new Promise((resolve) => {
+                imageConversion.compressAccurately(data, 80).then((res) => {
+                    let reader = new FileReader();
+                    if (res) {
+                        reader.readAsDataURL(res)
+                    }
+                    reader.onload = () => {
+                        let base64 = reader.result;
+                        this.map.set(key, base64);
+                        resolve(base64);
+                    };
+                });
+
             });
+        },
+        // imgConvert(data) {
+        //     return((resolve) => {
+        //         let reader = new FileReader();
+        //         reader.readAsDataURL(data)
+        //         reader.onload = () => {
+        //             let base64 = reader.result;
+        //             resolve(base64)
+        //         };
+        //     })
+        // },
+        convertBlob(data) {
+            let byteString = window.atob(data.split(',')[1]);
+            let mimeString = data.split(',')[0].split(':')[1].split(';')[0];
+            let ab = new ArrayBuffer(byteString.length);
+            let ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i)
+            }
+            return new Blob([ab], { type: mimeString })
+        },
+        handleFileChange(event) {
+            this.fileSizeError = false;
+            this.fileTypeError = false;
 
-        });
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            // 大小
+            const maxSizeInBytes = 1 * 1024 * 1024; // 1 MB
+            if (file.size > maxSizeInBytes) {
+                this.fileSizeError = true;
+                return;
+            }
+
+            // 類型
+            const allowedTypes = ['image/jpeg', 'image/jpg'];
+            if (!allowedTypes.includes(file.type)) {
+                this.fileTypeError = true;
+                return;
+            }
+        },
+        handleFileChange1(event) {
+            this.fileSizeError1 = false;
+            this.fileTypeError1 = false;
+
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            // 大小
+            const maxSizeInBytes = 1 * 1024 * 1024; // 1 MB
+            if (file.size > maxSizeInBytes) {
+                this.fileSizeError1 = true;
+                return;
+            }
+
+            // 類型
+            const allowedTypes = ['image/jpeg', 'image/jpg'];
+            if (!allowedTypes.includes(file.type)) {
+                this.fileTypeError1 = true;
+                return;
+            }
+        },
+        handleFileChange2(event) {
+            this.fileSizeError2 = false;
+            this.fileTypeError2 = false;
+
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            // 大小
+            const maxSizeInBytes = 1 * 1024 * 1024; // 1 MB
+            if (file.size > maxSizeInBytes) {
+                this.fileSizeError2 = true;
+                return;
+            }
+
+            // 類型
+            const allowedTypes = ['image/jpeg', 'image/jpg'];
+            if (!allowedTypes.includes(file.type)) {
+                this.fileTypeError2 = true;
+                return;
+            }
+        },
     },
-    // imgConvert(data) {
-    //     return((resolve) => {
-    //         let reader = new FileReader();
-    //         reader.readAsDataURL(data)
-    //         reader.onload = () => {
-    //             let base64 = reader.result;
-    //             resolve(base64)
-    //         };
-    //     })
-    // },
-    convertBlob(data) {
-        let byteString = window.atob(data.split(',')[1]);
-        let mimeString = data.split(',')[0].split(':')[1].split(';')[0];
-        let ab = new ArrayBuffer(byteString.length);
-        let ia = new Uint8Array(ab);
-        for (let i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i)
-        }
-        return new Blob([ab], { type: mimeString })
-    }
-},
-mounted() {
 
-}
+    mounted() {
+        fetch('http://localhost:8080/api/get_organizer_data',
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+            }).then(response => response.json())
+            .then(res => {
+                // console.log(res.organizer)
+                res.organizer.forEach(host => {
+                    this.nameList.push(host.name)
+                });
+            })
+    }
 }
 </script> 
 <style scoped lang="scss">
@@ -223,8 +264,7 @@ body {
     height: 190vh;
     background-color: #faf8ed;
 }
-
-.header {
+.header{
     width: 100%;
     height: 10vh;
     margin-top: 0;
@@ -232,30 +272,27 @@ body {
     position: fixed;
     top: 0;
     z-index: 5;
-
-    .fa-solid {
+    .fa-solid{
         position: absolute;
         font-size: 30px;
-        left: 15.5%;
+        left:15.5%;
         top: 30%;
         color: #E6E1C8;
         z-index: 10;
-    }
-
-    .search {
+        }
+    .search{
         position: absolute;
         width: 17%;
         height: 70%;
         top: 15%;
         left: 15%;
         padding-left: 3%;
-        border-radius: 15px;
-        border: 0;
+        border-radius: 10px;
+        border: 0 ;
         background-color: #FAF8ED;
         font-size: 25px;
     }
-
-    .signOut {
+    .signOut{
         position: absolute;
         background-color: transparent;
         color: #FAF8ED;
@@ -268,7 +305,7 @@ body {
 
 .top {
     margin-left: 15vw;
-    padding-top: 5vh;
+    padding-top: 10vh;
 
     .title {
         margin: 0;
@@ -328,8 +365,8 @@ body {
         width: 50%;
         height: 3.6%;
         text-indent: 0;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        background-color: transparent;
+        border-radius: 0;
     }
 
     textarea {
