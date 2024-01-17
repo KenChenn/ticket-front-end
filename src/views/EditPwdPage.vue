@@ -35,6 +35,7 @@
     </div>
 </template>
 <script>
+import counter from '../stores/counter'
 import axios from 'axios'
 export default {
     data() {
@@ -109,7 +110,16 @@ export default {
         }).then(res => {
             console.log(res.data.data)
         })
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
+    },
 }
 </script>
 <style lang="scss">

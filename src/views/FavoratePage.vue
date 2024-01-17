@@ -33,6 +33,7 @@
     </body>
 </template>
 <script>
+import counter from '../stores/counter'
     export default {
         data(){
             return{
@@ -43,7 +44,21 @@
                 seatAbout:"",
                 aboutToStart:true,   //開始狀態
             }
-        }
+        },
+        created() {
+        // 在页面创建时设置特定的对象
+        counter().setHeaderLink({});
+        },
+
+        beforeDestroy() {
+            // 在页面销毁时清除特定的对象
+            counter().setHeaderLink(null);
+        },
+        beforeRouteLeave(to, from, next) {
+            // 在离开页面时清除特定的对象
+            counter().setHeaderLink(null);
+            next();
+        },
     }
 </script>
 <style scoped lang="scss" >
@@ -56,7 +71,7 @@
     }
     .top{
         margin-left: 15vw;
-        padding-top: 5vh;
+        padding-top: 10vh;
         .title{
             margin: 0;
             font-size: 50px;

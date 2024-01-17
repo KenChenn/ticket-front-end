@@ -33,7 +33,9 @@
 </body>
 </template>
 <script>
+import counter from '../stores/counter'
 export default {
+    
     data(){
         return{
             nameAbout:"",
@@ -43,7 +45,16 @@ export default {
             seatAbout:"",
             // payment:true,   //付款狀態
         }
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
+    },
 }
 </script>
 <style scoped lang="scss" >
@@ -56,7 +67,7 @@ body{
 }
 .top{
     margin-left: 15vw;
-    padding-top: 5vh;
+    padding-top: 10vh;
     .title{
         margin: 0;
         font-size: 50px;

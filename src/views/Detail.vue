@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import counter from '../stores/counter'
 export default {
     data() {
         return {

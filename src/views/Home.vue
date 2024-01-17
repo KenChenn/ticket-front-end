@@ -65,7 +65,20 @@ export default {
   },
   mounted() {
     this.search()
-  }
+  
+
+  },
+  created() {
+    // 創建頁面時設定
+    counter().setHeaderSearch({});
+    counter().setHeaderLink({});
+  },
+  beforeRouteLeave(to, from, next) {
+    // 離開頁面時清除
+    counter().setHeaderSearch(null);
+    counter().setHeaderLink(null);
+    next();
+  },
 }
 </script>
 
