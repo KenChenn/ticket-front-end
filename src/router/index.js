@@ -96,6 +96,11 @@ const router = createRouter({
       component: () => import("../views/SessionsAndSeats.vue"),
     },
     {
+      path: "/EditSessionsAndSeats",
+      name: "EditSessionsAndSeats",
+      component: () => import("../views/EditSessionsAndSeats.vue"),
+    },
+    {
       path: "/Detail",
       name: "Detail",
       component: () => import("../views/Detail.vue"),
