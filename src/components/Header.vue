@@ -1,14 +1,12 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import{mapState, mapActions} from 'pinia'
 import counter from '../stores/counter'
+import { Value } from "sass";
 export default {
   data() {
     return {
-      // headerStyle:true,
-      account:true,  //登入狀態
+      account:true,  //登入狀態(已登入的狀態，記得關!!)
       dataList: [],
-      h1:null
     };
   },
   methods: {
@@ -16,11 +14,6 @@ export default {
       this.$router.push("/"),
         this.account = false
     },
-    h1(){
-      if(this.setLocation(num===16)){
-        headerShow=true
-      }
-    }
   },
   // methods: {
   //   //連接搜尋的API
@@ -48,23 +41,32 @@ export default {
     RouterLink,
   },
   computed:{
-        ...mapState(counter, ["location", "locationInfo"])
+        // 首頁顯示搜尋欄
+        headerSearch() {
+          return counter().headerSearch;
+        },
+        // 最愛清單 + 訂單查詢 連結
+        headerLink() {
+          return counter().headerLink;
+        },
     }
 };
 </script>
 <template>
     <div class="headerShow">
-      <!-- <span>{{ locationInfo }}</span> -->
       <!-- 搜尋欄 -->
-      <div class="searchBar" >
+      <div class="searchBar" v-if="headerSearch">
         <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
         <input type="search" class="searchInput" v-model="searchData">
       </div>
 
       <div class="isLogIn" v-if="account">
         <!-- 已登入 -->
+        <div class="link" v-if="headerLink">
+          <RouterLink to="/FavoratePage" class="favoratePage" >最愛清單</RouterLink>
+          <RouterLink to="/OrderTracking" class="orderTracking" >訂單查詢</RouterLink>
+        </div>
         <button type="button" class="signOut" @click="this.signOut()">登出</button>
-        <!-- <RouterLink to="/" class="signOut" >登出</RouterLink> -->
       </div>
       <div class="notLogin" v-else>
         <!-- 未登入 -->
@@ -101,7 +103,7 @@ export default {
       width: 100%;
       height: 100%;
       top: 15%;
-      text-indent: 15%;
+      padding-left: 15%;
       border-radius: 15px;
       border: 0;
       background-color: #FAF8ED;
@@ -110,6 +112,22 @@ export default {
   }
 
   .isLogIn {
+    .favoratePage{
+      position: absolute;
+      text-decoration: none;
+      color: #FAF8ED;
+      font-size: 30px;
+      right: 37%;
+      top: 20%
+    }
+    .orderTracking{
+      position: absolute;
+      text-decoration: none;
+      color: #FAF8ED;
+      font-size: 30px;
+      right: 23%;
+      top: 20%
+    }
     .signOut {
       position: absolute;
       color: #FAF8ED;
@@ -128,7 +146,7 @@ export default {
       text-decoration: none;
       color: #FAF8ED;
       font-size: 30px;
-      right: 23vw;
+      right: 23%;
       top: 20%
     }
 

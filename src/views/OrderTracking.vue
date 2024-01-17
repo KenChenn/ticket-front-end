@@ -33,7 +33,6 @@
 </body>
 </template>
 <script>
-import{mapState, mapActions} from 'pinia'
 import counter from '../stores/counter'
 export default {
     
@@ -47,12 +46,15 @@ export default {
             // payment:true,   //付款狀態
         }
     },
-    methods:{
-        ...mapActions(counter,["getLocation","setLocation"])
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
     },
-    mounted(){
-        this.setLocation(15)
-    }
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
+    },
 }
 </script>
 <style scoped lang="scss" >
@@ -65,7 +67,7 @@ body{
 }
 .top{
     margin-left: 15vw;
-    padding-top: 5vh;
+    padding-top: 10vh;
     .title{
         margin: 0;
         font-size: 50px;
