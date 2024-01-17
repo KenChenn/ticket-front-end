@@ -5,20 +5,35 @@
         <button type="button" class="completeEditing">完成編輯</button>
     </div>
     <div class="content">
-        <span class="start">活動開始時間</span>
-        <input type="datetime-local" class="startAbout">
-        <button type="button" class="deleteEvent">刪除場次</button>
-        <span class="onSale">開售時間</span>
-        <input type="datetime-local" class="onSaleAbout">
-        <span class="stopSale">停售時間</span>
-        <input type="datetime-local" class="stopSaleAbout">
-        <span class="area">區域名稱</span>
-        <span class="seat">可出售座位數</span>
-        <span class="price">座位價格</span>
-        <input type="text" class="areaAbout">
-        <input type="number" class="seatAbout">
-        <input type="number" class="priceAbout">
-        <button type="button" class="addArea">新增區域</button>
+        <div class="startAll">
+            <span class="start">活動開始時間</span>
+            <input type="datetime-local" class="startAbout">
+            <button type="button" class="deleteEvent">刪除場次</button>
+        </div>
+
+        <div class="onSaleAll">
+            <span class="onSale">開售時間</span>
+            <input type="datetime-local" class="onSaleAbout">
+        </div>
+
+        <div class="stopSaleAll">
+            <span class="stopSale">停售時間</span>
+            <input type="datetime-local" class="stopSaleAbout">
+        </div>
+
+        <div class="up">
+            <span class="area">區域名稱</span>
+            <span class="seat">可出售座位數</span>
+            <span class="price">座位價格</span>
+            <button type="button" class="addArea">新增區域</button>
+        </div>
+        <div class="down">
+            <input type="text" class="areaAbout">
+            <input type="number" class="seatAbout">
+            <input type="number" class="priceAbout">
+            <button type="button" class="deleteArea">刪除區域</button>
+        </div>
+        
     </div>
     <div class="footer">
         <button type="button" class="addEvent">新增場次</button>
@@ -35,149 +50,187 @@ body{
     background-color: #faf8ed;
 }
 .top{
+    width: 70vw;
+    height: 100%;
     margin-left: 15vw;
-    padding-top: 5vh;
+    padding-right: 5%;
+    display: flex;
+    align-items: end;
+    align-items: center;
+    justify-content: space-between;
+
     .title{
-        margin: 0;
-        font-size: 50px;
-        color: #4D5C44;
-        font-weight: 600;
-        margin-right: 39vw;
+        height: 10vh;
+        margin-right: 44%;
+        color: #c26202;
+        font-size: 4dvh;
+        display: flex;
+        align-items: end;
     }
     .completeEditing{
-        margin: 0;
         width: 11vw;
-        font-size: 30px;
+        margin: 0;
         color: #faf8ed;
         background-color: #748e63;
         border: 0;
-        border-radius: 17px;
+        border-radius: 1.5vh;
+        font-size: 4dvh;
     }
 }
 .content{
     width: 70vw;
-    height: 65vh;
+    // height: 65vh;
     margin-left: 15vw;
-    background-color: #f5bf89;
-    border-radius: 25px;
-    font-size: 35px;
-    margin-bottom: 3vh;
-    position: relative;
+    border: #F5A352 0.5vh solid;
+    margin: auto;
+    border-radius: 2vh;
+    padding: 2% 5%;
 
     span{
         color: #4D5C44;
+        font-size: 3dvh;
+        margin: 0;
+    }
+    p{
+        color: #4D5C44;
+        font-size: 3dvh;
         margin: 0;
     }
     input{
         width: 40%;
         height: 11%;
-        font-size: 26px;
-        color: #4D5C44;
+        font-size: 2.5dvh;
+        border: 0;
         background-color: #FAF8ED;
-        border: 0;
-        border-radius: 20px;
+        border-bottom: #F5A352 0.3vh solid;
+        color: #4D5C44;
         text-indent: 2%;
-        text-align: center;
+        &:focus {
+            outline: none;
+        }
     }
-    .start{
-        position: absolute;
-        top: 10%;
-        left: 5%;
+    .startAll{
+        margin-bottom: 5%;
+        display: flex;
+        justify-content: space-between;
+        // border: black 1px solid;
+        .start{
+            margin-right: 13.5%;
+        }
+        .startAbout{
+            text-align: center;
+            margin-right: 13.5%;
+        }
+        .deleteEvent{
+            margin: 0;
+            width: 11vw;
+            background-color: #db3a3a;
+            font-size: 4dvh;
+            color: #faf8ed;
+            border: 0;
+            border-radius: 1.5vh;
+        }
     }
-    .startAbout{
-        position: absolute;
-        top: 10%;
-        right: 27%;
+    .onSaleAll{
+        margin-bottom: 5%;
+        .onSale{
+            margin-left: 2.5%;
+            margin-right: 15.5%;
+        }
+        .onSaleAbout{
+            text-align: center;
+        }
     }
-    .deleteEvent{
-        position: absolute;
-        margin: 0;
-        width: 11vw;
-        background-color: #db3a3a;
-        font-size: 30px;
-        color: #faf8ed;
-        border: 0;
-        border-radius: 17px;
-        top: 10%;
-        right: 5%;
+    .stopSaleAll{
+        margin-bottom: 8%;
+
+        .stopSale{
+            margin-left: 2.5%;
+            margin-right: 15.5%;
+        }
+        .stopSaleAbout{
+            text-align: center;
+        }
     }
-    .onSale{
-        position: absolute;
-        top: 27%;
-        left: 8.5%;
-    }
-    .onSaleAbout{
-        position: absolute;
-        top: 27%;
-        right: 27%;
-    }
-    .stopSale{
-        position: absolute;
-        top: 44%;
-        left: 8.5%;
-    }
-    .stopSaleAbout{
-        position: absolute;
-        top: 44%;
-        right: 27%;
-    }
-    .area{
-        position: absolute;
-        top: 67%;
-        left: 8.5%;
-    }
-    .seat{
-        position: absolute;
-        top: 67%;
-        left: 29%;
-    }
-    .price{
-        position: absolute;
-        top: 67%;
-        right: 29%;
-    }
-    .areaAbout{
-        position: absolute;
-        width: 17%;
-        top: 80%;
-        left: 6%;
-    }
-    .seatAbout{
-        position: absolute;
-        width: 20%;
-        top: 80%;
-        left: 29%;
-    }
-    .priceAbout{
-        position: absolute;
-        width: 20%;
-        top: 80%;
-        right: 25%;
-    }
-    .addArea{
-        position: absolute;
+    .up{
+        display: flex;
+        justify-content: space-between;
+        .area{
+            margin-left: 2.5%;
+            margin-right: 15.5%;
+        }
+        .seat{
+            margin-right: 15.5%;
+        }
+        .price{
+            margin-right: 15.5%;
+        }
+        .addArea{
         margin: 0;
         width: 11vw;
         background-color: #748e63;
-        font-size: 30px;
+        font-size: 4dvh;
         color: #faf8ed;
         border: 0;
-        border-radius: 17px;
-        top: 80%;
-        right: 5%;
+        border-radius: 1.5vh;
+        }
+    }
+    .down{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5%;
+        .areaAbout{
+            margin-left: 2%;
+            margin-right: 17%;
+            width: 10%;
+        }
+
+        .seatAbout{
+            margin-right: 17%;
+            width: 10%;
+        }
+        .priceAbout{
+            margin-right: 15%;
+            width: 10%;
+        }
+        .deleteArea{
+            margin: 0;
+            width: 11vw;
+            background-color: #db3a3a;
+            font-size: 4dvh;
+            color: #faf8ed;
+            border: 0;
+            border-radius: 1.5vh;
+            
+        }
     }
 }
 .footer{
     width: 100%;
     text-align: center;
     .addEvent{
-        margin: 0;
-            width: 11vw;
-            background-color: #748e63;
-            font-size: 30px;
-            color: #faf8ed;
-            border: 0;
-            border-radius: 17px;
+        height: 10%;
+        width: 14%;
+        border:0.3vh solid #F5A352;
+        background-color: #FAF8ED;
+        color: #F5A352;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1.5vh;
+        margin: auto;
+        margin-top: 3%;
+        font-size: 2.5dvh;
+        &:hover{
+            transition: 0.1s linear;
+            border:0;
+            background-color: #748E63;
+            color: #FAF8ED;
+            scale: 1.1;
+        }
+        &:active{
+            scale: 0.95;
+        }
     }
 }
 </style>
