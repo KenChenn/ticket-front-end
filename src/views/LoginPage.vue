@@ -181,8 +181,9 @@ export default {
                     background-color: #F5A352;
                     scale: 1.1;
                 }
-
+                
                 &:active {
+                    background-color: #c26202;
                     scale: 0.95;
                 }
             }

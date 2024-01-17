@@ -1,52 +1,70 @@
 <template>
-        <div class="top">
-            <div class="title">
-                編輯活動
-                <span>
-                    *為必填
-                </span>
+    <div class="top">
+        <div class="title">
+            編輯活動
+            <div class="compel">
+                *為必填
             </div>
         </div>
-        <div class="content">
-            <span class="name">活動名稱*</span>
+    </div>
+    <div class="content">
+        <div class="name">
+            <span>活動名稱*</span>
             <input type="text" class="nameAbout">
-            <span class="num">活動代號*</span>
+        </div>
+        <div class="num">
+            <span>活動代號*</span>
             <input type="text" class="numAbout">
-            <span class="unit">主辦單位*</span>
+        </div>
+        <div class="unit">
+            <span>主辦單位*</span>
             <select name="" id="" class="unitAbout">
                 <option value="">主辦單位名稱</option>
                 <option value="">主辦單位名稱</option>
             </select>
-            <span class="entity">是否為實體活動*</span>
+        </div>
+        <div class="entity">
+            <span>是否為實體活動*</span>
             <span class="yes">是</span>
             <input type="radio" name="radio" class="yesAbout">
             <span class="no">否</span>
             <input type="radio" name="radio" class="noAbout">
-            <span class="place">地點</span>
-            <input type="text" class="placeAbout">
-            <span class="illustrate">活動說明</span>
-            <textarea name="" id="" cols="30" rows="10" class="illustrateAbout"></textarea>
-            <span class="vision">主視覺圖</span>
-            <input type="file" class="visionPicture">
-            <span class="introduce1">座位或介紹圖片/1</span>
-            <input type="file" class="introducePicture1">
-            <span class="introduce2">座位或介紹圖片/2</span>
-            <input type="file" class="introducePicture2">
-            <button type="button" class="establish">確認</button>
         </div>
+        <div class="place">
+            <span>地點</span>
+            <input type="text" class="placeAbout">
+        </div>
+        <div class="illustrate">
+            <span>活動說明</span>
+            <textarea name="" id="" cols="30" rows="10" class="illustrateAbout"></textarea>
+        </div>
+        <div class="vision">
+            <span>主視覺圖</span>
+            <input type="file" class="visionPicture">
+        </div>
+        <div class="introduce1">
+            <span>座位或介紹圖片/1</span>
+            <input type="file" class="introducePicture1">
+        </div>
+        <div class="introduce2">
+            <span>座位或介紹圖片/2</span>
+            <input type="file" class="introducePicture2">
+        </div>
+        
+        <button type="button" class="establish">確認</button>
+    </div>
 </template>
 <script>
 export default {
 
 }
 </script> 
-<style lang="scss">
-
+<style lang="scss" scoped>
 .title {
     width: 70%;
     height: 10vh;
     margin-left: 15%;
-    color: #4D5C44;
+    color: #c26202;
     font-size: 4dvh;
     display: flex;
     align-items: end;
@@ -54,20 +72,23 @@ export default {
     display: flex;
     justify-content: space-between;
 
-    span {
+    .compel {
         font-size: 2dvh;
+        color: #c26202;
     }
 }
 
 .content {
     width: 70vw;
-    height: 120vh;
+    height: 70vh;
     margin-left: 15vw;
+    background-color: #FAF8ED;
     border: #F5BF89 0.5vh solid;
     border-radius: 2vh;
     font-size: 3dvh;
-    position: relative;
     padding: 2%;
+    // display: flex;
+    // flex-wrap:wrap;
 
     span {
         color: #4D5C44;
@@ -81,9 +102,13 @@ export default {
         color: #4D5C44;
         background-color: #FAF8ED;
         border: 0;
-        border-radius: 2vh;
         text-indent: 2%;
-        text-align: center;
+        border-bottom: #F5A352 0.3vh solid;
+
+        &:focus {
+            outline: none;
+        }
+
     }
 
     select {
@@ -105,17 +130,6 @@ export default {
         border-radius: 0;
     }
 
-    textarea {
-        width: 60%;
-        // height: 25%;
-        font-size: 2.5dvh;
-        resize: none;
-        color: #4D5C44;
-        background-color: #FAF8ED;
-        border: 0;
-        border-radius: 2vh;
-        // border: 1px solid black;
-    }
 
     input[type="radio"] {
         width: 30px;
@@ -124,145 +138,148 @@ export default {
     }
 
     .name {
-        position: absolute;
-        top: 5%;
-        left: 10%;
-        // border: 1px solid black;
-        
+        width: 50%;
+        height: 10vh;
+        border: 1px solid black;
+
+        .nameAbout {
+            border: 1px solid black;
+        }
     }
-    
-    .nameAbout {
-        position: absolute;
-        // border: 1px solid black;
-        top: 5%;
-        right: 10%;
-    }
+
 
     .num {
-        position: absolute;
-        top: 12%;
-        left: 10%;
+        width: 50%;
+        height: 10vh;
+        margin-left: 50%;
+        margin-top: -10vh;
+        border: 1px solid black;
+
+        .numAbout {
+            border: 1px solid black;
+        }
     }
 
-    .numAbout {
-        position: absolute;
-        top: 12%;
-        right: 10%;
-    }
 
     .unit {
-        position: absolute;
-        top: 19%;
-        left: 10%;
+        width: 50%;
+        height: 10vh;
+        border: 1px solid black;
+
+        .unitAbout {
+            border: 1px solid black;
+        }
     }
 
-    .unitAbout {
-        position: absolute;
-        top: 19%;
-        right: 10%;
-    }
 
     .entity {
-        position: absolute;
-        top: 25%;
-        left: 10%;
+        width: 50%;
+        height: 10vh;
+        margin-left: 50%;
+        margin-top: -10vh;
+        border: 1px solid black;
+        .yes {
+            width: 50%;
+            border: 1px solid black;
+            .yesAbout {
+                width: 50%;
+                border: 1px solid black;
+    
+            }
+        }
+        .no {
+            width: 50%;
+    
+            border: 1px solid black;
+    
+            .noAbout {
+                width: 50%;
+                border: 1px solid black;
+            }
+        }
     }
 
-    .yes {
-        position: absolute;
-        top: 25%;
-        right: 50%;
-    }
 
-    .yesAbout {
-        position: absolute;
-        top: 25%;
-        right: 45%;
-    }
 
-    .no {
-        position: absolute;
-        top: 25%;
-        right: 30%;
-    }
-
-    .noAbout {
-        position: absolute;
-        top: 25%;
-        right: 25%;
-    }
 
     .place {
-        position: absolute;
-        top: 31.5%;
-        left: 10%;
+        width: 50%;
+        height: 10vh;
+        border: 1px solid black;
+
+        .placeAbout {
+            width: 50%;
+            border: 1px solid black;
+        }
     }
 
-    .placeAbout {
-        position: absolute;
-        top: 31.5%;
-        right: 10%;
-    }
+
 
     .illustrate {
-        position: absolute;
-        top: 38.5%;
-        left: 10%;
-    }
+        width: 50%;
+        margin-left: 50%;
+        margin-top: -10vh;
+        border: 1px solid black;
 
-    .illustrateAbout {
-        position: absolute;
-        top: 38.5%;
-        right: 10%;
+        .illustrateAbout {
+
+            border: 1px solid black;
+        }
+        textarea {
+        height: 30vh;
+        font-size: 2.5dvh;
+        resize: none;
+        color: #4D5C44;
+        background-color: #FAF8ED;
+        border: 0;
+        border-radius: 2vh;
+    }
     }
 
     .vision {
-        position: absolute;
-        top: 73%;
-        left: 10%;
+        width: 50%;
+        margin-top: -25vh;
+        height: 10vh;
+
+        border: 1px solid black;
+
+        .visionPicture {
+            border: 1px solid black;
+        }
     }
 
-    .visionPicture {
-        position: absolute;
-        top: 73%;
-        right: 10%;
-    }
 
     .introduce1 {
-        position: absolute;
-        top: 78%;
-        left: 10%;
+        width: 50%;
+
+        border: 1px solid black;
+
+        .introducePicture1 {
+
+            border: 1px solid black;
+        }
     }
 
-    .introducePicture1 {
-        position: absolute;
-        top: 78%;
-        right: 10%;
-    }
 
     .introduce2 {
-        position: absolute;
-        top: 83%;
-        left: 10%;
-    }
+        width: 50%;
 
-    .introducePicture2 {
-        position: absolute;
-        top: 83%;
-        right: 10%;
+        border: 1px solid black;
+
+        .introducePicture2 {
+
+            border: 1px solid black;
+        }
     }
 
     .establish {
         //確認按鈕
-        position: absolute;
-        top: 92%;
-        left: 43%;
         width: 14%;
         font-size: 3dvh;
         color: #FAF8ED;
         background-color: #748e63;
         border: 0;
         border-radius: 2vh;
+        border: 1px solid black;
     }
-}
-</style>
+}</style>

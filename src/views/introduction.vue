@@ -110,7 +110,7 @@ export default {
 .down {
     // height: auto;
     background-color: #99B080;
-    padding: 3% 15% 5% 15%;
+    padding: 5% 15% 5% 15%;
     color: #FAF8ED;
 
     .introduction {
@@ -120,7 +120,7 @@ export default {
     .title {
         // border: 1px solid black;
         height: 10vh;
-        color: #F5BF89;
+        color: #ffc68d;
         display: flex;
         align-items: center;
         font-size: 4dvh;

@@ -176,16 +176,26 @@ export default {
 
         .btn {
             width: 14%;
-            height: 7%;
-            font-size: 2.5dvh;
-            background-color: #F9B572;
-            border: 0;
-            color: #FAF8ED;
-            border-radius: 2vh;
+            height: 10%;
+            border: 0.3vh solid #4D5C44;
+            // border: 0;
+            color: #4D5C44;
+            border-radius: 1.5vh;
             margin-left: 43%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-size: 2.5dvh;
+
+            &:hover {
+                transition: 0.1s linear;
+                color: #FAF8ED;
+                border: 0;
+                background-color: #F5A352;
+                scale: 1.1;
+            }
+
+            &:active {
+                background-color: #c26202;
+                scale: 0.95;
+            }
         }
 
         .warning {
