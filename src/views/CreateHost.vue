@@ -10,18 +10,24 @@
             <div class="create">
                 <div class="allP">主辦單位名稱*</div>
                 <input type="text" class="allInput" v-model="name">
-                <div v-if="!isEntityName" class="warning">請輸入主辦單位名稱</div>
-                <div v-if="isReapeatName" class="warning">主辦單位名稱已存在</div>
+                <div class="warning">
+                    <span v-if="!isEntityName" >請輸入主辦單位名稱</span>
+                    <span v-if="isReapeatName">主辦單位名稱已存在</span>
+                </div>
                 <div class="allP">mail*</div>
                 <input type="text" class="allInput" v-model="email">
-                <div v-if="!isEntityEmail" class="warning">請輸入mail</div>
-                <div v-if="!isValidEmail" class="warning">mail 格式輸入錯誤</div>
+                <div class="warning">
+                    <span v-if="!isEntityEmail">請輸入mail</span>
+                    <span v-if="!isValidEmail">mail格式輸入錯誤</span>
+                </div>
 
                 <div class="allP">電話*</div>
 
                 <input type="text" class="allInput" v-model="phone" @input="filterNonNumeric">
-                <div v-if="!isEntityPhone" class="warning">請輸入電話</div>
-                <div v-if="!isValidPhone" class="warning">請輸入 10 碼手機格式</div>
+                <div class="warning">
+                    <span v-if="!isEntityPhone">請輸入電話</span>
+                    <span v-if="!isValidPhone">請輸入 10 碼手機格式</span>
+                </div>
 
                 <div class="allP">地址</div>
 
@@ -191,6 +197,16 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            &:hover{
+                    transition: 0.1s linear;
+                    border:0;
+                    background-color: #748E63;
+                    color: #FAF8ED;
+                    scale: 1.1;
+                }
+                &:active{
+                    scale: 0.95;
+                }
         }
 
         .warning {

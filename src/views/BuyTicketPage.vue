@@ -7,7 +7,7 @@
         <div class="showArea">
             <div class="showImg">
                 <!-- 節目圖片 -->
-                <img src="../../public/material/3-4_1200X630_V3_medium.png">
+                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
             </div>
 
             <!-- 節目資訊 -->
@@ -125,14 +125,15 @@ export default {
     // border: 1px solid black;
     .title {
         height: 10vh;
-        color: #F5BF89;
+        color: #ffc68d;
         display: flex;
         // border: 1px solid black;
         align-items: center;
         justify-content: space-between;
         font-size: 4dvh;
         padding: 2%;
-        span{
+
+        span {
             width: 10%;
             // border: 1px solid black;
             margin-left: 0%;
@@ -140,16 +141,17 @@ export default {
     }
 }
 
-.ticket{
+.ticket {
     width: 100%;
     height: 10vh;
     background-color: #748E63;
-    border-radius: 2vh;        
+    border-radius: 2vh;
     align-items: center;
     display: flex;
     padding: 2%;
     display: flex;
     justify-content: space-between;
+
     span {
         color: #FAF8ED;
         font-size: 2.5dvh;
@@ -161,12 +163,20 @@ export default {
     width: 10%;
     height: 100%;
     background-color: #F5A352;
-    border: 1pt solid #F5A352;
-    border-radius: 2vh;
+    border: 0;
+    border-radius: 1.5vh;
     font-size: 2.5dvh;
     color: #FAF8ED;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-</style>
+
+    &:hover {
+        transition: 0.1s linear;
+        scale: 1.1;
+    }
+
+    &:active {
+        scale: 0.95;
+    }
+}</style>

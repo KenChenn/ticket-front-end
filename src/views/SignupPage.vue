@@ -69,7 +69,11 @@
                         <span v-if="!isValidPhoneNumber">請輸入 10 碼手機格式</span>
                     </div>
                 </div>
-                <button type="button" class="btn" @click="register()">註冊</button>
+                <button type="button" class="btn" @click="register()">
+                    註冊                    
+                </button>
+
+
             </div>
         </div>
     </div>
@@ -198,7 +202,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
     // width: 100%;
     // // height: 130vh;
@@ -276,15 +280,19 @@ export default {
         .allInput {
             width: 80%;
             font-size: 3dvh;
-            background-color: #FAF8ED;
+            margin-top: 1%;
             border: 0;
+            background-color: #FAF8ED;
             border-bottom: #89A071 0.3vh solid;
             color: #4D5C44;
+            &:focus{
+                outline: 0;
+            }
         }
 
         .allP {
             width: 50%;
-            font-size: 2.5dvh;
+            font-size: 3dvh;
             color: #4D5C44;
             // border: 1px black solid;
         }
@@ -311,14 +319,24 @@ export default {
         .btn {
             width: 14%;
                 height: 10%;
-                background-color: #F9B572;
-                border: 0;
-                color: #FAF8ED;
-                border-radius: 10vh;
+                border:0.3vh solid #4D5C44;
+                // border: 0;
+                color: #4D5C44;
+                border-radius: 1.5vh;
                 margin-left: 43%;
                 font-size: 2.5dvh;
+                &:hover{
+                    transition: 0.1s linear;
+                    color: #FAF8ED;
+                    border:0;
+                    background-color: #F5A352;
+                    scale: 1.1;
+                }
+                &:active{
+                    scale: 0.95;
+                }
         }
-
+        
     }
 }
 </style>

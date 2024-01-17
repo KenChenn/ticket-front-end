@@ -2,15 +2,14 @@
     <div class="main">
         <div class="up">
             <!-- 主辦單位管理按鈕 -->
-            <button class="host" @click="this.goManageHostPage()">主辦單<br>位管理</button>
-            
+            <button class="host" @click="this.goManageHostPage()">主辦單位管理</button>
+
             <!-- 建立活動按鈕 -->
-            <button class="act" @click="this.goCreateActivities()">建立<br>活動</button>
+            <button class="act" @click="this.goCreateActivities()">建立活動</button>
         </div>
         <div class="down">
             <div class="actSq">
                 <div class="sqUp">
-                    <br>
                     <span class="actSpan">活動名稱</span>
                 </div>
                 <div class="sqDown">
@@ -18,17 +17,17 @@
                     <!-- 活動區域 -->
                     <div class="plusAct">
                         <button class="hensyu">編輯</button>
-                        <span class="spanName">xxxxLIve</span>
+                        <div class="spanName">xxxxLIve</div>
                         <button class="cencel">刪除</button>
                     </div>
                     <div class="plusAct">
                         <button class="hensyu">編輯</button>
-                        <span class="spanName">xxxxLIve</span>
+                        <div class="spanName">xxxxLIve</div>
                         <button class="cencel">刪除</button>
                     </div>
                     <div class="plusAct">
                         <button class="hensyu">編輯</button>
-                        <span class="spanName">xxxxLIve</span>
+                        <div class="spanName">xxxxLIve</div>
                         <button class="cencel">刪除</button>
                     </div>
                 </div>
@@ -56,11 +55,22 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
     width: 100%;
     height: 100%;
     background-color: #FAF8ED;
+
+    button:hover {
+        transition: 0.1s linear;
+        color: #FAF8ED;
+        background-color: #4D5C44;
+        scale: 1.1;
+    }
+
+    button:active {
+        scale: 0.95;
+    }
 
     // justify-content: center;
     .up {
@@ -71,25 +81,27 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         .host {
             height: 70%;
             width: 25%;
             background-color: #89A071;
-            border: 1pt solid #89A071;
+            border: 0;
             font-size: 3dvh;
             line-height: 6vh;
             color: #FAF8ED;
-            border-radius: 2vh;
+            border-radius: 1vh;
         }
+
         .act {
             height: 70%;
             width: 25%;
             background-color: #89A071;
-            border: 1pt solid #89A071;
+            border: 0;
             font-size: 3dvh;
             line-height: 6vh;
             color: #FAF8ED;
-            border-radius: 2vh;
+            border-radius: 1vh;
         }
     }
 
@@ -100,8 +112,9 @@ export default {
 
         .actSq {
             width: 70%;
-            height: 90%;
-            background-color: #F5BF89;
+            height: 65vh;
+            // background-color: #F5BF89;
+            border: #F5BF89 0.5vh solid;
             margin-left: 15%;
             border-radius: 2vh;
 
@@ -112,9 +125,10 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
                 .actSpan {
                     color: #4D5C44;
-                    font-size:3dvh;
+                    font-size: 3dvh;
                 }
             }
 
@@ -122,36 +136,42 @@ export default {
                 width: 100%;
                 height: 85%;
                 padding: 2%;
+
                 // border: 1px solid black;
-                .plusAct{
+                .plusAct {
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 2%;
+
                     .hensyu {
                         width: 10%;
                         height: 20%;
-                        border-radius: 2vh;
+                        border-radius: 10vh;
                         font-size: 2dvh;
                         background-color: #F5A352;
-                        border: 1pt solid #F5A352;
+                        border: 0;
                         color: #FAF8ED;
                     }
-    
+
                     .spanName {
+                        width: 100%;
                         font-size: 2dvh;
+                        display: flex;
+                        justify-content: center;
                         color: #4D5C44;
-                        
+                        border-bottom: #F5A352 0.3vh solid;
                     }
+
                     .cencel {
                         width: 10%;
                         height: 20%;
-                        border-radius: 2vh;
+                        border-radius: 10vh;
                         font-size: 2dvh;
                         background-color: #DB3A3A;
-                        border: 1pt solid #DB3A3A;
+                        border: 0;
                         color: #FAF8ED;
                     }
-    
+
                 }
             }
         }

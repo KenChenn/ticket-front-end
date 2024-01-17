@@ -121,7 +121,7 @@ export default {
 
     .title {
         height: 10vh;
-        color: #F5BF89;
+        color: #ffc68d;
         display: flex;
         justify-content: center;
         align-items: center;

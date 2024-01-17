@@ -3,7 +3,7 @@
         <div class="showArea">
             <div class="showImg">
                 <!-- 節目圖片 -->
-                <img src="../../public/material/3-4_1200X630_V3_medium.png">
+                <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png">
             </div>
 
             <!-- 節目資訊 -->
@@ -128,7 +128,7 @@ export default {
     .title {
         // border: 1px solid black;
         height: 10vh;
-        color: #F5BF89;
+        color: #ffc68d;
         display: flex;
         justify-content: center;
         align-items: center;

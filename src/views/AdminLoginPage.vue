@@ -15,7 +15,7 @@
                 <div class="loginInP">帳號</div>
                 <input type="text" class="inputClass" v-model="loginAccount">
                 <div class="warning">
-                    <span v-if="!isEntityAccount" >請輸入帳號</span>
+                    <span v-if="!isEntityAccount">請輸入帳號</span>
                 </div>
 
                 <div class="loginInP">密碼</div>
@@ -23,8 +23,8 @@
                 <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
                 <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <div class="warning">
-                <span v-if="!isEntityPassword" >請輸入密碼</span>
-                    </div>
+                    <span v-if="!isEntityPassword">請輸入密碼</span>
+                </div>
                 <button type="button" class="loginBtn" @click="login()">登入</button>
             </div>
         </div>
@@ -83,7 +83,7 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
     height: 90vh;
     background-color: #FAF8ED;
@@ -135,7 +135,7 @@ export default {
             height: 10vh;
             // border: 1px solid black;
             margin-left: 15%;
-            color: #4D5C44;
+            color: #c26202;
             font-size: 4dvh;
             display: flex;
             align-items: end;
@@ -144,7 +144,7 @@ export default {
         .login {
             width: 70%;
             height: 70vh;
-            background-color: #F5BF89;
+            border: #F5A352 0.3vh solid;
             margin: auto;
             border-radius: 2vh;
             padding: 5% 0;
@@ -157,39 +157,51 @@ export default {
                 align-items: end;
                 font-size: 3dvh;
                 color: #4D5C44;
-                // border: 1px solid black;
             }
 
             .inputClass {
-                // border: 1px solid black;
                 width: 50%;
                 margin-left: 25%;
                 margin-bottom: 1%;
-                border-radius: 2vh;
                 font-size: 2.5dvh;
                 border: 0;
                 background-color: #FAF8ED;
-                text-align: center;
+                border-bottom: #F5A352 0.3vh solid;
+                color: #4D5C44;
+                &:focus {
+                    outline: none;
+                }
             }
-            i{
+
+            i {
                 margin-left: 1%;
                 font-size: 3dvh;
-                color: #FAF8ED;
+                color: #4D5C44;
             }
 
             .loginBtn {
                 height: 10%;
                 width: 14%;
-                background-color: #748E63;
-                border: 0;
-                color: #FAF8ED;
+                border:0.3vh solid #F5A352;
+                background-color: #FAF8ED;
+                color: #F5A352;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                border-radius: 2vh;
+                border-radius: 1.5vh;
                 margin: auto;
                 margin-top: 5%;
                 font-size: 2.5dvh;
+                &:hover{
+                    transition: 0.1s linear;
+                    border:0;
+                    background-color: #748E63;
+                    color: #FAF8ED;
+                    scale: 1.1;
+                }
+                &:active{
+                    scale: 0.95;
+                }
             }
 
             .warning {
