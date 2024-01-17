@@ -8,24 +8,48 @@
                 </span>
             </div>
             <div class="edit">
-                <div class="allP">主辦單位名稱*</div>
-                <input type="text" class="allInput" v-model="editname">
-                <div v-if="!isEntityName" class="warning">請輸入主辦單位名稱</div>
-                <div v-if="isReapeatName" class="warning">主辦單位名稱已存在</div>
-                <div class="allP">mail*</div>
-                <input type="text" class="allInput" v-model="editemail">
-                <div v-if="!isEntityEmail" class="warning">請輸入mail</div>
-                <div v-if="!isValidEmail" class="warning">mail 格式輸入錯誤</div>
-                <div class="allP">電話*</div>
-                <input type="number" class="allInput" v-model="editphone" @input="filterNonNumeric">
-                <div v-if="!isEntityPhone" class="warning">請輸入電話</div>
-                <div v-if="!isValidPhone" class="warning">請輸入 10 碼手機格式</div>
-                <div class="allP">地址</div>
-                <input type="text" class="allInput" v-model="editaddress">
-                <div class="allP">官方網址</div>
-                <input type="text" class="allInput" v-model="editurl">
-                <div class="allP">社交軟體連結</div>
-                <input type="text" class="allInput" v-model="editsns">
+                <div class="allP">
+                    <span>
+                        主辦單位名稱*
+                    </span>
+                    <input type="text" class="allInput" v-model="editname">
+                    <div v-if="!isEntityName" class="warning">請輸入主辦單位名稱</div>
+                    <div v-if="isReapeatName" class="warning">主辦單位名稱已存在</div>
+                </div>
+                <div class="allP">
+                    <span>
+                        mail*
+                    </span>
+                    <input type="text" class="allInput" v-model="editemail">
+                    <div v-if="!isEntityEmail" class="warning">請輸入mail</div>
+                    <div v-if="!isValidEmail" class="warning">mail 格式輸入錯誤</div>
+                </div>
+                <div class="allP">
+                    <span>
+                        電話*
+                    </span>
+                    <input type="number" class="allInput" v-model="editphone" @input="filterNonNumeric">
+                    <div v-if="!isEntityPhone" class="warning">請輸入電話</div>
+                    <div v-if="!isValidPhone" class="warning">請輸入 10 碼手機格式</div>
+                </div>
+                <div class="allP">
+                    <span>
+                        地址
+                    </span>
+                    <input type="text" class="allInput" v-model="editaddress">
+                </div>
+                <div class="allP">
+                    <span>
+                        官方網址
+                    </span>
+                    <input type="text" class="allInput" v-model="editurl">
+                </div>
+                <div class="allP">
+                    <span>
+                        社交軟體連結
+                    </span>
+                    <input type="text" class="allInput" v-model="editsns">
+                </div>
                 <button type="button" class="btn" @click="edit()">確認</button>
             </div>
         </div>
@@ -152,7 +176,7 @@ export default {
             width: 70%;
             height: 10vh;
             margin-left: 15%;
-            color: #4D5C44;
+            color: #c26202;
             font-size: 4dvh;
             display: flex;
             align-items: end;
@@ -168,55 +192,70 @@ export default {
 
         .edit {
             width: 70%;
-            height: 80%;
-            padding-top: 1%;
-            background-color: #F5BF89;
-            margin-left:15%;
+            height: 70vh;
+            padding: 3%;
+            border: #F5A352 0.3vh solid;
             border-radius: 2vh;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
             // border: 1px solid black;
         }
 
         .allP {
-            width: 100%;
-            height: 6%;
+            width: 50%;
             color: #4D5C44;
-            // border: 1px solid black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.5dvh;
+            font-size: 3dvh;
+            // border: 1px black solid;
+
+            span {
+                width: 100%;
+                height: 30%;
+                display: flex;
+                // border: 1px black solid;
+            }
         }
 
         .allInput {
-            width: 50%;
-            height: 5%;
-            margin-left: 25%;
-            border-radius: 2vh;
+            width: 80%;
+            font-size: 3dvh;
+            border: 0;
             background-color: #FAF8ED;
-            border: 1pt solid #FAF8ED;
-            text-align: center;
+            border-bottom: #F5A352 0.3vh solid;
+            &:focus {
+                outline: none;
+            }
         }
 
         .btn {
-            height: 5%;
-            width: 10%;
-            margin-top: 1%;
-            background-color: #89A071;
-            border: 1pt solid #89A071;
-            color: #FAF8ED;
-            border-radius: 2vh;
-            margin-left: 45%;
+            height: 10%;
+            width: 14%;
+            border: 0.3vh solid #F5A352;
+            background-color: #FAF8ED;
+            color: #F5A352;
             display: flex;
             justify-content: center;
             align-items: center;
+            border-radius: 1.5vh;
+            margin: auto;
+            font-size: 2.5dvh;
+
+            &:hover {
+                transition: 0.1s linear;
+                border: 0;
+                background-color: #748E63;
+                color: #FAF8ED;
+                scale: 1.1;
+            }
+
+            &:active {
+                scale: 0.95;
+                background-color: #4D5C44
+            }
         }
 
         .warning {
-            height: 5%;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            // margin-left: 45%;
             color: #DB3A3A;
             font-size: 2dvh;
             // border: 1px solid black;

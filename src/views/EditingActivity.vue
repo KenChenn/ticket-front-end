@@ -1,5 +1,4 @@
 <template>
-    <body>
         <div class="top">
             <div class="title">
                 編輯活動
@@ -35,8 +34,6 @@
             <input type="file" class="introducePicture2">
             <button type="button" class="establish">確認</button>
         </div>
-
-    </body>
 </template>
 <script>
 export default {
@@ -44,9 +41,6 @@ export default {
 }
 </script> 
 <style lang="scss">
-body{
-    padding-bottom: 5%;
-}
 
 .title {
     width: 70%;
@@ -69,7 +63,7 @@ body{
     width: 70vw;
     height: 120vh;
     margin-left: 15vw;
-    background-color: #f5bf89;
+    border: #F5BF89 0.5vh solid;
     border-radius: 2vh;
     font-size: 3dvh;
     position: relative;

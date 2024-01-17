@@ -84,7 +84,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
-    
+
     .title {
         width: 70%;
         height: 10vh;
@@ -96,6 +96,7 @@ export default {
         // border: 1px solid black;
         display: flex;
     }
+
     .up {
         background-color: #F9B572;
         display: flex;
@@ -134,7 +135,7 @@ export default {
             border: 0.5vh solid#89A071;
             margin: auto;
             border-radius: 2vh;
-            padding: 10% 0;
+            padding: 5% 0;
 
             .loginInP {
                 height: 5vh;
@@ -156,32 +157,45 @@ export default {
                 border-bottom: 0.3vh solid#89A071;
                 color: #4D5C44;
             }
-            i{
+
+            i {
                 margin-left: 1%;
                 font-size: 3dvh;
                 color: #FAF8ED;
             }
+
             .loginBtn {
                 width: 14%;
                 height: 10%;
-                background-color: #F9B572;
-                border: 0;
-                color: #FAF8ED;
-                border-radius: 10vh;
+                border:0.3vh solid #4D5C44;
+                // border: 0;
+                color: #4D5C44;
+                border-radius: 1.5vh;
                 margin-left: 43%;
-                margin-top: 5%;
                 font-size: 2.5dvh;
-            }
 
-            .warning {
-                height: 5%;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                color: #DB3A3A;
-                font-size: 2dvh;
-                margin-bottom: 5%;
+                &:hover {
+                    transition: 0.1s linear;
+                    color: #FAF8ED;
+                    border: 0;
+                    background-color: #F5A352;
+                    scale: 1.1;
+                }
+
+                &:active {
+                    scale: 0.95;
+                }
             }
+        }
+
+        .warning {
+            height: 10%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            color: #DB3A3A;
+            font-size: 2dvh;
+            margin-bottom: 3%;
         }
     }
 }

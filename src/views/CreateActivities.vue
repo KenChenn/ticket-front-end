@@ -139,7 +139,8 @@ body {
     height: 190vh;
     background-color: #faf8ed;
 }
-.top{
+
+.top {
     margin-left: 15vw;
     padding-top: 5vh;
 
@@ -216,10 +217,11 @@ body {
         border: 0;
         border-radius: 20px;
     }
-    input[type="radio"]{
-    width: 30px;
-    height: 30px;
-    accent-color: #748e63;//改變radio顏色
+
+    input[type="radio"] {
+        width: 30px;
+        height: 30px;
+        accent-color: #748e63; //改變radio顏色
     }
 
     .name {
