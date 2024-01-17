@@ -3,19 +3,22 @@
         <div class="top">
             <span class="title">訂單查詢</span>
         </div>
-        <div class="content" :style="{ backgroundColor: payment ? '#99b080' : '#f5a352' }">
+        <div class="content" :style="{ backgroundColor: payment ? '#89A071' : '#f5a352' }">
             <div class="left">
                 <div class="picture">
                     <img
                         src="https://t.kfs.io/upload_images/187458/kktix%E4%B8%BB%E8%A6%96%E8%A6%BA_%E8%87%89%E6%9B%B8%E8%B2%BC%E6%96%87%E9%99%84%E5%9C%96_EDM1200x630_medium.jpg">
                 </div>
-                <span class="state">狀態</span>
-                <span class="stateAbout" :style="{ color: payment ? '#FAF8ED' : '#DB3A3A' }">{{ payment ? '已付款' : '未付款'
-                }}</span>
-                <span class="orderNumber">訂單編號</span>
-                <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}</span>
-                <span class="seat">座位</span>
-                <span class="seatAbout">{{ this.seatAbout }}</span>
+                <div class="state">狀態
+                    <span class="stateAbout" :style="{ color: payment ? '#FAF8ED' : '#DB3A3A' }">{{ payment ? '已付款' : '未付款'
+                    }}</span>
+                </div>
+                <div class="orderNumber">訂單編號
+                    <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}</span>
+                </div>
+                <div class="seat">座位
+                    <span class="seatAbout">{{ this.seatAbout }}</span>
+                </div>
             </div>
             <div class="right">
                 <div class="up">
@@ -77,77 +80,76 @@ body {
 .content {
     width: 70%;
     height: 40vh;
-    margin-left: 15%;
-    padding: 3%;
+    margin: auto;
+    padding: 2%;
     background-color: #99b080;
+    color: #FAF8ED;
     border-radius: 2vh;
     font-size: 2.5dvh;
+    display: flex;
+    justify-content: space-between;
 
     .left {
-        width: 30%;
-        height: 90%;
+        width: 20dvw;
+        height: 100%;
+        // border: 1px black solid;
 
         .picture {
             width: 100%;
-            height: 60%;
+            height: 20dvh;
 
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                display: flex;
+                justify-content: center;
                 border-radius: 1.5vh;
             }
         }
 
         .state {
-            color: #4D5C44;
-            border: 1px black solid;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+
+            .stateAbout {
+                color: #FAF8ED;
+            }
         }
 
-        .stateAbout {
-            border: 1px black solid;
-            color: #FAF8ED;
-        }
-        
         .orderNumber {
-            color: #5b6852;
-            border: 1px black solid;
-            font-weight: 600;
-        }
-        
-        .orderNumberAbout {
-            color: #FAF8ED;
-            border: 1px black solid;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
 
+            .orderNumberAbout {
+                color: #FAF8ED;
+            }
         }
-        
+
         .seat {
-            color: #5b6852;
-            font-weight: 600;
-        }
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
 
-        .seatAbout {
-            color: #FAF8ED;
-
+            .seatAbout {
+                color: #FAF8ED;
+            }
         }
     }
 
     .right {
-        width: 55%;
-        height: 90%;
-
-
-        p {
-            margin: 0;
-        }
+        width: 65%;
+        height: 100%;
+        // border: 1px black solid;
 
         .up {
+            // border: 1px black solid;
             width: 100%;
-            top: 5%;
 
             .name {
-                color: #5b6852;
-                font-weight: 600;
+                font-weight: bold;
                 text-align: center;
             }
 
@@ -159,11 +161,10 @@ body {
 
         .middle {
             width: 100%;
-            top: 34%;
+            // border: 1px black solid;
 
             .date {
-                color: #5b6852;
-                font-weight: 600;
+                font-weight: bold;
                 text-align: center;
             }
 
@@ -174,11 +175,11 @@ body {
         }
 
         .down {
-
+            width: 100%;
+            // border: 1px black solid;
 
             .place {
-                color: #5b6852;
-                font-weight: 600;
+                font-weight: bold;
                 text-align: center;
             }
 
@@ -188,4 +189,5 @@ body {
             }
         }
     }
-}</style>
+}
+</style>
