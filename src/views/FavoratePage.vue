@@ -33,7 +33,6 @@
     </body>
 </template>
 <script>
-import{mapState, mapActions} from 'pinia'
 import counter from '../stores/counter'
     export default {
         data(){
@@ -46,12 +45,20 @@ import counter from '../stores/counter'
                 aboutToStart:true,   //開始狀態
             }
         },
-        methods:{
-        ...mapActions(counter,["getLocation","setLocation"])
+        created() {
+        // 在页面创建时设置特定的对象
+        counter().setHeaderLink({});
         },
-        mounted(){
-            this.setLocation(16)
-        }
+
+        beforeDestroy() {
+            // 在页面销毁时清除特定的对象
+            counter().setHeaderLink(null);
+        },
+        beforeRouteLeave(to, from, next) {
+            // 在离开页面时清除特定的对象
+            counter().setHeaderLink(null);
+            next();
+        },
     }
 </script>
 <style scoped lang="scss" >
@@ -64,7 +71,7 @@ import counter from '../stores/counter'
     }
     .top{
         margin-left: 15vw;
-        padding-top: 5vh;
+        padding-top: 10vh;
         .title{
             margin: 0;
             font-size: 50px;

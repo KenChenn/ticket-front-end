@@ -58,6 +58,7 @@ ATM虛擬帳號付款者：請下載及填寫退票申請表並附上票券正�
     </div>
 </template>
 <script>
+import counter from '../stores/counter'
 export default {
     data() {
         return {
@@ -69,7 +70,16 @@ export default {
     },
     mounted() {
 
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
+    },
 }
 </script>
 <style lang="scss" scoped>

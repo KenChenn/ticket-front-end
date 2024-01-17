@@ -38,7 +38,7 @@ body{
 }
 .top{
     margin-left: 15vw;
-    padding-top: 5vh;
+    padding-top: 10vh;
     .title{
         margin: 0;
         font-size: 50px;

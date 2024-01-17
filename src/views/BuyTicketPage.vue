@@ -49,6 +49,7 @@
     </div>
 </template>
 <script>
+import counter from '../stores/counter';
 export default {
     data() {
         return {
@@ -71,7 +72,16 @@ export default {
     },
     mounted() {
 
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
+    },
 }
 </script>
 <style lang="scss" scoped>

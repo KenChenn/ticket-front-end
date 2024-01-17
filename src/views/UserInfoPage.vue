@@ -20,6 +20,7 @@
 </div>
 </template>
 <script>
+import counter from '../stores/counter'
 import axios from 'axios'
 // import UserRewritePage from './UserRewritePage.vue'
 export default {
@@ -56,6 +57,15 @@ export default {
             this.birth = res.data.data.bornDate
             this.phone = res.data.data.phone
         })
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setHeaderLink({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setHeaderLink(null);
+        next();
     },
     // components: {
     //     UserRewritePage
