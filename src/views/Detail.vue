@@ -35,7 +35,8 @@
         <!-- 加入最愛按鈕 -->
         <div class="likeArea">
             <button>
-                <i class="fa-solid fa-heart-circle-plus"> 加入最愛</i>
+                <i class="fa-solid fa-heart-circle-plus" v-if="!searchFav" @click="this.addFav()"> 加入最愛</i>
+                <i class="fa-solid fa-heart-circle-plus" v-if="searchFav" @click="this.cencelFav()" > 移除最愛</i>
             </button>
         </div>
 
@@ -97,8 +98,7 @@ export default {
     data() {
         return {
             codeList: [],
-            trackerList:[],
-            commodityCodenameList:[]
+            searchFav:"",
         }
     },
     methods: {
@@ -126,20 +126,56 @@ export default {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    tracker:
-                    commodityCodename
+                    tracker:$cookies.get("account"),
+                    commodityCodename:this.$route.params.codename
                 })
             })
                 .then(response => response.json())
                 .then(data => {
-                    this.codeList = data.commodityList;
-                    console.log(this.codeList)
+                    this.searchFav = data.is_Track;
+                    console.log(this.searchFav)
+                })
+                .catch(error => console.log(error))
+        },
+        addFav(){
+            fetch('http://localhost:8080/api/track', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tracker:$cookies.get("account"),
+                    commodityCodename:this.$route.params.codename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.searchFav = data.is_Track;
+                    console.log(this.searchFav)
+                })
+                .catch(error => console.log(error))
+        },
+        cencelFav(){
+            fetch('http://localhost:8080/api/untrack', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tracker:$cookies.get("account"),
+                    commodityCodename:this.$route.params.codename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.searchFav = data.is_Track;
+                    console.log(this.searchFav)
                 })
                 .catch(error => console.log(error))
         }
     },
     mounted() {
-        
+        this.searchFavorate()
     },
     created() {
         this.codeInfo()
