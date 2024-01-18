@@ -147,7 +147,7 @@ export default {
 
             if (this.isEmptyShowDateTime && this.isEmptyStartSellDateTime && this.isEmptyEndSellDateTime && this.isEmptyArea && this.isEmptySeat && this.isEmptyPrice && this.isRepeatArea) {
                 this.activity.sessionData = this.sessionList
-            
+
                 const allShowDateTimes = this.sessionList.flatMap(item => item.showDateTime);
 
                 const earliestDateTime = allShowDateTimes.reduce((earliest, current) => (current < earliest ? current : earliest), allShowDateTimes[0]);
@@ -157,53 +157,53 @@ export default {
                 this.activity.endDate = latestDateTime
 
                 if (this.activity.keyvisualImg == undefined) {
-                this.activity.keyvisualImg = ""
-            }
-            if (this.activity.introduceImg1 == undefined) {
-                this.activity.introduceImg1 = ""
-            }
-            if (this.activity.introduceImg2 == undefined) {
-                this.activity.introduceImg2 = ""
-            }
-            console.log(this.activity);
+                    this.activity.keyvisualImg = ""
+                }
+                if (this.activity.introduceImg1 == undefined) {
+                    this.activity.introduceImg1 = ""
+                }
+                if (this.activity.introduceImg2 == undefined) {
+                    this.activity.introduceImg2 = ""
+                }
+                console.log(this.activity);
 
-            fetch('http://localhost:8080/api/add_commodity_and_session', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    codeName: this.activity.codename,
-                    name: this.activity.name,
-                    introduction: this.activity.introduction,
-                    entity: this.activity.enity,
-                    place: this.activity.place,
-                    organizer: this.activity.organizer,
-                    startDate: this.activity.startDate,
-                    endDate: this.activity.endDate,
-                    keyvisual_img: this.activity.keyvisualImg,
-                    introduce_img1: this.activity.introduceImg1,
-                    introduce_img2: this.activity.introduceImg2,
-                    sessionData: this.activity.sessionData
-                }),
-            }).then(response => response.json())
-                .then(res => {
-                    console.log(res.rtncode);
-                    if (res.rtncode == "SUCCESSFUL"){
-                        this.$router.push('/ActivityAndHostPage')
-                    }
-                    if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST"){
-                        alert("請先登入")
-                    }
-                    if (res.rtncode == "PARAM_ERROR"){
-                        alert("請確認資料是否填寫完畢")
-                    }
-                    if (res.rtncode == "CODENAME_EXISTED"){
-                        alert("活動代號已存在，請重新輸入")
-                        this.$router.push('/CreateActivities')
-                    }
-                })
+                fetch('http://localhost:8080/api/add_commodity_and_session', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        codeName: this.activity.codename,
+                        name: this.activity.name,
+                        introduction: this.activity.introduction,
+                        entity: this.activity.enity,
+                        place: this.activity.place,
+                        organizer: this.activity.organizer,
+                        startDate: this.activity.startDate,
+                        endDate: this.activity.endDate,
+                        keyvisual_img: this.activity.keyvisualImg,
+                        introduce_img1: this.activity.introduceImg1,
+                        introduce_img2: this.activity.introduceImg2,
+                        sessionData: this.activity.sessionData
+                    }),
+                }).then(response => response.json())
+                    .then(res => {
+                        console.log(res.rtncode);
+                        if (res.rtncode == "SUCCESSFUL") {
+                            this.$router.push('/ActivityAndHostPage')
+                        }
+                        if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
+                            alert("請先登入")
+                        }
+                        if (res.rtncode == "PARAM_ERROR") {
+                            alert("請確認資料是否填寫完畢")
+                        }
+                        if (res.rtncode == "CODENAME_EXISTED") {
+                            alert("活動代號已存在，請重新輸入")
+                            this.$router.push('/CreateActivities')
+                        }
+                    })
             }
         },
         addArea(index) {
@@ -264,8 +264,36 @@ export default {
             }
             // console.log(this.sessionList);
         },
-        EndSellDateTime(startSellDateTime) {
+        EndSellDateTime(startSellDateTime, showDateTime) {
             this.minEndSellDateTime = startSellDateTime;
+            this.maxEndSellDateTime = showDateTime;
+        },
+        updateMaxEndSellDateTime(sessionList) {
+            const validDates = sessionList
+                .map(item => new Date(item.showDateTime))
+                .filter(date => !isNaN(date.getTime()));
+
+            if (validDates.length > 0) {
+                const maxShowDateTime = Math.max(...validDates.map(date => date.getTime()));
+                this.maxEndSellDateTime = new Date(maxShowDateTime).toISOString().slice(0, 16);
+            } else {
+                this.maxEndSellDateTime = '';
+            }
+        },
+        StartSellDateTime(showDateTime) {
+            this.maxStartSellDateTime = showDateTime;
+        },
+        updateMaxStartSellDateTime(sessionList) {
+            const validDates = sessionList
+                .map(item => new Date(item.showDateTime))
+                .filter(date => !isNaN(date.getTime()));
+
+            if (validDates.length > 0) {
+                const maxShowDateTime = Math.max(...validDates.map(date => date.getTime()));
+                this.maxStartSellDateTime = new Date(maxShowDateTime).toISOString().slice(0, 16);
+            } else {
+                this.maxStartSellDateTime = '';
+            }
         },
         deleteArea(sessionIndex, areaIndex) {
             console.log(areaIndex);
@@ -299,11 +327,20 @@ export default {
             const minDateTime = new Date().toISOString().slice(0, 16);
             return minDateTime;
         }
-    }
+    },
+    watch: {
+        'sessionList': {
+            handler: function (newSessionList, oldSessionList) {
+                this.updateMaxStartSellDateTime(newSessionList);
+                this.updateMaxEndSellDateTime(newSessionList);
+            },
+            deep: true
+        }
+    },
 }
 </script>
 <style scoped lang="scss">
-body{
+body {
     background-color: #faf8ed;
 }
 .top{

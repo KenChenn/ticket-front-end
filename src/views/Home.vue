@@ -88,13 +88,13 @@ export default {
   <!-- <button @click="this.goCreateHost">去建立主辦單位頁</button>
   <button @click="this.goEditHost">去編輯主辦單位頁</button>
   <button @click="this.goBuyTicketPage">去購票頁</button> -->
-
+<!-- 
   <div class="header">
     <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
     <input type="text" class="search" v-model="searchData">
     <button type="button" class="signinBtn">註冊</button>
     <button type="button" class="logininBtn">登入</button>
-  </div>
+  </div> -->
 
   <div class="bgCarousel">
 
@@ -150,70 +150,23 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.header {
-  width: 100%;
-  height: 10vh;
-  background-color: #F9B572;
-  position: relative;
-
-  .fa-magnifying-glass {
-    position: absolute;
-    font-size: 1.5rem;
-    color: #E6E1C8;
-    top: 30%;
-    left: 28.5%;
-  }
-
-  .search {
-    height: 60%;
-    width: 20%;
-    background-color: #FAF8ED;
-    border: 1pt solid #FAF8ED;
-    border-radius: 5px;
-    margin-left: 28%;
-  }
-
-  .signinBtn {
-    background-color: #F9B572;
-    border: 1pt solid #F9B572;
-    margin-top: 0.5%;
-    font-size: 1.3rem;
-    color: #FAF8ED;
-    margin-left: 20%;
-    margin-right: 5%;
-  }
-
-  .logininBtn {
-    background-color: #F9B572;
-    border: 1pt solid #F9B572;
-    margin-top: 0.5%;
-    font-size: 1.3rem;
-    color: #FAF8ED;
-  }
-}
-
-.el-carousel-item {
-  background-size: cover;
-  background-attachment: fixed;
-  overflow-x: hidden;
-}
 .bgCarousel {
-
   position: fixed;
-  top:10vh;
+  // height: 80vh;
   width: 100%;
-  z-index: 0;
-  // opacity: 0.2;
+  top:10vh;
+  z-index: -1;
+  // opacity: 0;
 
   .carousel-inner {
     width: 100%;
-    height: 80vh;
+    // height: 80vh;
   }
 
   .carousel-item {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
     background-repeat: no-repeat;
   }
 }
@@ -221,20 +174,21 @@ export default {
 .navigate {
   width: 100%;
   height: 10vh;
-  margin-top: 80vh;
+  margin-top: 78vh;
   display: flex;
   justify-content: center;
+  z-index: 5;
 }
 
 .navigate a {
-  width: 20%;
+  width: 20vw;
   height: 100%;
   margin-left: 2%;
   margin-right: 2%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px 30px 0 0;
+  border-radius: 3vh 3vh 0 0;
   background-color: #748e63;
   color: #faf8ed;
   font-size: 2rem;
@@ -246,36 +200,11 @@ export default {
   background-color: #99B080;
 }
 
-  //position: relative;
-  //z-index: 5;
-  // border: 1px solid black;
-  a {
-    width: 20%;
-    height: 100%;
-    margin-left: 2%;
-    margin-right: 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px 30px 0 0;
-    background-color: #748e63;
-    color: #faf8ed;
-    font-size: 4dvh;
-    text-decoration: none;
-  }
-
-  .active {
-    background-color: #99B080;
-  }
-
-
 .routeArea{
-  position: relative;
-  z-index: 5;
+    border: 1px black solid;
+
 }
 .footer {
-  position: relative;
-  z-index: 5;
   width: 100%;
   height: 10vh;
   background-color: #faf8ed;

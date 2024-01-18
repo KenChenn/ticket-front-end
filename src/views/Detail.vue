@@ -70,23 +70,30 @@
 
         <div class="forum">
             <!-- 討論區發言 -->
-            <div class="discussion">
-                <div class="circle"></div>
-                <div class="info">
-                    <!-- 使用者名字 -->
-                    <div class="user">
-                        <span>
-                            user
-                        </span>
+            <div class="discussions">
+                <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
+                    <div class="circle"></div>
+                    <div class="info">
+                        <!-- 使用者名字 -->
+                        <div class="user">
+                            <span>
+                                {{ item.commenter }}
+                            </span>
+                        </div>
+                        <!-- 發言內容 -->
+                        <div class="content">
+                            <span>
+                                {{ item.comments }}
+                            </span>
+                        </div>
                     </div>
-                    <!-- 發言內容 -->
-                    <div class="content">
-                        <span>
-                            Hello world
-                        </span>
-                    </div>
+                    <button type="button" class="deleteComment" @click="deleteComment(item.id)"
+                        v-if="item.isUser">刪除</button>
                 </div>
-
+            </div>
+            <div class="comment">
+                <input type="text" class="commentInput" v-model="comments">
+                <button type="submit" @click="commentInput">發布留言</button>
             </div>
         </div>
     </div>
@@ -99,6 +106,12 @@ export default {
         return {
             codeList: [],
             searchFav:"",
+            trackerList: [],
+            commodityCodenameList: [],
+
+            commentList: [],
+
+            comments: "",
         }
     },
     methods: {
@@ -115,11 +128,12 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.codeList = data.commodityList;
-                    console.log(this.codeList)
+                    // console.log(data)
+                    // console.log(this.codeList[0].codename)
                 })
                 .catch(error => console.log(error))
         },
-        searchFavorate(){
+        searchFavorate() {
             fetch('http://localhost:8080/api/checktrack', {
                 method: "POST",
                 headers: {
@@ -172,13 +186,127 @@ export default {
                     console.log(this.searchFav)
                 })
                 .catch(error => console.log(error))
-        }
+        },
+        comment() {
+            fetch('http://localhost:8080/api/get_comments', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    codename: this.$route.params.codename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.commentList = data.forumData
+                    // console.log(this.commentList)
+                    // console.log(data.forumData)
+                    this.commentList.forEach(item => {
+                        data.forumData.forEach(dataItem => {
+                            if (item.commenter == dataItem.commenter) {
+                                item.isUser = true
+                            } else {
+                                item.isUser = false
+                            }
+                        })
+                    })
+                })
+                .catch(error => console.log(error))
+        },
+        commentInput() {
+            if (this.comments != "") {
+                fetch('http://localhost:8080/api/comment', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        codename: this.$route.params.codename,
+                        comments: this.comments
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // console.log(data.rtncode)
+                        // console.log(this.commentList)
+                        if (data.rtncode == "PLEASE_LOGIN_FIRST") {
+                            alert("請先登入才可留言")
+                        }
+                        if (data.rtncode == "PARAM_ERROR") {
+                            alert("請輸入欲發表的留言")
+                        }
+                        if (data.rtncode == "SUCCESSFUL") {
+                            this.comment()
+                            this.comments = ""
+                        }
+                    })
+                    .catch(error => console.log(error))
+            } else {
+                alert("請輸入欲發表的留言")
+            }
+        },
+        deleteComment(id) {
+            console.log(id);
+            fetch('http://localhost:8080/api/delete_comment', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.rtncode)
+                    if (data.rtncode == "PLEASE_LOGIN_FIRST") {
+                        alert("請先登入才可刪除")
+                    }
+                    if (data.rtncode == "COMMENT_DELETE_ERROR") {
+                        alert("刪除留言失敗")
+                    }
+                    if (data.rtncode == "COMMENTER_ERROR") {
+                        alert("非留言者本人")
+                    }
+                    if (data.rtncode == "SUCCESSFUL") {
+                        this.comment()
+                    }
+                })
+                .catch(error => console.log(error))
+        },
     },
     mounted() {
         this.searchFavorate()
+        fetch('http://localhost:8080/api/get_user_basic_data', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                account: $cookies.get("account"),
+            })
+        })
+            .then(response => response.json())
+            .then(res => {
+                console.log(res.data.username)
+                this.commentList.forEach(item => {
+                    if (item.commenter == res.data.username) {
+                        item.isUser = true
+                    } else {
+                        item.isUser = false
+                    }
+                })
+            })
+            .catch(error => console.log(error))
+
     },
     created() {
-        this.codeInfo()
+        this.codeInfo();
+        this.comment()
     }
 }
 
@@ -311,6 +439,19 @@ export default {
 
 .forum {
     padding: 0% 15% 5% 15%;
+
+    .comment {
+        input {
+            width: 83%;
+            margin-right: 5%;
+        }
+    }
+}
+
+.discussions {
+    width: 100%;
+    // height: 60vh;
+    // overflow-y: auto;
 }
 
 .discussion {
@@ -346,4 +487,10 @@ export default {
     }
 }
 
+.deleteComment {
+    width: 15%;
+    height: 10%;
+    margin: 3%;
+
+}
 </style>

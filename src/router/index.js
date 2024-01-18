@@ -61,7 +61,7 @@ const router = createRouter({
       component: () => import("../views/CreateHost.vue"),
     },
     {
-      path: '/EditHost',
+      path: '/EditHost/:id',
       name: 'EditHost',
       component: () => import('../views/EditHost.vue')
     },
@@ -96,8 +96,13 @@ const router = createRouter({
       component: () => import("../views/SessionsAndSeats.vue"),
     },
     {
-      path: "/Detail/:codename",
+      path: "/Detail/",
       name: "Detail",
+      component: () => import("../views/Detail.vue"),
+    },
+    {
+      path: "/Detail/:codename",
+      name: "Detail/:codename",
       component: () => import("../views/Detail.vue"),
     },
     { 
