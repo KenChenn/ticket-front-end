@@ -15,11 +15,13 @@
             <span v-if="!isEmptyShowDateTime" class="error errorShowDateTime">請輸入活動開始時間</span>
             <button type="button" class="deleteEvent" @click="deleteEvent(index)">刪除場次</button>
             <span class="onSale">開售時間</span>
-            <input type="datetime-local" class="onSaleAbout" v-model="item.startSellDateTime" :min="minStartSellDateTime">
+            <input type="datetime-local" class="onSaleAbout" v-model="item.startSellDateTime" :min="minStartSellDateTime"
+                :max="maxStartSellDateTime" @click="StartSellDateTime(item.showDateTime)">
             <span v-if="!isEmptyStartSellDateTime" class="error errorStartSellDateTime">請輸入開售時間</span>
             <span class="stopSale">停售時間</span>
             <input type="datetime-local" class="stopSaleAbout" v-model="item.endSellDateTime"
-                @click="EndSellDateTime(item.startSellDateTime)" :min="minEndSellDateTime">
+                @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)" :min="minEndSellDateTime"
+                :max="maxEndSellDateTime">
             <span v-if="!isEmptyEndSellDateTime" class="error errorEndSellDateTime">請輸入停售時間</span>
             <span class="area">區域名稱</span>
             <span class="seat">可出售座位數</span>
@@ -145,7 +147,7 @@ export default {
 
             if (this.isEmptyShowDateTime && this.isEmptyStartSellDateTime && this.isEmptyEndSellDateTime && this.isEmptyArea && this.isEmptySeat && this.isEmptyPrice && this.isRepeatArea) {
                 this.activity.sessionData = this.sessionList
-            
+
                 const allShowDateTimes = this.sessionList.flatMap(item => item.showDateTime);
 
                 const earliestDateTime = allShowDateTimes.reduce((earliest, current) => (current < earliest ? current : earliest), allShowDateTimes[0]);
@@ -155,53 +157,53 @@ export default {
                 this.activity.endDate = latestDateTime
 
                 if (this.activity.keyvisualImg == undefined) {
-                this.activity.keyvisualImg = ""
-            }
-            if (this.activity.introduceImg1 == undefined) {
-                this.activity.introduceImg1 = ""
-            }
-            if (this.activity.introduceImg2 == undefined) {
-                this.activity.introduceImg2 = ""
-            }
-            console.log(this.activity);
+                    this.activity.keyvisualImg = ""
+                }
+                if (this.activity.introduceImg1 == undefined) {
+                    this.activity.introduceImg1 = ""
+                }
+                if (this.activity.introduceImg2 == undefined) {
+                    this.activity.introduceImg2 = ""
+                }
+                console.log(this.activity);
 
-            fetch('http://localhost:8080/api/add_commodity_and_session', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    codeName: this.activity.codename,
-                    name: this.activity.name,
-                    introduction: this.activity.introduction,
-                    entity: this.activity.enity,
-                    place: this.activity.place,
-                    organizer: this.activity.organizer,
-                    startDate: this.activity.startDate,
-                    endDate: this.activity.endDate,
-                    keyvisual_img: this.activity.keyvisualImg,
-                    introduce_img1: this.activity.introduceImg1,
-                    introduce_img2: this.activity.introduceImg2,
-                    sessionData: this.activity.sessionData
-                }),
-            }).then(response => response.json())
-                .then(res => {
-                    console.log(res.rtncode);
-                    if (res.rtncode == "SUCCESSFUL"){
-                        this.$router.push('/ActivityAndHostPage')
-                    }
-                    if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST"){
-                        alert("請先登入")
-                    }
-                    if (res.rtncode == "PARAM_ERROR"){
-                        alert("請確認資料是否填寫完畢")
-                    }
-                    if (res.rtncode == "CODENAME_EXISTED"){
-                        alert("活動代號已存在，請重新輸入")
-                        this.$router.push('/CreateActivities')
-                    }
-                })
+                fetch('http://localhost:8080/api/add_commodity_and_session', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        codeName: this.activity.codename,
+                        name: this.activity.name,
+                        introduction: this.activity.introduction,
+                        entity: this.activity.enity,
+                        place: this.activity.place,
+                        organizer: this.activity.organizer,
+                        startDate: this.activity.startDate,
+                        endDate: this.activity.endDate,
+                        keyvisual_img: this.activity.keyvisualImg,
+                        introduce_img1: this.activity.introduceImg1,
+                        introduce_img2: this.activity.introduceImg2,
+                        sessionData: this.activity.sessionData
+                    }),
+                }).then(response => response.json())
+                    .then(res => {
+                        console.log(res.rtncode);
+                        if (res.rtncode == "SUCCESSFUL") {
+                            this.$router.push('/ActivityAndHostPage')
+                        }
+                        if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
+                            alert("請先登入")
+                        }
+                        if (res.rtncode == "PARAM_ERROR") {
+                            alert("請確認資料是否填寫完畢")
+                        }
+                        if (res.rtncode == "CODENAME_EXISTED") {
+                            alert("活動代號已存在，請重新輸入")
+                            this.$router.push('/CreateActivities')
+                        }
+                    })
             }
         },
         addArea(index) {
@@ -262,8 +264,36 @@ export default {
             }
             // console.log(this.sessionList);
         },
-        EndSellDateTime(startSellDateTime) {
+        EndSellDateTime(startSellDateTime, showDateTime) {
             this.minEndSellDateTime = startSellDateTime;
+            this.maxEndSellDateTime = showDateTime;
+        },
+        updateMaxEndSellDateTime(sessionList) {
+            const validDates = sessionList
+                .map(item => new Date(item.showDateTime))
+                .filter(date => !isNaN(date.getTime()));
+
+            if (validDates.length > 0) {
+                const maxShowDateTime = Math.max(...validDates.map(date => date.getTime()));
+                this.maxEndSellDateTime = new Date(maxShowDateTime).toISOString().slice(0, 16);
+            } else {
+                this.maxEndSellDateTime = '';
+            }
+        },
+        StartSellDateTime(showDateTime) {
+            this.maxStartSellDateTime = showDateTime;
+        },
+        updateMaxStartSellDateTime(sessionList) {
+            const validDates = sessionList
+                .map(item => new Date(item.showDateTime))
+                .filter(date => !isNaN(date.getTime()));
+
+            if (validDates.length > 0) {
+                const maxShowDateTime = Math.max(...validDates.map(date => date.getTime()));
+                this.maxStartSellDateTime = new Date(maxShowDateTime).toISOString().slice(0, 16);
+            } else {
+                this.maxStartSellDateTime = '';
+            }
         },
         deleteArea(sessionIndex, areaIndex) {
             console.log(areaIndex);
@@ -297,14 +327,24 @@ export default {
             const minDateTime = new Date().toISOString().slice(0, 16);
             return minDateTime;
         }
-    }
+    },
+    watch: {
+        'sessionList': {
+            handler: function (newSessionList, oldSessionList) {
+                this.updateMaxStartSellDateTime(newSessionList);
+                this.updateMaxEndSellDateTime(newSessionList);
+            },
+            deep: true
+        }
+    },
 }
 </script>
 <style scoped lang="scss">
-body{
+body {
     background-color: #faf8ed;
 }
-.header{
+
+.header {
     width: 100%;
     height: 10vh;
     margin-top: 0;
@@ -312,15 +352,17 @@ body{
     position: fixed;
     top: 0;
     z-index: 5;
-    .fa-solid{
+
+    .fa-solid {
         position: absolute;
         font-size: 30px;
-        left:15.5%;
+        left: 15.5%;
         top: 30%;
         color: #E6E1C8;
         z-index: 10;
-        }
-    .search{
+    }
+
+    .search {
         position: absolute;
         width: 17%;
         height: 70%;
@@ -328,11 +370,12 @@ body{
         left: 15%;
         padding-left: 3%;
         border-radius: 15px;
-        border: 0 ;
+        border: 0;
         background-color: #FAF8ED;
         font-size: 25px;
     }
-    .signOut{
+
+    .signOut {
         position: absolute;
         background-color: transparent;
         color: #FAF8ED;
@@ -342,10 +385,12 @@ body{
         border: 0;
     }
 }
-.top{
+
+.top {
     margin-left: 15vw;
     padding-top: 5vh;
-    .title{
+
+    .title {
         margin: 0;
         font-size: 50px;
         color: #4D5C44;
@@ -519,8 +564,8 @@ body{
         top: 80%;
         right: 27%;
     }
-    
-    .addArea{
+
+    .addArea {
         position: absolute;
         margin: 0;
         width: 11vw;

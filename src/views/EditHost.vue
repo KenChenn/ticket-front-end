@@ -132,7 +132,8 @@ export default {
                 credentials: 'include',
             }).then(response => response.json())
             .then(res => {
-                // console.log(res.organizer)
+                console.log(res.organizer)
+                console.log(this.$route.params.id)
                 this.nowId = this.$route.params.id
                 res.organizer.forEach(host => {
                     if (host.id == this.nowId) {

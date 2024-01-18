@@ -47,27 +47,29 @@ export default {
             this.isEntityPassword = !!this.loginPassword
             //確認輸入正確帳號 + 密碼
             if (this.loginAccount && this.loginPassword) {
-                axios({
-                    url: 'http://localhost:8080/api/user_login',
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    data: {
-                        account: this.loginAccount,
-                        password: this.loginPassword,
-                    },
-                }).then(res => {
-                    console.log(res.data)
-                    if (res.data.rtncode == "SUCCESSFUL") {
-                        console.log("登入成功");
-                        $cookies.set("account",this.loginAccount)
-                        this.$router.push('/UserInfoPage');
-                    } else {
-                        alert("登入失敗");
-                        return;
-                    }
-                })
+                fetch('http://localhost:8080/api/user_login',
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify({
+                            account: this.loginAccount,
+                            password: this.loginPassword,
+                        })
+                    }).then(response => response.json())
+                    .then(res => {
+                        console.log(res)
+                        if (res.rtncode == "SUCCESSFUL") {
+                            console.log("登入成功");
+                            $cookies.set("account", this.loginAccount)
+                            this.$router.push('/UserInfoPage');
+                        } else {
+                            alert("登入失敗");
+                            return;
+                        }
+                    })
             }
         },
         passwordVisibility() {
@@ -164,6 +166,7 @@ export default {
                 margin-top: 5%;
                 font-size: 1rem;
             }
+
             .warning {
                 margin-left: 43%;
                 color: #F5A352;
