@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="down">
-        <h1 class="noticeP">取票方式</h1>
+        <div class="title">取票方式</div>
         <div class="textArea">
             開放取票日期為該場次開演前 5 天，故 2024/01/14 起，可至訂單查詢查看取票資訊，方可至7-11 ibon取票。<br>
             取票方式為【ibon取票】，取票時每筆將酌收$30手續費，於7-11超商門市付款時以現金方式支付。<br>
@@ -101,7 +101,7 @@ export default {
             i,
             span {
                 color: #FAF8ED;
-                font-size: 1.5rem;
+                font-size: 3vh;
                 margin-left: 5%;
                 line-height: 1.8rem;
             }
@@ -111,20 +111,23 @@ export default {
 
 .down {
     width: 100%;
-    height: 60%;
     background-color: #99B080;
-
-    .noticeP {
-        color: #F5BF89;
-        margin-left: 15%;
+    padding-bottom: 5%;
+    .title {
+        // border: 1px solid black;
+        height: 10vh;
+        color: #ffc68d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4dvh;
     }
 
     .textArea {
-        width: 70%;
-        height: 80%;
-        margin: auto;
-        // overflow-y: scroll;
-        color: #FAF8ED;
-    }
+    width: 70%;
+    margin: auto;
+    color: #FAF8ED;
+    font-size: 2.5dvh;
+}
 }
 </style>

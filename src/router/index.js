@@ -96,8 +96,13 @@ const router = createRouter({
       component: () => import("../views/SessionsAndSeats.vue"),
     },
     {
-      path: "/Detail/:codename",
+      path: "/Detail/",
       name: "Detail",
+      component: () => import("../views/Detail.vue"),
+    },
+    {
+      path: "/Detail/:codename",
+      name: "Detail/:codename",
       component: () => import("../views/Detail.vue"),
     },
     { 
@@ -134,6 +139,11 @@ const router = createRouter({
       path: "/Introduction",
       name: "Introduction",
       component: () => import("../views/Introduction.vue"),
+    },
+    {
+      path: "/EditSessionsAndSeats",
+      name: "EditSessionsAndSeats",
+      component: () => import("../views/EditSessionsAndSeats.vue"),
     },
   ],
 });

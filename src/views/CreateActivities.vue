@@ -302,7 +302,8 @@ body {
         border: 0;
     }
 }
-.top{
+
+.top {
     margin-left: 15vw;
     padding-top: 10vh;
 
