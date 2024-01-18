@@ -14,15 +14,20 @@
 
             <div class="onSaleAll">
                 <span class="onSale">開售時間</span>
-                <input type="datetime-local" class="onSaleAbout" v-model="item.startSellDateTime" :min="minStartSellDateTime">
+                <input type="datetime-local" class="onSaleAbout" v-model="item.startSellDateTime"
+                    :min="minStartSellDateTime" :max="maxStartSellDateTime">
                 <span v-if="!isEmptyStartSellDateTime" class="error errorStartSellDateTime">請輸入開售時間</span>
+                <span v-if="!startIsAfterShow" class="error errorStartSellDateTime">開售時間已晚於活動開始時間</span>
             </div>
 
             <div class="stopSaleAll">
                 <span class="stopSale">停售時間</span>
                 <input type="datetime-local" class="stopSaleAbout" v-model="item.endSellDateTime"
-                    @click="EndSellDateTime(item.startSellDateTime)" :min="minEndSellDateTime">
+                    @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)" :min="minEndSellDateTime"
+                    :max="maxEndSellDateTime">
                 <span v-if="!isEmptyEndSellDateTime" class="error errorEndSellDateTime">請輸入停售時間</span>
+                <span v-if="!endIsafterShow" class="error errorEndSellDateTime">停售時間已晚於活動開始時間</span>
+                <span v-if="!endIsEarlyStart" class="error errorEndSellDateTime">停售時間已早於開售時間</span>
             </div>
 
             <div class="nameArea">
@@ -47,8 +52,6 @@
     </body>
 </template>
 <script>
-// import { tr } from 'element-plus/es/locale';
-
 export default {
     data() {
         return {
@@ -90,6 +93,9 @@ export default {
             isEmptyPrice: true,
 
             isRepeatArea: true,
+            startIsAfterShow: true,
+            endIsafterShow: true,
+            endIsEarlyStart: true
         }
     },
     methods: {
@@ -145,7 +151,29 @@ export default {
                 }
             }
 
-            if (this.isEmptyShowDateTime && this.isEmptyStartSellDateTime && this.isEmptyEndSellDateTime && this.isEmptyArea && this.isEmptySeat && this.isEmptyPrice && this.isRepeatArea) {
+            //防呆時間早晚順序錯誤
+            for (const session of this.sessionList) {
+                if (session.showDateTime < session.startSellDateTime) {
+                    this.startIsAfterShow = false
+                    alert("開售時間已晚於活動開始時間")
+                } else {
+                    this.startIsAfterShow = true
+                }
+                if (session.showDateTime < session.endSellDateTime) {
+                    this.endIsafterShow = false
+                    alert("停售時間已晚於活動開始時間")
+                } else {
+                    this.endIsafterShow = true
+                }
+                if (session.endSellDateTime < session.startSellDateTime) {
+                    this.endIsEarlyStart = false
+                    alert("停售時間已早於開售時間")
+                } else {
+                    this.endIsEarlyStart = true
+                }
+            }
+
+            if (this.isEmptyShowDateTime && this.isEmptyStartSellDateTime && this.isEmptyEndSellDateTime && this.isEmptyArea && this.isEmptySeat && this.isEmptyPrice && this.isRepeatArea && this.startIsAfterShow && this.endIsafterShow && this.endIsEarlyStart) {
                 this.activity.sessionData = this.sessionList
 
                 const allShowDateTimes = this.sessionList.flatMap(item => item.showDateTime);
@@ -216,39 +244,60 @@ export default {
         },
         addEvent() {
             const index = this.sessionList.length - 1
-            if (this.sessionList[index].showDateTime == "") {
+            const item = this.sessionList[index]
+
+            if (item.showDateTime == "") {
                 this.isEmptyShowDateTime = false
+            } else {
+                this.isEmptyShowDateTime = true
             }
-            if (this.sessionList[index].startSellDateTime == "") {
+            if (item.showDateTime < item.startSellDateTime) {
+                this.startIsAfterShow = false
+            } else {
+                this.startIsAfterShow = true
+            }
+            if (item.showDateTime < item.endSellDateTime) {
+                this.endIsafterShow = false
+            } else {
+                this.endIsafterShow = true
+            }
+
+            if (item.startSellDateTime == "") {
                 this.isEmptyStartSellDateTime = false
+            } else {
+                this.isEmptyStartSellDateTime = true
             }
-            if (this.sessionList[index].endSellDateTime == "") {
+
+            if (item.endSellDateTime == "") {
                 this.isEmptyEndSellDateTime = false
+            } else {
+                this.isEmptyEndSellDateTime = true
             }
-            if (this.sessionList[index].seatData[this.sessionList[index].seatData.length - 1].area == "") {
+            if (item.endSellDateTime < item.startSellDateTime) {
+                this.endIsEarlyStart = false
+            } else {
+                this.endIsEarlyStart = true
+            }
+
+            if (item.seatData[item.seatData.length - 1].area == "") {
                 this.isEmptyArea = false
+            } else {
+                this.isEmptyArea = true
             }
-            if (this.sessionList[index].seatData[this.sessionList[index].seatData.length - 1].maxSeatNum <= 0) {
+            if (item.seatData[item.seatData.length - 1].maxSeatNum <= 0) {
                 this.isEmptySeat = false
             } else {
                 this.isEmptySeat = true
             }
-            if (this.sessionList[index].seatData[this.sessionList[index].seatData.length - 1].price <= 0) {
+            if (item.seatData[item.seatData.length - 1].price <= 0) {
                 this.isEmptyPrice = false
             } else {
                 this.isEmptyPrice = true
             }
 
-            if (this.sessionList[index].showDateTime != ""
-                && this.sessionList[index].startSellDateTime != ""
-                && this.sessionList[index].endSellDateTime != ""
-                && this.sessionList[index].seatData[this.sessionList[index].seatData.length - 1].area != ""
-                && this.sessionList[index].seatData[this.sessionList[index].seatData.length - 1].maxSeatNum > 0
-                && this.sessionList[index].seatData[this.sessionList[index].seatData.length - 1].price > 0) {
-                this.isEmptyShowDateTime = true
-                this.isEmptyStartSellDateTime = true
-                this.isEmptyEndSellDateTime = true
-
+            if (this.isEmptyShowDateTime &&
+                this.isEmptyStartSellDateTime &&
+                this.isEmptyEndSellDateTime && this.startIsAfterShow && this.endIsafterShow && this.endIsEarlyStart && this.isEmptyArea && this.isEmptySeat && this.isEmptyPrice) {
                 this.sessionList.push({
                     commodity_codename: "",
                     showDateTime: "",
@@ -265,7 +314,7 @@ export default {
             // console.log(this.sessionList);
         },
         EndSellDateTime(startSellDateTime, showDateTime) {
-            this.minEndSellDateTime = startSellDateTime;
+            this.minEndSellDateTime = startSellDateTime
             this.maxEndSellDateTime = showDateTime;
         },
         updateMaxEndSellDateTime(sessionList) {
@@ -296,7 +345,7 @@ export default {
             }
         },
         deleteArea(sessionIndex, areaIndex) {
-            console.log(areaIndex);
+            // console.log(areaIndex);
             if (this.sessionList[sessionIndex].seatData.length > 1) {
                 this.sessionList[sessionIndex].seatData.splice(areaIndex, 1);
             } else {
@@ -310,7 +359,6 @@ export default {
                 this.sessionList = this.sessionList
             }
         },
-
     },
     mounted() {
         let activity = JSON.parse(localStorage.getItem("acttivity"))
@@ -320,12 +368,12 @@ export default {
     computed: {
         //活動開始時間最小值為今日
         minShowDateTime() {
-            const minDateTime = new Date().toISOString().slice(0, 16);
-            return minDateTime;
+            const minDateTime = new Date();
+            return minDateTime.toISOString().slice(0, 16);
         },
         minStartSellDateTime() {
-            const minDateTime = new Date().toISOString().slice(0, 16);
-            return minDateTime;
+            const minStartSellDateTime = new Date();
+            return minStartSellDateTime.toISOString().slice(0, 16);
         }
     },
     watch: {
@@ -343,7 +391,8 @@ export default {
 body {
     background-color: #faf8ed;
 }
-.top{
+
+.top {
     width: 70vw;
     height: 100%;
     margin-left: 15vw;
@@ -353,7 +402,7 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    .title{
+    .title {
         height: 10vh;
         margin-right: 44%;
         color: #c26202;
@@ -361,7 +410,8 @@ body {
         display: flex;
         align-items: end;
     }
-    .completeEditing{
+
+    .completeEditing {
         width: 11vw;
         margin: 0;
         color: #faf8ed;
@@ -397,23 +447,28 @@ body {
         border-bottom: #F5A352 0.3vh solid;
         color: #4D5C44;
         text-indent: 2%;
+
         &:focus {
             outline: none;
         }
     }
-    .startAll{
+
+    .startAll {
         margin-bottom: 5%;
         display: flex;
         justify-content: space-between;
+
         // border: black 1px solid;
-        .start{
+        .start {
             margin-right: 13.5%;
         }
-        .startAbout{
+
+        .startAbout {
             text-align: center;
             margin-right: 13.5%;
         }
-        .deleteEvent{
+
+        .deleteEvent {
             margin: 0;
             width: 11vw;
             background-color: #db3a3a;
@@ -423,69 +478,83 @@ body {
             border-radius: 1.5vh;
         }
     }
-    .onSaleAll{
+
+    .onSaleAll {
         margin-bottom: 5%;
-        .onSale{
+
+        .onSale {
             margin-left: 2.5%;
             margin-right: 21%;
         }
-        .onSaleAbout{
+
+        .onSaleAbout {
             text-align: center;
         }
     }
-    .stopSaleAll{
+
+    .stopSaleAll {
         margin-bottom: 8%;
 
-        .stopSale{
+        .stopSale {
             margin-left: 2.5%;
             margin-right: 21%;
         }
-        .stopSaleAbout{
+
+        .stopSaleAbout {
             text-align: center;
         }
     }
-    .nameArea{
+
+    .nameArea {
         display: flex;
         justify-content: space-between;
-        .area{
+
+        .area {
             margin-left: 2.5%;
             margin-right: 15.5%;
         }
-        .seat{
+
+        .seat {
             margin-right: 15.5%;
         }
-        .price{
+
+        .price {
             margin-right: 15.5%;
         }
-        .addArea{
-        margin: 0;
-        width: 11vw;
-        background-color: #748e63;
-        font-size: 4dvh;
-        color: #faf8ed;
-        border: 0;
-        border-radius: 1.5vh;
+
+        .addArea {
+            margin: 0;
+            width: 11vw;
+            background-color: #748e63;
+            font-size: 4dvh;
+            color: #faf8ed;
+            border: 0;
+            border-radius: 1.5vh;
         }
     }
-    .aboutArea{
+
+    .aboutArea {
         display: flex;
         justify-content: space-between;
         margin-top: 1.5%;
-        .areaAbout{
+
+        .areaAbout {
             margin-left: 2%;
             margin-right: 17%;
             width: 10%;
         }
 
-        .seatAbout{
+        .seatAbout {
             margin-right: 17%;
             width: 10%;
         }
-        .priceAbout{
+
+        .priceAbout {
             margin-right: 15%;
             width: 10%;
         }
-        .deleteArea{
+
+        .deleteArea {
             margin: 0;
             width: 11vw;
             background-color: #db3a3a;
@@ -493,7 +562,7 @@ body {
             color: #faf8ed;
             border: 0;
             border-radius: 1.5vh;
-            
+
         }
     }
 
@@ -503,10 +572,11 @@ body {
 .footer {
     width: 100%;
     text-align: center;
-    .addEvent{
+
+    .addEvent {
         height: 10%;
         width: 14%;
-        border:0.3vh solid #F5A352;
+        border: 0.3vh solid #F5A352;
         background-color: #FAF8ED;
         color: #F5A352;
         display: flex;
@@ -516,14 +586,16 @@ body {
         margin: auto;
         margin-top: 3%;
         font-size: 2.5dvh;
-        &:hover{
+
+        &:hover {
             transition: 0.1s linear;
-            border:0;
+            border: 0;
             background-color: #748E63;
             color: #FAF8ED;
             scale: 1.1;
         }
-        &:active{
+
+        &:active {
             scale: 0.95;
         }
     }

@@ -20,7 +20,7 @@
                         <div class="spanName">xxxxLIve</div>
                         <button class="cencel">刪除</button>
                     </div>
-                    <div class="plusAct">
+                    <!-- <div class="plusAct">
                         <button class="hensyu">編輯</button>
                         <div class="spanName">xxxxLIve</div>
                         <button class="cencel">刪除</button>
@@ -29,7 +29,7 @@
                         <button class="hensyu">編輯</button>
                         <div class="spanName">xxxxLIve</div>
                         <button class="cencel">刪除</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -51,7 +51,24 @@ export default {
         }
     },
     mounted() {
-
+        fetch('http://localhost:8080/api/get_update_commmodity_data', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                codename
+            }),
+        }).then(response => response.json())
+            .then(res => {
+                console.log(res)
+                if (res.rtncode == "SUCCESSFUL") {
+                    
+                } else {
+                    
+                }
+            })
     }
 }
 </script>
@@ -176,4 +193,5 @@ export default {
             }
         }
     }
-}</style>
+}
+</style>
