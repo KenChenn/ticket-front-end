@@ -56,7 +56,7 @@ export default {
     <div class="headerShow">
       <!-- 搜尋欄 -->
       <div class="searchBar" v-if="headerSearch">
-        <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
+        <i class="fa-solid fa-magnifying-glass" ></i>
         <input type="search" class="searchInput" v-model="searchData">
       </div>
 

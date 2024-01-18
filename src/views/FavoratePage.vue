@@ -2,37 +2,28 @@
     <div class="top">
         <span class="title">最愛列表</span>
     </div>
-    <div class="content" :style="{ backgroundColor: aboutToStart ? '#F5A352' : '#89A071' }">
+    <div class="content"  :style="{ backgroundColor: aboutToStart ? '#F5A352' : '#89A071' }" v-for="(item,index) in this.trackerList">
         <div class="left">
             <div class="picture">
                 <img
-                    src="https://t.kfs.io/upload_images/187458/kktix%E4%B8%BB%E8%A6%96%E8%A6%BA_%E8%87%89%E6%9B%B8%E8%B2%BC%E6%96%87%E9%99%84%E5%9C%96_EDM1200x630_medium.jpg">
+                :src="item.keyvisualImg">
             </div>
-            <div class="state">狀態
-                <span class="stateAbout" :style="{ color: aboutToStart ? '#DB3A3A' : '#FAF8ED' }">{{ aboutToStart ? '即將開始' :
-                    '尚未開始' }}</span>
-            </div>
-            <div class="orderNumber">訂單編號
-                <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}</span>
-            </div>
-            <div class="seat">座位
-                <span class="seatAbout">{{ this.seatAbout }}</span>
-            </div>
+            <button type="button" @click="this.deleteFav(item.commodityCodename)">刪除</button>
         </div>
         <div class="right">
             <div class="up">
                 <p class="name">活動名稱</p>
-                <p class="nameAbout">{{ this.nameAbout }}
+                <p class="nameAbout">{{ item.name }}
                 </p>
             </div>
             <div class="middle">
                 <p class="date">演出日期</p>
-                <p class="dateAbout">{{ this.dateAbout }}
+                <p class="dateAbout">{{ item.startDate }}
                 </p>
             </div>
             <div class="down">
                 <p class="place">演出地點</p>
-                <p class="placeAbout">{{ this.placeAbout }}
+                <p class="placeAbout">{{ item.place }}
                 </p>
             </div>
         </div>
@@ -49,7 +40,54 @@ export default {
             placeAbout: "",
             seatAbout: "",
             aboutToStart: true,   //開始狀態
+            trackerList:[],
+            myFavList:[],
         }
+    },
+    methods:{
+        myFav(){
+            fetch('http://localhost:8080/api/getTrackingList', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tracker:$cookies.get("account"),
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    this.trackerList = data.data;
+                    console.log(this.trackerList)
+                })
+                .catch(error => console.log(error))
+        },
+        deleteFav(commodityCodename){
+            fetch('http://localhost:8080/api/untrack', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tracker:$cookies.get("account"),
+                    commodityCodename:commodityCodename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    this.myFavList = data;
+                    console.log(this.myFavList)
+                    if( data.rtncode == "SUCCESSFUL" ){
+                        this.myFav()
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+    },
+    mounted() {
+        this.myFav()
+        
     },
     created() {
         // 在页面创建时设置特定的对象
@@ -87,13 +125,14 @@ export default {
     width: 70%;
     height: 40vh;
     margin: auto;
-    padding: 2%;
+    padding: 1%;
     background-color: #99b080;
     color: #FAF8ED;
     border-radius: 2vh;
     font-size: 2.5dvh;
     display: flex;
     justify-content: space-between;
+    margin-top: 2%;
 
     .left {
         width: 20dvw;
@@ -111,37 +150,6 @@ export default {
                 display: flex;
                 justify-content: center;
                 border-radius: 1.5vh;
-            }
-        }
-
-        .state {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-
-            .stateAbout {
-                color: #FAF8ED;
-            }
-        }
-
-
-        .orderNumber {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-
-            .orderNumberAbout {
-                color: #FAF8ED;
-            }
-        }
-
-        .seat {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-
-            .seatAbout {
-                color: #FAF8ED;
             }
         }
     }

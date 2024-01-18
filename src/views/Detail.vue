@@ -36,7 +36,7 @@
         <div class="likeArea">
             <button>
                 <i class="fa-solid fa-heart-circle-plus" v-if="!searchFav" @click="this.addFav()"> 加入最愛</i>
-                <i class="fa-solid fa-heart-circle-plus" v-if="searchFav" @click="this.cencelFav()" > 移除最愛</i>
+                <i class="fa-solid fa-heart-circle-plus cencel" v-if="searchFav" @click="this.cencelFav()" > 移除最愛</i>
             </button>
         </div>
 
