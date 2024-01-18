@@ -38,7 +38,6 @@
 </template>
 <script>
 import counter from '../stores/counter'
-import axios from 'axios'
 export default {
     data() {
         return {
@@ -75,43 +74,54 @@ export default {
             }
 
             if (this.isValidNewPwd && this.isAgainPwd && this.nowPwd && this.newPwd && this.againPwd) {
-                axios({
-                    url: 'http://localhost:8080/api/user_pwd_change',
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    data: {
-                        account: $cookies.get("account"),
-                        oldPwd: this.nowPwd,
-                        newPwd: this.newPwd,
-                    },
-                }).then(res => {
-                    console.log(res.data.rtncode)
-                    if (res.data.rtncode == "SUCCESSFUL") {
-                        this.$router.push('/UserInfoPage')
-                    } else if (res.data.rtncode == "PWD_NOT_CORRECT") {
-                        this.isCorrectNowPwd = false
-                    } else if (res.data.rtncode == "PLEASE_ENTER_NEW_PWD") {
-                        this.isCorrectNewPwd = false
-                    }
-                })
+                fetch('http://localhost:8080/api/user_pwd_change',
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify({
+                            account: $cookies.get("account"),
+                            oldPwd: this.nowPwd,
+                            newPwd: this.newPwd,
+                        }),
+                    }).then(response => response.json())
+                    .then(res => {
+                        console.log(res)
+                        if (res.rtncode == "SUCCESSFUL") {
+                            this.$router.push('/UserInfoPage')
+                        }
+                        if (res.rtncode == "PWD_NOT_CORRECT") {
+                            this.isCorrectNowPwd = false
+                        } else {
+                            this.isCorrectNowPwd = true
+                        }
+                        if (res.rtncode == "PLEASE_ENTER_NEW_PWD") {
+                            this.isCorrectNewPwd = false
+                        } else {
+                            this.isCorrectNewPwd = true
+                        }
+                    })
             }
         }
     },
     mounted() {
-        axios({
-            url: 'http://localhost:8080/api/get_user_basic_data',
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data: {
-                account: $cookies.get("account"),
-            },
-        }).then(res => {
-            console.log(res.data.data)
-        })
+        fetch('http://localhost:8080/api/get_user_basic_data',
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    account: $cookies.get("account"),
+                }),
+            }).then(response => response.json())
+            .then(res => {
+                console.log(res)
+                console.log($cookies.get("account"))
+            })
     },
     created() {
         // 創建頁面時設定
