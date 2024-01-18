@@ -65,7 +65,7 @@ export default {
 .showArea {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     background-color: #99B080;
     padding: 5% 10% 0% 10%;
 

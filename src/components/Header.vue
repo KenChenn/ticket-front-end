@@ -53,12 +53,13 @@ export default {
 };
 </script>
 <template>
-  <div class="headerShow">
-    <!-- 搜尋欄 -->
-    <div class="searchBar" v-if="headerSearch">
-      <input type="search" class="searchInput" v-model="searchData">
-      <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
-    </div>
+    <div class="headerShow">
+      <!-- 搜尋欄 -->
+      <div class="searchBar" v-if="headerSearch">
+        
+        <input type="search" class="searchInput" v-model="searchData">
+        <i class="fa-solid fa-magnifying-glass" ></i>
+      </div>
 
     <div class="isLogIn" v-if="account">
       <!-- 已登入 -->
