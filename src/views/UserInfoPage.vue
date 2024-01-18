@@ -6,16 +6,16 @@
             </div>
             <div class="info">           
             <span class="spanP">使用者名稱</span>
-            <span class="infoSpan">{{this.user}}111</span>
+            <span class="infoSpan">{{this.user}}</span>
                         
             <span class="spanP">Email</span>
-            <span class="infoSpan">{{this.email}}1111</span>
+            <span class="infoSpan">{{this.email}}</span>
                         
             <span class="spanP">生日</span>
-            <span class="infoSpan">{{this.birth}}1111</span>
+            <span class="infoSpan">{{this.birth}}</span>
                         
             <span class="spanP">電話</span>
-            <span class="infoSpan">{{this.phone}}1111</span>
+            <span class="infoSpan">{{this.phone}}</span>
                         
             <div class="btnArea">
                 <button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
