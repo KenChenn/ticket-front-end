@@ -53,13 +53,12 @@ export default {
 };
 </script>
 <template>
-    <div class="headerShow">
-      <!-- 搜尋欄 -->
-      <div class="searchBar" v-if="headerSearch">
-        
-        <input type="search" class="searchInput" v-model="searchData">
-        <i class="fa-solid fa-magnifying-glass" ></i>
-      </div>
+  <div class="headerShow">
+    <!-- 搜尋欄 -->
+    <!-- <div class="searchBar" v-if="headerSearch">
+      <input type="search" class="searchInput" v-model="searchData">
+      <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
+    </div> -->
 
     <div class="isLogIn" v-if="account">
       <!-- 已登入 -->
@@ -78,50 +77,52 @@ export default {
 </template>
 
 <style scoped lang="scss">
+
 .headerShow {
-  width: 100%;
+  width: 30%;
   height: 10vh;
+  position: absolute;
+  right: 15%;
   background-color: #F9B572;
   position: fixed;
-  z-index: 5;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  // border: 1px black solid;
 
-  .searchBar {
-    position: relative;
-    width: 25%;
-    height: 60%;
-    left: 15%;
-    font-size: 3dvh;
+  // .searchBar {
+  //   position: relative;
+  //   width: 25%;
+  //   height: 60%;
+  //   left: 15%;
+  //   font-size: 3dvh;
 
-    // border: 1px black solid;
-    .searchInput {
-      width: 80%;
-      height: 100%;
-      border-radius: 1vh;
-      border: 0;
-      background-color: #FAF8ED;
-      font-size: 2.5dvh;
+  //   .searchInput {
+  //     width: 80%;
+  //     height: 100%;
+  //     border-radius: 1vh;
+  //     border: 0;
+  //     background-color: #FAF8ED;
+  //     font-size: 2.5dvh;
 
-      &:focus {
-        outline: none;
-      }
-    }
+  //     &:focus {
+  //       outline: none;
+  //     }
+  //   }
 
-    i {
-      margin-left: 5%;
-      color: #FAF8ED;
-      z-index: 5;
-    }
-  }
+  //   i {
+  //     margin-left: 5%;
+  //     color: #FAF8ED;
+  //     z-index: 5;
+  //   }
+  // }
 
   .isLogIn {
-    width: 20%;
+    width: 100%;
     height: 100%;
-    margin-right: 15%;
     display: flex;
     align-items: center;
+    // border: 1px black solid;
     .link {
       height: 100%;
       width: 100%;
@@ -134,6 +135,8 @@ export default {
       text-decoration: none;
       color: #FAF8ED;
       font-size: 3dvh;
+      // border: 1px black solid;
+
     }
 
     .orderTracking {
@@ -141,7 +144,6 @@ export default {
       color: #FAF8ED;
       font-size: 3dvh;
       // border: 1px black solid;
-      // margin-left: 10%;
     }
 
     .signOut {
@@ -149,29 +151,35 @@ export default {
       background-color: transparent;
       font-size: 3dvh;
       border: 0;
-      // margin-left: 10%;
+      margin-left: 10%;
 
     }
   }
 
   .notLogin {
-    width: 10%;
+    width: 40%;
     height: 100%;
+    margin-left: 60%;
     position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    right: 15%;
+    // border: 1px black solid;
+
     .register {
       text-decoration: none;
       color: #FAF8ED;
       font-size: 3dvh;
+      // border: 1px black solid;
+
     }
 
     .logIn {
       text-decoration: none;
       color: #FAF8ED;
       font-size: 3dvh;
+      // border: 1px black solid;
+
     }
   }
 }

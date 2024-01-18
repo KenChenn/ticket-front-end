@@ -6,7 +6,7 @@ export default {
     return {
       ...mapState(counter, ['dataList']),
       searchData: "",
-      dataList:[],
+      dataList: [],
       selectedTab: '1'
     }
   },
@@ -15,7 +15,7 @@ export default {
   methods: {
     ...mapActions(counter, ["saveSearchData"]),
     tabChange() {
-},
+    },
     selectTab(tab) {
       this.selectedTab = tab;
     },
@@ -60,12 +60,12 @@ export default {
       // setTimeout(() => {
       //   console.log(this.dataList);
       // }, 1000);
-      
+
     },
   },
   mounted() {
     this.search()
-  
+
 
   },
   created() {
@@ -88,49 +88,37 @@ export default {
   <!-- <button @click="this.goCreateHost">去建立主辦單位頁</button>
   <button @click="this.goEditHost">去編輯主辦單位頁</button>
   <button @click="this.goBuyTicketPage">去購票頁</button> -->
-<!-- 
+
   <div class="header">
-    <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
-    <input type="text" class="search" v-model="searchData">
-    <button type="button" class="signinBtn">註冊</button>
-    <button type="button" class="logininBtn">登入</button>
-  </div> -->
-
-  <div class="bgCarousel">
-
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-          aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-          aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-          aria-label="Slide 3"></button>
+    <div class="search">
+      <input type="text" class="search" v-model="searchData">
+      <div class="searchBtn">
+        <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="../../public/material/3-4_1200X630_V3_medium.png" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
   </div>
 
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
+      </div>
+    </div>
+  </div>
 
   <!-- 下方導行列 -->
   <div class="navigate">
@@ -150,39 +138,78 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.bgCarousel {
+.header {
+  height: 10vh;
+  width: 30%;
+  margin-left: 15%;
+  z-index: 0;
+  position: absolute;
   position: fixed;
-  // height: 80vh;
+  top: 0;
+  display: flex;
+  align-items: center;
+  // border: black solid 1px;
+
+  .search {
+    width: 90%;
+    height: 80%;
+    font-size: 2.5dvh;
+    border: 0;
+    border-radius: 1vh;
+    display: flex;
+    align-items: center;
+
+    &:focus {
+      outline: none;
+    }
+
+    .searchBtn {
+      font-size: 4dvh;
+      margin: 3%;
+      color: #faf8ed;
+
+      i:hover {
+        color: #ffe3c7;
+      }
+      i:active{
+        color: #F5A352;
+      }
+    }
+  }
+}
+
+.carousel-inner {
   width: 100%;
-  top:10vh;
+  height: 80vh;
+  top: 10vh;
+  position: fixed;
   z-index: -1;
-  // opacity: 0;
+  background: linear-gradient(to right, rgba(43, 43, 41, 1) 0%, rgba(43, 43, 41, 0) 25%, rgba(43, 43, 41, 0) 75%, rgba(43, 43, 41, 1) 100%);
+}
 
-  .carousel-inner {
-    width: 100%;
-    // height: 80vh;
-  }
-
-  .carousel-item {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    background-repeat: no-repeat;
-  }
+.carousel-item img {
+  width: 100%;
+  height: 80vh;
+  display: block;
+  object-fit: contain;
 }
 
 .navigate {
   width: 100%;
   height: 10vh;
-  margin-top: 78vh;
+  margin-top: 80vh;
   display: flex;
   justify-content: center;
+  background-color: #faf8ed;
   z-index: 5;
+  position: sticky;
+  top: 10vh;
+  // border: 1px solid black;
 }
 
 .navigate a {
   width: 20vw;
-  height: 100%;
+  height: 10vh;
   margin-left: 2%;
   margin-right: 2%;
   display: flex;
@@ -195,17 +222,13 @@ export default {
   text-decoration: none;
 }
 
-// border: 1px solid black;
 .navigate a.active {
   background-color: #99B080;
 }
 
-.routeArea{
-    border: 1px black solid;
-
-}
 .footer {
   width: 100%;
   height: 10vh;
   background-color: #faf8ed;
-}</style>
+}
+</style>
