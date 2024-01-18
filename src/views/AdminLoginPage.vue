@@ -7,18 +7,24 @@
             <p class="loginp">登入</p>
         </div> -->
         <div class="down">
-            <h1 class="pp">帳號登入</h1>
+            <div class="title">
+                帳號登入
+            </div>
+
             <div class="login">
-                <h4 class="loginInP">帳號</h4>
+                <div class="loginInP">帳號</div>
                 <input type="text" class="inputClass" v-model="loginAccount">
-                <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
-                <br>
-                <h4 class="loginInP2">密碼</h4>
+                <div class="warning">
+                    <span v-if="!isEntityAccount">請輸入帳號</span>
+                </div>
+
+                <div class="loginInP">密碼</div>
                 <input :type="showPassword ? 'text' : 'password'" class="inputClass" v-model="loginPassword">
                 <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
                 <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
-                <span v-if="!isEntityPassword" class="warning">請輸入密碼</span>
-                <br>
+                <div class="warning">
+                    <span v-if="!isEntityPassword">請輸入密碼</span>
+                </div>
                 <button type="button" class="loginBtn" @click="login()">登入</button>
             </div>
         </div>
@@ -34,7 +40,7 @@ export default {
             isEntityPassword: true,
 
             showPassword: false,
-            
+
         }
     },
     methods: {
@@ -77,23 +83,22 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
-    width: 100vw;
-    height: 100vh;
+    height: 90vh;
     background-color: #FAF8ED;
 
     .up {
         //width: 100%;
         //height: 11%;
-        background-color: #F9B572;
+        background-color: #F5BF89;
         display: flex;
         position: relative;
 
         .fa-solid {
             position: absolute;
             color: #E6E1C8;
-            font-size: 1rem;
+            font-size: 2dvh;
             top: 33%;
             left: 25.5%;
         }
@@ -101,7 +106,7 @@ export default {
         .search {
             width: 11%;
             height: 47%;
-            border-radius: 15px;
+            border-radius: 2vh;
             border: 1pt solid #FAF8ED;
             background-color: #FAF8ED;
             margin-left: 25%;
@@ -109,13 +114,13 @@ export default {
         }
 
         .signUpp {
-            font-size: 1rem;
+            font-size: 2dvh;
             margin-left: 30%;
             color: #FAF8ED;
         }
 
         .loginp {
-            font-size: 1rem;
+            font-size: 2dvh;
             margin-left: 2%;
             color: #FAF8ED;
         }
@@ -125,57 +130,88 @@ export default {
         width: 100%;
         height: 100%;
 
-        .pp {
-            margin-left: 27%;
-            color: #4D5C44;
+        .title {
+            width: 70%;
+            height: 10vh;
+            // border: 1px solid black;
+            margin-left: 15%;
+            color: #c26202;
+            font-size: 4dvh;
+            display: flex;
+            align-items: end;
         }
 
         .login {
-            width: 48%;
-            height: 75%;
-            background-color: #F9B572;
+            width: 70%;
+            height: 70vh;
+            border: #F5A352 0.3vh solid;
             margin: auto;
-            margin-top: -2%;
-            border-radius: 15px;
+            border-radius: 2vh;
+            padding: 5% 0;
 
             .loginInP {
-                margin-left: 45%;
-                font-size: 1.6rem;
-                padding-top: 15px;
-                color: #4D5C44;
-            }
-
-            .loginInP2 {
-                margin-left: 45%;
-                font-size: 1.6rem;
-                margin-top: 20px;
+                width: 100%;
+                height: 5vh;
+                display: flex;
+                justify-content: center;
+                align-items: end;
+                font-size: 3dvh;
                 color: #4D5C44;
             }
 
             .inputClass {
-                width: 47%;
-                height: 6%;
-                margin-left: 26%;
-                margin-top: 1%;
-                border-radius: 15px;
-                border: 1pt solid #F9B572;
+                width: 50%;
+                margin-left: 25%;
+                margin-bottom: 1%;
+                font-size: 2.5dvh;
+                border: 0;
                 background-color: #FAF8ED;
+                border-bottom: #F5A352 0.3vh solid;
+                color: #4D5C44;
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            i {
+                margin-left: 1%;
+                font-size: 3dvh;
+                color: #4D5C44;
             }
 
             .loginBtn {
                 height: 10%;
-                width: 10%;
-                background-color: #89A071;
-                border: 1pt solid #89A071;
-                color: #FAF8ED;
-                border-radius: 15px;
-                margin-left: 46%;
+                width: 14%;
+                border:0.3vh solid #F5A352;
+                background-color: #FAF8ED;
+                color: #F5A352;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 1.5vh;
+                margin: auto;
                 margin-top: 5%;
+                font-size: 2.5dvh;
+                &:hover{
+                    transition: 0.1s linear;
+                    border:0;
+                    background-color: #748E63;
+                    color: #FAF8ED;
+                    scale: 1.1;
+                }
+                &:active{
+                    scale: 0.95;
+                }
             }
 
             .warning {
-                margin-left: 43%;
-                color: #4D5C44;
+                height: 5%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                color: #DB3A3A;
+                font-size: 2dvh;
+                margin-bottom: 1%;
             }
         }
     }

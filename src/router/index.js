@@ -135,6 +135,11 @@ const router = createRouter({
       name: "Introduction",
       component: () => import("../views/Introduction.vue"),
     },
+    {
+      path: "/EditSessionsAndSeats",
+      name: "EditSessionsAndSeats",
+      component: () => import("../views/EditSessionsAndSeats.vue"),
+    },
   ],
 });
 
