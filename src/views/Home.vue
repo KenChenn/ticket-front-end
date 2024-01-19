@@ -197,7 +197,7 @@ export default {
 .navigate {
   width: 100%;
   height: 10vh;
-  margin-top: 80vh;
+  margin-top: 90vh;
   display: flex;
   justify-content: center;
   background-color: #faf8ed;

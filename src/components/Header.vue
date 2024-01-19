@@ -83,6 +83,7 @@ export default {
   height: 10vh;
   position: absolute;
   right: 15%;
+  z-index: 5;
   background-color: #F9B572;
   position: fixed;
   display: flex;
