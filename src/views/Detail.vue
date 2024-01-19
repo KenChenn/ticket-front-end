@@ -237,7 +237,7 @@
                     </div>
                 </div>
 
-                <div class="forum">
+                <div class="forum" v-if="forum">
             <!-- 討論區發言 -->
             <div class="discussions">
                 <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
@@ -386,6 +386,69 @@ export default {
                             }
                         })
                     })
+                })
+                .catch(error => console.log(error))
+        },
+        commentInput() {
+            if (this.comments != "") {
+                fetch('http://localhost:8080/api/comment', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        codename: this.$route.params.codename,
+                        comments: this.comments
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // console.log(data.rtncode)
+                        // console.log(this.commentList)
+                        if (data.rtncode == "PLEASE_LOGIN_FIRST") {
+                            alert("請先登入才可留言")
+                        }
+                        if (data.rtncode == "PARAM_ERROR") {
+                            alert("請輸入欲發表的留言")
+                        }
+                        if (data.rtncode == "SUCCESSFUL") {
+                            this.comment()
+                            this.comments = ""
+                        }
+                    })
+                    .catch(error => console.log(error))
+            } else {
+                alert("請輸入欲發表的留言")
+            }
+        },
+        deleteComment(id) {
+            console.log(id);
+            fetch('http://localhost:8080/api/delete_comment', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.rtncode)
+                    if (data.rtncode == "PLEASE_LOGIN_FIRST") {
+                        alert("請先登入才可刪除")
+                    }
+                    if (data.rtncode == "COMMENT_DELETE_ERROR") {
+                        alert("刪除留言失敗")
+                    }
+                    if (data.rtncode == "COMMENTER_ERROR") {
+                        alert("非留言者本人")
+                    }
+                    if (data.rtncode == "SUCCESSFUL") {
+                        this.comment()
+                    }
                 })
                 .catch(error => console.log(error))
         },
@@ -756,45 +819,6 @@ export default {
 
 }
 
-.linkArea {
-    height: 70%;
-
-    // border: 1px solid black;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    .link {
-        width: 30%;
-        height: 40%;
-        margin-bottom: 5vh;
-        background-color: #748E63;
-        border-radius: 1.5vh;
-        font-size: 3dvh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #FAF8ED;
-        &:hover{
-            background-color: #608349;
-            transition: 0.1s linear;
-            scale: 1.05;
-        }
-        &:active{
-            scale: 0.95;
-            background-color: #4D5C44;
-            color: #FAF8ED;
-        }
-    }
-}
-
-
-
-
-// .forum {
-//     padding: 0% 15% 5% 15%;
-// }
 
 
 
