@@ -1,60 +1,89 @@
 <template>
-    <body>
-        <!-- {{this.map.get('visionPicture')  }} -->
-        <!-- <img :src="this.map.get('visionPicture')"> -->
-        <div class="top">
-            <span class="title">建立活動</span>
-            <span class="tip">*為必填</span>
+    <!-- {{this.map.get('visionPicture')  }} -->
+    <!-- <img :src="this.map.get('visionPicture')"> -->
+    <div class="top">
+        <div class="title">
+            編輯活動
+            <div class="compel">
+                *為必填
+            </div>
         </div>
-        <div class="content">
-            <span class="name">活動名稱*</span>
+    </div>
+    <div class="content">
+        <div class="name">
+            <span>活動名稱*</span><br>
             <input type="text" class="nameAbout" v-model="name">
-            <br>
-            <span v-if="!isEntityName" class="warning">請輸入活動名稱</span>
-            <span class="num">活動代號*</span>
+            <p v-if="!isEntityName" class="warning">請輸入活動名稱</p>
+        </div>
+
+        <div class="num">
+            <span>活動代號*</span><br>
             <input type="text" class="numAbout" v-model="codename">
-            <br>
-            <span v-if="!isEntityCodeName" class="warning">請輸入活動代號</span>
-            <span class="unit">主辦單位*</span>
+            <p v-if="!isEntityCodeName" class="warning">請輸入活動代號</p>
+        </div>
+
+        <div class="entity">
+            <span>是否為實體活動*</span><br>
+            <div class="radio">
+                <span class="yes">是</span>
+                <input type="radio" name="radio" class="yesAbout" v-model="enity" value="true">
+                <span class="no">否</span>
+                <input type="radio" name="radio" class="noAbout" v-model="enity" value="false">
+            </div>
+            <p v-if="!isEntityEnity" class="warning">請選取是否為實體活動</p>
+        </div>
+
+        <div class="place">
+            <span>地點</span> <br>
+            <input type="text" class="placeAbout" v-model="place">
+            <p v-if="!isEntityPlace" class="warning">請輸入地點</p>
+        </div>
+
+        <div class="illustrate">
+            <div class="illustrateAbout">活動說明 <br>
+                <span v-if="!isEntityIntroduction" class="warning">請輸入活動說明</span>
+            </div>
+            <textarea name="" id="" cols="30" rows="10" v-model="introduction"></textarea>
+        </div>
+
+        <div class="unit">
+            <span>主辦單位*</span><br>
             <select name="" id="" class="unitAbout" v-model="organizer">
                 <option value="" hidden>主辦單位名稱</option>
                 <option v-for="name in nameList" :value="name">{{ name }}</option>
             </select>
-            <br>
-            <span v-if="!isEntityOrganizer" class="warning">請選取主辦單位</span>
-            <span class="entity">是否為實體活動*</span>
-            <span class="yes">是</span>
-            <input type="radio" name="radio" class="yesAbout" v-model="enity" value="true">
-            <span class="no">否</span>
-            <input type="radio" name="radio" class="noAbout" v-model="enity" value="false">
-            <br>
-            <span v-if="!isEntityEnity" class="warning">請選取是否為實體活動</span>
-            <span class="place">地點*</span>
-            <input type="text" class="placeAbout" v-model="place">
-            <span v-if="!isEntityPlace" class="warning">請輸入地點</span>
-            <span class="illustrate">活動說明*</span>
-            <textarea name="" id="" cols="30" rows="10" class="illustrateAbout" v-model="introduction"></textarea>
-            <span v-if="!isEntityIntroduction" class="warning">請輸入活動說明</span>
-            <span class="vision">主視覺圖</span>
-            <input type="file" class="visionPicture img" @change="handleFileChange">
-            <span v-if="fileSizeError" class="error">檔案大小超過1MB限制</span>
-            <span v-if="fileTypeError" class="error">請選擇 JPEG 類型檔案</span>
-            <span class="introduce1">座位或介紹圖片/1</span>
-            <input type="file" class="introducePicture1 img" @change="handleFileChange1">
-            <span v-if="fileSizeError1" class="error">圖片/1 檔案大小超過1MB限制</span>
-            <span v-if="fileTypeError1" class="error">圖片/1 請選擇 JPEG 類型檔案</span>
-            <span class="introduce2">座位或介紹圖片/2</span>
-            <input type="file" class="introducePicture2 img" @change="handleFileChange2">
-            <span v-if="fileSizeError2" class="error">圖片/2 檔案大小超過1MB限制</span>
-            <span v-if="fileTypeError2" class="error">圖片/2 請選擇 JPEG 類型檔案</span>
-            <button type="button" class="establish" @click="test()">確認</button>
+            <p v-if="!isEntityOrganizer" class="warning">請選取主辦單位</p>
         </div>
 
-    </body>
+        <div class="vision">
+            <span>主視覺圖</span>
+            <input type="file" class="visionPicture img" @change="handleFileChange">
+            <p v-if="fileSizeError" class="error">檔案大小超過1MB限制</p>
+            <p v-if="fileTypeError" class="error">請選擇 JPEG 類型檔案</p>
+        </div>
+
+        <div class="vision">
+            <span>座位或介紹圖片/1</span>
+            <input type="file" class="introducePicture1 img" @change="handleFileChange1">
+            <p v-if="fileSizeError1" class="error">圖片/1 檔案大小超過1MB限制</p>
+            <p v-if="fileTypeError1" class="error">圖片/1 請選擇 JPEG 類型檔案</p>
+        </div>
+        <div class="vision">
+            <span>座位或介紹圖片/2</span>
+            <input type="file" class="introducePicture2 img" @change="handleFileChange2">
+            <p v-if="fileSizeError2" class="error">圖片/2 檔案大小超過1MB限制</p>
+            <p v-if="fileTypeError2" class="error">圖片/2 請選擇 JPEG 類型檔案</p>
+        </div>
+
+        <button type="button" class="establish" @click="test()">確認</button>
+    </div>
+    <div class="footer">
+
+    </div>
 </template>
 
 <script setup>
-import * as imageConversion from 'image-conversion';
+// import * as imageConversion from 'image-conversion';
 </script>
 
 <script>
@@ -77,21 +106,21 @@ export default {
             introduceImg2: "",
 
             //確認輸入
-            isEntityName: true,
-            isEntityCodeName: true,
-            isEntityOrganizer: true,
-            isEntityEnity: true,
-            isEntityPlace: true,
-            isEntityIntroduction: true,
+            isEntityName: false,
+            isEntityCodeName: false,
+            isEntityOrganizer: false,
+            isEntityEnity: false,
+            isEntityPlace: false,
+            isEntityIntroduction: false,
 
             //照片限制
             fileError: true,
-            fileSizeError: false,
-            fileTypeError: false,
-            fileSizeError1: false,
-            fileTypeError1: false,
-            fileSizeError2: false,
-            fileTypeError2: false,
+            fileSizeError: true,
+            fileTypeError: true,
+            fileSizeError1: true,
+            fileTypeError1: true,
+            fileSizeError2: true,
+            fileTypeError2: true,
         }
     },
     methods: {
@@ -258,7 +287,7 @@ export default {
                 credentials: 'include',
             }).then(response => response.json())
             .then(res => {
-                // console.log(res.organizer)
+                console.log(res.organizer)
                 res.organizer.forEach(host => {
                     this.nameList.push(host.name)
                 });
@@ -267,272 +296,213 @@ export default {
 }
 </script> 
 <style scoped lang="scss">
-body {
-    width: 100%;
-    height: 190vh;
-    background-color: #faf8ed;
-}
-.header{
-    width: 100%;
+.title {
+    width: 70%;
     height: 10vh;
-    margin-top: 0;
-    background-color: #F9B572;
-    position: fixed;
-    top: 0;
-    z-index: 5;
-    .fa-solid{
-        position: absolute;
-        font-size: 30px;
-        left:15.5%;
-        top: 30%;
-        color: #E6E1C8;
-        z-index: 10;
-        }
-    .search{
-        position: absolute;
-        width: 17%;
-        height: 70%;
-        top: 15%;
-        left: 15%;
-        padding-left: 3%;
-        border-radius: 10px;
-        border: 0 ;
-        background-color: #FAF8ED;
-        font-size: 25px;
-    }
-    .signOut{
-        position: absolute;
-        background-color: transparent;
-        color: #FAF8ED;
-        font-size: 30px;
-        right: 14%;
-        top: 20%;
-        border: 0;
-    }
-}
+    margin-top: 10vh;
+    margin-left: 15%;
+    color: #c26202;
+    font-size: 4dvh;
+    display: flex;
+    align-items: end;
+    display: flex;
+    justify-content: space-between;
 
-.top {
-    margin-left: 15vw;
-    padding-top: 10vh;
-
-    .title {
-        margin: 0;
-        font-size: 50px;
-        color: #4D5C44;
-        font-weight: 600;
-        margin-right: 51vw;
-    }
-
-    .tip {
-        margin: 0;
-        font-size: 25px;
-        color: #4D5C44;
+    .compel {
+        font-size: 2dvh;
+        color: #c26202;
     }
 }
 
 .content {
     width: 70vw;
-    height: 160vh;
-    margin-left: 15vw;
-    background-color: #f5bf89;
-    border-radius: 25px;
-    font-size: 35px;
-    margin-bottom: 15vh;
-    position: relative;
-
-    span {
-        color: #4D5C44;
-        margin: 0;
-    }
+    // height: 75vh;
+    margin-left: 15%;
+    background-color: #FAF8ED;
+    border: #F5BF89 0.5vh solid;
+    color: #4D5C44;
+    border-radius: 2vh;
+    font-size: 3dvh;
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
 
     input {
-        width: 60%;
-        height: 4%;
-        font-size: 25px;
+        width: 70%;
+        height: 5vh;
+        font-size: 2.5dvh;
         color: #4D5C44;
         background-color: #FAF8ED;
         border: 0;
-        border-radius: 20px;
         text-indent: 2%;
-        text-align: center;
+        border-bottom: #F5A352 0.3vh solid;
 
+        &:focus {
+            outline: none;
+        }
     }
 
     select {
-        width: 60%;
-        height: 4%;
-        border-radius: 20px;
-        border: 0;
+        width: 70%;
+        // height: 5vh;
+        border-radius: 1.5vh;
+        border: #F5A352 0.3vh solid;
         background-color: #FAF8ED;
         color: #4D5C44;
-        font-size: 25px;
+        font-size: 2.5dvh;
         text-align: center;
     }
 
     input[type="file"] {
-        width: 50%;
-        height: 3.6%;
+        width: 70%;
         text-indent: 0;
-        background-color: transparent;
-        border-radius: 0;
-    }
-
-    textarea {
-        width: 60%;
-        height: 25%;
-        text-indent: 2%;
-        font-size: 25px;
-        resize: none;
-        color: #4D5C44;
-        background-color: #FAF8ED;
-        border: 0;
-        border-radius: 20px;
+        border-bottom: 0;
     }
 
     input[type="radio"] {
-        width: 30px;
-        height: 30px;
+        width: 3vh;
+        height: 3vh;
         accent-color: #748e63; //改變radio顏色
     }
 
     .name {
-        position: absolute;
-        top: 5%;
-        left: 10%;
-    }
-
-    .nameAbout {
-        position: absolute;
-        top: 5%;
-        right: 10%;
+        width: 50%;
+        // height: 15vh;
+        // border: 1px solid black;
     }
 
     .num {
-        position: absolute;
-        top: 12%;
-        left: 10%;
-    }
-
-    .numAbout {
-        position: absolute;
-        top: 12%;
-        right: 10%;
+        width: 50%;
+        // height: 10vh;
+        // border: 1px solid black;
     }
 
     .unit {
-        position: absolute;
-        top: 19%;
-        left: 10%;
-    }
-
-    .unitAbout {
-        position: absolute;
-        top: 19%;
-        right: 10%;
+        width: 50%;
+        // height: 10vh;
+        // border: 1px solid black;
     }
 
     .entity {
-        position: absolute;
-        top: 25%;
-        left: 10%;
-    }
+        width: 50%;
+        border: 1px solid black;
 
-    .yes {
-        position: absolute;
-        top: 25%;
-        right: 50%;
-    }
+        .radio {
+            width: 100%;
+            display: flex;
+            border: 1px solid black;
+            justify-content: space-between;
 
-    .yesAbout {
-        position: absolute;
-        top: 25%;
-        right: 45%;
-    }
+        .yes {
+            width: 50%;
+            // border: 1px solid black;
 
-    .no {
-        position: absolute;
-        top: 25%;
-        right: 30%;
-    }
+            .yesAbout {
+                width: 50%;
+            }
+        }
 
-    .noAbout {
-        position: absolute;
-        top: 25%;
-        right: 25%;
-    }
+        .no {
+            width: 20%;
+            // border: 1px solid black;
 
-    .place {
-        position: absolute;
-        top: 31.5%;
-        left: 10%;
+            .noAbout {
+                width: 50%;
+                // border: 1px solid black;
+            }
+        }
     }
+}
 
-    .placeAbout {
-        position: absolute;
-        top: 31.5%;
-        right: 10%;
-    }
+.place {
+    width: 50%;
 
-    .illustrate {
-        position: absolute;
-        top: 38.5%;
-        left: 10%;
-    }
+}
+
+.illustrate {
+    width: 100%;
+    height: 30vh;
+    // border: 1px solid black;
+    display: flex;
 
     .illustrateAbout {
-        position: absolute;
-        top: 38.5%;
-        right: 10%;
+        width: 15%;
+        height: 100%;
+        // border: 1px solid black;
     }
 
-    .vision {
-        position: absolute;
-        top: 68%;
-        left: 10%;
+    textarea {
+        width: 85%;
+        font-size: 2.5dvh;
+        resize: none;
+        color: #4D5C44;
+        background-color: #FAF8ED;
+        border: #F5A352 0.3vh solid;
+
+        &:focus {
+            outline: none;
+        }
     }
+}
+
+.vision {
+    width: 35%;
+    height: 15vh;
+    margin-right: 15%;
+    // border: 1px solid black;
 
     .visionPicture {
-        position: absolute;
-        top: 68%;
-        right: 10%;
+        width: 100%;
+        // border: 1px solid black;
     }
+}
 
-    .introduce1 {
-        position: absolute;
-        top: 75%;
-        left: 10%;
-    }
+.establish {
+    //確認按鈕
+    height: 10%;
+    width: 14%;
+    border: 0.3vh solid #F5A352;
+    background-color: #FAF8ED;
+    color: #F5A352;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.5vh;
+    margin: auto;
+    font-size: 2.5dvh;
 
-    .introducePicture1 {
-        position: absolute;
-        top: 75%;
-        right: 10%;
-    }
-
-    .introduce2 {
-        position: absolute;
-        top: 82%;
-        left: 10%;
-    }
-
-    .introducePicture2 {
-        position: absolute;
-        top: 82%;
-        right: 10%;
-    }
-
-    .establish {
-        //確認按鈕
-        position: absolute;
-        bottom: 5vh;
-        left: 45%;
-        width: 12%;
-        font-size: 30px;
-        color: #FAF8ED;
-        background-color: #748e63;
+    &:hover {
+        transition: 0.1s linear;
         border: 0;
-        border-radius: 15px;
-
+        background-color: #748E63;
+        color: #FAF8ED;
+        scale: 1.1;
     }
+
+    &:active {
+        scale: 0.95;
+    }
+}
+
+.warning {
+    height: 5%;
+    width: 100%;
+    color: #DB3A3A;
+    font-size: 2dvh;
+    // border: 1px black solid;                
+}
+
+.error {
+    height: 5%;
+    width: 100%;
+    color: #DB3A3A;
+    font-size: 2dvh;
+    // border: 1px black solid;                
+}
+
+.footer {
+    height: 5vh;
+    width: 100%;
+}
 }
 </style>
