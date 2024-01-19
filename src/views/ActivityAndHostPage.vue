@@ -77,6 +77,7 @@ export default {
                         this.activityList = res.data
                     } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                         alert("請先登入")
+                        this.$router.push('/AdminLoginPage')
                     }
                 })
         }

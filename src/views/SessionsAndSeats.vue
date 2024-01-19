@@ -223,6 +223,7 @@ export default {
                         }
                         if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                             alert("請先登入")
+                            this.$router.push('/AdminLoginPage');
                         }
                         if (res.rtncode == "PARAM_ERROR") {
                             alert("請確認資料是否填寫完畢")
