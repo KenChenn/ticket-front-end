@@ -15,20 +15,10 @@
                 <div class="sqDown">
 
                     <!-- 活動區域 -->
-                    <div class="plusAct">
+                    <div class="plusAct" v-for="item in activityList">
                         <button class="hensyu">編輯</button>
-                        <div class="spanName">xxxxLIve</div>
-                        <button class="cencel">刪除</button>
-                    </div>
-                    <div class="plusAct">
-                        <button class="hensyu">編輯</button>
-                        <div class="spanName">xxxxLIve</div>
-                        <button class="cencel">刪除</button>
-                    </div>
-                    <div class="plusAct">
-                        <button class="hensyu">編輯</button>
-                        <div class="spanName">xxxxLIve</div>
-                        <button class="cencel">刪除</button>
+                        <div class="spanName">{{ item.name }}</div>
+                        <button class="cencel" @click="deleteActivity(item.codename)">刪除</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +29,7 @@
 export default {
     data() {
         return {
-
+            activityList: []
         }
     },
     methods: {
@@ -48,10 +38,52 @@ export default {
         },
         goCreateActivities() {
             this.$router.push('/CreateActivities')
+        },
+        deleteActivity(codename) {
+            fetch('http://localhost:8080/api/delete_commodity', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    codename: codename
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.rtncode == "PLEASE_LOGIN_FIRST") {
+                        alert("請先登入才可刪除")
+                    }
+                    if (data.rtncode == "SUCCESSFUL") {
+                        console.log("刪除成功");
+                        this.getAllCommodity()
+                    }
+                })
+                .catch(error => console.log(error))
+        },
+        getAllCommodity() {
+            fetch('http://localhost:8080/api/get_all_commodity', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+            }).then(response => response.json())
+                .then(res => {
+                    console.log(res.data)
+                    if (res.rtncode == "SUCCESSFUL") {
+                        this.activityList = res.data
+                    } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
+                        alert("請先登入")
+                        this.$router.push('/AdminLoginPage')
+                    }
+                })
         }
     },
     mounted() {
-
+        this.getAllCommodity()
     }
 }
 </script>
@@ -60,6 +92,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #FAF8ED;
+    margin-top: 10vh;
 
     button:hover {
         transition: 0.1s linear;
@@ -176,4 +209,5 @@ export default {
             }
         }
     }
-}</style>
+}
+</style>

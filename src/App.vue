@@ -23,12 +23,14 @@ export default {
 .header {
   width: 100%;
   height: 10vh;
-  background-color: #f9b572;
-  display: flex;
-  justify-content: center;
+  background-color: #ff0000;
+  // background-color: #f9b572;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  position: absolute;
+  position: fixed;
+  top: 0;
 } 
 
 .content {
@@ -38,7 +40,6 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border-radius: 2vh;
 }
 
 </style>

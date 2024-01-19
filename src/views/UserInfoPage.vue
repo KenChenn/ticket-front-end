@@ -6,16 +6,16 @@
             </div>
             <div class="info">           
             <span class="spanP">使用者名稱</span>
-            <span class="infoSpan">{{this.user}}111</span>
+            <span class="infoSpan">{{this.user}}</span>
                         
             <span class="spanP">Email</span>
-            <span class="infoSpan">{{this.email}}1111</span>
+            <span class="infoSpan">{{this.email}}</span>
                         
             <span class="spanP">生日</span>
-            <span class="infoSpan">{{this.birth}}1111</span>
+            <span class="infoSpan">{{this.birth}}</span>
                         
             <span class="spanP">電話</span>
-            <span class="infoSpan">{{this.phone}}1111</span>
+            <span class="infoSpan">{{this.phone}}</span>
                         
             <div class="btnArea">
                 <button type="button" class="btn" @click="this.goUserRewrite()">編輯</button>
@@ -28,7 +28,6 @@
 </template>
 <script>
 import counter from '../stores/counter'
-import axios from 'axios'
 // import UserRewritePage from './UserRewritePage.vue'
 export default {
     data() {
@@ -48,22 +47,24 @@ export default {
         }
     },
     mounted() {
-        axios({
-            url: 'http://localhost:8080/api/get_user_basic_data',
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data: {
-                account: $cookies.get("account"),
-            },
-        }).then(res => {
-            console.log(res.data.data)
-            this.user = res.data.data.username
-            this.email = res.data.data.email
-            this.birth = res.data.data.bornDate
-            this.phone = res.data.data.phone
-        })
+        fetch('http://localhost:8080/api/get_user_basic_data',
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    account: $cookies.get("account"),
+                }),
+            }).then(response => response.json())
+            .then(res => {
+                console.log(res)
+                this.user = res.data.username
+                this.email = res.data.email
+                this.birth = res.data.bornDate
+                this.phone = res.data.phone
+            })
     },
     created() {
         // 創建頁面時設定
@@ -174,6 +175,7 @@ export default {
             margin-left: 15%;
             display: flex;
             justify-content: space-around;
+
             // border: black 1px solid;
             .btn {
                 width: 20%;

@@ -9,48 +9,52 @@
     </div>
     <div class="content">
         <div class="name">
-            <span>活動名稱*</span>
+            <span>活動名稱*</span><br>
             <input type="text" class="nameAbout">
         </div>
         <div class="num">
-            <span>活動代號*</span>
+            <span>活動代號*</span><br>
             <input type="text" class="numAbout">
         </div>
+
+        <div class="entity">
+            <span>是否為實體活動*</span><br>
+            <div class="radio">
+                <span class="yes">是</span>
+                <input type="radio" name="radio" class="yesAbout">
+                <span class="no">否</span>
+                <input type="radio" name="radio" class="noAbout">
+            </div>
+        </div>
+        <div class="place">
+            <span>地點</span> <br>
+            <input type="text" class="placeAbout">
+        </div>
+        <div class="illustrate">
+            <div class="illustrateAbout">活動說明</div>
+            <textarea name="" id="" cols="30" rows="10">
+            </textarea>
+        </div>
         <div class="unit">
-            <span>主辦單位*</span>
+            <span>主辦單位*</span><br>
             <select name="" id="" class="unitAbout">
                 <option value="">主辦單位名稱</option>
                 <option value="">主辦單位名稱</option>
             </select>
         </div>
-        <div class="entity">
-            <span>是否為實體活動*</span>
-            <span class="yes">是</span>
-            <input type="radio" name="radio" class="yesAbout">
-            <span class="no">否</span>
-            <input type="radio" name="radio" class="noAbout">
-        </div>
-        <div class="place">
-            <span>地點</span>
-            <input type="text" class="placeAbout">
-        </div>
-        <div class="illustrate">
-            <span>活動說明</span>
-            <textarea name="" id="" cols="30" rows="10" class="illustrateAbout"></textarea>
-        </div>
         <div class="vision">
             <span>主視覺圖</span>
             <input type="file" class="visionPicture">
         </div>
-        <div class="introduce1">
+        <div class="vision">
             <span>座位或介紹圖片/1</span>
-            <input type="file" class="introducePicture1">
+            <input type="file" class="visionPicture">
         </div>
-        <div class="introduce2">
+        <div class="vision">
             <span>座位或介紹圖片/2</span>
-            <input type="file" class="introducePicture2">
+            <input type="file" class="visionPicture">
         </div>
-        
+
         <button type="button" class="establish">確認</button>
     </div>
 </template>
@@ -63,12 +67,13 @@ export default {
 .title {
     width: 70%;
     height: 10vh;
+    margin-top: 10vh;
     margin-left: 15%;
     color: #c26202;
     font-size: 4dvh;
     display: flex;
     align-items: end;
-    // border: 1px solid black;
+    //  // border: 1px solid black;
     display: flex;
     justify-content: space-between;
 
@@ -80,23 +85,19 @@ export default {
 
 .content {
     width: 70vw;
-    height: 70vh;
+    height: 75vh;
     margin-left: 15vw;
     background-color: #FAF8ED;
     border: #F5BF89 0.5vh solid;
+    color: #4D5C44;
     border-radius: 2vh;
     font-size: 3dvh;
     padding: 2%;
-    // display: flex;
-    // flex-wrap:wrap;
-
-    span {
-        color: #4D5C44;
-        margin: 0;
-    }
+    display: flex;
+    flex-wrap: wrap;
 
     input {
-        width: 60%;
+        width: 70%;
         height: 5vh;
         font-size: 2.5dvh;
         color: #4D5C44;
@@ -108,14 +109,13 @@ export default {
         &:focus {
             outline: none;
         }
-
     }
 
     select {
-        width: 60%;
-        height: 5vh;
-        border-radius: 2vh;
-        border: 0;
+        width: 70%;
+        // height: 5vh;
+        border-radius: 1.5vh;
+        border: #F5A352 0.3vh solid;
         background-color: #FAF8ED;
         color: #4D5C44;
         font-size: 2.5dvh;
@@ -123,163 +123,144 @@ export default {
     }
 
     input[type="file"] {
-        width: 50%;
-        height: 5vh;
+        width: 70%;
         text-indent: 0;
-        background-color: transparent;
-        border-radius: 0;
+        border-bottom: 0;
+
+        // width: 50%;
+        // height: 5vh;
+        // // background-color: transparent;
+        // border-radius: 0;
     }
 
 
     input[type="radio"] {
-        width: 30px;
-        height: 30px;
+        width: 3vh;
+        height: 3vh;
         accent-color: #748e63; //改變radio顏色
     }
 
     .name {
         width: 50%;
         height: 10vh;
-        border: 1px solid black;
 
-        .nameAbout {
-            border: 1px solid black;
-        }
+        // border: 1px solid black;
     }
 
 
     .num {
         width: 50%;
         height: 10vh;
-        margin-left: 50%;
-        margin-top: -10vh;
-        border: 1px solid black;
 
-        .numAbout {
-            border: 1px solid black;
-        }
+        // border: 1px solid black;
+
     }
 
 
     .unit {
         width: 50%;
         height: 10vh;
-        border: 1px solid black;
-
-        .unitAbout {
-            border: 1px solid black;
-        }
+        // border: 1px solid black;
     }
 
 
     .entity {
         width: 50%;
-        height: 10vh;
-        margin-left: 50%;
-        margin-top: -10vh;
-        border: 1px solid black;
-        .yes {
+        height: 7vh;
+
+        .radio {
             width: 50%;
-            border: 1px solid black;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .yes {
+            width: 20%;
+            // border: 1px solid black;
             .yesAbout {
                 width: 50%;
-                border: 1px solid black;
-    
+                // border: 1px solid black;
             }
         }
+
         .no {
-            width: 50%;
-    
-            border: 1px solid black;
-    
+            width: 20%;
+            // border: 1px solid black;
+
             .noAbout {
                 width: 50%;
-                border: 1px solid black;
+                // border: 1px solid black;
             }
         }
     }
-
-
-
-
     .place {
         width: 50%;
         height: 10vh;
-        border: 1px solid black;
 
-        .placeAbout {
-            width: 50%;
-            border: 1px solid black;
-        }
     }
-
-
 
     .illustrate {
-        width: 50%;
-        margin-left: 50%;
-        margin-top: -10vh;
-        border: 1px solid black;
+        width: 100%;
+        // border: 1px solid black;
+        display: flex;
 
         .illustrateAbout {
-
-            border: 1px solid black;
+            width: 15%;
+            // border: 1px solid black;
         }
+
         textarea {
-        height: 30vh;
-        font-size: 2.5dvh;
-        resize: none;
-        color: #4D5C44;
-        background-color: #FAF8ED;
-        border: 0;
-        border-radius: 2vh;
-    }
+            height: 20vh;
+            width: 80%;
+            font-size: 2.5dvh;
+            resize: none;
+            color: #4D5C44;
+            background-color: #FAF8ED;
+            border: #F5A352 0.3vh solid;
+
+            &:focus {
+                outline: none;
+            }
+        }
     }
 
     .vision {
-        width: 50%;
-        margin-top: -25vh;
+        width: 35%;
         height: 10vh;
-
-        border: 1px solid black;
+        margin-right: 15%;
+        // border: 1px solid black;
 
         .visionPicture {
-            border: 1px solid black;
-        }
-    }
-
-
-    .introduce1 {
-        width: 50%;
-
-        border: 1px solid black;
-
-        .introducePicture1 {
-
-            border: 1px solid black;
-        }
-    }
-
-
-    .introduce2 {
-        width: 50%;
-
-        border: 1px solid black;
-
-        .introducePicture2 {
-
-            border: 1px solid black;
+            width: 100%;
+            // border: 1px solid black;
         }
     }
 
     .establish {
         //確認按鈕
+        height: 10%;
         width: 14%;
-        font-size: 3dvh;
-        color: #FAF8ED;
-        background-color: #748e63;
-        border: 0;
-        border-radius: 2vh;
-        border: 1px solid black;
+        border: 0.3vh solid #F5A352;
+        background-color: #FAF8ED;
+        color: #F5A352;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1.5vh;
+        margin: auto;
+        font-size: 2.5dvh;
+
+        &:hover {
+            transition: 0.1s linear;
+            border: 0;
+            background-color: #748E63;
+            color: #FAF8ED;
+            scale: 1.1;
+        }
+
+        &:active {
+            scale: 0.95;
+        }
     }
-}</style>
+}
+</style>

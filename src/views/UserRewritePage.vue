@@ -39,7 +39,6 @@
 </template>
 <script>
 import counter from '../stores/counter'
-import axios from 'axios'
 export default {
     data() {
         return {
@@ -67,34 +66,36 @@ export default {
             this.isValidPhoneNumber = tel.test(this.editedPhone);
 
             if (this.isUsername && this.isValidEmail && this.isValidPhoneNumber) {
-                axios({
-                    url: 'http://localhost:8080/api/user_data_update',
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    data: {
-                        account: $cookies.get("account"),
-                        username: this.editedUser,
-                        email: this.editedEmail,
-                        phone: this.editedPhone,
-                    },
-                }).then(res => {
-                    console.log(res.data)
-                    if (res.data.rtncode == "USERNAME_ALREADY_IN_USE") {
-                        this.isReapeatUsername = true
-                    } else {
-                        this.isReapeatUsername = false
-                    };
-                    if (res.data.rtncode == "SUCCESSFUL") {
-                        this.$router.push('/UserInfoPage')
-                        console.log("更改成功");
-                    }
-                    // this.user = res.data.data.username
-                    // this.email = res.data.data.email
-                    // this.birth = res.data.data.bornDate
-                    // this.phone = res.data.data.phone
-                })
+                fetch('http://localhost:8080/api/user_data_update',
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify({
+                            account: $cookies.get("account"),
+                            username: this.editedUser,
+                            email: this.editedEmail,
+                            phone: this.editedPhone,
+                        }),
+                    }).then(response => response.json())
+                    .then(res => {
+                        console.log(res)
+                        if (res.rtncode == "USERNAME_ALREADY_IN_USE") {
+                            this.isReapeatUsername = true
+                        } else {
+                            this.isReapeatUsername = false
+                        };
+                        if (res.rtncode == "SUCCESSFUL") {
+                            this.$router.push('/UserInfoPage')
+                            console.log("更改成功");
+                        }
+                        // this.user = res.data.data.username
+                        // this.email = res.data.data.email
+                        // this.birth = res.data.data.bornDate
+                        // this.phone = res.data.data.phone
+                    })
 
             }
         },
@@ -105,22 +106,24 @@ export default {
         },
     },
     mounted() {
-        axios({
-            url: 'http://localhost:8080/api/get_user_basic_data',
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data: {
-                account: $cookies.get("account"),
-            },
-        }).then(res => {
-            // console.log(res.data.data)
-            this.editedUser = res.data.data.username
-            this.editedEmail = res.data.data.email
-            this.editedBirth = res.data.data.bornDate
-            this.editedPhone = res.data.data.phone
-        })
+        fetch('http://localhost:8080/api/get_user_basic_data',
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    account: $cookies.get("account"),
+                }),
+            }).then(response => response.json())
+            .then(res => {
+                console.log(res.data)
+                this.editedUser = res.data.username
+                this.editedEmail = res.data.email
+                this.editedBirth = res.data.bornDate
+                this.editedPhone = res.data.phone
+            })
     },
     created() {
         // 創建頁面時設定

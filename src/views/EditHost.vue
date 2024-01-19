@@ -56,7 +56,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 export default {
     data() {
         return {
@@ -122,6 +121,7 @@ export default {
                             this.isReapeatName = true
                         } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                             alert("請先登入");
+                            this.$router.push('/AdminLoginPage');
                         } else {
                             alert("新增失敗");
                             return;
@@ -168,7 +168,7 @@ export default {
 .main {
     width: 100%;
     height: 100%;
-
+    
     .down {
         width: 100%;
         height: 100%;
@@ -223,6 +223,7 @@ export default {
             border: 0;
             background-color: #FAF8ED;
             border-bottom: #F5A352 0.3vh solid;
+
             &:focus {
                 outline: none;
             }

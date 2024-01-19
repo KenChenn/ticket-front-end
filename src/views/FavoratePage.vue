@@ -1,32 +1,40 @@
 <template>
+<body>
+
     <div class="top">
         <span class="title">最愛列表</span>
     </div>
-    <div class="content"  :style="{ backgroundColor: aboutToStart ? '#F5A352' : '#89A071' }" v-for="(item,index) in this.trackerList">
+    <div class="content" v-for="(item,index) in this.trackerList" :key="index" :class="{ 'first-item': index === 0 }">
         <div class="left">
             <div class="picture">
                 <img :src="item.keyvisualImg">
             </div>
-            <button type="button" @click="this.deleteFav(item.commodityCodename)">刪除</button>
+            
+            <!-- <button type="button" @click="this.deleteFav(item.commodityCodename)">刪除</button> -->
         </div>
-        <div class="right">
-            <div class="up">
+        <div class="middle">
+            <div class="nameAll">
                 <p class="name">活動名稱</p>
                 <p class="nameAbout">{{ item.name }}
                 </p>
             </div>
-            <div class="middle">
+            <div class="dateAll">
                 <p class="date">演出日期</p>
                 <p class="dateAbout">{{ item.startDate }}
                 </p>
             </div>
-            <div class="down">
+            <!-- <div class="placeAll">
                 <p class="place">演出地點</p>
                 <p class="placeAbout">{{ item.place }}
                 </p>
-            </div>
+            </div> -->
+        </div>
+        <div class="right">
+            <i class="fa-solid fa-circle-xmark" @click="this.deleteFav(item.commodityCodename)"></i>
         </div>
     </div>
+    
+</body>
 </template>
 <script>
 import counter from '../stores/counter'
@@ -38,7 +46,7 @@ export default {
             dateAbout: "",
             placeAbout: "",
             seatAbout: "",
-            aboutToStart: true,   //開始狀態
+            // aboutToStart: true,   //開始狀態
             trackerList:[],
             myFavList:[],
         }
@@ -104,7 +112,11 @@ export default {
 }
 </script>
 <style scoped lang="scss" >
+body {
+    background-color: #FAF8ED;
+}
 .top {
+    margin-top: 10vh;
     .title {
         width: 70%;
         height: 10vh;
@@ -121,16 +133,21 @@ export default {
 
 .content {
     width: 70%;
-    height: 40vh;
+    height: 30vh;
     margin: auto;
-    padding: 1%;
-    background-color: #99b080;
-    color: #FAF8ED;
+    padding: 2%;
+    border: #99b080 0.5vh solid;
+    // background-color: #99b080;
+    color: #4D5C44;;
     border-radius: 2vh;
     font-size: 2.5dvh;
     display: flex;
     justify-content: space-between;
     margin-top: 2%;
+
+    .first-item {
+        border: #F5A352 1vh solid;
+    }
 
     .left {
         width: 20dvw;
@@ -139,7 +156,7 @@ export default {
 
         .picture {
             width: 100%;
-            height: 20dvh;
+            height: 100%;
 
             img {
                 width: 100%;
@@ -150,14 +167,15 @@ export default {
                 border-radius: 1.5vh;
             }
         }
+        
     }
 
-    .right {
-        width: 65%;
+    .middle {
+        width: 20dvw;
         height: 100%;
         // border: 1px black solid;
 
-        .up {
+        .nameAll {
             // border: 1px black solid;
             width: 100%;
 
@@ -167,12 +185,11 @@ export default {
             }
 
             .nameAbout {
-                color: #FAF8ED;
+                color: #4D5C44;
                 text-align: center;
             }
         }
-
-        .middle {
+        .dateAll {
             width: 100%;
             // border: 1px black solid;
 
@@ -182,24 +199,36 @@ export default {
             }
 
             .dateAbout {
-                color: #FAF8ED;
+                color: #4D5C44;
                 text-align: center;
             }
         }
 
-        .down {
-            width: 100%;
-            // border: 1px black solid;
 
-            .place {
-                font-weight: bold;
-                text-align: center;
-            }
+        // .placeAll {
+        //     width: 100%;
+        //     // border: 1px black solid;
 
-            .placeAbout {
-                color: #FAF8ED;
-                text-align: center;
-            }
+        //     .place {
+        //         font-weight: bold;
+        //         text-align: center;
+        //     }
+
+        //     .placeAbout {
+        //         color: #FAF8ED;
+        //         text-align: center;
+        //     }
+        // }
+    }
+    .right{
+        // border: 1px solid black;
+        i{
+            color: #DB3A3A;
+            font-size: 7dvh;
+            // background-color: #FAF8ED;
+            // border-radius: 100% ;
+            // clip-path: circle(47% at 50% 50%);
+            
         }
     }
 }
