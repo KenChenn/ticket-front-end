@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <!-- <div class="main"> -->
         <!-- <div class="up">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="search">
@@ -28,7 +28,7 @@
                 <button type="button" class="loginBtn" @click="login()">登入</button>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </template>
 <script>
 export default {
@@ -84,52 +84,48 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.main {
-    height: 90vh;
-    background-color: #FAF8ED;
+    // .up {
+    //     //width: 100%;
+    //     //height: 11%;
+    //     background-color: #F5BF89;
+    //     display: flex;
+    //     position: relative;
 
-    .up {
-        //width: 100%;
-        //height: 11%;
-        background-color: #F5BF89;
-        display: flex;
-        position: relative;
+    //     .fa-solid {
+    //         position: absolute;
+    //         color: #E6E1C8;
+    //         font-size: 2dvh;
+    //         top: 33%;
+    //         left: 25.5%;
+    //     }
 
-        .fa-solid {
-            position: absolute;
-            color: #E6E1C8;
-            font-size: 2dvh;
-            top: 33%;
-            left: 25.5%;
-        }
+    //     .search {
+    //         width: 11%;
+    //         height: 47%;
+    //         border-radius: 2vh;
+    //         border: 1pt solid #FAF8ED;
+    //         background-color: #FAF8ED;
+    //         margin-left: 25%;
+    //         margin-top: 1%;
+    //     }
 
-        .search {
-            width: 11%;
-            height: 47%;
-            border-radius: 2vh;
-            border: 1pt solid #FAF8ED;
-            background-color: #FAF8ED;
-            margin-left: 25%;
-            margin-top: 1%;
-        }
+    //     .signUpp {
+    //         font-size: 2dvh;
+    //         margin-left: 30%;
+    //         color: #FAF8ED;
+    //     }
 
-        .signUpp {
-            font-size: 2dvh;
-            margin-left: 30%;
-            color: #FAF8ED;
-        }
-
-        .loginp {
-            font-size: 2dvh;
-            margin-left: 2%;
-            color: #FAF8ED;
-        }
-    }
+    //     .loginp {
+    //         font-size: 2dvh;
+    //         margin-left: 2%;
+    //         color: #FAF8ED;
+    //     }
+    // }
 
     .down {
         width: 100%;
         height: 100%;
-
+        margin-top: 10vh;
         .title {
             width: 70%;
             height: 10vh;
@@ -215,5 +211,5 @@ export default {
             }
         }
     }
-}
+
 </style>

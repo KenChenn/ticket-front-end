@@ -168,7 +168,7 @@ export default {
 .main {
     width: 100%;
     height: 100%;
-
+    
     .down {
         width: 100%;
         height: 100%;
@@ -223,6 +223,7 @@ export default {
             border: 0;
             background-color: #FAF8ED;
             border-bottom: #F5A352 0.3vh solid;
+
             &:focus {
                 outline: none;
             }

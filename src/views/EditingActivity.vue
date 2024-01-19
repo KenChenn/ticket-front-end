@@ -63,6 +63,7 @@ export default {
 .title {
     width: 70%;
     height: 10vh;
+    margin-top: 10vh;
     margin-left: 15%;
     color: #c26202;
     font-size: 4dvh;

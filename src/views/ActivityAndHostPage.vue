@@ -77,6 +77,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #FAF8ED;
+    margin-top: 10vh;
 
     button:hover {
         transition: 0.1s linear;

@@ -396,6 +396,7 @@ body {
     width: 70vw;
     height: 100%;
     margin-left: 15vw;
+    margin-top: 10vh;
     padding-right: 5%;
     display: flex;
     align-items: end;
