@@ -120,33 +120,45 @@ export default {
                     }
                 }
             }
-
+            console.log(this.isEmptyPrice);
             // 防呆未輸入
             for (const session of this.sessionList) {
                 for (const seat of session.seatData) {
                     if (session.showDateTime == "") {
                         alert("有活動開始時間未輸入")
                         this.isEmptyShowDateTime = false
+                    } else {
+                        this.isEmptyShowDateTime = true
                     }
                     if (session.startSellDateTime == "") {
                         alert("有開售時間未輸入")
                         this.isEmptyStartSellDateTime = false
+                    } else {
+                        this.isEmptyStartSellDateTime = true
                     }
                     if (session.endSellDateTime == "") {
                         alert("有停售時間未輸入")
                         this.isEmptyEndSellDateTime = false
+                    } else {
+                        this.isEmptyEndSellDateTime = true
                     }
                     if (seat.area == "") {
                         alert("有區域名稱未輸入")
                         this.isEmptyArea = false
+                    } else {
+                        this.isEmptyArea = true
                     }
                     if (seat.maxSeatNum <= 0) {
                         alert("有可出售座位數未輸入")
                         this.isEmptySeat = false
+                    } else {
+                        this.isEmptySeat = true
                     }
                     if (seat.price <= 0) {
                         alert("有座位價格未輸入")
                         this.isEmptyPrice = false
+                    } else {
+                        this.isEmptyPrice = true
                     }
                 }
             }
