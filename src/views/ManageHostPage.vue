@@ -1,17 +1,16 @@
 <template>
     <div class="main">
         <div class="up">
-            <h1 class="hostName">主辦單位名稱</h1>
+            <div class="title">
+                編輯活動
+            </div>
             <button class="plusBtn" @click="goCreateHost()">新增</button>
         </div>
         <div class="down">
-            <div class="hostSq">
-                <div class="host" v-for="(name, index) in this.nameList" :key="index">
-                    <br>
-                    <button class="editBtn" @click="goToEditPage(idList[index])" >編輯</button>
-                    <span class="kaisyaiName">{{ name }}</span>
-                    <button class="cencelBtn" @click="this.delete(this.idList[index])">刪除</button>
-                </div>
+            <div class="host" v-for="(name, index) in this.nameList" :key="index">
+                <button class="editBtn" @click="goToEditPage(idList[index])">編輯</button>
+                <span class="kaisyaiName">{{ name }}</span>
+                <button class="cencelBtn" @click="this.delete(this.idList[index])">刪除</button>
             </div>
         </div>
     </div>
@@ -48,7 +47,7 @@ export default {
                     }
                 })
         },
-        goToEditPage(id){
+        goToEditPage(id) {
             // console.log(this.$route.params.id);
             this.$router.push({ name: 'EditHost', params: { id } });
         }
@@ -76,70 +75,115 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    margin-top: 10vh;
     background-color: #FAF8ED;
 
     .up {
-        width: 100%;
-        height: 20%;
+        display: flex;
+        justify-content: space-between;
 
-        .hostName {
-            color: #4D5C44;
-            margin-left: 20%;
-            margin-top: 4%;
+        .title {
+            width: 35%;
+            height: 10vh;
+            margin-left: 15%;
+            color: #c26202;
+            font-size: 4dvh;
+            display: flex;
+            align-items: end;
+            display: flex;
+            justify-content: space-between;
         }
 
         .plusBtn {
-            width: 6%;
-            height: 30%;
-            background-color: #89A071;
-            border: 1pt solid #89A071;
-            border-radius: 15px;
-            font-size: 1.2rem;
+            height: 70%;
+            width: 10%;
+            margin-top: 3vh;
+            margin-right: 15%;
+            font-size: 3dvh;
+            line-height: 6vh;
+            border-radius: 1vh;
+            border: 0.3vh solid #89A071;
+            color: #89A071;
+            background-color: #FAF8ED;
+        }
+
+        .plusBtn:hover {
+            transition: 0.1s linear;
             color: #FAF8ED;
-            margin-top: 4.5%;
-            margin-left: 37%;
+            background-color: #89A071;
+            scale: 1.1;
+        }
+
+        .plusBtn:active {
+            scale: 0.95;
+            background-color: #4D5C44;
         }
     }
 
     .down {
-        width: 100%;
-        height: 80%;
+        width: 70%;
+        min-height: 70vh;
+        margin: auto;
+        border-radius: 2vh;
+        border: #F5BF89 0.5vh solid;
+        padding: 2%;
 
-        .hostSq {
-            width: 59%;
-            height: 90%;
-            background-color: #F5BF89;
-            margin-left: 20%;
-            border-radius: 15px;
+        .host {
+            // border: black 1px solid;
+            height: 5vh;
+            margin-bottom: 1%;
+            display: flex;
+            justify-content: space-between;
 
             .editBtn {
-                width: 13%;
-                height: 1.6rem;
-                border-radius: 15px;
-                background-color: #F5A352;
-                border: 1pt solid #F5A352;
-                color: #FAF8ED;
-                margin-left: 3%;
-                margin-right: 26%;
-            }
+                width: 10%;
+                height: 100%;
+                border-radius: 1vh;
+                font-size: 3dvh;
+                color: #F5A352;
+                background-color: #FAF8ED;
+                border: 0.3vh solid #F5A352;
 
-            .cencelBtn {
-                width: 13%;
-                height: 1.6rem;
-                border-radius: 15px;
-                background-color: #DB3A3A;
-                border: 1pt solid #DB3A3A;
-                color: #FAF8ED;
+                button:hover {
+                    transition: 0.1s linear;
+                    background-color: #F9B572;
+                    scale: 1.1;
+                }
+
+                button:active {
+                    scale: 0.95;
+                    background-color: #c26202;
+                }
             }
 
             .kaisyaiName {
-                font-size: 1.3rem;
-                margin-right: 26%;
+                width: 70%;
+                text-align: center;
+                font-size: 3dvh;
                 color: #4D5C44;
+                border-bottom: 0.3vh solid #F5BF89;
+            }
+
+            .cencelBtn {
+                width: 10%;
+                height: 100%;
+                border-radius: 1vh;
+                font-size: 3dvh;
+                color: #DB3A3A;
+                background-color: #FAF8ED;
+                border: 0.3vh solid #DB3A3A;
+                button:hover {
+                    transition: 0.1s linear;
+                    background-color: #d05757;
+                    scale: 1.1;
+                }
+
+                button:active {
+                    scale: 0.95;
+                    background-color: #ab3131;
+                }
             }
         }
     }
-}
-</style>
+}</style>

@@ -160,7 +160,7 @@ export default {
             justify-content: space-between;
 
             span {
-                font-size: 2dvh;
+                font-size: 3dvh;
             }
         }
 

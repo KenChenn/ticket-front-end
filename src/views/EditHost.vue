@@ -168,7 +168,7 @@ export default {
 .main {
     width: 100%;
     height: 100%;
-    
+    margin-top: 10vh;
     .down {
         width: 100%;
         height: 100%;
@@ -186,7 +186,7 @@ export default {
             justify-content: space-between;
 
             span {
-                font-size: 2dvh;
+                font-size: 3dvh;
             }
         }
 

@@ -94,47 +94,36 @@ export default {
     background-color: #FAF8ED;
     margin-top: 10vh;
 
-    button:hover {
-        transition: 0.1s linear;
-        color: #FAF8ED;
-        background-color: #4D5C44;
-        scale: 1.1;
-    }
-
-    button:active {
-        scale: 0.95;
-    }
-
-    // justify-content: center;
     .up {
         width: 70%;
-        height: 20%;
+        height: 10%;
         margin-left: 15%;
         display: flex;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        .host {
+        button {
             height: 70%;
             width: 25%;
-            background-color: #89A071;
-            border: 0;
             font-size: 3dvh;
             line-height: 6vh;
-            color: #FAF8ED;
+            border: 0.3vh solid #89A071;
+            color: #89A071;
+            background-color: #FAF8ED;
             border-radius: 1vh;
         }
 
-        .act {
-            height: 70%;
-            width: 25%;
-            background-color: #89A071;
-            border: 0;
-            font-size: 3dvh;
-            line-height: 6vh;
+        button:hover {
+            transition: 0.1s linear;
             color: #FAF8ED;
-            border-radius: 1vh;
+            background-color: #89A071;
+            scale: 1.1;
+        }
+
+        button:active {
+            scale: 0.95;
+            background-color: #4D5C44;
         }
     }
 
@@ -145,8 +134,7 @@ export default {
 
         .actSq {
             width: 70%;
-            height: 65vh;
-            // background-color: #F5BF89;
+            min-height: 75vh;
             border: #F5BF89 0.5vh solid;
             margin-left: 15%;
             border-radius: 2vh;
@@ -209,5 +197,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>

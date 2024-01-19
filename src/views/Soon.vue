@@ -36,7 +36,6 @@ export default {
                         <!-- 節目名稱 -->
                             {{ item.name }}
                     </div>
-
                     <!-- 節目開售日期 -->
                     <div class="showDate">
                         <span>
