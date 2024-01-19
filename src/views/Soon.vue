@@ -30,25 +30,26 @@ export default {
                 <div class="showImg" @click="this.codename = this.codename + item.codename">
                     <img :src="item.keyvisualImg">
                 </div>
-                <div class="showName" @click="this.codename = this.codename + item.codename">
-                    <!-- 節目名稱 -->
-                    <span>
-                        {{ item.name }}
-                    </span>
-                </div>
-                <!-- 節目開售日期 -->
-                <div class="showDate" @click="this.codename = this.codename + item.codename">
-                    <span>
-                        {{ item.startDate }}
-                    </span>
-                </div>
-                <!-- 節目狀態 -->
-                <div class="showStatus" @click="this.codename = this.codename + item.codename">
-                    <p>
-                        ON SALE
-                    </p>
-                </div>
 
+                <div class="infoArea" @click="this.codename = this.codename + item.codename">
+                    <div class="showName" >
+                        <!-- 節目名稱 -->
+                            {{ item.name }}
+                    </div>
+
+                    <!-- 節目開售日期 -->
+                    <div class="showDate">
+                        <span>
+                            {{ item.startDate }}
+                        </span>
+                    </div>
+                    <!-- 節目狀態 -->
+                    <div class="showStatus">
+                        <span>
+                            ON SALE
+                        </span>
+                    </div>
+                </div>
                 <!-- //測試 -->
                 <!-- <div class="one" v-for="(item,index) in this.dataList">
                 <p class="text"> {{ item.codename }}</p>
@@ -67,27 +68,17 @@ export default {
     flex-wrap: wrap;
     justify-content: space-around;
     background-color: #99B080;
-    padding: 5% 10% 0% 10%;
-
-    .one {
-        height: 200px;
-        width: 200px;
-        background-color: #FAF8ED;
-
-        .text {
-            color: black;
-        }
-    }
+    padding: 3% 10% 0% 10%;
 }
 
 .show {
     width: 30%;
-    height: 40vh;
-    margin-bottom: 10vh;
+    height: 35vh;
+    margin-bottom: 3%;
     background-color: #748E63;
     color: #FAF8ED;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 2vh;
 
     .showImg {
         height: 60%;
@@ -97,38 +88,46 @@ export default {
             object-fit: cover;
             width: 100%;
             height: 100%;
-            border-radius: 20px 20px 0 0;
+            border-radius: 2vh 2vh 0 0;
         }
     }
 
-    .showName {
-        
-        border: 1px black solid;
+    .infoArea {
+        height: 40%;
+        width: 100%;
+        padding: 2%;
+        // border: 1px black solid;
+
+        .showName {
+            height: 60%;
+            font-size: 3dvh;
+            word-wrap: break-all;
+            display: flex;
+            align-items: center;
+            // border: 1px black solid;
+        }
+
+        .showDate {
+            width: 40%;
+            font-size: 2.5dvh;
+            font-weight:lighter;
+            display: flex;
+            align-items: center;
+            // border: 1px black solid;
+        }
+
+        .showStatus {
+            width: 30%;
+            height: 30%;
+            border-radius: 10vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 70%;
+            margin-top: -7%;
+            background-color: #F5A352;
+            font-size: 2dvh;   
+        }
     }
-
-    .showDate {
-        width: 60%;
-        height: 15%;
-        font-size: 3dvh;
-        margin-left: 5%;
-        display: flex;
-        align-items: center;
-
-        border: 1px black solid;
-    }
-
-    .showStatus {
-        width: 40%;
-        height: 15%;
-        border-radius: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 55%;
-        background-color: #F5A352;
-        font-size: 2dvh;
-
-    }
-
 }
 </style>
