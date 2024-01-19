@@ -5,8 +5,7 @@
     <div class="content"  :style="{ backgroundColor: aboutToStart ? '#F5A352' : '#89A071' }" v-for="(item,index) in this.trackerList">
         <div class="left">
             <div class="picture">
-                <img
-                :src="item.keyvisualImg">
+                <img :src="item.keyvisualImg">
             </div>
             <button type="button" @click="this.deleteFav(item.commodityCodename)">刪除</button>
         </div>
@@ -87,7 +86,6 @@ export default {
     },
     mounted() {
         this.myFav()
-        
     },
     created() {
         // 在页面创建时设置特定的对象

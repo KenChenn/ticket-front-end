@@ -3,27 +3,27 @@
         <div class="showArea">
             <div class="showImg">
                 <!-- 節目圖片 -->
-                <img v-if="this.codeList[0]" :src="this.codeList[0].keyvisualImg">
+                <img v-if="this.codeList" :src="this.codeList.keyvisualImg">
             </div>
 
             <!-- 節目資訊 -->
             <div class="showInfo">
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
-                <span v-if="this.codeList[0]">
-                    {{ this.codeList[0].startDate }}
+                <span v-if="this.codeList">
+                    {{ this.codeList.startDate }}
                 </span>
                 <br>
                 <i class="fa-solid fa-location-dot"></i>
                 <!-- 地點 -->
-                <span v-if="this.codeList[0]">
-                    {{ this.codeList[0].place }}
+                <span v-if="this.codeList">
+                    {{ this.codeList.place }}
                 </span>
                 <br>
                 <i class="fa-solid fa-user"></i>
                 <!-- 主辦 -->
-                <span v-if="this.codeList[0]">
-                    {{ this.codeList[0].organizer }}
+                <span v-if="this.codeList">
+                    {{ this.codeList.organizer }}
                 </span>
             </div>
 
@@ -34,9 +34,11 @@
 
         <!-- 加入最愛按鈕 -->
         <div class="likeArea">
-            <button>
-                <i class="fa-solid fa-heart-circle-plus" v-if="!searchFav" @click="this.addFav()"> 加入最愛</i>
-                <i class="fa-solid fa-heart-circle-plus cencel" v-if="searchFav" @click="this.cencelFav()" > 移除最愛</i>
+            <button v-if="!searchFav" @click="this.addFav()">
+                <i class="fa-solid fa-heart-circle-plus" > 加入最愛</i>
+            </button>
+            <button v-if="searchFav" @click="this.cencelFav()">
+                <i class="fa-solid fa-heart-circle-plus cencel"   > 移除最愛</i>
             </button>
         </div>
 
@@ -116,6 +118,7 @@ export default {
     },
     methods: {
         codeInfo() {
+            console.log( this.$route.params.codename);
             fetch('http://localhost:8080/api/get_commodity', {
                 method: "POST",
                 headers: {
@@ -127,8 +130,10 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     this.codeList = data.commodityList;
-                    // console.log(data)
+                    console.log(this.codeList )
+                    console.log(this.codeList.codename)
                     // console.log(this.codeList[0].codename)
                 })
                 .catch(error => console.log(error))
@@ -279,6 +284,7 @@ export default {
         },
     },
     mounted() {
+
         this.searchFavorate()
         fetch('http://localhost:8080/api/get_user_basic_data', {
             method: "POST",
