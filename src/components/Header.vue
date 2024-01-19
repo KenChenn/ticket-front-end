@@ -5,14 +5,28 @@ import { Value } from "sass";
 export default {
   data() {
     return {
-      account: true,  //登入狀態(已登入的狀態，記得關!!)
+      account: false,  //登入狀態(已登入的狀態，記得關!!)
       dataList: [],
     };
   },
   methods: {
     signOut() {
-      this.$router.push("/"),
-        this.account = false
+
+      fetch('http://localhost:8080/api/logout', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          if (data.rtncode == "SUCCESSFUL") {
+            this.$router.push("/"),
+              this.account = false
+          }
+        })
+        .catch(error => console.log(error))
     },
   },
   // methods: {
@@ -49,6 +63,25 @@ export default {
     headerLink() {
       return counter().headerLink;
     },
+  },
+  mounted() {
+    fetch('http://localhost:8080/api/get_user_basic_data',
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          account: $cookies.get("account"),
+        }),
+      }).then(response => response.json())
+      .then(res => {
+        console.log($cookies.get("account"))
+        if (res.rtncode == "SUCCESSFUL") {
+          this.account = true
+        }
+      })
   }
 };
 </script>
@@ -77,7 +110,6 @@ export default {
 </template>
 
 <style scoped lang="scss">
-
 .headerShow {
   width: 30%;
   height: 10vh;
@@ -122,6 +154,7 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
+
     // border: 1px black solid;
     .link {
       height: 100%;
