@@ -3,35 +3,45 @@
         <div class="top">
             <span class="title">訂單查詢</span>
         </div>
-        <div class="content" :style="{ backgroundColor: payment ? '#89A071' : '#f5a352' }">
+        <div class="content" :style="{ backgroundColor: payment ? '#89A071' : '#f5a352' }"
+            v-for="(item, index) in this.orderInfoList">
+            <!-- {{ item.startSellDateTime < this.nowDateTime < item.endSellDateTime}} -->
+                <!-- {{ this.nowDateTime }} -->
             <div class="left">
                 <div class="picture">
-                    <img
-                        src="https://t.kfs.io/upload_images/187458/kktix%E4%B8%BB%E8%A6%96%E8%A6%BA_%E8%87%89%E6%9B%B8%E8%B2%BC%E6%96%87%E9%99%84%E5%9C%96_EDM1200x630_medium.jpg">
+                    <img :src="item.keyvisualImg">
                 </div>
-                <div class="state">狀態
-                    <span class="stateAbout" :style="{ color: payment ? '#FAF8ED' : '#DB3A3A' }">{{ payment ? '已付款' : '未付款'
-                    }}</span>
+                <div class="orderPayArea area">
+                    <span>狀態：</span>
+                    <div class="orderPay">{{ (item.seatData.length >0) ?  (item.payment ? "已付款" : "未付款"):"已取消訂單"}}</div>
+                    <!-- <div class="orderPay">{{ item.payment}}</div> -->
+
                 </div>
-                <div class="orderNumber">訂單編號
-                    <span class="orderNumberAbout">＃{{ this.orderNumberAbout }}</span>
+                <div class="orderNumArea area">
+                    <span>訂單編號：</span>
+                    <div class="orderNum">{{ item.buyNum }}</div>
                 </div>
-                <div class="seat">座位
-                    <span class="seatAbout">{{ this.seatAbout }}</span>
+                <div class="seatArea area">
+                    <p class="date">演出日期</p>
+                    <p class="dateAbout">{{ item.showDateTime }}</p>
+
                 </div>
+                <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
+
+                <button type="button" @click="this.goCencel(item.buyNum)" v-if="item.seatData.length >0 && (item.startSellDateTime < this.nowDateTime) && (this.nowDateTime < item.endSellDateTime)" >取消訂單</button>
             </div>
             <div class="right">
                 <div class="up">
                     <p class="name">活動名稱</p>
-                    <p class="nameAbout">{{ this.nameAbout }}</p>
+                    <p class="nameAbout">{{ item.name }}</p>
                 </div>
                 <div class="middle">
-                    <p class="date">演出日期</p>
-                    <p class="dateAbout">{{ this.dateAbout }}</p>
+                    <span>座位：</span>
+                    <div class="seat" v-for="item2 in item.seatData">{{ item2.area }} - {{ item2.seatNum }}</div>
                 </div>
                 <div class="down">
                     <p class="place">演出地點</p>
-                    <p class="placeAbout">{{ this.placeAbout }}</p>
+                    <p class="placeAbout">{{ item.place }}</p>
                 </div>
             </div>
         </div>
@@ -42,13 +52,79 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
+            nowDateTime: new Date().toISOString(),
             nameAbout: "",
             orderNumberAbout: "",
             dateAbout: "",
             placeAbout: "",
             seatAbout: "",
             // payment:true,   //付款狀態
+            orderInfoList: []
         }
+    },
+    methods: {
+        orderInfo() {
+            fetch('http://localhost:8080/api/getOrderData', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    account: $cookies.get("account"),
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    this.orderInfoList = data.data;
+                    console.log(this.orderInfoList)
+                })
+                .catch(error => console.log(error))
+        },
+        goPay(buyNum) {
+            console.log(buyNum);
+            fetch('http://localhost:8080/api/payment', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    buyNum: buyNum,
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    this.$router.go(0)
+                })
+                .catch(error => console.log(error))
+        },
+        goCencel(buyNum) {
+            fetch('http://localhost:8080/api/cancelOrder', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    buyNum: buyNum,
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // this.$router.go(0)
+                    // if( data.rtncode == "SUCCESSFUL" ){
+                    //     this.myFav()
+                    // }
+                })
+                .catch(error => console.log(error))
+        }
+    },
+    mounted() {
+        this.orderInfo()
     },
     created() {
         // 創建頁面時設定
@@ -81,13 +157,14 @@ body {
     width: 70%;
     height: 40vh;
     margin: auto;
-    padding: 2%;
+    padding: 1%;
     background-color: #99b080;
     color: #FAF8ED;
     border-radius: 2vh;
     font-size: 2.5dvh;
     display: flex;
     justify-content: space-between;
+    margin-top: 2%;
 
     .left {
         width: 20dvw;
@@ -108,34 +185,9 @@ body {
             }
         }
 
-        .state {
+        .area {
             display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-
-            .stateAbout {
-                color: #FAF8ED;
-            }
-        }
-
-        .orderNumber {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-
-            .orderNumberAbout {
-                color: #FAF8ED;
-            }
-        }
-
-        .seat {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-
-            .seatAbout {
-                color: #FAF8ED;
-            }
+            margin-top: 3%;
         }
     }
 
