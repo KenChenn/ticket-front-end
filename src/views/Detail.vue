@@ -35,14 +35,12 @@
         <!-- 加入最愛按鈕 -->
         <div class="likeArea">
             <button v-if="!searchFav" @click="this.addFav()">
-                <i class="fa-solid fa-heart-circle-plus" > 加入最愛</i>
+                <i class="fa-solid fa-heart-circle-plus"> 加入最愛</i>
             </button>
             <button v-if="searchFav" @click="this.cencelFav()">
-                <i class="fa-solid fa-heart-circle-plus cencel"   > 移除最愛</i>
+                <i class="fa-solid fa-heart-circle-plus cencel"> 移除最愛</i>
             </button>
         </div>
-
-
         <!-- <div class="linkArea">
                     <RouterLink to="/BuyTicketPage" class="link">
                         立即購票
@@ -63,23 +61,20 @@
                         退票規定
                     </RouterLink>
                 </div> -->
-
     </div>
-
 
 
     <div class="bookmarkBTN">
-        <button type="button" class="buyTicketBTN" @click="buyTicketBTN">立即購票</button>
-        <button type="button" class="introductionBTN" @click="introductionBTN">活動介紹</button>
-        <button type="button" class="ticketNoticeBTN" @click="ticketNoticeBTN">注意事項</button>
-        <button type="button" class="buyNoticeBTN" @click="buyNoticeBTN">購買提醒</button>
-        <button type="button" class="getTicketBTN" @click="getTicketBTN">取票方式</button>
-        <button type="button" class="cencelTicketBTN" @click="cencelTicketBTN">退票規定</button>
-        <button type="button" class="forumBTN" @click="forumBTN">相關討論</button>
+        <button type="button" class="bookmarkSet" @click="buyTicketBTN">立即購票</button>
+        <button type="button" class="bookmarkSet" @click="introductionBTN">活動介紹</button>
+        <button type="button" class="bookmarkSet" @click="ticketNoticeBTN">注意事項</button>
+        <button type="button" class="bookmarkSet" @click="buyNoticeBTN">購買提醒</button>
+        <button type="button" class="bookmarkSet" @click="getTicketBTN">取票方式</button>
+        <button type="button" class="bookmarkSet" @click="cencelTicketBTN">退票規定</button>
+        <button type="button" class="bookmarkSet" @click="forumBTN">相關討論</button>
     </div>
     <div class="down">
         <div class="bookmark">
-
             <!-- 立即購票 -->
             <div class="buyTicket" v-if="buyTicket">
                 <div class="title">
@@ -239,6 +234,10 @@
 
             <div class="forum" v-if="forum">
                 <!-- 討論區發言 -->
+                <div class="comment">
+                    <input type="text" class="commentInput" v-model="comments">
+                    <button type="submit" @click="commentInput">發布留言</button>
+                </div>
                 <div class="discussions">
                     <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
                         <div class="circle"></div>
@@ -259,10 +258,6 @@
                         <button type="button" class="deleteComment" @click="deleteComment(item.id)"
                             v-if="item.isUser">刪除</button>
                     </div>
-                </div>
-                <div class="comment">
-                    <input type="text" class="commentInput" v-model="comments">
-                    <button type="submit" @click="commentInput">發布留言</button>
                 </div>
             </div>
         </div>
@@ -296,7 +291,7 @@ export default {
     },
     methods: {
         codeInfo() {
-            console.log( this.$route.params.codename);
+            console.log(this.$route.params.codename);
             fetch('http://localhost:8080/api/get_commodity', {
                 method: "POST",
                 headers: {
@@ -311,7 +306,7 @@ export default {
                 .then(data => {
                     console.log(data)
                     this.codeList = data.commodityList;
-                    console.log(this.codeList )
+                    console.log(this.codeList)
                     console.log(this.codeList.codename)
                     // console.log(this.codeList[0].codename)
                 })
@@ -693,6 +688,7 @@ export default {
 
 <style lang="scss" scoped>
 .up {
+    margin-top: 10vh;
     width: 100%;
     height: 90vh;
     display: flex;
@@ -734,9 +730,8 @@ export default {
 }
 
 .mid {
-    // height: 50vh;
     background-color: #FAF8ED;
-    padding: 0% 15% 5% 15%;
+    padding: 0% 15% 0% 15%;
     // border: 1px solid black;
 }
 
@@ -773,18 +768,18 @@ export default {
 .bookmarkBTN {
     padding: 0% 15% 0% 15%;
     width: 100%;
+    height: 7vh;
     background-color: #FAF8ED;
     // border: black solid 1px;
     display: flex;
     justify-content: space-between;
 
-    button {
+    .bookmarkSet {
         width: 12%;
-        height: 40%;
+        height: 100%;
         background-color: #748E63;
         border: 0;
-        border-radius: 1.5vh 1.5vh 0 0;
-
+        border-radius: 2vh 2vh 0 0;
         font-size: 3dvh;
         text-align: center;
         color: #FAF8ED;
@@ -797,12 +792,10 @@ export default {
 
         &:active {
             scale: 0.95;
-            background-color: #4D5C44;
             color: #FAF8ED;
         }
 
         &:focus {
-            scale: 1.45;
             background-color: #99B080;
         }
     }
@@ -814,8 +807,6 @@ export default {
     background-color: #99B080;
 
     .bookmark {
-
-        // padding-top: 5%;
         .buyTicket {
 
             //立即購票
@@ -827,7 +818,7 @@ export default {
                 // border: 1px solid black;
                 align-items: center;
                 justify-content: space-between;
-                font-size: 4dvh;
+                font-size: 3dvh;
                 padding: 2%;
 
                 span {
@@ -905,7 +896,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -917,7 +907,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -929,7 +918,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -941,7 +929,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -983,6 +970,10 @@ export default {
                         font-size: 2.5dvh;
                     }
                 }
+            }
+
+            .comment{
+                border: black 1px solid;
             }
         }
     }

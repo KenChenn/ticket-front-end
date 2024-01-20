@@ -35,7 +35,7 @@ export default {
 
 .content {
   width: 100%;
-  height: 90vh;
+  min-height: 90vh;
   background-color: #FAF8ED;
   margin: 0;
   padding: 0;
