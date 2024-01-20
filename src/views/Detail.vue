@@ -291,7 +291,7 @@ export default {
             getTicket: false,
             cencelTicket: false,
             forum: false,
-            seat: false
+            seat: false,
         }
     },
     methods: {
