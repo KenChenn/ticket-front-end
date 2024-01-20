@@ -140,54 +140,12 @@ export default {
 .main {
     background-color: #FAF8ED;
 
-    .up {
-        width: 100%;
-        height: 11%;
-        background-color: #F9B572;
-        display: flex;
-        position: relative;
-
-        .fa-solid {
-            position: absolute;
-            font-size: 1rem;
-            left: 325px;
-            top: 22px;
-            color: #E6E1C8;
-        }
-
-        .search {
-            width: 150px;
-            height: 25px;
-            margin-top: 15px;
-            margin-left: 320px;
-            border-radius: 15px;
-            border: 1pt solid #FAF8ED;
-            background-color: #FAF8ED;
-        }
-
-        .favorateP {
-            color: #FAF8ED;
-            margin-left: 20%;
-            margin-right: 1%;
-        }
-
-        .orderP {
-            color: #FAF8ED;
-            font-size: 1rem;
-            margin-right: 1%;
-        }
-
-        .logoutP {
-            color: #FAF8ED;
-            font-size: 1rem;
-        }
-    }
-
     .down {
 
         .title {
             width: 70%;
             height: 10vh;
+            margin-top: 10vh;
             margin-left: 15%;
             color: #4D5C44;
             font-size: 4dvh;
@@ -247,6 +205,17 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.1;
+                    background-color: #FFC68D;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #c26202;
+                }
             }
         }
     }

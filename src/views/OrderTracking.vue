@@ -146,6 +146,7 @@ body {
     width: 70%;
     height: 10vh;
     // border: 1px solid black;
+    margin-top: 10vh;
     margin-left: 15%;
     color: #4D5C44;
     font-size: 4dvh;
