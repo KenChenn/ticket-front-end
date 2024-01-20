@@ -5,49 +5,64 @@
             <button type="button" class="completeEditing" @click="createActtivity">建立活動</button>
         </div>
         <div class="content" v-for="(item, index) in this.sessionList" :key="index">
-            <div class="startAll">
-                <span class="start">活動開始時間</span>
-                <input type="datetime-local" class="startAbout" v-model="item.showDateTime" :min="minShowDateTime">
-                <span v-if="!isEmptyShowDateTime" class="error errorShowDateTime">請輸入活動開始時間</span>
-                <button type="button" class="deleteEvent" @click="deleteEvent(index)">刪除場次</button>
+            <div class="timesArea">
+
+                <div class="timesAll">
+                    <div class="timesTitle">
+                        <span>活動開始時間</span>
+                        <input type="datetime-local" class="timesInput" v-model="item.showDateTime" :min="minShowDateTime">
+                    </div>
+                    <div v-if="!isEmptyShowDateTime" class=" error">請輸入活動開始時間</div>
+                </div>
+                <div class="timesAll">
+                    <div class="timesTitle">
+                        <span>開售時間</span>
+                        <input type="datetime-local" class="timesInput" v-model="item.startSellDateTime"
+                            :min="minStartSellDateTime" :max="maxStartSellDateTime">
+                    </div>
+                    <div v-if="!isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
+                    <div v-if="!startIsAfterShow" class="error">開售時間已晚於活動開始時間</div>
+                </div>
+
+                <div class="timesAll">
+                    <div class="timesTitle">
+                        <span>停售時間</span>
+                        <input type="datetime-local" class="timesInput" v-model="item.endSellDateTime"
+                            @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)" :min="minEndSellDateTime"
+                            :max="maxEndSellDateTime">
+                    </div>
+                    <div v-if="!isEmptyEndSellDateTime" class=" error ">請輸入停售時間</div>
+                    <div v-if="!endIsafterShow" class=" error ">停售時間已晚於活動開始時間</div>
+                </div>
             </div>
 
-            <div class="onSaleAll">
-                <span class="onSale">開售時間</span>
-                <input type="datetime-local" class="onSaleAbout" v-model="item.startSellDateTime"
-                    :min="minStartSellDateTime" :max="maxStartSellDateTime">
-                <span v-if="!isEmptyStartSellDateTime" class="error errorStartSellDateTime">請輸入開售時間</span>
-                <span v-if="!startIsAfterShow" class="error errorStartSellDateTime">開售時間已晚於活動開始時間</span>
+            <button type="button" class="delete" @click="deleteEvent(index)">刪除場次</button>
+
+            <div class="seatArea">
+                <span>區域名稱</span>
+                <span>可出售座位數</span>
+                <span>座位價格</span>
+                <button type="button" class="addArea" @click="addArea(index)">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+            <div class="inputArea" v-for="(areaItem, areaIndex) in item.seatData" :key="areaIndex">
+                <input type="text" class="areaInput" v-model="areaItem.area">
+                <input type="number" class="areaInput" v-model="areaItem.maxSeatNum">
+                <input type="number" class="areaInput" v-model="areaItem.price">
+                <button type="button" class="delete" @click="deleteArea(index, areaIndex)">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+            <div class="areaError">
+                <div v-if="!isEmptyArea" class="error errorArea">請輸入區域名稱 </div>
+                <div v-if="!isEmptySeat" class="error errorSeat">請輸入可出售座位數 </div>
+                <div v-if="!isEmptyPrice" class="error errorPrice">請輸入座位價格 </div>
             </div>
 
-            <div class="stopSaleAll">
-                <span class="stopSale">停售時間</span>
-                <input type="datetime-local" class="stopSaleAbout" v-model="item.endSellDateTime"
-                    @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)" :min="minEndSellDateTime"
-                    :max="maxEndSellDateTime">
-                <span v-if="!isEmptyEndSellDateTime" class="error errorEndSellDateTime">請輸入停售時間</span>
-                <span v-if="!endIsafterShow" class="error errorEndSellDateTime">停售時間已晚於活動開始時間</span>
-                <span v-if="!endIsEarlyStart" class="error errorEndSellDateTime">停售時間已早於開售時間</span>
-            </div>
-
-            <div class="nameArea">
-                <span class="area">區域名稱</span>
-                <span class="seat">可出售座位數</span>
-                <span class="price">座位價格</span>
-                <span v-if="!isEmptyArea" class="error errorArea">請輸入區域名稱 </span>
-                <span v-if="!isEmptySeat" class="error errorSeat">請輸入可出售座位數 </span>
-                <span v-if="!isEmptyPrice" class="error errorPrice">請輸入座位價格 </span>
-                <button type="button" class="addArea" @click="addArea(index)">新增區域</button>
-            </div>
-            <div class="aboutArea" v-for="(areaItem, areaIndex) in item.seatData" :key="areaIndex">
-                <input type="text" class="areaAbout" v-model="areaItem.area">
-                <input type="number" class="seatAbout" v-model="areaItem.maxSeatNum">
-                <input type="number" class="priceAbout" v-model="areaItem.price">
-                <button type="button" class="deleteArea" @click="deleteArea(index, areaIndex)">刪除區域</button>
-            </div>
         </div>
+        <button type="button" class="addEvent" @click="addEvent">新增場次</button>
         <div class="footer">
-            <button type="button" class="addEvent" @click="addEvent">新增場次</button>
         </div>
     </body>
 </template>
@@ -406,11 +421,10 @@ body {
 }
 
 .top {
-    width: 70vw;
+    width: 70%;
     height: 100%;
-    margin-left: 15vw;
+    margin-left: 15%;
     margin-top: 10vh;
-    padding-right: 5%;
     display: flex;
     align-items: end;
     align-items: center;
@@ -426,192 +440,204 @@ body {
     }
 
     .completeEditing {
-        width: 11vw;
-        margin: 0;
-        color: #faf8ed;
-        background-color: #748e63;
+        width: 10vw;
+        margin-top: 3%;
         border: 0;
         border-radius: 1.5vh;
-        font-size: 4dvh;
+        font-size: 3dvh;
+        border: 0.3vh solid #89A071;
+        color: #89A071;
+        background-color: #FAF8ED;
+
+        &:hover {
+            transition: 0.1s linear;
+            color: #FAF8ED;
+            background-color: #89A071;
+            scale: 1.1;
+        }
+
+        &:active {
+            scale: 0.95;
+            background-color: #4D5C44;
+        }
+
     }
 }
 
 .content {
     width: 70vw;
-    // height: 65vh;
-    margin-left: 15vw;
-    border: #F5A352 0.5vh solid;
-    margin: auto;
+    margin-left: 15%;
     border-radius: 2vh;
-    padding: 2% 5%;
+    padding: 2%;
+    margin-bottom: 2%;
+    border: #F5A352 0.5vh solid;
+    display: flex;
+    flex-wrap: wrap;
 
     span {
         color: #4D5C44;
         font-size: 3dvh;
-        margin: 0;
     }
-
 
     input {
         width: 30%;
-        height: 11%;
-        font-size: 2.5dvh;
+        font-size: 3dvh;
         border: 0;
         background-color: #FAF8ED;
         border-bottom: #F5A352 0.3vh solid;
         color: #4D5C44;
-        text-indent: 2%;
 
         &:focus {
             outline: none;
         }
     }
 
-    .startAll {
-        margin-bottom: 5%;
-        display: flex;
-        justify-content: space-between;
-
-        // border: black 1px solid;
-        .start {
-            margin-right: 13.5%;
-        }
-
-        .startAbout {
-            text-align: center;
-            margin-right: 13.5%;
-        }
-
-        .deleteEvent {
-            margin: 0;
-            width: 11vw;
-            background-color: #db3a3a;
-            font-size: 4dvh;
-            color: #faf8ed;
-            border: 0;
-            border-radius: 1.5vh;
-        }
+    .error {
+        width: 25%;
+        color: #DB3A3A;
+        font-size: 2dvh;
+        // border: 1px black solid;
     }
 
-    .onSaleAll {
-        margin-bottom: 5%;
-
-        .onSale {
-            margin-left: 2.5%;
-            margin-right: 21%;
-        }
-
-        .onSaleAbout {
-            text-align: center;
-        }
-    }
-
-    .stopSaleAll {
-        margin-bottom: 8%;
-
-        .stopSale {
-            margin-left: 2.5%;
-            margin-right: 21%;
-        }
-
-        .stopSaleAbout {
-            text-align: center;
-        }
-    }
-
-    .nameArea {
-        display: flex;
-        justify-content: space-between;
-
-        .area {
-            margin-left: 2.5%;
-            margin-right: 15.5%;
-        }
-
-        .seat {
-            margin-right: 15.5%;
-        }
-
-        .price {
-            margin-right: 15.5%;
-        }
-
-        .addArea {
-            margin: 0;
-            width: 11vw;
-            background-color: #748e63;
-            font-size: 4dvh;
-            color: #faf8ed;
-            border: 0;
-            border-radius: 1.5vh;
-        }
-    }
-
-    .aboutArea {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1.5%;
-
-        .areaAbout {
-            margin-left: 2%;
-            margin-right: 17%;
-            width: 10%;
-        }
-
-        .seatAbout {
-            margin-right: 17%;
-            width: 10%;
-        }
-
-        .priceAbout {
-            margin-right: 15%;
-            width: 10%;
-        }
-
-        .deleteArea {
-            margin: 0;
-            width: 11vw;
-            background-color: #db3a3a;
-            font-size: 4dvh;
-            color: #faf8ed;
-            border: 0;
-            border-radius: 1.5vh;
-
-        }
-    }
-
-
-}
-
-.footer {
-    width: 100%;
-    text-align: center;
-
-    .addEvent {
+    .delete {
+        width: 15%;
         height: 10%;
-        width: 14%;
-        border: 0.3vh solid #F5A352;
-        background-color: #FAF8ED;
-        color: #F5A352;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         border-radius: 1.5vh;
-        margin: auto;
-        margin-top: 3%;
-        font-size: 2.5dvh;
+        border: none;
+        font-size: 3dvh;
+        background-color: #FAF8ED;
+        color: #DB3A3A;
+        border: #DB3A3A solid 0.3vh;
 
         &:hover {
             transition: 0.1s linear;
-            border: 0;
-            background-color: #748E63;
-            color: #FAF8ED;
-            scale: 1.1;
+            scale: 1.05;
+            background-color: #ffffff;
         }
 
         &:active {
             scale: 0.95;
+            background-color: #DB3A3A;
+            color: #FAF8ED;
         }
     }
+
+    .timesArea {
+        width: 85%;
+        height: 20vh;
+        // border: black 1px solid;
+    }
+
+    .timesAll {
+        margin-bottom: 1%;
+        display: flex;
+        // border: black 1px solid;
+
+        .timesTitle {
+            width: 65%;
+            margin-right: 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timesInput {
+            width: 60%;
+            min-height: 30%;
+            text-align: center;
+        }
+    }
+
+
+
+    .seatArea {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // border: black 1px solid;
+
+        .addArea {
+            width: 15%;
+            font-size: 3dvh;
+            border-radius: 1.5vh;
+            border: 0;
+            border: 0.3vh solid #89A071;
+            color: #89A071;
+            background-color: #FAF8ED;
+
+            &:hover {
+                transition: 0.1s linear;
+                color: #FAF8ED;
+                background-color: #89A071;
+                scale: 1.1;
+            }
+
+            &:active {
+                scale: 0.95;
+                background-color: #4D5C44;
+            }
+        }
+    }
+
+    .inputArea {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2%;
+
+        // border: black 1px solid;
+        .areaInput {
+            width: 13%;
+            text-align: center;
+        }
+    }
+}
+
+.areaError {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.addEvent {
+    height: 10%;
+    width: 14%;
+    border: 0.3vh solid #F5A352;
+    background-color: #FAF8ED;
+    color: #F5A352;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.5vh;
+    margin: auto;
+    margin-top: 2%;
+    font-size: 3dvh;
+
+    &:hover {
+        transition: 0.1s linear;
+        border: 0;
+        background-color: #748E63;
+        border: 0.3vh solid #748E63;
+
+        color: #FAF8ED;
+        scale: 1.1;
+    }
+
+    &:active {
+        scale: 0.95;
+    }
+}
+
+.footer {
+    height: 10vh;
+    width: 100%;
+    // text-align: center;
+    // border: black 1px solid;
+
+
 }
 </style>

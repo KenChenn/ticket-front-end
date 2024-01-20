@@ -84,31 +84,33 @@
                 </div>
 
                 <div class="ticket" v-for="item in this.sessionList" :key="item.id">
-                    <span>{{ item.showDateTime }}</span>
-                    <span>{{ item.startSellDateTime }}</span>
-                    <span>{{ item.endSellDateTime }}</span>
-                    <button class="btn" @click="seatInfo(item.num)">座位區域</button>
-                    <span v-if="item.isEarly">將於{{ item.startSellDateTime }}開售</span>
-                    <span v-if="item.isAfter">已於{{ item.endSellDateTime }}完售</span>
-                </div>
-                <div class="seat" v-if="seat">
-                    <div class="seatTitle">
-                        <span>區域名稱</span>
-                        <span>座位價格</span>
+                    <div class="sale">
+                        <span>{{ item.showDateTime }}</span>
+                        <span>{{ item.startSellDateTime }}</span>
+                        <span>{{ item.endSellDateTime }}</span>
+                        <button class="btn" @click="seatInfo(item.num)">座位區域</button>
+                        <span v-if="item.isEarly">將於{{ item.startSellDateTime }}開售</span>
+                        <span v-if="item.isAfter">已於{{ item.endSellDateTime }}完售</span>
                     </div>
-                    <div class="seatArea" v-for="seatItem in this.seatList">
-                        <span>{{ seatItem.area }}</span>
-                        <span>{{ seatItem.price }}</span>
-                        <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
-                        <select name="" id="" v-model="seatItem.selectedQuantity">
-                            <option value="" disabled selected hidden>請選擇張數</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                        <button type="button"
-                            @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
+                    <div class="seat" v-if="seat">
+                        <div class="seatTitle">
+                            <span>區域名稱</span>
+                            <span>座位價格</span>
+                        </div>
+                        <div class="seatArea" v-for="seatItem in this.seatList">
+                            <span>{{ seatItem.area }}</span>
+                            <span>{{ seatItem.price }}</span>
+                            <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
+                            <select name="" id="" v-model="seatItem.selectedQuantity">
+                                <option value="" disabled selected hidden>請選擇張數</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                            <button class="btn"
+                                @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -235,29 +237,31 @@
             <div class="forum" v-if="forum">
                 <!-- 討論區發言 -->
                 <div class="comment">
+                    說點什麼...
                     <input type="text" class="commentInput" v-model="comments">
-                    <button type="submit" @click="commentInput">發布留言</button>
+                    <button type="submit" class="submit" @click="commentInput">
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </button>
                 </div>
-                <div class="discussions">
-                    <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
-                        <div class="circle"></div>
-                        <div class="info">
-                            <!-- 使用者名字 -->
-                            <div class="user">
-                                <span>
-                                    {{ item.commenter }}
-                                </span>
-                            </div>
-                            <!-- 發言內容 -->
-                            <div class="content">
-                                <span>
-                                    {{ item.comments }}
-                                </span>
-                            </div>
+                <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
+                    <div class="circle"></div>
+                    <div class="info">
+                        <!-- 使用者名字 -->
+                        <div class="user">
+                            <span>
+                                {{ item.commenter }}
+                            </span>
                         </div>
-                        <button type="button" class="deleteComment" @click="deleteComment(item.id)"
-                            v-if="item.isUser">刪除</button>
+                        <!-- 發言內容 -->
+                        <div class="content">
+                            <span>
+                                {{ item.comments }}
+                            </span>
+                        </div>
                     </div>
+                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i
+                            class="fa-solid fa-x"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -813,7 +817,7 @@ export default {
             .title {
                 height: 10vh;
                 width: 75%;
-                color: #ffc68d;
+                color: #ffd1a2;
                 display: flex;
                 // border: 1px solid black;
                 align-items: center;
@@ -830,42 +834,76 @@ export default {
 
         .ticket {
             width: 100%;
-            height: 10vh;
+            min-height: 10vh;
             background-color: #748E63;
             border-radius: 2vh;
-            align-items: center;
-            display: flex;
             padding: 2%;
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 2%;
 
             span {
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
-        }
 
-
-        .btn {
-            width: 10%;
-            height: 100%;
-            background-color: #F5A352;
-            border: 0;
-            border-radius: 1.5vh;
-            font-size: 2.5dvh;
-            color: #FAF8ED;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &:hover {
-                transition: 0.1s linear;
-                scale: 1.1;
+            .sale {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
-            &:active {
-                scale: 0.95;
+            .seat {
+                // border: 1px solid black;
+
+                .seatTitle {
+                    width: 30%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    // border: 1px solid black;
+
+                    span {
+                        color: #ffc68d;
+                        font-size: 3dvh;
+                    }
+                }
+            }
+
+            .seatArea {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 2.5dvh;
+                // border: 1px solid black;
+                margin-bottom: 2%;
+
+                select {
+                    border-radius: 1.5vh;
+                    text-align: center;
+                }
+            }
+
+            .btn {
+                width: 10%;
+                height: 100%;
+                background-color: #F5A352;
+                border: 0;
+                border-radius: 1.5vh;
+                font-size: 2.5dvh;
+                color: #FAF8ED;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.1;
+                    background-color: #FFC68D;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #c26202;
+                }
             }
         }
 
@@ -937,46 +975,109 @@ export default {
         .forum {
             //相關討論
             padding-top: 5%;
+            font-size: 2.5dvh;
+            color: #FAF8ED;
+
+            .comment {
+                width: 100%;
+                height: auto;
+                margin-bottom: 5%;
+                padding: 2%;
+                display: flex;
+                justify-content: space-between;
+                font-size: 3dvh;
+                // border: 1px black solid;
+
+                .commentInput {
+                    width: 75%;
+                    border: 0;
+                    word-wrap: break-word;
+                    background-color: #99B080;
+                    border-bottom: 0.3vh solid #748E63;
+                    color: #FAF8ED;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                .submit {
+                    width: 10%;
+                    height: 5vh;
+                    border: 0;
+                    border-radius: 1.5vh;
+                    font-size: 3dvh;
+                    background-color: #F5A352;
+                    color: #FAF8ED;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        transition: 0.1s linear;
+                        scale: 1.1;
+                        background-color: #FFC68D;
+                    }
+
+                    &:active {
+                        scale: 0.95;
+                        background-color: #c26202;
+                    }
+                }
+            }
 
             .discussion {
                 width: 100%;
                 height: auto;
-                margin-bottom: 5%;
-                // border: 1px solid black;
-                background-color: #748E63;
+                margin-bottom: 2%;
+                padding: 2%;
                 border-radius: 2vh;
+                background-color: #748E63;
                 display: flex;
+                justify-content: space-between;
 
                 .circle {
                     width: 3vw;
                     height: 3vw;
                     background-color: #F5A352;
-                    margin: 2% 2% 0% 2%;
                     clip-path: circle(50% at 50% 50%);
                 }
 
                 .info {
-                    width: auto;
-                    margin: 2%;
+                    width: 80%;
+                    margin-left: 2%;
                     color: #FAF8ED;
 
-                    // border: 1px black solid;
-                    .user {
-                        font-size: 2.5dvh;
+                    .content {
+                        // border: 1px black solid;
+                        word-wrap: break-word;
+                    }
+                }
+
+                .deleteComment {
+                    width: 10%;
+                    height: 100%;
+                    border-radius: 1.5vh;
+                    border: none;
+                    font-size: 3dvh;
+                    background-color: #FAF8ED;
+                    color: #DB3A3A;
+                    border: #DB3A3A solid 0.3vh;
+
+                    &:hover {
+                        transition: 0.1s linear;
+                        scale: 1.05;
+                        background-color: #ffffff;
                     }
 
-                    .content {
-                        margin: 1%;
-                        font-size: 2.5dvh;
+                    &:active {
+                        scale: 0.95;
+                        background-color: #DB3A3A;
+                        color: #FAF8ED;
                     }
                 }
             }
-
-            .comment{
-                border: black 1px solid;
-            }
         }
     }
-
 }
 </style>
