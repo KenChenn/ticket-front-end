@@ -89,6 +89,7 @@ export default {
     .title {
         width: 70%;
         height: 10vh;
+        margin-top: 10vh;
         margin-left: 15%;
         color: #4D5C44;
         font-size: 4dvh;
@@ -171,6 +172,7 @@ export default {
                 border:0.3vh solid #4D5C44;
                 // border: 0;
                 color: #4D5C44;
+                background-color: #FAF8ED;
                 border-radius: 1.5vh;
                 margin-left: 43%;
                 font-size: 2.5dvh;
