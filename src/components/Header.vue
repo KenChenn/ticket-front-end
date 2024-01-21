@@ -11,7 +11,6 @@ export default {
   },
   methods: {
     signOut() {
-
       fetch('http://localhost:8080/api/logout', {
         method: "GET",
         headers: {
@@ -22,6 +21,7 @@ export default {
         .then(data => {
           console.log(data)
           if (data.rtncode == "SUCCESSFUL") {
+            $cookies.remove("account");
             this.$router.push("/"),
               this.account = false
           }
