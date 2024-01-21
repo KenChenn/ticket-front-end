@@ -27,8 +27,7 @@
 
                 </div>
                 <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
-
-                <button type="button" @click="this.goCencel(item.buyNum)" v-if="item.seatData.length >0 && (item.startSellDateTime < this.nowDateTime) && (this.nowDateTime < item.endSellDateTime)" >取消訂單</button>
+                <button type="button" @click="this.goCencel(item.buyNum)" v-if="item.seatData.length >0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())" >取消訂單</button>
             </div>
             <div class="right">
                 <div class="up">
@@ -52,7 +51,7 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
-            nowDateTime: new Date().toISOString(),
+            nowDateTime:  new Date().toLocaleString(),
             nameAbout: "",
             orderNumberAbout: "",
             dateAbout: "",
