@@ -16,7 +16,7 @@
 
                     <!-- 活動區域 -->
                     <div class="plusAct" v-for="item in activityList">
-                        <button class="hensyu">編輯</button>
+                        <button class="hensyu" @click="edit(item.codename)">編輯</button>
                         <div class="spanName">{{ item.name }}</div>
                         <button class="cencel" @click="deleteActivity(item.codename)">刪除</button>
                     </div>
@@ -75,6 +75,27 @@ export default {
                     console.log(res.data)
                     if (res.rtncode == "SUCCESSFUL") {
                         this.activityList = res.data
+                    } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
+                        alert("請先登入")
+                        this.$router.push('/AdminLoginPage')
+                    }
+                })
+        },
+        edit(codename) {
+            fetch('http://localhost:8080/api/get_update_commmodity_data', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    codename: codename
+                })
+            }).then(response => response.json())
+                .then(res => {
+                    console.log(res.data)
+                    if (res.rtncode == "SUCCESSFUL") {
+                        this.$router.push({ name: 'EditingActivity', params: { codename } })
                     } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                         alert("請先登入")
                         this.$router.push('/AdminLoginPage')

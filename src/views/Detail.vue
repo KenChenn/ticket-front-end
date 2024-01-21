@@ -11,7 +11,7 @@
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
                 <span v-if="this.codeList">
-                    {{ this.codeList.startDate }}
+                    {{ this.codeList.name }}
                 </span>
                 <br>
                 <i class="fa-solid fa-location-dot"></i>
@@ -88,7 +88,7 @@
                         <span>{{ item.showDateTime }}</span>
                         <span>{{ item.startSellDateTime }}</span>
                         <span>{{ item.endSellDateTime }}</span>
-                        <button class="btn" @click="seatInfo(item.num)">座位區域</button>
+                        <button class="btn" @click="seatInfo(item.num)" v-if="item.inTime">座位區域</button>
                         <span v-if="item.isEarly">將於{{ item.startSellDateTime }}開售</span>
                         <span v-if="item.isAfter">已於{{ item.endSellDateTime }}完售</span>
                     </div>
@@ -119,15 +119,6 @@
                 <span>
                     {{ this.introductions }}
                 </span>
-
-                <!-- <div class="textArea">
-                    <div class="title">
-                        節目資訊
-                    </div>
-                    預購開放日：2023年12月5日(二)，中午12:30 <br>
-                    提貨時間：2023年12月16日～2024年02月08日（營業時間12:00-19:30） <br>
-                    提貨地點：台北市松山區敦化北路244巷51號1樓（陳耀訓·麵包埠） <br>
-                </div> -->
             </div>
 
             <!-- 注意事項 -->
@@ -475,6 +466,21 @@ export default {
                 .then(data => {
                     this.sessionList = data.data;
                     this.sessionList.forEach(item => {
+                        var current = new Date()
+                        // console.log(current);
+                        var startSellDateTime = new Date(item.startSellDateTime);
+                        var endSellDateTime = new Date(item.endSellDateTime);
+                        if (startSellDateTime > current) {
+                            console.log("000");
+                            item.isEarly = true
+                        }
+                        if (endSellDateTime < current) {
+                            console.log("999");
+                            item.isAfter = true
+                        }
+                        if (startSellDateTime < current && endSellDateTime > current) {
+                            item.inTime = true
+                        }
                         //時間格式調整
                         var showDateTime = new Date(item.showDateTime);
                         var showDateTimeYear = showDateTime.getFullYear()
@@ -506,37 +512,42 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        date() {
-            fetch('http://localhost:8080/api/get_Sessions', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    codename: this.$route.params.codename
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    this.sessionList = data.data;
-                    console.log(this.sessionList)
-                    this.sessionList.forEach(item => {
-                        var current = new Date()
-                        // console.log(current);
-                        var startSellDateTime = new Date(item.startSellDateTime);
-                        var endSellDateTime = new Date(item.endSellDateTime);
-                        if (startSellDateTime > current) {
-
-                        }
-                        if (endSellDateTime < current) {
-                        }
-                        if (startSellDateTime < current && endSellDateTime > current) {
-                        }
-                    })
-                })
-                .catch(error => console.log(error))
-        },
+        // date() {
+        //     fetch('http://localhost:8080/api/get_Sessions', {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         credentials: 'include',
+        //         body: JSON.stringify({
+        //             codename: this.$route.params.codename
+        //         })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             this.sessionList = data.data;
+        //             console.log(this.sessionList)
+        //             this.sessionList.forEach(item => {
+        //                 var current = new Date()
+        //                 // console.log(current);
+        //                 var startSellDateTime = new Date(item.startSellDateTime);
+        //                 var endSellDateTime = new Date(item.endSellDateTime);
+        //                 console.log(item.startSellDateTime);
+        //                 console.log(startSellDateTime);
+        //                 if (startSellDateTime > current) {
+        //                     console.log("000");
+        //                     item.isEarly = true
+        //                 }
+        //                 if (endSellDateTime < current) {
+        //                     // item.isAfter = true
+        //                 }
+        //                 if (startSellDateTime < current && endSellDateTime > current) {
+        //                     item.inTime = true
+        //                 }
+        //             })
+        //         })
+        //         .catch(error => console.log(error))
+        // },
         seatInfo(num) {
             // console.log(num);
             fetch('http://localhost:8080/api/get_Remaining_Tickets', {
@@ -579,9 +590,14 @@ export default {
                     console.log(data);
                     if (data.rtncode == "SUCCESSFUL") {
                         alert("購買成功")
+                        this.$router.go(0); //重整頁面
                     }
                     if (data.rtncode == "PARAM_ERROR") {
                         alert("請選擇欲購買張數")
+                    }
+                    if (data.rtncode == "NOT_ENOUGH_TICKETS") {
+                        alert("剩餘張數不足，請重新選擇欲購買張數")
+                        this.$router.go(0); 
                     }
                 })
                 .catch(error => console.log(error))
@@ -906,6 +922,7 @@ export default {
         }
 
         .seat {
+
             // border: 1px solid black;
             span {
                 color: #FAF8ED;

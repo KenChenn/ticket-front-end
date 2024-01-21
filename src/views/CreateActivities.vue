@@ -290,7 +290,7 @@ export default {
                 credentials: 'include',
             }).then(response => response.json())
             .then(res => {
-                console.log(res.organizer)
+                // console.log(res.organizer)
                 res.organizer.forEach(host => {
                     this.nameList.push(host.name)
                 });
