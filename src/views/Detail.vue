@@ -92,25 +92,24 @@
                         <span v-if="item.isEarly">將於{{ item.startSellDateTime }}開售</span>
                         <span v-if="item.isAfter">已於{{ item.endSellDateTime }}完售</span>
                     </div>
-                    <div class="seat" v-if="seat">
-                        <div class="seatTitle">
-                            <span>區域名稱</span>
-                            <span>座位價格</span>
-                        </div>
-                        <div class="seatArea" v-for="seatItem in this.seatList">
-                            <span>{{ seatItem.area }}</span>
-                            <span>{{ seatItem.price }}</span>
-                            <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
-                            <select name="" id="" v-model="seatItem.selectedQuantity">
-                                <option value="" disabled selected hidden>請選擇張數</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                            <button class="btn"
-                                @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
-                        </div>
+                </div>
+                <div class="seat" v-if="seat">
+                    <div class="seatTitle">
+                        <span>區域名稱</span>
+                        <span>座位價格</span>
+                    </div>
+                    <div class="seatArea" v-for="seatItem in this.seatList">
+                        <span>{{ seatItem.area }}</span>
+                        <span>{{ seatItem.price }}</span>
+                        <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
+                        <select name="" id="" v-model="seatItem.selectedQuantity">
+                            <option value="" disabled selected hidden>請選擇張數</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <button class="btn" @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
                     </div>
                 </div>
             </div>
@@ -295,7 +294,7 @@ export default {
     },
     methods: {
         codeInfo() {
-            console.log(this.$route.params.codename);
+            // console.log(this.$route.params.codename);
             fetch('http://localhost:8080/api/get_commodity', {
                 method: "POST",
                 headers: {
@@ -308,10 +307,10 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    // console.log(data)
                     this.codeList = data.commodityList;
                     console.log(this.codeList)
-                    console.log(this.codeList.codename)
+                    // console.log(this.codeList.codename)
                     // console.log(this.codeList[0].codename)
                 })
                 .catch(error => console.log(error))
@@ -475,9 +474,8 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.sessionList = data.data;
-                    // console.log(this.sessionList)
                     this.sessionList.forEach(item => {
-                        // console.log(item);
+                        //時間格式調整
                         var showDateTime = new Date(item.showDateTime);
                         var showDateTimeYear = showDateTime.getFullYear()
                         var showDateTimeMonth = (showDateTime.getMonth() + 1).toString().padStart(2, '0')
@@ -522,7 +520,7 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.sessionList = data.data;
-                    // console.log(this.sessionList)
+                    console.log(this.sessionList)
                     this.sessionList.forEach(item => {
                         var current = new Date()
                         // console.log(current);
@@ -557,6 +555,7 @@ export default {
                     if (data.rtncode == "SUCCESSFUL") {
                         this.seat = true
                         this.seatList = data.data
+                        console.log(this.seatList)
                     }
                 })
                 .catch(error => console.log(error))
@@ -654,7 +653,6 @@ export default {
     },
 
     mounted() {
-
         this.searchFavorate()
         this.sessionInfo()
         fetch('http://localhost:8080/api/get_user_basic_data', {
@@ -684,7 +682,7 @@ export default {
     created() {
         this.codeInfo();
         this.comment();
-        this.date()
+        // this.date()
     }
 }
 
@@ -851,34 +849,80 @@ export default {
                 align-items: center;
             }
 
-            .seat {
-                // border: 1px solid black;
+            // .seat {
+            //     // border: 1px solid black;
 
-                .seatTitle {
-                    width: 30%;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    // border: 1px solid black;
+            //     .seatTitle {
+            //         width: 30%;
+            //         display: flex;
+            //         justify-content: space-between;
+            //         align-items: center;
+            //         // border: 1px solid black;
 
-                    span {
-                        color: #ffc68d;
-                        font-size: 3dvh;
-                    }
+            //         span {
+            //             color: #ffc68d;
+            //             font-size: 3dvh;
+            //         }
+            //     }
+            // }
+
+            // .seatArea {
+            //     display: flex;
+            //     justify-content: space-between;
+            //     align-items: center;
+            //     font-size: 2.5dvh;
+            //     // border: 1px solid black;
+            //     margin-bottom: 2%;
+
+            //     select {
+            //         border-radius: 1.5vh;
+            //         text-align: center;
+            //     }
+            // }
+
+            .btn {
+                width: 10%;
+                height: 100%;
+                background-color: #F5A352;
+                border: 0;
+                border-radius: 1.5vh;
+                font-size: 2.5dvh;
+                color: #FAF8ED;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.1;
+                    background-color: #FFC68D;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #c26202;
                 }
             }
+        }
 
-            .seatArea {
+        .seat {
+            // border: 1px solid black;
+            span {
+                color: #FAF8ED;
+                font-size: 2.5dvh;
+            }
+
+
+            .seatTitle {
+                width: 30%;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                font-size: 2.5dvh;
                 // border: 1px solid black;
-                margin-bottom: 2%;
 
-                select {
-                    border-radius: 1.5vh;
-                    text-align: center;
+                span {
+                    color: #ffc68d;
+                    font-size: 3dvh;
                 }
             }
 
@@ -906,6 +950,21 @@ export default {
                 }
             }
         }
+
+        .seatArea {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 2.5dvh;
+            // border: 1px solid black;
+            margin-bottom: 2%;
+
+            select {
+                border-radius: 1.5vh;
+                text-align: center;
+            }
+        }
+
 
         .introduction {
             //活動介紹
