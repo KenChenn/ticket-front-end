@@ -171,7 +171,7 @@ body {
     }
 
     .middle {
-        width: 20dvw;
+        width: 35vw;
         height: 100%;
         // border: 1px black solid;
 

@@ -93,6 +93,7 @@ export default {
     height: 100%;
     background-color: #FAF8ED;
     margin-top: 10vh;
+    padding: 5vh 0;
 
     .up {
         width: 70%;
@@ -167,11 +168,22 @@ export default {
                     .hensyu {
                         width: 10%;
                         height: 20%;
-                        border-radius: 10vh;
-                        font-size: 2dvh;
-                        background-color: #F5A352;
-                        border: 0;
-                        color: #FAF8ED;
+                        border-radius: 1vh;
+                        font-size: 3dvh;
+                        color: #F5A352;
+                        background-color: #FAF8ED;
+                        border: 0.3vh solid #F5A352;
+
+                        button:hover {
+                            transition: 0.1s linear;
+                            background-color: #F9B572;
+                            scale: 1.1;
+                        }
+
+                        button:active {
+                            scale: 0.95;
+                            background-color: #c26202;
+                        }
                     }
 
                     .spanName {
@@ -185,16 +197,28 @@ export default {
 
                     .cencel {
                         width: 10%;
-                        height: 20%;
-                        border-radius: 10vh;
-                        font-size: 2dvh;
-                        background-color: #DB3A3A;
-                        border: 0;
-                        color: #FAF8ED;
+                        height: 100%;
+                        border-radius: 1vh;
+                        font-size: 3dvh;
+                        color: #DB3A3A;
+                        background-color: #FAF8ED;
+                        border: 0.3vh solid #DB3A3A;
+
+                        button:hover {
+                            transition: 0.1s linear;
+                            background-color: #d05757;
+                            scale: 1.1;
+                        }
+
+                        button:active {
+                            scale: 0.95;
+                            background-color: #ab3131;
+                        }
                     }
 
                 }
             }
         }
     }
-}</style>
+}
+</style>
