@@ -2,7 +2,7 @@
     <div class="main">
         <div class="up">
             <div class="title">
-                編輯資訊
+                修改密碼
             </div>
         </div>
         <div class="down">

@@ -163,7 +163,7 @@ export default {
             i {
                 margin-left: 1%;
                 font-size: 3dvh;
-                color: #FAF8ED;
+                color: #4D5C44;
             }
 
             .loginBtn {

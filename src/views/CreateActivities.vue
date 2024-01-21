@@ -5,7 +5,7 @@
     <body>
         <div class="top">
             <div class="title">
-                編輯活動
+                建立活動
                 <div class="compel">
                     *為必填
                 </div>
@@ -36,13 +36,13 @@
             </div>
 
             <div class="place">
-                <span>地點</span> <br>
+                <span>地點*</span> <br>
                 <input type="text" class="placeAbout" v-model="place">
                 <p v-if="!isEntityPlace" class="warning">請輸入地點</p>
             </div>
 
             <div class="illustrate">
-                <div class="illustrateAbout">活動說明 <br>
+                <div class="illustrateAbout">活動說明* <br>
                     <span v-if="!isEntityIntroduction" class="warning">請輸入活動說明</span>
                 </div>
                 <textarea name="" id="" cols="30" rows="10" v-model="introduction"></textarea>

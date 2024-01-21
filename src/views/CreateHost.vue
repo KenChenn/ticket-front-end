@@ -184,7 +184,7 @@ export default {
 
             span {
                 width: 100%;
-                height: 30%;
+                height: 40%;
                 display: flex;
                 // border: 1px black solid;
             }

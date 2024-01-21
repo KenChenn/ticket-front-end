@@ -2,7 +2,7 @@
     <div class="main">
         <div class="up">
             <div class="title">
-                編輯活動
+                主辦單位名稱
             </div>
             <button class="plusBtn" @click="goCreateHost()">新增</button>
         </div>
