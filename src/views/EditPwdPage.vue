@@ -8,7 +8,9 @@
         <div class="down">
             <div class="editSq">
                 <span class="spanP1">請輸入舊密碼</span>
-                <input type="text" class="allInput" v-model="nowPwd">
+                <input :type="showPassword ? 'text' : 'password'" class="allInput" v-model="nowPwd">
+                <i class="fa-solid fa-eye-slash" v-show="!showPassword" @click="passwordVisibility()"></i>
+                <i class="fa-solid fa-eye" v-show="showPassword" @click="passwordVisibility()"></i>
                 <div class="warning">
                     <span v-if="!isNowPwd">請輸入舊密碼</span>
                 </div>
@@ -16,7 +18,9 @@
                     <span v-if="!isCorrectNowPwd">舊密碼輸入錯誤</span>
                 </div>
                 <span class="spanP2">輸入新密碼</span>
-                <input type="text" class="allInput" v-model="newPwd">
+                <input :type="showNewPassword ? 'text' : 'password'" class="allInput" v-model="newPwd">
+                <i class="fa-solid fa-eye-slash" v-show="!showNewPassword" @click="newPasswordVisibility()"></i>
+                <i class="fa-solid fa-eye" v-show="showNewPassword" @click="newPasswordVisibility()"></i>
                 <div class="warning">
                     <span v-if="!isNewPwd">請輸入新密碼</span>
                 </div>
@@ -25,8 +29,9 @@
                     <span v-if="!isCorrectNewPwd">舊密碼與新密碼一致</span>
                 </div>
                 <span class="spanP3">確認密碼</span>
-
-                <input type="text" class="allInput" v-model="againPwd">
+                <input :type="showDoubleNewPassword ? 'text' : 'password'" class="allInput" v-model="againPwd">
+                <i class="fa-solid fa-eye-slash" v-show="!showDoubleNewPassword" @click="newDoublePasswordVisibility()"></i>
+                <i class="fa-solid fa-eye" v-show="showDoubleNewPassword" @click="newDoublePasswordVisibility()"></i>
                 <div class="warning">
                     <span v-if="!isAgainPwd">請確認密碼</span>
                     <span v-if="!isCorrectAgainPwd">與新密碼輸入不一致</span>
@@ -53,9 +58,22 @@ export default {
             isCorrectNowPwd: true,
             isCorrectNewPwd: true,
             isCorrectAgainPwd: true,
+
+            showPassword: false,
+            showNewPassword: false,
+            showDoubleNewPassword: false,
         }
     },
     methods: {
+        passwordVisibility() {
+            this.showPassword = !this.showPassword;
+        },
+        newPasswordVisibility() {
+            this.showNewPassword = !this.showNewPassword;
+        },
+        newDoublePasswordVisibility() {
+            this.showDoubleNewPassword = !this.showDoubleNewPassword;
+        },
         changePwd() {
             //確認輸入
             this.isNowPwd = !!this.nowPwd;
