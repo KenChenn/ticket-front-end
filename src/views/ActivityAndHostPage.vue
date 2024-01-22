@@ -16,7 +16,7 @@
 
                     <!-- 活動區域 -->
                     <div class="plusAct" v-for="item in activityList">
-                        <button class="hensyu">編輯</button>
+                        <button class="hensyu" @click="edit(item.codename)">編輯</button>
                         <div class="spanName">{{ item.name }}</div>
                         <button class="cencel" @click="deleteActivity(item.codename)">刪除</button>
                     </div>
@@ -80,6 +80,27 @@ export default {
                         this.$router.push('/AdminLoginPage')
                     }
                 })
+        },
+        edit(codename) {
+            fetch('http://localhost:8080/api/get_update_commmodity_data', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    codename: codename
+                })
+            }).then(response => response.json())
+                .then(res => {
+                    console.log(res.data)
+                    if (res.rtncode == "SUCCESSFUL") {
+                        this.$router.push({ name: 'EditingActivity', params: { codename } })
+                    } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
+                        alert("請先登入")
+                        this.$router.push('/AdminLoginPage')
+                    }
+                })
         }
     },
     mounted() {
@@ -93,48 +114,38 @@ export default {
     height: 100%;
     background-color: #FAF8ED;
     margin-top: 10vh;
+    padding: 5vh 0;
 
-    button:hover {
-        transition: 0.1s linear;
-        color: #FAF8ED;
-        background-color: #4D5C44;
-        scale: 1.1;
-    }
-
-    button:active {
-        scale: 0.95;
-    }
-
-    // justify-content: center;
     .up {
         width: 70%;
-        height: 20%;
+        height: 10%;
         margin-left: 15%;
         display: flex;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        .host {
+        button {
             height: 70%;
             width: 25%;
-            background-color: #89A071;
-            border: 0;
             font-size: 3dvh;
             line-height: 6vh;
-            color: #FAF8ED;
+            border: 0.3vh solid #89A071;
+            color: #89A071;
+            background-color: #FAF8ED;
             border-radius: 1vh;
         }
 
-        .act {
-            height: 70%;
-            width: 25%;
-            background-color: #89A071;
-            border: 0;
-            font-size: 3dvh;
-            line-height: 6vh;
+        button:hover {
+            transition: 0.1s linear;
             color: #FAF8ED;
-            border-radius: 1vh;
+            background-color: #89A071;
+            scale: 1.1;
+        }
+
+        button:active {
+            scale: 0.95;
+            background-color: #4D5C44;
         }
     }
 
@@ -145,8 +156,7 @@ export default {
 
         .actSq {
             width: 70%;
-            height: 65vh;
-            // background-color: #F5BF89;
+            min-height: 75vh;
             border: #F5BF89 0.5vh solid;
             margin-left: 15%;
             border-radius: 2vh;
@@ -179,11 +189,22 @@ export default {
                     .hensyu {
                         width: 10%;
                         height: 20%;
-                        border-radius: 10vh;
-                        font-size: 2dvh;
-                        background-color: #F5A352;
-                        border: 0;
-                        color: #FAF8ED;
+                        border-radius: 1vh;
+                        font-size: 3dvh;
+                        color: #F5A352;
+                        background-color: #FAF8ED;
+                        border: 0.3vh solid #F5A352;
+
+                        button:hover {
+                            transition: 0.1s linear;
+                            background-color: #F9B572;
+                            scale: 1.1;
+                        }
+
+                        button:active {
+                            scale: 0.95;
+                            background-color: #c26202;
+                        }
                     }
 
                     .spanName {
@@ -197,12 +218,23 @@ export default {
 
                     .cencel {
                         width: 10%;
-                        height: 20%;
-                        border-radius: 10vh;
-                        font-size: 2dvh;
-                        background-color: #DB3A3A;
-                        border: 0;
-                        color: #FAF8ED;
+                        height: 100%;
+                        border-radius: 1vh;
+                        font-size: 3dvh;
+                        color: #DB3A3A;
+                        background-color: #FAF8ED;
+                        border: 0.3vh solid #DB3A3A;
+
+                        button:hover {
+                            transition: 0.1s linear;
+                            background-color: #d05757;
+                            scale: 1.1;
+                        }
+
+                        button:active {
+                            scale: 0.95;
+                            background-color: #ab3131;
+                        }
                     }
 
                 }

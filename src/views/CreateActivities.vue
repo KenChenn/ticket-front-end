@@ -1,89 +1,92 @@
 <template>
     <!-- {{this.map.get('visionPicture')  }} -->
     <!-- <img :src="this.map.get('visionPicture')"> -->
-    <div class="top">
-        <div class="title">
-            編輯活動
-            <div class="compel">
-                *為必填
+
+    <body>
+        <div class="top">
+            <div class="title">
+                建立活動
+                <div class="compel">
+                    *為必填
+                </div>
             </div>
         </div>
-    </div>
-    <div class="content">
-        <div class="name">
-            <span>活動名稱*</span><br>
-            <input type="text" class="nameAbout" v-model="name">
-            <p v-if="!isEntityName" class="warning">請輸入活動名稱</p>
-        </div>
-
-        <div class="num">
-            <span>活動代號*</span><br>
-            <input type="text" class="numAbout" v-model="codename">
-            <p v-if="!isEntityCodeName" class="warning">請輸入活動代號</p>
-        </div>
-
-        <div class="entity">
-            <span>是否為實體活動*</span><br>
-            <div class="radio">
-                <span class="yes">是</span>
-                <input type="radio" name="radio" class="yesAbout" v-model="enity" value="true">
-                <span class="no">否</span>
-                <input type="radio" name="radio" class="noAbout" v-model="enity" value="false">
+        <div class="content">
+            <div class="name">
+                <span>活動名稱*</span><br>
+                <input type="text" class="nameAbout" v-model="name">
+                <p v-if="!isEntityName" class="warning">請輸入活動名稱</p>
             </div>
-            <p v-if="!isEntityEnity" class="warning">請選取是否為實體活動</p>
-        </div>
 
-        <div class="place">
-            <span>地點</span> <br>
-            <input type="text" class="placeAbout" v-model="place">
-            <p v-if="!isEntityPlace" class="warning">請輸入地點</p>
-        </div>
-
-        <div class="illustrate">
-            <div class="illustrateAbout">活動說明 <br>
-                <span v-if="!isEntityIntroduction" class="warning">請輸入活動說明</span>
+            <div class="num">
+                <span>活動代號*</span><br>
+                <input type="text" class="numAbout" v-model="codename">
+                <p v-if="!isEntityCodeName" class="warning">請輸入活動代號</p>
             </div>
-            <textarea name="" id="" cols="30" rows="10" v-model="introduction"></textarea>
-        </div>
 
-        <div class="unit">
-            <span>主辦單位*</span><br>
-            <select name="" id="" class="unitAbout" v-model="organizer">
-                <option value="" hidden>主辦單位名稱</option>
-                <option v-for="name in nameList" :value="name">{{ name }}</option>
-            </select>
-            <p v-if="!isEntityOrganizer" class="warning">請選取主辦單位</p>
-        </div>
+            <div class="entity">
+                <span>是否為實體活動*</span><br>
+                <div class="radio">
+                    <span class="yes">是</span>
+                    <input type="radio" name="radio" v-model="enity" value="true">
+                    <span class="no">否</span>
+                    <input type="radio" name="radio" v-model="enity" value="false">
+                </div>
+                <p v-if="!isEntityEnity" class="warning">請選取是否為實體活動</p>
+            </div>
 
-        <div class="vision">
-            <span>主視覺圖</span>
-            <input type="file" class="visionPicture img" @change="handleFileChange">
-            <p v-if="fileSizeError" class="error">檔案大小超過1MB限制</p>
-            <p v-if="fileTypeError" class="error">請選擇 JPEG 類型檔案</p>
-        </div>
+            <div class="place">
+                <span>地點*</span> <br>
+                <input type="text" class="placeAbout" v-model="place">
+                <p v-if="!isEntityPlace" class="warning">請輸入地點</p>
+            </div>
 
-        <div class="vision">
-            <span>座位或介紹圖片/1</span>
-            <input type="file" class="introducePicture1 img" @change="handleFileChange1">
-            <p v-if="fileSizeError1" class="error">圖片/1 檔案大小超過1MB限制</p>
-            <p v-if="fileTypeError1" class="error">圖片/1 請選擇 JPEG 類型檔案</p>
-        </div>
-        <div class="vision">
-            <span>座位或介紹圖片/2</span>
-            <input type="file" class="introducePicture2 img" @change="handleFileChange2">
-            <p v-if="fileSizeError2" class="error">圖片/2 檔案大小超過1MB限制</p>
-            <p v-if="fileTypeError2" class="error">圖片/2 請選擇 JPEG 類型檔案</p>
-        </div>
+            <div class="illustrate">
+                <div class="illustrateAbout">活動說明* <br>
+                    <span v-if="!isEntityIntroduction" class="warning">請輸入活動說明</span>
+                </div>
+                <textarea name="" id="" cols="30" rows="10" v-model="introduction"></textarea>
+            </div>
 
-        <button type="button" class="establish" @click="test()">確認</button>
-    </div>
-    <div class="footer">
+            <div class="unit">
+                <span>主辦單位*</span><br>
+                <select name="" id="" class="unitAbout" v-model="organizer">
+                    <option value="" hidden>主辦單位名稱</option>
+                    <option v-for="name in nameList" :value="name">{{ name }}</option>
+                </select>
+                <p v-if="!isEntityOrganizer" class="warning">請選取主辦單位</p>
+            </div>
 
-    </div>
+            <div class="vision">
+                <span>主視覺圖</span>
+                <input type="file" class="visionPicture img" @change="handleFileChange">
+                <p v-if="fileSizeError" class="error">檔案大小超過1MB限制</p>
+                <p v-if="fileTypeError" class="error">請選擇 JPEG 類型檔案</p>
+            </div>
+
+            <div class="vision">
+                <span>座位或介紹圖片/1</span>
+                <input type="file" class="introducePicture1 img" @change="handleFileChange1">
+                <p v-if="fileSizeError1" class="error">圖片/1 檔案大小超過1MB限制</p>
+                <p v-if="fileTypeError1" class="error">圖片/1 請選擇 JPEG 類型檔案</p>
+            </div>
+            <div class="vision">
+                <span>座位或介紹圖片/2</span>
+                <input type="file" class="introducePicture2 img" @change="handleFileChange2">
+                <p v-if="fileSizeError2" class="error">圖片/2 檔案大小超過1MB限制</p>
+                <p v-if="fileTypeError2" class="error">圖片/2 請選擇 JPEG 類型檔案</p>
+            </div>
+
+            <button type="button" class="establish" @click="test()">確認</button>
+        </div>
+        <div class="footer">
+
+        </div>
+    </body>
 </template>
 
 <script setup>
- import * as imageConversion from 'image-conversion';
+import * as imageConversion from 'image-conversion';
 </script>
 
 <script>
@@ -106,21 +109,21 @@ export default {
             introduceImg2: "",
 
             //確認輸入
-            isEntityName: false,
-            isEntityCodeName: false,
-            isEntityOrganizer: false,
-            isEntityEnity: false,
-            isEntityPlace: false,
-            isEntityIntroduction: false,
+            isEntityName: true,
+            isEntityCodeName: true,
+            isEntityOrganizer: true,
+            isEntityEnity: true,
+            isEntityPlace: true,
+            isEntityIntroduction: true,
 
             //照片限制
-            fileError: true,
-            fileSizeError: true,
-            fileTypeError: true,
-            fileSizeError1: true,
-            fileTypeError1: true,
-            fileSizeError2: true,
-            fileTypeError2: true,
+            fileError: false,
+            fileSizeError: false,
+            fileTypeError: false,
+            fileSizeError1: false,
+            fileTypeError1: false,
+            fileSizeError2: false,
+            fileTypeError2: false,
         }
     },
     methods: {
@@ -287,7 +290,7 @@ export default {
                 credentials: 'include',
             }).then(response => response.json())
             .then(res => {
-                console.log(res.organizer)
+                // console.log(res.organizer)
                 res.organizer.forEach(host => {
                     this.nameList.push(host.name)
                 });
@@ -296,6 +299,9 @@ export default {
 }
 </script> 
 <style scoped lang="scss">
+body{
+    background-color: #FAF8ED;
+}
 .title {
     width: 70%;
     height: 10vh;
@@ -309,17 +315,16 @@ export default {
     justify-content: space-between;
 
     .compel {
-        font-size: 2dvh;
+        font-size: 2.5dvh;
         color: #c26202;
     }
 }
 
 .content {
-    width: 70vw;
-    // height: 75vh;
+    width: 70%;
     margin-left: 15%;
-    background-color: #FAF8ED;
     border: #F5BF89 0.5vh solid;
+    background-color: #FAF8ED;
     color: #4D5C44;
     border-radius: 2vh;
     font-size: 3dvh;
@@ -367,142 +372,132 @@ export default {
 
     .name {
         width: 50%;
-        // height: 15vh;
         // border: 1px solid black;
     }
 
     .num {
         width: 50%;
-        // height: 10vh;
         // border: 1px solid black;
     }
 
     .unit {
         width: 50%;
-        // height: 10vh;
         // border: 1px solid black;
     }
 
     .entity {
         width: 50%;
-        border: 1px solid black;
+        // border: 1px solid black;
 
         .radio {
-            width: 100%;
+            width: 35%;
             display: flex;
-            border: 1px solid black;
             justify-content: space-between;
-
-        .yes {
-            width: 50%;
+            align-items: center;
             // border: 1px solid black;
 
-            .yesAbout {
-                width: 50%;
+            .yes {
+                width: 1%;
+                // border: 1px solid black;
             }
-        }
 
-        .no {
-            width: 20%;
-            // border: 1px solid black;
-
-            .noAbout {
-                width: 50%;
+            .no {
+                width: 1%;
                 // border: 1px solid black;
             }
         }
     }
-}
 
-.place {
-    width: 50%;
-
-}
-
-.illustrate {
-    width: 100%;
-    height: 30vh;
-    // border: 1px solid black;
-    display: flex;
-
-    .illustrateAbout {
-        width: 15%;
-        height: 100%;
-        // border: 1px solid black;
+    .place {
+        width: 50%;
     }
 
-    textarea {
-        width: 85%;
-        font-size: 2.5dvh;
-        resize: none;
-        color: #4D5C44;
-        background-color: #FAF8ED;
-        border: #F5A352 0.3vh solid;
+    .illustrate {
+        width: 100%;
+        height: 30vh;
+        margin-top: 1%;
+        display: flex;
+        // border: 1px solid black;
 
-        &:focus {
-            outline: none;
+        .illustrateAbout {
+            width: 15%;
+            height: 100%;
+            // border: 1px solid black;
+        }
+
+        textarea {
+            width: 85%;
+            font-size: 2.5dvh;
+            resize: none;
+            color: #4D5C44;
+            background-color: #FAF8ED;
+            border: #F5A352 0.3vh solid;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .vision {
+        width: 35%;
+        height: 15vh;
+        margin-right: 15%;
+        // border: 1px solid black;
+
+        .visionPicture {
+            width: 100%;
+            // border: 1px solid black;
+        }
+    }
+
+    .warning {
+        height: 10%;
+        width: 70%;
+        color: #DB3A3A;
+        font-size: 2dvh;
+        // border: 1px black solid;            
+    }
+
+    .error {
+        height: 10%;
+        width: 70%;
+        color: #DB3A3A;
+        font-size: 2dvh;
+        // border: 1px black solid;          
+    }
+
+    .establish {
+        //確認按鈕
+        height: 10%;
+        width: 14%;
+        font-size: 2.5dvh;
+        border-radius: 1vh;
+        border: 0.3vh solid #F5A352;
+        background-color: #FAF8ED;
+        color: #F5A352;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 3% auto 0 auto;
+
+        &:hover {
+            transition: 0.1s linear;
+            border: 0;
+            background-color: #748E63;
+            border: 0.3vh solid #748E63;
+            color: #FAF8ED;
+            scale: 1.2;
+        }
+
+        &:active {
+            scale: 0.95;
         }
     }
 }
-
-.vision {
-    width: 35%;
-    height: 15vh;
-    margin-right: 15%;
-    // border: 1px solid black;
-
-    .visionPicture {
-        width: 100%;
-        // border: 1px solid black;
-    }
-}
-
-.establish {
-    //確認按鈕
-    height: 10%;
-    width: 14%;
-    border: 0.3vh solid #F5A352;
-    background-color: #FAF8ED;
-    color: #F5A352;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1.5vh;
-    margin: auto;
-    font-size: 2.5dvh;
-
-    &:hover {
-        transition: 0.1s linear;
-        border: 0;
-        background-color: #748E63;
-        color: #FAF8ED;
-        scale: 1.1;
-    }
-
-    &:active {
-        scale: 0.95;
-    }
-}
-
-.warning {
-    height: 5%;
-    width: 100%;
-    color: #DB3A3A;
-    font-size: 2dvh;
-    // border: 1px black solid;                
-}
-
-.error {
-    height: 5%;
-    width: 100%;
-    color: #DB3A3A;
-    font-size: 2dvh;
-    // border: 1px black solid;                
-}
-
 .footer {
     height: 5vh;
     width: 100%;
-}
+    background-color: #FAF8ED;
 }
 </style>

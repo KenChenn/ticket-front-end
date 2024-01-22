@@ -11,17 +11,18 @@ export default {
   },
   methods: {
     signOut() {
-
       fetch('http://localhost:8080/api/logout', {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include'
       })
         .then(response => response.json())
         .then(data => {
           console.log(data)
           if (data.rtncode == "SUCCESSFUL") {
+            $cookies.remove("account");
             this.$router.push("/"),
               this.account = false
           }
@@ -115,8 +116,8 @@ export default {
   height: 10vh;
   position: absolute;
   right: 15%;
-  background-color: #44ff00;
-  // background-color: #F9B572;
+  // background-color: #44ff00;
+  background-color: #F9B572;
   position: fixed;
   display: flex;
   justify-content: space-between;

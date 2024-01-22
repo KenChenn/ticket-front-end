@@ -11,7 +11,7 @@
                 <i class="fa-regular fa-calendar-days"></i>
                 <!-- 時間 -->
                 <span v-if="this.codeList">
-                    {{ this.codeList.startDate }}
+                    {{ this.codeList.name }}
                 </span>
                 <br>
                 <i class="fa-solid fa-location-dot"></i>
@@ -41,8 +41,6 @@
                 <i class="fa-solid fa-heart-circle-plus cencel"> 移除最愛</i>
             </button>
         </div>
-
-
         <!-- <div class="linkArea">
                     <RouterLink to="/BuyTicketPage" class="link">
                         立即購票
@@ -63,23 +61,20 @@
                         退票規定
                     </RouterLink>
                 </div> -->
-
     </div>
-
 
 
     <div class="bookmarkBTN">
-        <button type="button" class="buyTicketBTN" @click="buyTicketBTN">立即購票</button>
-        <button type="button" class="introductionBTN" @click="introductionBTN">活動介紹</button>
-        <button type="button" class="ticketNoticeBTN" @click="ticketNoticeBTN">注意事項</button>
-        <button type="button" class="buyNoticeBTN" @click="buyNoticeBTN">購買提醒</button>
-        <button type="button" class="getTicketBTN" @click="getTicketBTN">取票方式</button>
-        <button type="button" class="cencelTicketBTN" @click="cencelTicketBTN">退票規定</button>
-        <button type="button" class="forumBTN" @click="forumBTN">相關討論</button>
+        <button type="button" class="bookmarkSet" @click="buyTicketBTN">立即購票</button>
+        <button type="button" class="bookmarkSet" @click="introductionBTN">活動介紹</button>
+        <button type="button" class="bookmarkSet" @click="ticketNoticeBTN">注意事項</button>
+        <button type="button" class="bookmarkSet" @click="buyNoticeBTN">購買提醒</button>
+        <button type="button" class="bookmarkSet" @click="getTicketBTN">取票方式</button>
+        <button type="button" class="bookmarkSet" @click="cencelTicketBTN">退票規定</button>
+        <button type="button" class="bookmarkSet" @click="forumBTN">相關討論</button>
     </div>
     <div class="down">
         <div class="bookmark">
-
             <!-- 立即購票 -->
             <div class="buyTicket" v-if="buyTicket">
                 <div class="title">
@@ -89,12 +84,14 @@
                 </div>
 
                 <div class="ticket" v-for="item in this.sessionList" :key="item.id">
-                    <span>{{ item.showDateTime }}</span>
-                    <span>{{ item.startSellDateTime }}</span>
-                    <span>{{ item.endSellDateTime }}</span>
-                    <button class="btn" @click="seatInfo(item.num)">座位區域</button>
-                    <span v-if="item.isEarly">將於{{ item.startSellDateTime }}開售</span>
-                    <span v-if="item.isAfter">已於{{ item.endSellDateTime }}完售</span>
+                    <div class="sale">
+                        <span>{{ item.showDateTime }}</span>
+                        <span>{{ item.startSellDateTime }}</span>
+                        <span>{{ item.endSellDateTime }}</span>
+                        <button class="btn" @click="seatInfo(item.num)" v-if="item.inTime">座位區域</button>
+                        <span v-if="item.isEarly">將於{{ item.startSellDateTime }}開售</span>
+                        <span v-if="item.isAfter">已於{{ item.endSellDateTime }}完售</span>
+                    </div>
                 </div>
                 <div class="seat" v-if="seat">
                     <div class="seatTitle">
@@ -112,8 +109,7 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <button type="button"
-                            @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
+                        <button class="btn" @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
                     </div>
                 </div>
             </div>
@@ -123,6 +119,7 @@
                 <span v-if="this.codeList">
                     {{ this.codeList.introduction }}
                 </span>
+<<<<<<< HEAD
                 <br><br>
                     <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
                 <br><br>
@@ -135,6 +132,8 @@
                     提貨時間：2023年12月16日～2024年02月08日（營業時間12:00-19:30） <br>
                     提貨地點：台北市松山區敦化北路244巷51號1樓（陳耀訓·麵包埠） <br>
                 </div> -->
+=======
+>>>>>>> 38bda50a9373784a4f377da5f047125ffefc4719
             </div>
 
             <!-- 注意事項 -->
@@ -242,30 +241,32 @@
 
             <div class="forum" v-if="forum">
                 <!-- 討論區發言 -->
-                <div class="discussions">
-                    <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
-                        <div class="circle"></div>
-                        <div class="info">
-                            <!-- 使用者名字 -->
-                            <div class="user">
-                                <span>
-                                    {{ item.commenter }}
-                                </span>
-                            </div>
-                            <!-- 發言內容 -->
-                            <div class="content">
-                                <span>
-                                    {{ item.comments }}
-                                </span>
-                            </div>
-                        </div>
-                        <button type="button" class="deleteComment" @click="deleteComment(item.id)"
-                            v-if="item.isUser">刪除</button>
-                    </div>
-                </div>
                 <div class="comment">
+                    說點什麼...
                     <input type="text" class="commentInput" v-model="comments">
-                    <button type="submit" @click="commentInput">發布留言</button>
+                    <button type="submit" class="submit" @click="commentInput">
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
+                    <div class="circle"></div>
+                    <div class="info">
+                        <!-- 使用者名字 -->
+                        <div class="user">
+                            <span>
+                                {{ item.commenter }}
+                            </span>
+                        </div>
+                        <!-- 發言內容 -->
+                        <div class="content">
+                            <span>
+                                {{ item.comments }}
+                            </span>
+                        </div>
+                    </div>
+                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i
+                            class="fa-solid fa-x"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -294,12 +295,16 @@ export default {
             getTicket: false,
             cencelTicket: false,
             forum: false,
-            seat: false
+            seat: false,
         }
     },
     methods: {
         codeInfo() {
+<<<<<<< HEAD
             console.log(this.$route.params.codename);
+=======
+            // console.log(this.$route.params.codename);
+>>>>>>> 38bda50a9373784a4f377da5f047125ffefc4719
             fetch('http://localhost:8080/api/get_commodity', {
                 method: "POST",
                 headers: {
@@ -312,10 +317,14 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    // console.log(data)
                     this.codeList = data.commodityList;
                     console.log(this.codeList)
+<<<<<<< HEAD
                     console.log(this.codeList.codename)
+=======
+                    // console.log(this.codeList.codename)
+>>>>>>> 38bda50a9373784a4f377da5f047125ffefc4719
                     // console.log(this.codeList[0].codename)
                 })
                 .catch(error => console.log(error))
@@ -479,9 +488,23 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.sessionList = data.data;
-                    // console.log(this.sessionList)
                     this.sessionList.forEach(item => {
-                        // console.log(item);
+                        var current = new Date()
+                        // console.log(current);
+                        var startSellDateTime = new Date(item.startSellDateTime);
+                        var endSellDateTime = new Date(item.endSellDateTime);
+                        if (startSellDateTime > current) {
+                            console.log("000");
+                            item.isEarly = true
+                        }
+                        if (endSellDateTime < current) {
+                            console.log("999");
+                            item.isAfter = true
+                        }
+                        if (startSellDateTime < current && endSellDateTime > current) {
+                            item.inTime = true
+                        }
+                        //時間格式調整
                         var showDateTime = new Date(item.showDateTime);
                         var showDateTimeYear = showDateTime.getFullYear()
                         var showDateTimeMonth = (showDateTime.getMonth() + 1).toString().padStart(2, '0')
@@ -512,37 +535,42 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        date() {
-            fetch('http://localhost:8080/api/get_Sessions', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    codename: this.$route.params.codename
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    this.sessionList = data.data;
-                    // console.log(this.sessionList)
-                    this.sessionList.forEach(item => {
-                        var current = new Date()
-                        // console.log(current);
-                        var startSellDateTime = new Date(item.startSellDateTime);
-                        var endSellDateTime = new Date(item.endSellDateTime);
-                        if (startSellDateTime > current) {
-
-                        }
-                        if (endSellDateTime < current) {
-                        }
-                        if (startSellDateTime < current && endSellDateTime > current) {
-                        }
-                    })
-                })
-                .catch(error => console.log(error))
-        },
+        // date() {
+        //     fetch('http://localhost:8080/api/get_Sessions', {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         credentials: 'include',
+        //         body: JSON.stringify({
+        //             codename: this.$route.params.codename
+        //         })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             this.sessionList = data.data;
+        //             console.log(this.sessionList)
+        //             this.sessionList.forEach(item => {
+        //                 var current = new Date()
+        //                 // console.log(current);
+        //                 var startSellDateTime = new Date(item.startSellDateTime);
+        //                 var endSellDateTime = new Date(item.endSellDateTime);
+        //                 console.log(item.startSellDateTime);
+        //                 console.log(startSellDateTime);
+        //                 if (startSellDateTime > current) {
+        //                     console.log("000");
+        //                     item.isEarly = true
+        //                 }
+        //                 if (endSellDateTime < current) {
+        //                     // item.isAfter = true
+        //                 }
+        //                 if (startSellDateTime < current && endSellDateTime > current) {
+        //                     item.inTime = true
+        //                 }
+        //             })
+        //         })
+        //         .catch(error => console.log(error))
+        // },
         seatInfo(num) {
             // console.log(num);
             fetch('http://localhost:8080/api/get_Remaining_Tickets', {
@@ -561,6 +589,7 @@ export default {
                     if (data.rtncode == "SUCCESSFUL") {
                         this.seat = true
                         this.seatList = data.data
+                        console.log(this.seatList)
                     }
                 })
                 .catch(error => console.log(error))
@@ -584,9 +613,14 @@ export default {
                     console.log(data);
                     if (data.rtncode == "SUCCESSFUL") {
                         alert("購買成功")
+                        this.$router.go(0); //重整頁面
                     }
                     if (data.rtncode == "PARAM_ERROR") {
                         alert("請選擇欲購買張數")
+                    }
+                    if (data.rtncode == "NOT_ENOUGH_TICKETS") {
+                        alert("剩餘張數不足，請重新選擇欲購買張數")
+                        this.$router.go(0); 
                     }
                 })
                 .catch(error => console.log(error))
@@ -658,7 +692,6 @@ export default {
     },
 
     mounted() {
-
         this.searchFavorate()
         this.sessionInfo()
         fetch('http://localhost:8080/api/get_user_basic_data', {
@@ -688,7 +721,7 @@ export default {
     created() {
         this.codeInfo();
         this.comment();
-        this.date()
+        // this.date()
     }
 }
 
@@ -696,6 +729,7 @@ export default {
 
 <style lang="scss" scoped>
 .up {
+    margin-top: 10vh;
     width: 100%;
     height: 90vh;
     display: flex;
@@ -737,9 +771,8 @@ export default {
 }
 
 .mid {
-    // height: 50vh;
     background-color: #FAF8ED;
-    padding: 0% 15% 5% 15%;
+    padding: 0% 15% 0% 15%;
     // border: 1px solid black;
 }
 
@@ -776,18 +809,18 @@ export default {
 .bookmarkBTN {
     padding: 0% 15% 0% 15%;
     width: 100%;
+    height: 7vh;
     background-color: #FAF8ED;
     // border: black solid 1px;
     display: flex;
     justify-content: space-between;
 
-    button {
+    .bookmarkSet {
         width: 12%;
-        height: 40%;
+        height: 100%;
         background-color: #748E63;
         border: 0;
-        border-radius: 1.5vh 1.5vh 0 0;
-
+        border-radius: 2vh 2vh 0 0;
         font-size: 3dvh;
         text-align: center;
         color: #FAF8ED;
@@ -800,12 +833,10 @@ export default {
 
         &:active {
             scale: 0.95;
-            background-color: #4D5C44;
             color: #FAF8ED;
         }
 
         &:focus {
-            scale: 1.45;
             background-color: #99B080;
         }
     }
@@ -817,20 +848,18 @@ export default {
     background-color: #99B080;
 
     .bookmark {
-
-        // padding-top: 5%;
         .buyTicket {
 
             //立即購票
             .title {
                 height: 10vh;
                 width: 75%;
-                color: #ffc68d;
+                color: #ffd1a2;
                 display: flex;
                 // border: 1px solid black;
                 align-items: center;
                 justify-content: space-between;
-                font-size: 4dvh;
+                font-size: 3dvh;
                 padding: 2%;
 
                 span {
@@ -842,44 +871,140 @@ export default {
 
         .ticket {
             width: 100%;
-            height: 10vh;
+            min-height: 10vh;
             background-color: #748E63;
             border-radius: 2vh;
-            align-items: center;
-            display: flex;
             padding: 2%;
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 2%;
 
             span {
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
+
+            .sale {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            // .seat {
+            //     // border: 1px solid black;
+
+            //     .seatTitle {
+            //         width: 30%;
+            //         display: flex;
+            //         justify-content: space-between;
+            //         align-items: center;
+            //         // border: 1px solid black;
+
+            //         span {
+            //             color: #ffc68d;
+            //             font-size: 3dvh;
+            //         }
+            //     }
+            // }
+
+            // .seatArea {
+            //     display: flex;
+            //     justify-content: space-between;
+            //     align-items: center;
+            //     font-size: 2.5dvh;
+            //     // border: 1px solid black;
+            //     margin-bottom: 2%;
+
+            //     select {
+            //         border-radius: 1.5vh;
+            //         text-align: center;
+            //     }
+            // }
+
+            .btn {
+                width: 10%;
+                height: 100%;
+                background-color: #F5A352;
+                border: 0;
+                border-radius: 1.5vh;
+                font-size: 2.5dvh;
+                color: #FAF8ED;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.1;
+                    background-color: #FFC68D;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #c26202;
+                }
+            }
         }
 
+        .seat {
 
-        .btn {
-            width: 10%;
-            height: 100%;
-            background-color: #F5A352;
-            border: 0;
-            border-radius: 1.5vh;
-            font-size: 2.5dvh;
-            color: #FAF8ED;
+            // border: 1px solid black;
+            span {
+                color: #FAF8ED;
+                font-size: 2.5dvh;
+            }
+
+
+            .seatTitle {
+                width: 30%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                // border: 1px solid black;
+
+                span {
+                    color: #ffc68d;
+                    font-size: 3dvh;
+                }
+            }
+
+            .btn {
+                width: 10%;
+                height: 100%;
+                background-color: #F5A352;
+                border: 0;
+                border-radius: 1.5vh;
+                font-size: 2.5dvh;
+                color: #FAF8ED;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.1;
+                    background-color: #FFC68D;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #c26202;
+                }
+            }
+        }
+
+        .seatArea {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            font-size: 2.5dvh;
+            // border: 1px solid black;
+            margin-bottom: 2%;
 
-            &:hover {
-                transition: 0.1s linear;
-                scale: 1.1;
-            }
-
-            &:active {
-                scale: 0.95;
+            select {
+                border-radius: 1.5vh;
+                text-align: center;
             }
         }
+
 
         .introduction {
             //活動介紹
@@ -912,7 +1037,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -924,7 +1048,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -936,7 +1059,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -948,7 +1070,6 @@ export default {
 
             .textArea {
                 margin: auto;
-                overflow-y: scroll;
                 color: #FAF8ED;
                 font-size: 2.5dvh;
             }
@@ -957,42 +1078,109 @@ export default {
         .forum {
             //相關討論
             padding-top: 5%;
+            font-size: 2.5dvh;
+            color: #FAF8ED;
+
+            .comment {
+                width: 100%;
+                height: auto;
+                margin-bottom: 5%;
+                padding: 2%;
+                display: flex;
+                justify-content: space-between;
+                font-size: 3dvh;
+                // border: 1px black solid;
+
+                .commentInput {
+                    width: 75%;
+                    border: 0;
+                    word-wrap: break-word;
+                    background-color: #99B080;
+                    border-bottom: 0.3vh solid #748E63;
+                    color: #FAF8ED;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                .submit {
+                    width: 10%;
+                    height: 5vh;
+                    border: 0;
+                    border-radius: 1.5vh;
+                    font-size: 3dvh;
+                    background-color: #F5A352;
+                    color: #FAF8ED;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        transition: 0.1s linear;
+                        scale: 1.1;
+                        background-color: #FFC68D;
+                    }
+
+                    &:active {
+                        scale: 0.95;
+                        background-color: #c26202;
+                    }
+                }
+            }
 
             .discussion {
                 width: 100%;
                 height: auto;
-                margin-bottom: 5%;
-                // border: 1px solid black;
-                background-color: #748E63;
+                margin-bottom: 2%;
+                padding: 2%;
                 border-radius: 2vh;
+                background-color: #748E63;
                 display: flex;
+                justify-content: space-between;
 
                 .circle {
                     width: 3vw;
                     height: 3vw;
                     background-color: #F5A352;
-                    margin: 2% 2% 0% 2%;
                     clip-path: circle(50% at 50% 50%);
                 }
 
                 .info {
-                    width: auto;
-                    margin: 2%;
+                    width: 80%;
+                    margin-left: 2%;
                     color: #FAF8ED;
 
-                    // border: 1px black solid;
-                    .user {
-                        font-size: 2.5dvh;
+                    .content {
+                        // border: 1px black solid;
+                        word-wrap: break-word;
+                    }
+                }
+
+                .deleteComment {
+                    width: 10%;
+                    height: 100%;
+                    border-radius: 1.5vh;
+                    border: none;
+                    font-size: 3dvh;
+                    background-color: #FAF8ED;
+                    color: #DB3A3A;
+                    border: #DB3A3A solid 0.3vh;
+
+                    &:hover {
+                        transition: 0.1s linear;
+                        scale: 1.05;
+                        background-color: #ffffff;
                     }
 
-                    .content {
-                        margin: 1%;
-                        font-size: 2.5dvh;
+                    &:active {
+                        scale: 0.95;
+                        background-color: #DB3A3A;
+                        color: #FAF8ED;
                     }
                 }
             }
         }
     }
-
 }
 </style>

@@ -2,7 +2,7 @@
     <div class="main">
         <div class="up">
             <div class="title">
-                編輯資訊
+                修改密碼
             </div>
         </div>
         <div class="down">
@@ -139,6 +139,7 @@ export default {
     .title {
         width: 70%;
         height: 10vh;
+        margin-top: 10vh;
         margin-left: 15%;
         color: #4D5C44;
         font-size: 4dvh;

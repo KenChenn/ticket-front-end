@@ -81,7 +81,7 @@ const router = createRouter({
       component: () => import("../views/CreateActivities.vue"),
     },
     {
-      path: "/EditingActivity",
+      path: "/EditingActivity/:codename",
       name: "EditingActivity",
       component: () => import("../views/EditingActivity.vue"),
     },
@@ -141,7 +141,7 @@ const router = createRouter({
       component: () => import("../views/Introduction.vue"),
     },
     {
-      path: "/EditSessionsAndSeats",
+      path: "/EditSessionsAndSeats/:codename",
       name: "EditSessionsAndSeats",
       component: () => import("../views/EditSessionsAndSeats.vue"),
     },

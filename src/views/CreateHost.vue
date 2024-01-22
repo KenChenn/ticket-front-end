@@ -160,7 +160,7 @@ export default {
             justify-content: space-between;
 
             span {
-                font-size: 2dvh;
+                font-size: 3dvh;
             }
         }
 
@@ -184,7 +184,7 @@ export default {
 
             span {
                 width: 100%;
-                height: 30%;
+                height: 40%;
                 display: flex;
                 // border: 1px black solid;
             }

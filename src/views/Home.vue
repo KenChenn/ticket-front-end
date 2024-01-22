@@ -66,7 +66,6 @@ export default {
   mounted() {
     this.search()
 
-
   },
   created() {
     // 創建頁面時設定
