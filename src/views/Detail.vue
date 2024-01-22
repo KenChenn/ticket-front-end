@@ -119,7 +119,6 @@
                 <span v-if="this.codeList">
                     {{ this.codeList.introduction }}
                 </span>
-<<<<<<< HEAD
                 <br><br>
                     <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
                 <br><br>
@@ -132,8 +131,6 @@
                     提貨時間：2023年12月16日～2024年02月08日（營業時間12:00-19:30） <br>
                     提貨地點：台北市松山區敦化北路244巷51號1樓（陳耀訓·麵包埠） <br>
                 </div> -->
-=======
->>>>>>> 38bda50a9373784a4f377da5f047125ffefc4719
             </div>
 
             <!-- 注意事項 -->
