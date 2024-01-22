@@ -354,7 +354,9 @@ export default {
                     this.searchFav = data.is_Track;
                     console.log(this.searchFav)
                 })
-                .catch(error => console.log(error))
+                .catch(error => console.log(error),
+                alert("請先登入才可新增至我的最愛"),
+                this.$router.push('/LoginPage'))
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
