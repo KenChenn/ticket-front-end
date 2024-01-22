@@ -300,11 +300,7 @@ export default {
     },
     methods: {
         codeInfo() {
-<<<<<<< HEAD
-            console.log(this.$route.params.codename);
-=======
             // console.log(this.$route.params.codename);
->>>>>>> 38bda50a9373784a4f377da5f047125ffefc4719
             fetch('http://localhost:8080/api/get_commodity', {
                 method: "POST",
                 headers: {
@@ -320,11 +316,7 @@ export default {
                     // console.log(data)
                     this.codeList = data.commodityList;
                     console.log(this.codeList)
-<<<<<<< HEAD
-                    console.log(this.codeList.codename)
-=======
                     // console.log(this.codeList.codename)
->>>>>>> 38bda50a9373784a4f377da5f047125ffefc4719
                     // console.log(this.codeList[0].codename)
                 })
                 .catch(error => console.log(error))
