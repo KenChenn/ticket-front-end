@@ -121,6 +121,18 @@
                 <span v-if="this.codeList">
                     {{ this.codeList.introduction }}
                 </span>
+                <br><br>
+                    <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
+                <br><br>
+                    <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
+                <!-- <div class="textArea">
+                    <div class="title">
+                        節目資訊
+                    </div>
+                    預購開放日：2023年12月5日(二)，中午12:30 <br>
+                    提貨時間：2023年12月16日～2024年02月08日（營業時間12:00-19:30） <br>
+                    提貨地點：台北市松山區敦化北路244巷51號1樓（陳耀訓·麵包埠） <br>
+                </div> -->
             </div>
 
             <!-- 注意事項 -->
