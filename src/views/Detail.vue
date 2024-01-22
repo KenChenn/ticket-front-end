@@ -545,18 +545,16 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.rtncode == "SUCCESSFUL") {
                         this.seat = true
                         this.seatList = data.data
-                        console.log(this.seatList)
-                        if ($cookies.get("account") == null) {
-                            console.log(this.buyBtn);
-                            this.buyBtn = false
-                            console.log(this.buyBtn);
-                        } else {
-                            this.buyBtn = false
-                        }
+                        // console.log(this.seatList)
+                    }
+                    if ($cookies.get("account") == null) {
+                        this.buyBtn = false
+                    } else {
+                        this.buyBtn = true
                     }
                 })
                 .catch(error => console.log(error))
