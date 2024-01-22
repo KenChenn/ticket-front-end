@@ -91,8 +91,8 @@
                             <span>{{ item.endSellDateTime }}</span>
                         </div>
                         <button class="btn" @click="seatInfo(item.num)" v-if="item.inTime">座位區域</button>
-                            <span v-if="item.isEarly">{{ item.startSellDateTime }}開售</span>
-                            <span v-if="item.isAfter">{{ item.endSellDateTime }}完售</span>
+                        <span v-if="item.isEarly">{{ item.startSellDateTime }}開售</span>
+                        <span v-if="item.isAfter">{{ item.endSellDateTime }}完售</span>
                     </div>
                 </div>
                 <div class="seat" v-if="seat">
@@ -100,18 +100,22 @@
                         <span>區域名稱</span>
                         <span>座位價格</span>
                     </div>
-                    <div class="seatArea" v-for="seatItem in this.seatList">
+                    <div class="seatArea" v-for="seatItem in   this.seatList  ">
                         <span>{{ seatItem.area }}</span>
                         <span>{{ seatItem.price }}</span>
                         <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
-                        <select name="" id="" v-model="seatItem.selectedQuantity">
+                        <select name="" id="" v-model="seatItem.selectedQuantity"
+                            v-if="seatItem.remainingTicket > 0 && buyBtn">
                             <option value="" disabled selected hidden>請選擇張數</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <button class="btn" @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
+                        <button class="btn" v-if="seatItem.remainingTicket > 0 && buyBtn"
+                            @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
+                        <button class="btn" v-if="seatItem.remainingTicket <= 0 && buyBtn" disabled>已售完</button>
+                        <button class="btn" v-if="!buyBtn" disabled>請登入</button>
                     </div>
                 </div>
             </div>
@@ -122,9 +126,9 @@
                     {{ this.codeList.introduction }}
                 </span>
                 <br><br>
-                    <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
+                <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
                 <br><br>
-                    <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
+                <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
                 <!-- <div class="textArea">
                     <div class="title">
                         節目資訊
@@ -247,7 +251,7 @@
                         <i class="fa-regular fa-paper-plane"></i>
                     </button>
                 </div>
-                <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
+                <div class="discussion" v-for="(  item, index  ) in   this.commentList  " :key="item.id">
                     <div class="circle"></div>
                     <div class="info">
                         <!-- 使用者名字 -->
@@ -295,6 +299,7 @@ export default {
             cencelTicket: false,
             forum: false,
             seat: false,
+            buyBtn: false,
         }
     },
     methods: {
@@ -314,9 +319,7 @@ export default {
                 .then(data => {
                     // console.log(data)
                     this.codeList = data.commodityList;
-                    console.log(this.codeList)
-                    // console.log(this.codeList.codename)
-                    // console.log(this.codeList[0].codename)
+                    // console.log(this.codeList)
                 })
                 .catch(error => console.log(error))
         },
@@ -326,6 +329,7 @@ export default {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     tracker: $cookies.get("account"),
                     commodityCodename: this.$route.params.codename
@@ -344,6 +348,7 @@ export default {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     tracker: $cookies.get("account"),
                     commodityCodename: this.$route.params.codename
@@ -352,11 +357,11 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.searchFav = data.is_Track;
-                    console.log(this.searchFav)
+                    console.log(data)
                 })
                 .catch(error => console.log(error),
-                alert("請先登入才可新增至我的最愛"),
-                this.$router.push('/LoginPage'))
+                    alert("請先登入才可新增至我的最愛"),
+                    this.$router.push('/LoginPage'))
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
@@ -364,6 +369,7 @@ export default {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     tracker: $cookies.get("account"),
                     commodityCodename: this.$route.params.codename
@@ -390,16 +396,12 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.commentList = data.forumData
-                    // console.log(this.commentList)
-                    // console.log(data.forumData)
                     this.commentList.forEach(item => {
-                        data.forumData.forEach(dataItem => {
-                            if (item.commenter == dataItem.commenter) {
-                                item.isUser = true
-                            } else {
-                                item.isUser = false
-                            }
-                        })
+                        if (item.commenter == $cookies.get("account")) {
+                            item.isUser = true
+                        } else {
+                            item.isUser = false
+                        }
                     })
                 })
                 .catch(error => console.log(error))
@@ -480,6 +482,7 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     this.sessionList = data.data;
                     this.sessionList.forEach(item => {
                         var current = new Date()
@@ -528,44 +531,8 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        // date() {
-        //     fetch('http://localhost:8080/api/get_Sessions', {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         credentials: 'include',
-        //         body: JSON.stringify({
-        //             codename: this.$route.params.codename
-        //         })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             this.sessionList = data.data;
-        //             console.log(this.sessionList)
-        //             this.sessionList.forEach(item => {
-        //                 var current = new Date()
-        //                 // console.log(current);
-        //                 var startSellDateTime = new Date(item.startSellDateTime);
-        //                 var endSellDateTime = new Date(item.endSellDateTime);
-        //                 console.log(item.startSellDateTime);
-        //                 console.log(startSellDateTime);
-        //                 if (startSellDateTime > current) {
-        //                     console.log("000");
-        //                     item.isEarly = true
-        //                 }
-        //                 if (endSellDateTime < current) {
-        //                     // item.isAfter = true
-        //                 }
-        //                 if (startSellDateTime < current && endSellDateTime > current) {
-        //                     item.inTime = true
-        //                 }
-        //             })
-        //         })
-        //         .catch(error => console.log(error))
-        // },
         seatInfo(num) {
-            // console.log(num);
+            console.log(num);
             fetch('http://localhost:8080/api/get_Remaining_Tickets', {
                 method: "POST",
                 headers: {
@@ -578,11 +545,18 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.data);
+                    console.log(data);
                     if (data.rtncode == "SUCCESSFUL") {
                         this.seat = true
                         this.seatList = data.data
                         console.log(this.seatList)
+                        if ($cookies.get("account") == null) {
+                            console.log(this.buyBtn);
+                            this.buyBtn = false
+                            console.log(this.buyBtn);
+                        } else {
+                            this.buyBtn = false
+                        }
                     }
                 })
                 .catch(error => console.log(error))
@@ -687,34 +661,11 @@ export default {
     mounted() {
         this.searchFavorate()
         this.sessionInfo()
-        fetch('http://localhost:8080/api/get_user_basic_data', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                account: $cookies.get("account"),
-            })
-        })
-            .then(response => response.json())
-            .then(res => {
-                console.log(res.data.username)
-                this.commentList.forEach(item => {
-                    if (item.commenter == res.data.username) {
-                        item.isUser = true
-                    } else {
-                        item.isUser = false
-                    }
-                })
-            })
-            .catch(error => console.log(error))
-
+        console.log($cookies.get("account"));
     },
     created() {
         this.codeInfo();
         this.comment();
-        // this.date()
     }
 }
 
