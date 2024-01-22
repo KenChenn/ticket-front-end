@@ -85,12 +85,14 @@
 
                 <div class="ticket" v-for="item in this.sessionList" :key="item.id">
                     <div class="sale">
-                        <span>{{ item.showDateTime }}</span>
-                        <span>{{ item.startSellDateTime }}</span>
-                        <span>{{ item.endSellDateTime }}</span>
+                        <div class="saleTimes">
+                            <span>{{ item.showDateTime }}</span>
+                            <span>{{ item.startSellDateTime }}</span>
+                            <span>{{ item.endSellDateTime }}</span>
+                        </div>
                         <button class="btn" @click="seatInfo(item.num)" v-if="item.inTime">座位區域</button>
-                        <span v-if="item.isEarly">將於{{ item.startSellDateTime }}開售</span>
-                        <span v-if="item.isAfter">已於{{ item.endSellDateTime }}完售</span>
+                            <span v-if="item.isEarly">{{ item.startSellDateTime }}開售</span>
+                            <span v-if="item.isAfter">{{ item.endSellDateTime }}完售</span>
                     </div>
                 </div>
                 <div class="seat" v-if="seat">
@@ -119,21 +121,6 @@
                 <span v-if="this.codeList">
                     {{ this.codeList.introduction }}
                 </span>
-<<<<<<< HEAD
-                <br><br>
-                    <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
-                <br><br>
-                    <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
-                <!-- <div class="textArea">
-                    <div class="title">
-                        節目資訊
-                    </div>
-                    預購開放日：2023年12月5日(二)，中午12:30 <br>
-                    提貨時間：2023年12月16日～2024年02月08日（營業時間12:00-19:30） <br>
-                    提貨地點：台北市松山區敦化北路244巷51號1樓（陳耀訓·麵包埠） <br>
-                </div> -->
-=======
->>>>>>> 38bda50a9373784a4f377da5f047125ffefc4719
             </div>
 
             <!-- 注意事項 -->
@@ -612,7 +599,7 @@ export default {
                     }
                     if (data.rtncode == "NOT_ENOUGH_TICKETS") {
                         alert("剩餘張數不足，請重新選擇欲購買張數")
-                        this.$router.go(0); 
+                        this.$router.go(0);
                     }
                 })
                 .catch(error => console.log(error))
@@ -845,17 +832,16 @@ export default {
             //立即購票
             .title {
                 height: 10vh;
-                width: 75%;
+                width: 65%;
                 color: #ffd1a2;
                 display: flex;
-                // border: 1px solid black;
                 align-items: center;
                 justify-content: space-between;
                 font-size: 3dvh;
                 padding: 2%;
+                // border: 1px solid black;
 
                 span {
-                    // border: 1px solid black;
                     margin-left: 0%;
                 }
             }
@@ -868,6 +854,7 @@ export default {
             border-radius: 2vh;
             padding: 2%;
             margin-bottom: 2%;
+            // border: 1px solid black;
 
             span {
                 color: #FAF8ED;
@@ -875,41 +862,18 @@ export default {
             }
 
             .sale {
+                // border: 1px solid black;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                .saleTimes {
+                    width: 70%;
+                    // border: 1px solid black;
+                    display: flex;
+                    justify-content: space-between;
+                }
             }
-
-            // .seat {
-            //     // border: 1px solid black;
-
-            //     .seatTitle {
-            //         width: 30%;
-            //         display: flex;
-            //         justify-content: space-between;
-            //         align-items: center;
-            //         // border: 1px solid black;
-
-            //         span {
-            //             color: #ffc68d;
-            //             font-size: 3dvh;
-            //         }
-            //     }
-            // }
-
-            // .seatArea {
-            //     display: flex;
-            //     justify-content: space-between;
-            //     align-items: center;
-            //     font-size: 2.5dvh;
-            //     // border: 1px solid black;
-            //     margin-bottom: 2%;
-
-            //     select {
-            //         border-radius: 1.5vh;
-            //         text-align: center;
-            //     }
-            // }
 
             .btn {
                 width: 10%;
