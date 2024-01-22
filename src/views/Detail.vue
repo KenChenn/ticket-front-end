@@ -35,10 +35,10 @@
         <!-- 加入最愛按鈕 -->
         <div class="likeArea">
             <button v-if="!searchFav" @click="this.addFav()">
-                <i class="fa-solid fa-heart-circle-plus" > 加入最愛</i>
+                <i class="fa-solid fa-heart-circle-plus"> 加入最愛</i>
             </button>
             <button v-if="searchFav" @click="this.cencelFav()">
-                <i class="fa-solid fa-heart-circle-plus cencel"   > 移除最愛</i>
+                <i class="fa-solid fa-heart-circle-plus cencel"> 移除最愛</i>
             </button>
         </div>
 
@@ -120,10 +120,13 @@
 
             <!-- 活動介紹 -->
             <div class="introduction" v-if="introduction">
-                <span>
-                    {{ this.introductions }}
+                <span v-if="this.codeList">
+                    {{ this.codeList.introduction }}
                 </span>
-
+                <br><br>
+                    <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
+                <br><br>
+                    <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
                 <!-- <div class="textArea">
                     <div class="title">
                         節目資訊
@@ -296,7 +299,7 @@ export default {
     },
     methods: {
         codeInfo() {
-            console.log( this.$route.params.codename);
+            console.log(this.$route.params.codename);
             fetch('http://localhost:8080/api/get_commodity', {
                 method: "POST",
                 headers: {
@@ -311,7 +314,7 @@ export default {
                 .then(data => {
                     console.log(data)
                     this.codeList = data.commodityList;
-                    console.log(this.codeList )
+                    console.log(this.codeList)
                     console.log(this.codeList.codename)
                     // console.log(this.codeList[0].codename)
                 })
@@ -884,6 +887,10 @@ export default {
             color: #FAF8ED;
             font-size: 2.5dvh;
 
+            .introductionImg {
+                width: 80%;
+                height: 80%;
+            }
 
             .title {
                 // border: 1px solid black;

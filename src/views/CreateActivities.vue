@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-// import * as imageConversion from 'image-conversion';
+ import * as imageConversion from 'image-conversion';
 </script>
 
 <script>
@@ -270,13 +270,13 @@ export default {
     },
 
     mounted() {
-        let activity = JSON.parse(localStorage.getItem("acttivity"))
-        this.codename = activity.codename
-        this.name = activity.name
-        this.introduction = activity.introduction
-        this.enity = activity.enity
-        this.place = activity.place
-        this.organizer = activity.organizer
+        // let activity = JSON.parse(localStorage.getItem("acttivity"))
+        // this.codename = activity.codename
+        // this.name = activity.name
+        // this.introduction = activity.introduction
+        // this.enity = activity.enity
+        // this.place = activity.place
+        // this.organizer = activity.organizer
 
         fetch('http://localhost:8080/api/get_organizer_data',
             {
