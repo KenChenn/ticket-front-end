@@ -480,6 +480,7 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     this.sessionList = data.data;
                     this.sessionList.forEach(item => {
                         var current = new Date()

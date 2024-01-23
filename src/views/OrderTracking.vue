@@ -114,7 +114,7 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    // this.$router.go(0)
+                    this.$router.go(0)
                     // if( data.rtncode == "SUCCESSFUL" ){
                     //     this.myFav()
                     // }
