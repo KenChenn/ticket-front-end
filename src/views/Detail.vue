@@ -91,8 +91,8 @@
                             <span>{{ item.endSellDateTime }}</span>
                         </div>
                         <button class="btn" @click="seatInfo(item.num)" v-if="item.inTime">座位區域</button>
-                            <span v-if="item.isEarly">{{ item.startSellDateTime }}開售</span>
-                            <span v-if="item.isAfter">{{ item.endSellDateTime }}完售</span>
+                        <span v-if="item.isEarly">{{ item.startSellDateTime }}開售</span>
+                        <span v-if="item.isAfter">{{ item.endSellDateTime }}完售</span>
                     </div>
                 </div>
                 <div class="seat" v-if="seat">
@@ -122,9 +122,9 @@
                     {{ this.codeList.introduction }}
                 </span>
                 <br><br>
-                    <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
+                <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
                 <br><br>
-                    <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
+                <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
                 <!-- <div class="textArea">
                     <div class="title">
                         節目資訊
@@ -247,7 +247,7 @@
                         <i class="fa-regular fa-paper-plane"></i>
                     </button>
                 </div>
-                <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
+                <div class="discussion" v-for="(item, index) in this.paginatedComments" :key="item.id">
                     <div class="circle"></div>
                     <div class="info">
                         <!-- 使用者名字 -->
@@ -266,6 +266,12 @@
                     <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i
                             class="fa-solid fa-x"></i>
                     </button>
+                </div>
+                <!-- 分頁器 -->
+                <div class="pagination">
+                    <button @click="prevPage" :disabled="currentPage === 1" class="pageBtn return">上一頁</button>
+                    <span>第 {{ currentPage }} 頁 / 共 {{ totalPages }} 頁</span>
+                    <button @click="nextPage" :disabled="currentPage === totalPages" class="pageBtn next">下一頁</button>
                 </div>
             </div>
         </div>
@@ -295,6 +301,8 @@ export default {
             cencelTicket: false,
             forum: false,
             seat: false,
+            commentsPerPage: 5, // 每頁顯示的留言數
+            currentPage: 1, // 目前所在的頁碼
         }
     },
     methods: {
@@ -355,8 +363,8 @@ export default {
                     console.log(this.searchFav)
                 })
                 .catch(error => console.log(error),
-                alert("請先登入才可新增至我的最愛"),
-                this.$router.push('/LoginPage'))
+                    alert("請先登入才可新增至我的最愛"),
+                    this.$router.push('/LoginPage'))
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
@@ -438,35 +446,47 @@ export default {
             }
         },
         deleteComment(id) {
-            console.log(id);
-            fetch('http://localhost:8080/api/delete_comment', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    id: id
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.rtncode)
-                    if (data.rtncode == "PLEASE_LOGIN_FIRST") {
-                        alert("請先登入才可刪除")
-                    }
-                    if (data.rtncode == "COMMENT_DELETE_ERROR") {
-                        alert("刪除留言失敗")
-                    }
-                    if (data.rtncode == "COMMENTER_ERROR") {
-                        alert("非留言者本人")
-                    }
-                    if (data.rtncode == "SUCCESSFUL") {
-                        this.comment()
-                    }
-                })
-                .catch(error => console.log(error))
+    console.log(id);
+    fetch('http://localhost:8080/api/delete_comment', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
         },
+        credentials: 'include',
+        body: JSON.stringify({
+            id: id
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.rtncode)
+        if (data.rtncode == "PLEASE_LOGIN_FIRST") {
+            alert("請先登入才可刪除")
+        }
+        if (data.rtncode == "COMMENT_DELETE_ERROR") {
+            alert("刪除留言失敗")
+        }
+        if (data.rtncode == "COMMENTER_ERROR") {
+            alert("非留言者本人")
+        }
+        if (data.rtncode == "SUCCESSFUL") {
+            // 找到被刪除留言在 commentList 中的索引
+            const index = this.commentList.findIndex(comment => comment.id === id);
+            // 從 commentList 中刪除該留言
+            this.commentList.splice(index, 1);
+
+            // 成功删除留言後，檢查當前頁的留言是否為空
+            if (this.paginatedComments.length === 0) {
+                // 將當前頁減一，但不小於1
+                this.currentPage = Math.max(1, this.currentPage - 1);
+            }
+
+            // 更新留言列表
+            this.comment();
+        }
+    })
+    .catch(error => console.log(error));
+},
         sessionInfo() {
             fetch('http://localhost:8080/api/get_Sessions', {
                 method: "POST",
@@ -682,6 +702,18 @@ export default {
             this.cencelTicket = false
             this.forum = true
         },
+        // 切換到上一頁
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+            }
+        },
+        // 切換到下一頁
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+            }
+        },
     },
 
     mounted() {
@@ -715,7 +747,19 @@ export default {
         this.codeInfo();
         this.comment();
         // this.date()
-    }
+    },
+    computed: {
+        // 計算當前頁碼的留言列表
+        paginatedComments() {
+            const startIndex = (this.currentPage - 1) * this.commentsPerPage;
+            const endIndex = startIndex + this.commentsPerPage;
+            return this.commentList.slice(startIndex, endIndex);
+        },
+        // 計算總頁數
+        totalPages() {
+            return Math.ceil(this.commentList.length / this.commentsPerPage);
+        },
+    },
 }
 
 </script>
@@ -1051,6 +1095,22 @@ export default {
             font-size: 2.5dvh;
             color: #FAF8ED;
 
+            .pageBtn {
+                background-color: transparent;
+                border: 1pt solid transparent;
+                color: #FAF8ED;
+                border-radius: 10%;
+            }
+
+            .return {
+                margin-left: 35%;
+                margin-right: 2%;
+            }
+
+            .next {
+                margin-left: 2%;
+            }
+
             .comment {
                 width: 100%;
                 height: auto;
@@ -1152,5 +1212,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>
