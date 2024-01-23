@@ -97,16 +97,16 @@ export default {
     },
     created() {
         // 在页面创建时设置特定的对象
-        counter().setHeaderLink({});
+        counter().setUser({});
     },
 
     beforeDestroy() {
         // 在页面销毁时清除特定的对象
-        counter().setHeaderLink(null);
+        counter().setUser(null);
     },
     beforeRouteLeave(to, from, next) {
         // 在离开页面时清除特定的对象
-        counter().setHeaderLink(null);
+        counter().setUser(null);
         next();
     },
 }

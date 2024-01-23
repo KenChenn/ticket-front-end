@@ -79,6 +79,7 @@
     </div>
 </template>
 <script>
+import counter from '../stores/counter'
 import axios from 'axios'
 export default {
     data() {
@@ -198,7 +199,16 @@ export default {
             const today = new Date().toISOString().split('T')[0];
             return today;
         }
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setUser({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setUser(null);
+        next();
+    },
 }
 </script>
 
