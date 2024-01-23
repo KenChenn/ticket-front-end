@@ -1143,7 +1143,7 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px black solid;
+            // border: 1px black solid;
             .pageBtn {
                 width: 10%;
                 height: 3vh;
