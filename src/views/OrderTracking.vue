@@ -3,44 +3,47 @@
         <div class="top">
             <span class="title">訂單查詢</span>
         </div>
-        <div class="content" :style="{ backgroundColor: payment ? '#89A071' : '#f5a352' }"
+        <div class="content" 
             v-for="(item, index) in this.orderInfoList">
             <!-- {{ item.startSellDateTime < this.nowDateTime < item.endSellDateTime}} -->
-                <!-- {{ this.nowDateTime }} -->
-            <div class="left">
-                <div class="picture">
-                    <img :src="item.keyvisualImg">
-                </div>
-                <div class="orderPayArea area">
-                    <span>狀態：</span>
-                    <div class="orderPay">{{ (item.seatData.length >0) ?  (item.payment ? "已付款" : "未付款"):"已取消訂單"}}</div>
-                    <!-- <div class="orderPay">{{ item.payment}}</div> -->
+            <!-- {{ this.nowDateTime }} -->
+            <div class="contentOut" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#89A071' : '#f5a352') : '#DB3A3A' }">
+                <div class="left">
+                    <div class="picture">
+                        <img :src="item.keyvisualImg">
+                    </div>
+                    <div class="orderPayArea area">
+                        <span>狀態：</span>
+                        <div class="orderPay">{{ (item.seatData.length > 0) ? (item.payment ? "已付款" : "未付款") : "已取消訂單" }}</div>
+                        <!-- <div class="orderPay">{{ item.payment}}</div> -->
 
-                </div>
-                <div class="orderNumArea area">
-                    <span>訂單編號：</span>
-                    <div class="orderNum">{{ item.buyNum }}</div>
-                </div>
-                <div class="seatArea area">
-                    <p class="date">演出日期</p>
-                    <p class="dateAbout">{{ item.showDateTime }}</p>
+                    </div>
+                    <div class="orderNumArea area">
+                        <span>訂單編號：</span>
+                        <div class="orderNum">{{ item.buyNum }}</div>
+                    </div>
+                    <div class="seatArea area">
+                        <p class="date">演出日期</p>
+                        <p class="dateAbout">{{ item.showDateTime }}</p>
 
+                    </div>
+                    <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
+                    <button type="button" @click="this.goCencel(item.buyNum)"
+                        v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())">取消訂單</button>
                 </div>
-                <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
-                <button type="button" @click="this.goCencel(item.buyNum)" v-if="item.seatData.length >0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())" >取消訂單</button>
-            </div>
-            <div class="right">
-                <div class="up">
-                    <p class="name">活動名稱</p>
-                    <p class="nameAbout">{{ item.name }}</p>
-                </div>
-                <div class="middle">
-                    <span>座位：</span>
-                    <div class="seat" v-for="item2 in item.seatData">{{ item2.area }} - {{ item2.seatNum }}</div>
-                </div>
-                <div class="down">
-                    <p class="place">演出地點</p>
-                    <p class="placeAbout">{{ item.place }}</p>
+                <div class="right">
+                    <div class="up">
+                        <p class="name">活動名稱</p>
+                        <p class="nameAbout">{{ item.name }}</p>
+                    </div>
+                    <div class="middle">
+                        <span>座位：</span>
+                        <div class="seat" v-for="item2 in item.seatData">{{ item2.area }} - {{ item2.seatNum }}</div>
+                    </div>
+                    <div class="down">
+                        <p class="place">演出地點</p>
+                        <p class="placeAbout">{{ item.place }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,13 +54,13 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
-            nowDateTime:  new Date().toLocaleString(),
+            nowDateTime: new Date().toLocaleString(),
             nameAbout: "",
             orderNumberAbout: "",
             dateAbout: "",
             placeAbout: "",
             seatAbout: "",
-            // payment:true,   //付款狀態
+            payment: true,   //付款狀態
             orderInfoList: []
         }
     },
@@ -114,7 +117,7 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    // this.$router.go(0)
+                    this.$router.go(0)
                     // if( data.rtncode == "SUCCESSFUL" ){
                     //     this.myFav()
                     // }
@@ -154,6 +157,19 @@ body {
 }
 
 .content {
+    // width: 70%;
+    // height: 40vh;
+    // margin: auto;
+    // padding: 1%;
+    // background-color: #99b080;
+    // color: #FAF8ED;
+    // border-radius: 2vh;
+    // font-size: 2.5dvh;
+    // display: flex;
+    // justify-content: space-between;
+    // margin-top: 2%;
+
+    .contentOut {
     width: 70%;
     height: 40vh;
     margin: auto;
@@ -165,6 +181,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 2%;
+    }
 
     .left {
         width: 20dvw;
