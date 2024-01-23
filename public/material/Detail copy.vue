@@ -1,43 +1,50 @@
 <template >
     <div class="up">
-        <div class="likeAndImg">
-            <!-- 節目圖片 -->
+        <div class="showArea">
             <div class="showImg">
+                <!-- 節目圖片 -->
                 <img v-if="this.codeList" :src="this.codeList.keyvisualImg">
+                <!-- 加入最愛按鈕 -->
+                <div class="likeArea">
+                    <div >
+                        <button v-if="!searchFav" @click="this.addFav()" class="like">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </div>
+                    <div >
+                        <button v-if="searchFav" @click="this.cencelFav()" class="dislike">
+                            <i class="fa-solid fa-heart-crack"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <!-- 加入最愛按鈕 -->
-            <div class="likeArea">
-                <button class="like" v-if="!searchFav" @click="this.addFav()">
-                    <i class="fa-solid fa-heart-circle-plus"></i> 加入最愛
-                </button>
-                <button class="dislike" v-if="searchFav" @click="this.cencelFav()">
-                    <i class="fa-solid fa-heart-circle-xmark"></i> 移除最愛
-                </button>
+            <!-- 節目資訊 -->
+            <div class="showInfo">
+                <i class="fa-regular fa-calendar-days"></i>
+                <!-- 時間 -->
+                <span v-if="this.codeList">
+                    {{ this.codeList.name }}
+                </span>
+                <br>
+                <i class="fa-solid fa-location-dot"></i>
+                <!-- 地點 -->
+                <span v-if="this.codeList">
+                    {{ this.codeList.place }}
+                </span>
+                <br>
+                <i class="fa-solid fa-user"></i>
+                <!-- 主辦 -->
+                <span v-if="this.codeList">
+                    {{ this.codeList.organizer }}
+                </span>
             </div>
+
         </div>
-
-
-        <!-- 節目資訊 -->
-        <div class="showInfo">
-            <!-- 名稱 -->
-            <i class="fa-solid fa-star"></i>
-            <div class="infoComp" v-if="this.codeList">
-                {{ this.codeList.name }}
-            </div>
-            <i class="fa-solid fa-location-dot"></i>
-            <!-- 地點 -->
-            <div class="infoComp" v-if="this.codeList">
-                {{ this.codeList.place }}
-            </div>
-            <i class="fa-solid fa-user"></i>
-            <!-- 主辦 -->
-            <div class="infoComp" v-if="this.codeList">
-                {{ this.codeList.organizer }}
-            </div>
-        </div>
-
     </div>
+
+    <div class="mid">
+
         <!-- <div class="linkArea">
                     <RouterLink to="/BuyTicketPage" class="link">
                         立即購票
@@ -58,16 +65,17 @@
                         退票規定
                     </RouterLink>
                 </div> -->
+    </div>
 
 
     <div class="bookmarkBTN">
         <button type="button" class="bookmarkSet" @click="buyTicketBTN">立即購票</button>
         <button type="button" class="bookmarkSet" @click="introductionBTN">活動介紹</button>
-        <button type="button" class="bookmarkSet" @click="forumBTN">相關討論</button>
-        <!-- <button type="button" class="bookmarkSet" @click="ticketNoticeBTN">注意事項</button>
+        <button type="button" class="bookmarkSet" @click="ticketNoticeBTN">注意事項</button>
         <button type="button" class="bookmarkSet" @click="buyNoticeBTN">購買提醒</button>
         <button type="button" class="bookmarkSet" @click="getTicketBTN">取票方式</button>
-        <button type="button" class="bookmarkSet" @click="cencelTicketBTN">退票規定</button> -->
+        <button type="button" class="bookmarkSet" @click="cencelTicketBTN">退票規定</button>
+        <button type="button" class="bookmarkSet" @click="forumBTN">相關討論</button>
     </div>
     <div class="down">
         <div class="bookmark">
@@ -121,7 +129,6 @@
                 <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
                 <br><br>
                 <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
-                
             </div> -->
 
             <!-- 注意事項 -->
@@ -200,7 +207,7 @@
             </div> -->
 
             <!-- 退票規定 -->
-            <!--    
+            <!-- <div class="cencelTicket" v-if="cencelTicket">
                 <div class="textArea">
                     依文化部於中華民國107年5月16日文藝字第10710128232號公告修定之『藝文表演票券定型化契約應記載及不得記載事項』第六條-退換票之申請與手續費，如常見問題說明所示。本節目退票方案訂定如下說明。<br>
                     個人因素退票者，每張票券須酌收票面金額5%手續費。相關服務費用與寄回郵資非屬票價部分不在退費範圍之內。<br>
@@ -712,118 +719,95 @@ export default {
 <style lang="scss" scoped>
 .up {
     margin-top: 10vh;
-    width: 70%;
-    height: 45vh;
-    margin-left: 15%;
-    margin-bottom: 3%;
-    padding-top: 3%;
+    width: 100%;
+    height: 70vh;
     display: flex;
-    flex-wrap: wrap;
-    border-bottom: #F5A352 solid 0.3vh;
-    // border: 1px solid black;
+    justify-content: start;
+    border: 1px solid black;
 
-    .likeAndImg {
-        width: 50%;
-        height: 90%;
-        // border: 1px solid black;
-        
+    .showArea {
+        width: 70%;
+        height: 60vh;
+        background-color: #F5A352;
+        margin: auto;
+        border-radius: 2vh;
+
         .showImg {
-            width: 85%;
-            height: 80%;
-            margin-right: 5%;
-            // border-bottom: #F5A352 solid 0.5vh;
-            background-color:#00000013;
+            width: 100%;
+            height: 75%;
+            border: #F5A352 0.5vh solid;
+            background-color: #404040;
+            border-radius: 2vh 2vh 0 0;
+            // display: flex;
+
             img {
-                width: 100%;
                 height: 100%;
+                width: 100%;
+                display: block;
                 object-fit: contain;
             }
 
-            // border: 1px solid black;
-        }
+            .likeArea {
+                width: 9%;
+                height: 10vh;
+                // border: 1px solid black;
+                margin-top: -10vh;
+                margin-left: 91%;
 
-        .likeArea {
-            width: 50%;
-            height: 15%;
-            margin-top: 3%;
-            font-size: 2.5dvh;
-
-            // border: 1px solid black;
-            .like {
-                width: 100%;
-                border-radius: 1.5vh;
-                color: #FAF8ED;
-                background-color: #DB3A3A;
-                border: #DB3A3A solid 0.3vh;
-
-                &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.05;
-                    background-color: #eb2626;
-                    box-shadow: 0 0 0.3vh #000;
-                }
-
-                &:active {
-                    scale: 0.95;
-                    background-color: #e4e4e3;
-                    color: #DB3A3A;
-                    box-shadow: inset 0 0 0.3vh #000000;
-                }
-            }
-
-            .dislike {
-                width: 100%;
-                border-radius: 1.5vh;
-                color: #DB3A3A;
-                background-color: #FAF8ED;
-                border: #DB3A3A solid 0.3vh;
-
-                &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.05;
-                    background-color: #ffffff;
-                    box-shadow: 0 0 0.3vh #000;
-                }
-
-                &:active {
-                    scale: 0.95;
+                .like {
                     background-color: #DB3A3A;
                     color: #FAF8ED;
-                    box-shadow: inset 0 0 0.3vh #000000;
+                    border: #DB3A3A solid 0.5vh;
+                }
+
+                .dislike {
+                    // background-color: #DB3A3A;
+                    color: #DB3A3A;
+                    background-color: #FAF8ED;
+                    border: #DB3A3A solid 0.5vh;
+                }
+
+                button {
+                    // width: 100%;
+                    // height: 100%;
+                    // border-radius: 1.5vh;
+                    // border: none;
+                    // font-size: 5dvh;
+                    // color: #DB3A3A;
+                    // background-color: #FAF8ED;
+                    // border: #DB3A3A solid 0.5vh;
+
+                    &:hover {
+                        transition: 0.1s linear;
+                        scale: 1.05;
+                        background-color: #ffffff;
+                    }
+
+                    &:active {
+                        scale: 0.95;
+                        background-color: #DB3A3A;
+                        color: #FAF8ED;
+                    }
                 }
             }
-
-        }
-    }
-
-    .showInfo {
-        width: 50%;
-        height: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        // border: 1px black solid;
-
-        i {
-            margin-right: 2%;
-            color: #4D5C44;
-            font-size: 3dvh;
-            line-height: 5vh;
         }
 
-        .infoComp {
-            width: 90%;
+        .showInfo {
+            width: 100%;
+            height: 20%;
+
             // border: 1px black solid;
-            color: #4D5C44;
-            font-size: 3dvh;
-            line-height: 5vh;
+            i,
+            span {
+                color: #FAF8ED;
+                font-size: 3dvh;
+                margin-left: 5%;
+                line-height: 5vh;
+            }
         }
     }
+
 }
-
-
-
-
-
 
 // .mid {
 //     padding: 0% 15% 0% 15%;
@@ -1184,5 +1168,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>
