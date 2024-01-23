@@ -5,7 +5,7 @@ import { Value } from "sass";
 export default {
   data() {
     return {
-      account: false,  //登入狀態(已登入的狀態，記得關!!)
+      isLogIn: false,  //登入狀態(已登入的狀態，記得關!!)
       dataList: [],
     };
   },
@@ -22,12 +22,16 @@ export default {
         .then(data => {
           console.log(data)
           if (data.rtncode == "SUCCESSFUL") {
+            $cookies.remove("account")
             this.$router.push("/"),
-              this.account = false
+              this.isLogIn = false
           }
         })
         .catch(error => console.log(error))
     },
+    toUserInfoPage(){
+      this.$router.push("/UserInfoPage")
+    }
   },
   // methods: {
   //   //連接搜尋的API
@@ -55,13 +59,11 @@ export default {
     RouterLink,
   },
   computed: {
-    // 首頁顯示搜尋欄
-    headerSearch() {
-      return counter().headerSearch;
+    manager() {  //管理者
+      return counter().manager;
     },
-    // 最愛清單 + 訂單查詢 連結
-    headerLink() {
-      return counter().headerLink;
+    user() {  //使用者
+      return counter().user;
     },
   },
   mounted() {
@@ -77,35 +79,54 @@ export default {
         }),
       }).then(response => response.json())
       .then(res => {
+        console.log(res)
         console.log($cookies.get("account"))
-        if (res.rtncode == "SUCCESSFUL") {
-          this.account = true
+        if (res.rtncode == "PARAM_ERROR") {
+          this.isLogIn = false
+        }
+        if(res.rtncode =="SUCCESSFUL"){
+          this.isLogIn = true
         }
       })
-  }
+  },
+  // created() {
+  //   console.log($cookies.get("account"))
+  //   if ($cookies.get("account") != null) {
+  //     this.isLogIn = true
+  //   }
+  // }
 };
 </script>
 <template>
   <div class="headerShow">
-    <!-- 搜尋欄 -->
-    <!-- <div class="searchBar" v-if="headerSearch">
-      <input type="search" class="searchInput" v-model="searchData">
-      <i class="fa-solid fa-magnifying-glass" @click="this.search()"></i>
-    </div> -->
 
-    <div class="isLogIn" v-if="account">
+    <!-- 管理者 -->
+    <div class="manager" v-if="manager">
+      <RouterLink to="/ActivityAndHostPage" class="managerHomePage">回首頁</RouterLink>
+      <button type="button" @click="this.signOut()" class="signOut">登出</button>
+    </div>
+
+    <!-- 使用者 -->
+    <div class="user" v-if="user">
+      <RouterLink to="/" class="homePage">回首頁</RouterLink>
+
       <!-- 已登入 -->
-      <div class="link" v-if="headerLink">
+      <div class="isLogIn" v-if="isLogIn">
+        <i class="fa-solid fa-circle-user" @click="toUserInfoPage"></i>
         <RouterLink to="/FavoratePage" class="favoratePage">最愛清單</RouterLink>
         <RouterLink to="/OrderTracking" class="orderTracking">訂單查詢</RouterLink>
         <button type="button" @click="this.signOut()" class="signOut">登出</button>
       </div>
-    </div>
-    <div class="notLogin" v-else>
+
       <!-- 未登入 -->
-      <RouterLink to="/SignupPage" class="register">註冊</RouterLink>
-      <RouterLink to="/LoginPage" class="logIn">登入</RouterLink>
+      <div class="notLogin" v-else>
+        <RouterLink to="/SignupPage" class="signupPage">註冊</RouterLink>
+        <RouterLink to="/LoginPage" class="loginPage">登入</RouterLink>
+      </div>
     </div>
+
+
+
   </div>
 </template>
 
@@ -113,10 +134,9 @@ export default {
 .headerShow {
   width: 30%;
   height: 10vh;
-  position: absolute;
   right: 15%;
-  // background-color: #44ff00;
-  background-color: #F9B572;
+  background-color: #44ff00;
+  // background-color: #F9B572;
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -124,57 +144,14 @@ export default {
 
   // border: 1px black solid;
 
-  // .searchBar {
-  //   position: relative;
-  //   width: 25%;
-  //   height: 60%;
-  //   left: 15%;
-  //   font-size: 3dvh;
-
-  //   .searchInput {
-  //     width: 80%;
-  //     height: 100%;
-  //     border-radius: 1vh;
-  //     border: 0;
-  //     background-color: #FAF8ED;
-  //     font-size: 2.5dvh;
-
-  //     &:focus {
-  //       outline: none;
-  //     }
-  //   }
-
-  //   i {
-  //     margin-left: 5%;
-  //     color: #FAF8ED;
-  //     z-index: 5;
-  //   }
-  // }
-
-  .isLogIn {
+  .manager {
     width: 100%;
     height: 100%;
+    justify-content: space-between;
     display: flex;
     align-items: center;
 
-    // border: 1px black solid;
-    .link {
-      height: 100%;
-      width: 100%;
-      justify-content: space-between;
-      display: flex;
-      align-items: center;
-    }
-
-    .favoratePage {
-      text-decoration: none;
-      color: #FAF8ED;
-      font-size: 3dvh;
-      // border: 1px black solid;
-
-    }
-
-    .orderTracking {
+    .managerHomePage {
       text-decoration: none;
       color: #FAF8ED;
       font-size: 3dvh;
@@ -186,35 +163,81 @@ export default {
       background-color: transparent;
       font-size: 3dvh;
       border: 0;
-      margin-left: 10%;
-
+      padding: 0;
     }
   }
 
-  .notLogin {
-    width: 40%;
+  .user {
+    width: 100%;
     height: 100%;
-    margin-left: 60%;
-    position: absolute;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    // border: 1px black solid;
 
-    .register {
+    .homePage {
+      width: 15%;
       text-decoration: none;
       color: #FAF8ED;
       font-size: 3dvh;
       // border: 1px black solid;
-
     }
 
-    .logIn {
-      text-decoration: none;
-      color: #FAF8ED;
-      font-size: 3dvh;
-      // border: 1px black solid;
+    .isLogIn {
+      height: 100%;
+      width: 75%;
+      margin-left: 10%;
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
 
+      i{
+        font-size: 3dvh;
+        color: #FAF8ED;
+      }
+      .favoratePage {
+        text-decoration: none;
+        color: #FAF8ED;
+        font-size: 3dvh;
+        // border: 1px black solid;
+      }
+
+      .orderTracking {
+        text-decoration: none;
+        color: #FAF8ED;
+        font-size: 3dvh;
+        // border: 1px black solid;
+      }
+
+      .signOut {
+        color: #FAF8ED;
+        background-color: transparent;
+        font-size: 3dvh;
+        border: 0;
+        padding: 0;
+      }
+    }
+
+    .notLogin {
+      width: 26%;
+      height: 100%;
+      margin-left: 59%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      // border: 1px black solid;
+      .signupPage {
+        text-decoration: none;
+        color: #FAF8ED;
+        font-size: 3dvh;
+        // border: 1px black solid;
+      }
+
+      .loginPage {
+        text-decoration: none;
+        color: #FAF8ED;
+        font-size: 3dvh;
+        // border: 1px black solid;
+      }
     }
   }
 }

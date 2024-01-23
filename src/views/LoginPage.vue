@@ -31,6 +31,7 @@
     </div>
 </template>
 <script>
+import counter from '../stores/counter'
 export default {
     data() {
         return {
@@ -69,7 +70,7 @@ export default {
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("登入成功");
                             $cookies.set("account", this.loginAccount)
-                            this.$router.push('/UserInfoPage');
+                            this.$router.push('/')
                         } else {
                             alert("登入失敗");
                             return;
@@ -80,6 +81,15 @@ export default {
         passwordVisibility() {
             this.showPassword = !this.showPassword;
         }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setUser({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setUser(null);
+        next();
     },
 }
 </script>
@@ -169,7 +179,7 @@ export default {
             .loginBtn {
                 width: 14%;
                 height: 10%;
-                border:0.3vh solid #4D5C44;
+                border: 0.3vh solid #4D5C44;
                 // border: 0;
                 color: #4D5C44;
                 background-color: #FAF8ED;
@@ -184,7 +194,7 @@ export default {
                     background-color: #F5A352;
                     scale: 1.1;
                 }
-                
+
                 &:active {
                     background-color: #c26202;
                     scale: 0.95;

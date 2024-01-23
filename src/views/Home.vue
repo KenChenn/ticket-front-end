@@ -7,7 +7,8 @@ export default {
       ...mapState(counter, ['dataList']),
       searchData: "",
       dataList: [],
-      selectedTab: '1'
+      selectedTab: '1',
+      // shouldReload: true
     }
   },
   computed: {
@@ -62,21 +63,27 @@ export default {
       // }, 1000);
 
     },
+    // reload() {
+    //   location.reload()
+    //   this.shouldReload = false
+
+    // }
   },
   mounted() {
     this.search()
-
-
+    // this.$router.go(0)
   },
   created() {
     // 創建頁面時設定
-    counter().setHeaderSearch({});
-    counter().setHeaderLink({});
+    counter().setUser({});
+    // if (this.shouldReload) {
+    //   this.reload()
+    //   this.shouldReload = false
+    // }
   },
   beforeRouteLeave(to, from, next) {
     // 離開頁面時清除
-    counter().setHeaderSearch(null);
-    counter().setHeaderLink(null);
+    counter().setUser(null);
     next();
   },
 }
@@ -149,6 +156,8 @@ export default {
   display: flex;
   align-items: center;
   // border: black solid 1px;
+  background-color: #F9B572;
+
 
   .search {
     width: 90%;
@@ -171,7 +180,8 @@ export default {
       i:hover {
         color: #ffe3c7;
       }
-      i:active{
+
+      i:active {
         color: #F5A352;
       }
     }

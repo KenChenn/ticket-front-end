@@ -86,6 +86,7 @@
 </template>
 
 <script setup>
+import counter from '../stores/counter'
 import * as imageConversion from 'image-conversion';
 </script>
 
@@ -295,7 +296,16 @@ export default {
                     this.nameList.push(host.name)
                 });
             })
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setManager({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setManager(null);
+        next();
+    },
 }
 </script> 
 <style scoped lang="scss">
