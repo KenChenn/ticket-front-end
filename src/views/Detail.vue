@@ -38,7 +38,7 @@
         </div>
 
     </div>
-        <!-- <div class="linkArea">
+    <!-- <div class="linkArea">
                     <RouterLink to="/BuyTicketPage" class="link">
                         立即購票
                     </RouterLink>
@@ -60,16 +60,29 @@
                 </div> -->
 
 
-    <div class="bookmarkBTN">
-        <button type="button" class="bookmarkSet" @click="buyTicketBTN">立即購票</button>
-        <button type="button" class="bookmarkSet" @click="introductionBTN">活動介紹</button>
-        <button type="button" class="bookmarkSet" @click="forumBTN">相關討論</button>
-        <!-- <button type="button" class="bookmarkSet" @click="ticketNoticeBTN">注意事項</button>
-        <button type="button" class="bookmarkSet" @click="buyNoticeBTN">購買提醒</button>
-        <button type="button" class="bookmarkSet" @click="getTicketBTN">取票方式</button>
-        <button type="button" class="bookmarkSet" @click="cencelTicketBTN">退票規定</button> -->
-    </div>
     <div class="down">
+        <div class="bookmarkBTN">
+            <button type="button" class="bookmarkSet" @click="buyTicketBTN">
+                <i class="fa-solid fa-cart-shopping"></i> 立即購票
+            </button>
+            <button type="button" class="bookmarkSet" @click="introductionBTN">
+                <i class="fa-solid fa-circle-info"></i> 活動介紹
+            </button>
+            <button type="button" class="bookmarkSet" @click="forumBTN"><i class="fa-solid fa-comment"></i> 相關討論
+            </button>
+            <button type="button" class="bookmarkSet" @click="ticketNoticeBTN">
+                <i class="fa-solid fa-circle-exclamation"></i> 注意事項
+            </button>
+            <button type="button" class="bookmarkSet" @click="buyNoticeBTN">
+                <i class="fa-solid fa-bell"></i> 購買提醒
+            </button>
+            <button type="button" class="bookmarkSet" @click="getTicketBTN">
+                <i class="fa-solid fa-receipt"></i> 取票方式
+            </button>
+            <button type="button" class="bookmarkSet" @click="cencelTicketBTN">
+                <i class="fa-solid fa-money-bill-wave"></i> 退票規定
+            </button>
+        </div>
         <div class="bookmark">
             <!-- 立即購票 -->
             <div class="buyTicket" v-if="buyTicket">
@@ -87,8 +100,8 @@
                             <span>{{ item.endSellDateTime }}</span>
                         </div>
                         <button class="btn" @click="seatInfo(item.num)" v-if="item.inTime">座位區域</button>
-                        <span v-if="item.isEarly">{{ item.startSellDateTime }}開售</span>
-                        <span v-if="item.isAfter">{{ item.endSellDateTime }}完售</span>
+                        <span v-if="item.isEarly">{{ item.startSellDateTime }} 開售</span>
+                        <span v-if="item.isAfter">{{ item.endSellDateTime }} 完售</span>
                     </div>
                 </div>
                 <div class="seat" v-if="seat">
@@ -113,7 +126,11 @@
             </div>
 
             <!-- 活動介紹 -->
-            <!-- <div class="introduction" v-if="introduction">
+            <div class="textArea" v-if="introduction">
+                <div class="noticeTitle">
+                    {{ this.codeList.name }}
+                </div>
+                <br>
                 <span v-if="this.codeList">
                     {{ this.codeList.introduction }}
                 </span>
@@ -121,14 +138,44 @@
                 <img v-if="this.codeList" :src="this.codeList.introduceImg2" class="introductionImg">
                 <br><br>
                 <img v-if="this.codeList" :src="this.codeList.introduceImg1" class="introductionImg">
-                
-            </div> -->
+            </div>
 
+            <div class="forum" v-if="forum">
+                <!-- 討論區發言 -->
+                <div class="comment">
+                    說點什麼...
+                    <input type="text" class="commentInput" v-model="comments">
+                    <button type="submit" class="submit" @click="commentInput">
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
+                    <div class="circleArea">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="info">
+                        <!-- 使用者名字 -->
+                        <div class="user">
+                            <span>
+                                {{ item.commenter }}
+                            </span>
+                        </div>
+                        <!-- 發言內容 -->
+                        <div class="content">
+                            <span>
+                                {{ item.comments }}
+                            </span>
+                        </div>
+                    </div>
+                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i
+                            class="fa-solid fa-x"></i>
+                    </button>
+                </div>
+            </div>
             <!-- 注意事項 -->
-            <!-- <div class="ticketNotice" v-if="ticketNotice">
+            <div class="noticeTitle" v-if="ticketNotice">
+                購票前請詳閱注意事項：
                 <div class="textArea">
-
-                    購票前請詳閱注意事項：<br>
                     <br>
                     購票後三天內可辦理退票，退票需酌收票面價5%手續費，換票等同於退票。購買各種優惠票者，需於購票與使用時依規定出示相關證明文件。每人每場退票總張數，不得超出該次演唱會公告之限購張數，分次寄送者亦同。<br>
                     演唱會現場嚴禁攝錄影，禁止攜帶飲食(水除外)、除手機之外的任何形式之拍攝及錄音電子設備、自拍棒與危險物品（依主辦單位定義）入場，現場需經安檢程序方能入場，場館無設置置物櫃，開演前請關注LIVE NATION
@@ -151,10 +198,10 @@
                     遺失票券：<br>
                     座位區遺失票券者，請盡早進線02-8772-9835或點選聯繫我們至拓元票務申告，遺失票券者需在演出當日下午6點前，持警局報案單、購票證明與身份證明文件前往場館拓元票務櫃臺簽立切結書，待開演後清查該座位無人進場，可讓申報遺失票券的消費者入場觀賞，但倘若持票人出現，應以持票人優先，遺失票券的觀眾需另行購票入場(剩餘票券，依現場實際狀況為準)，否則將觸及刑法第339條的詐欺不正取財之公訴罪。若雙方僵持不下，將會請出場外報警處理。
                 </div>
-            </div> -->
+            </div>
 
             <!-- 購買提醒 -->
-            <!-- <div class="buyNotice" v-if="buyNotice">
+            <div class="buyNotice" v-if="buyNotice">
                 <div class="textArea">
                     欲購票者，請參考【拓元會員加入辦法】，需進行手機驗證，才可開始購票，未完成驗證者，恕無法購票，建議提早完成。<br>
                     單筆訂單限購4張，可支援行動裝置購票。<br>
@@ -183,10 +230,10 @@
                     每張身心障礙證明每場次限購一張優惠票及一張陪同票，入場時證明持有人與陪同者需同時入場並請備妥身障證明查驗。輪椅席區限乘坐輪椅及必要陪伴者1人使用，入場時將加強查核身分。新版證明需於「必要陪同者優惠措施」有相關註記方可購買陪同席票券。<br>
                     有鑒於網路拍賣風氣盛行，有許多來路不明的票券在拍賣網站出售競標，但這些票券來源不明、真偽難辨，票務糾紛層出不窮，為確保您的權益，懇請勿於拍賣網站或是其他非正式授權售票之管道購票，如發生無法進場或其他損害個人權益之事宜，本售票系統恕不負責。<br>
                 </div>
-            </div> -->
+            </div>
 
             <!-- 取票方式 -->
-            <!-- <div class="getTicket" v-if="getTicket">
+            <div class="getTicket" v-if="getTicket">
                 <div class="textArea">
                     開放取票日期為該場次開演前 5 天，故 2024/01/14 起，可至訂單查詢查看取票資訊，方可至7-11 ibon取票。<br>
                     取票方式為【ibon取票】，取票時每筆將酌收$30手續費，於7-11超商門市付款時以現金方式支付。<br>
@@ -197,10 +244,10 @@
                     付款完成之訂單，逾期未取票者視同售出，恕不接受退票或退費。<br>
                     現場票務服務處恕無法提供取票服務，請於節目演出結束前自行至7-11超商門市完成取票。<br>
                 </div>
-            </div> -->
+            </div>
 
             <!-- 退票規定 -->
-            <!--    
+            <div class="cencelTicket" v-if="cencelTicket">
                 <div class="textArea">
                     依文化部於中華民國107年5月16日文藝字第10710128232號公告修定之『藝文表演票券定型化契約應記載及不得記載事項』第六條-退換票之申請與手續費，如常見問題說明所示。本節目退票方案訂定如下說明。<br>
                     個人因素退票者，每張票券須酌收票面金額5%手續費。相關服務費用與寄回郵資非屬票價部分不在退費範圍之內。<br>
@@ -225,39 +272,11 @@
                     申請退票5個工作天後，請於訂單查詢確認訂單，訂單或票券狀態將改為『個人因素退票』，訂單或票券狀態若無變動，請務必向本系統客服確認退票進度（聯繫我們），退款作業時間約20個工作天(收到退票申請且資料完整起計算)，刷卡退款時間將依發卡行之作業時間為準。<br>
                     在有退票釋出座位之前提下，本公司得於完成退票作業後，陸續將該座位釋出並重新上架販售，於退票截止日後亦有可能釋出座位。<br>
                 </div>
-            </div> -->
-
-            <div class="forum" v-if="forum">
-                <!-- 討論區發言 -->
-                <div class="comment">
-                    說點什麼...
-                    <input type="text" class="commentInput" v-model="comments">
-                    <button type="submit" class="submit" @click="commentInput">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </button>
-                </div>
-                <div class="discussion" v-for="(item, index) in this.commentList" :key="item.id">
-                    <div class="circle"></div>
-                    <div class="info">
-                        <!-- 使用者名字 -->
-                        <div class="user">
-                            <span>
-                                {{ item.commenter }}
-                            </span>
-                        </div>
-                        <!-- 發言內容 -->
-                        <div class="content">
-                            <span>
-                                {{ item.comments }}
-                            </span>
-                        </div>
-                    </div>
-                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i
-                            class="fa-solid fa-x"></i>
-                    </button>
-                </div>
             </div>
         </div>
+    </div>
+    <div class="footer">
+
     </div>
 </template>
 
@@ -494,7 +513,7 @@ export default {
                         var showDateTimeHour = (showDateTime.getHours()).toString().padStart(2, '0')
                         var showDateTimeMin = (showDateTime.getMinutes()).toString().padStart(2, '0')
                         var space = "　"
-                        item.showDateTime = showDateTimeYear + " - " + showDateTimeMonth + " - " + showDateTimeDate + space + showDateTimeHour + " : " + showDateTimeMin
+                        item.showDateTime = showDateTimeYear + "-" + showDateTimeMonth + "-" + showDateTimeDate + space + showDateTimeHour + " : " + showDateTimeMin
                         // console.log(item.showDateTime);
 
                         var startSellDateTime = new Date(item.startSellDateTime);
@@ -504,7 +523,7 @@ export default {
                         var startSellDateTimeDate = (startSellDateTime.getDate()).toString().padStart(2, '0')
                         var startSellDateTimeHour = (startSellDateTime.getHours()).toString().padStart(2, '0')
                         var startSellDateTimeMin = (startSellDateTime.getMinutes()).toString().padStart(2, '0')
-                        item.startSellDateTime = startSellDateTimeYear + " - " + startSellDateTimeMonth + " - " + startSellDateTimeDate + space + startSellDateTimeHour + " : " + startSellDateTimeMin
+                        item.startSellDateTime = startSellDateTimeYear + "-" + startSellDateTimeMonth + "-" + startSellDateTimeDate + space + startSellDateTimeHour + " : " + startSellDateTimeMin
 
                         var endSellDateTime = new Date(item.endSellDateTime);
                         var endSellDateTimeYear = endSellDateTime.getFullYear()
@@ -512,7 +531,7 @@ export default {
                         var endSellDateTimeDate = (endSellDateTime.getDate()).toString().padStart(2, '0')
                         var endSellDateTimeHour = (endSellDateTime.getHours()).toString().padStart(2, '0')
                         var endSellDateTimeMin = (endSellDateTime.getMinutes()).toString().padStart(2, '0')
-                        item.endSellDateTime = endSellDateTimeYear + " - " + endSellDateTimeMonth + " - " + endSellDateTimeDate + space + endSellDateTimeHour + " : " + endSellDateTimeMin
+                        item.endSellDateTime = endSellDateTimeYear + "-" + endSellDateTimeMonth + "-" + endSellDateTimeDate + space + endSellDateTimeHour + " : " + endSellDateTimeMin
                     })
                 })
                 .catch(error => console.log(error))
@@ -715,7 +734,7 @@ export default {
     width: 70%;
     height: 45vh;
     margin-left: 15%;
-    margin-bottom: 3%;
+    margin-bottom: 2%;
     padding-top: 3%;
     display: flex;
     flex-wrap: wrap;
@@ -726,13 +745,14 @@ export default {
         width: 50%;
         height: 90%;
         // border: 1px solid black;
-        
+
         .showImg {
             width: 85%;
             height: 80%;
             margin-right: 5%;
             // border-bottom: #F5A352 solid 0.5vh;
-            background-color:#00000013;
+            background-color: #00000013;
+
             img {
                 width: 100%;
                 height: 100%;
@@ -743,7 +763,7 @@ export default {
         }
 
         .likeArea {
-            width: 50%;
+            width: 30%;
             height: 15%;
             margin-top: 3%;
             font-size: 2.5dvh;
@@ -760,14 +780,14 @@ export default {
                     transition: 0.1s linear;
                     scale: 1.05;
                     background-color: #eb2626;
-                    box-shadow: 0 0 0.3vh #000;
+                    box-shadow: 0 0 0.5vh #000;
                 }
 
                 &:active {
                     scale: 0.95;
                     background-color: #e4e4e3;
                     color: #DB3A3A;
-                    box-shadow: inset 0 0 0.3vh #000000;
+                    box-shadow: inset 0 0 0.5vh #000000;
                 }
             }
 
@@ -782,14 +802,14 @@ export default {
                     transition: 0.1s linear;
                     scale: 1.05;
                     background-color: #ffffff;
-                    box-shadow: 0 0 0.3vh #000;
+                    box-shadow: 0 0 0.5vh #000;
                 }
 
                 &:active {
                     scale: 0.95;
                     background-color: #DB3A3A;
                     color: #FAF8ED;
-                    box-shadow: inset 0 0 0.3vh #000000;
+                    box-shadow: inset 0 0 0.5vh #000000;
                 }
             }
 
@@ -812,7 +832,6 @@ export default {
 
         .infoComp {
             width: 90%;
-            // border: 1px black solid;
             color: #4D5C44;
             font-size: 3dvh;
             line-height: 5vh;
@@ -820,299 +839,97 @@ export default {
     }
 }
 
-
-
-
-
-
-// .mid {
-//     padding: 0% 15% 0% 15%;
-//     border: 1px solid black;
-// }
-
-
-.bookmarkBTN {
-    padding: 0% 15% 0% 15%;
-    width: 100%;
-    height: 7vh;
-    background-color: #FAF8ED;
-    // border: black solid 1px;
+.down {
+    width: 80%;
+    min-height: 70vh;
+    margin-left: 10%;
     display: flex;
-    justify-content: space-between;
 
-    .bookmarkSet {
-        width: 12%;
-        height: 100%;
-        background-color: #748E63;
+    // justify-content: center;
+    // border: 1px black solid;
+    .bookmarkBTN {
+        width: 15%;
+        height: 20vh;
+        justify-content: center;
+        background-color: #FAF8ED;
         border: 0;
-        border-radius: 2vh 2vh 0 0;
-        font-size: 2.5dvh;
-        text-align: center;
-        color: #FAF8ED;
 
-        &:hover {
-            background-color: #608349;
-            transition: 0.1s linear;
-            scale: 1.05;
-        }
+        .bookmarkSet {
+            width: 100%;
+            height: 40%;
+            border: 0;
+            font-size: 3dvh;
+            text-align: center;
+            background-color: #FAF8ED;
+            color: #4D5C44;
+            border-bottom: 0.3vh solid #F5A352;
 
-        &:active {
-            scale: 0.95;
-            color: #FAF8ED;
-        }
+            &:hover {
+                background-color: #AFCA91;
+                transition: 0.1s linear;
+            }
 
-        &:focus {
-            background-color: #99B080;
+            &:focus {
+                color: #fff;
+                background-color: #99B080;
+            }
         }
     }
-}
-
-.down {
-    width: 100%;
-    padding: 0% 15% 5% 15%;
-    background-color: #99B080;
 
     .bookmark {
-        .buyTicket {
+        width: 100%;
+        padding: 0 3%;
 
-            //立即購票
+        // border: 1px black solid;
+        //立即購票
+        .buyTicket {
             .title {
                 height: 10vh;
-                width: 65%;
-                color: #ffd1a2;
+                width: 70%;
+                color: #c26202;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 font-size: 3dvh;
+                padding: 0 3%;
+                // border: 1px solid black; 
+            }
+
+            .ticket {
+                width: 100%;
+                min-height: 10vh;
+                background-color: #748E63;
+                border-radius: 2vh;
                 padding: 2%;
+                margin-bottom: 2%;
                 // border: 1px solid black;
 
                 span {
-                    margin-left: 0%;
+                    color: #FAF8ED;
+                    font-size: 2.5dvh;
                 }
-            }
-        }
 
-        .ticket {
-            width: 100%;
-            min-height: 10vh;
-            background-color: #748E63;
-            border-radius: 2vh;
-            padding: 2%;
-            margin-bottom: 2%;
-            // border: 1px solid black;
-
-            span {
-                color: #FAF8ED;
-                font-size: 2.5dvh;
-            }
-
-            .sale {
-                // border: 1px solid black;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                .saleTimes {
-                    width: 70%;
+                .sale {
                     // border: 1px solid black;
                     display: flex;
                     justify-content: space-between;
-                }
-            }
+                    align-items: center;
 
-            .btn {
-                width: 10%;
-                height: 100%;
-                background-color: #F5A352;
-                border: 0;
-                border-radius: 1.5vh;
-                font-size: 2.5dvh;
-                color: #FAF8ED;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.1;
-                    background-color: #FFC68D;
-                }
-
-                &:active {
-                    scale: 0.95;
-                    background-color: #c26202;
-                }
-            }
-        }
-
-        .seat {
-
-            // border: 1px solid black;
-            span {
-                color: #FAF8ED;
-                font-size: 2.5dvh;
-            }
-
-
-            .seatTitle {
-                width: 30%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                // border: 1px solid black;
-
-                span {
-                    color: #ffc68d;
-                    font-size: 3dvh;
-                }
-            }
-
-            .btn {
-                width: 10%;
-                height: 100%;
-                background-color: #F5A352;
-                border: 0;
-                border-radius: 1.5vh;
-                font-size: 2.5dvh;
-                color: #FAF8ED;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.1;
-                    background-color: #FFC68D;
-                }
-
-                &:active {
-                    scale: 0.95;
-                    background-color: #c26202;
-                }
-            }
-        }
-
-        .seatArea {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 2.5dvh;
-            // border: 1px solid black;
-            margin-bottom: 2%;
-
-            select {
-                border-radius: 1.5vh;
-                text-align: center;
-            }
-        }
-
-
-        .introduction {
-            //活動介紹
-            padding-top: 5%;
-            color: #FAF8ED;
-            font-size: 2.5dvh;
-
-            .introductionImg {
-                width: 80%;
-                height: 80%;
-            }
-
-            .title {
-                // border: 1px solid black;
-                height: 10vh;
-                color: #ffc68d;
-                display: flex;
-                align-items: center;
-                font-size: 4dvh;
-            }
-
-            .textArea {
-                font-size: 2.5dvh;
-            }
-        }
-
-        .ticketNotice {
-            //注意事項
-            padding-top: 5%;
-
-            .textArea {
-                margin: auto;
-                color: #FAF8ED;
-                font-size: 2.5dvh;
-            }
-        }
-
-        .buyNotice {
-            //購買提醒
-            padding-top: 5%;
-
-            .textArea {
-                margin: auto;
-                color: #FAF8ED;
-                font-size: 2.5dvh;
-            }
-        }
-
-        .getTicket {
-            //取票方式
-            padding-top: 5%;
-
-            .textArea {
-                margin: auto;
-                color: #FAF8ED;
-                font-size: 2.5dvh;
-            }
-        }
-
-        .cencelTicket {
-            //退票規定
-            padding-top: 5%;
-
-            .textArea {
-                margin: auto;
-                color: #FAF8ED;
-                font-size: 2.5dvh;
-            }
-        }
-
-        .forum {
-            //相關討論
-            padding-top: 5%;
-            font-size: 2.5dvh;
-            color: #FAF8ED;
-
-            .comment {
-                width: 100%;
-                height: auto;
-                margin-bottom: 5%;
-                padding: 2%;
-                display: flex;
-                justify-content: space-between;
-                font-size: 3dvh;
-                // border: 1px black solid;
-
-                .commentInput {
-                    width: 75%;
-                    border: 0;
-                    word-wrap: break-word;
-                    background-color: #99B080;
-                    border-bottom: 0.3vh solid #748E63;
-                    color: #FAF8ED;
-
-                    &:focus {
-                        outline: none;
+                    .saleTimes {
+                        width: 70%;
+                        // border: 1px solid black;
+                        display: flex;
+                        justify-content: space-between;
                     }
                 }
 
-                .submit {
+                .btn {
                     width: 10%;
-                    height: 5vh;
+                    height: 100%;
+                    background-color: #F5A352;
                     border: 0;
                     border-radius: 1.5vh;
-                    font-size: 3dvh;
-                    background-color: #F5A352;
+                    font-size: 2.5dvh;
                     color: #FAF8ED;
                     display: flex;
                     justify-content: center;
@@ -1131,58 +948,207 @@ export default {
                 }
             }
 
-            .discussion {
-                width: 100%;
-                height: auto;
-                margin-bottom: 2%;
-                padding: 2%;
-                border-radius: 2vh;
-                background-color: #748E63;
-                display: flex;
-                justify-content: space-between;
+            .seat {
 
-                .circle {
-                    width: 3vw;
-                    height: 3vw;
-                    background-color: #F5A352;
-                    clip-path: circle(50% at 50% 50%);
+                // border: 1px solid black;
+                span {
+                    color: #FAF8ED;
+                    font-size: 2.5dvh;
                 }
 
-                .info {
-                    width: 80%;
-                    margin-left: 2%;
-                    color: #FAF8ED;
 
-                    .content {
-                        // border: 1px black solid;
-                        word-wrap: break-word;
+                .seatTitle {
+                    width: 30%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    // border: 1px solid black;
+
+                    span {
+                        color: #ffc68d;
+                        font-size: 3dvh;
                     }
                 }
 
-                .deleteComment {
+                .btn {
                     width: 10%;
                     height: 100%;
+                    background-color: #F5A352;
+                    border: 0;
                     border-radius: 1.5vh;
-                    border: none;
-                    font-size: 3dvh;
-                    background-color: #FAF8ED;
-                    color: #DB3A3A;
-                    border: #DB3A3A solid 0.3vh;
+                    font-size: 2.5dvh;
+                    color: #FAF8ED;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     &:hover {
                         transition: 0.1s linear;
-                        scale: 1.05;
-                        background-color: #ffffff;
+                        scale: 1.1;
+                        background-color: #FFC68D;
                     }
 
                     &:active {
                         scale: 0.95;
-                        background-color: #DB3A3A;
-                        color: #FAF8ED;
+                        background-color: #c26202;
                     }
+                }
+            }
+
+            .seatArea {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 2.5dvh;
+                // border: 1px solid black;
+                margin-bottom: 2%;
+
+                select {
+                    border-radius: 1.5vh;
+                    text-align: center;
                 }
             }
         }
     }
+
+    //相關討論
+    .forum {
+        padding-top: 5%;
+        font-size: 2.5dvh;
+
+        .comment {
+            width: 100%;
+            height: auto;
+            margin-bottom: 5%;
+            padding: 2%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 3dvh;
+            // border: 1px black solid;
+            color: #4D5C44;
+            .commentInput {
+                width: 75%;
+                border: 0;
+                word-wrap: break-word;            background-color: #FAF8ED;
+                border-bottom: 0.3vh solid #c26202;
+                color: #4D5C44;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .submit {
+                width: 10%;
+                height: 5vh;
+                border: 0;
+                border-radius: 1.5vh;
+                font-size: 3dvh;
+                background-color: #F5A352;
+                color: #FAF8ED;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.1;
+                    background-color: #FFC68D;
+                    box-shadow: 0 0 0.5vh #000;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #c26202;
+                    box-shadow: inset 0 0 0.5vh #000000;
+                }
+            }
+        }
+
+        .discussion {
+            width: 100%;
+            height: auto;
+            margin-bottom: 2%;
+            padding: 2%;
+            border-radius: 2vh;
+            background-color: #748E63;
+            display: flex;
+            justify-content: space-between;
+            color: #FAF8ED;
+            .circleArea{
+                width: 3vw;
+                height: 2.5vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                // border: 1px black solid;
+                .circle {
+                    width: 2.5vw;
+                    height: 2.5vw;
+                    background-color: #F9B572;
+                    clip-path: circle(50% at 50% 50%);
+                }
+            }
+            
+            .info {
+                width: 100%;
+                margin-left: 2%;
+                color: #FAF8ED;
+                
+                .content {
+                    // border: 1px black solid;
+                    word-wrap: break-word;
+                }
+            }
+
+            .deleteComment {
+                width: 10%;
+                height: 100%;
+                border-radius: 1.5vh;
+                border: none;
+                font-size: 3dvh;
+                background-color: #FAF8ED;
+                color: #DB3A3A;
+                border: #DB3A3A solid 0.3vh;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.05;
+                    background-color: #ffffff;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #DB3A3A;
+                    color: #FAF8ED;
+                }
+            }
+        }
+    }
+
+    //活動介紹圖片
+    .introductionImg {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+//提醒標題
+.noticeTitle {
+    font-size: 3dvh;
+    color: #c26202;
+}
+
+// 提醒內文
+.textArea {
+    color: #4D5C44;
+    font-size: 2.5dvh;
+    text-align: justify;
+    line-height: 4.5vh;
+}
+
+.footer {
+    width: 100%;
+    height: 10vh;
 }
 </style>
