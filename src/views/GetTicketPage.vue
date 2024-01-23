@@ -60,11 +60,11 @@ export default {
     },
     created() {
         // 創建頁面時設定
-        counter().setHeaderLink({});
+        counter().setUser({});
     },
     beforeRouteLeave(to, from, next) {
         // 離開頁面時清除
-        counter().setHeaderLink(null);
+        counter().setUser(null);
         next();
     },
 }

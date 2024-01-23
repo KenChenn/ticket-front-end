@@ -664,6 +664,14 @@ export default {
     created() {
         this.codeInfo();
         this.comment();
+        // this.date();
+        // 創建頁面時設定
+        counter().setUser({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setUser(null);
+        next();
     }
 }
 

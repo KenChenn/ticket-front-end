@@ -2,8 +2,9 @@ import { defineStore } from "pinia";
 
 export default defineStore("counter",{
     state: () => ({
-        headerSearch: null,
         headerLink: null,
+        headerHomeLink: null,
+        manager: null,
     }),
     state(){
         return{
@@ -29,11 +30,11 @@ export default defineStore("counter",{
         setLocation(num){
             this.location = num;
         },
-        setHeaderSearch(object) {
-            this.headerSearch = object;
+        setManager(object) {  //管理者
+            this.manager = object;
         },
-        setHeaderLink(object) {
-            this.headerLink = object;
+        setUser(object) {  //使用者
+            this.user = object;
         },
     }
 })

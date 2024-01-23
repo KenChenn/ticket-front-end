@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import counter from '../stores/counter'
 export default {
     data() {
         return {
@@ -69,7 +70,16 @@ export default {
                     this.idList.push(host.id)
                 });
             })
-    }
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setManager({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setManager(null);
+        next();
+    },
 }
 </script>
 

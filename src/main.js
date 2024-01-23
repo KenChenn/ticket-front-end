@@ -21,3 +21,5 @@ app.mount("#app");
 
 app.config.globalProperties.$cookies = VueCookies;
 $cookies.config(60*60*24*30);
+
+
