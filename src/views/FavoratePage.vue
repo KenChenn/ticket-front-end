@@ -1,40 +1,29 @@
 <template>
-<body>
-
-    <div class="top">
+    <body>
         <span class="title">最愛列表</span>
-    </div>
-    <div class="content" v-for="(item,index) in this.trackerList" :key="index" :class="{ 'first-item': index === 0 }">
-        <div class="left">
-            <div class="picture">
-                <img :src="item.keyvisualImg">
+        <div class="content" v-for="(item, index) in this.trackerList" :key="index" :class="{ 'first-item': index === 0 }">
+            <div class="left">
+                <div class="picture">
+                    <img :src="item.keyvisualImg">
+                </div>
+
             </div>
-            
-            <!-- <button type="button" @click="this.deleteFav(item.commodityCodename)">刪除</button> -->
-        </div>
-        <div class="middle">
-            <div class="nameAll">
-                <p class="name">活動名稱</p>
-                <p class="nameAbout">{{ item.name }}
+            <div class="middle">
+                <p class="infoTitle">活動名稱</p>
+                <p>{{ item.name }}
+                </p>
+                <p class="infoTitle">演出日期</p>
+                <p>{{ item.startDate }}
                 </p>
             </div>
-            <div class="dateAll">
-                <p class="date">演出日期</p>
-                <p class="dateAbout">{{ item.startDate }}
-                </p>
+            <div class="right">
+                <i class="fa-solid fa-circle-xmark" @click="this.deleteFav(item.commodityCodename)"></i>
             </div>
-            <!-- <div class="placeAll">
-                <p class="place">演出地點</p>
-                <p class="placeAbout">{{ item.place }}
-                </p>
-            </div> -->
         </div>
-        <div class="right">
-            <i class="fa-solid fa-circle-xmark" @click="this.deleteFav(item.commodityCodename)"></i>
+        <div class="footer">
+
         </div>
-    </div>
-    
-</body>
+    </body>
 </template>
 <script>
 import counter from '../stores/counter'
@@ -47,19 +36,19 @@ export default {
             placeAbout: "",
             seatAbout: "",
             // aboutToStart: true,   //開始狀態
-            trackerList:[],
-            myFavList:[],
+            trackerList: [],
+            myFavList: [],
         }
     },
-    methods:{
-        myFav(){
+    methods: {
+        myFav() {
             fetch('http://localhost:8080/api/getTrackingList', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    tracker:$cookies.get("account"),
+                    tracker: $cookies.get("account"),
                 })
             })
                 .then(response => response.json())
@@ -69,15 +58,15 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        deleteFav(commodityCodename){
+        deleteFav(commodityCodename) {
             fetch('http://localhost:8080/api/untrack', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    tracker:$cookies.get("account"),
-                    commodityCodename:commodityCodename
+                    tracker: $cookies.get("account"),
+                    commodityCodename: commodityCodename
                 })
             })
                 .then(response => response.json())
@@ -85,7 +74,7 @@ export default {
                     console.log(data)
                     this.myFavList = data;
                     console.log(this.myFavList)
-                    if( data.rtncode == "SUCCESSFUL" ){
+                    if (data.rtncode == "SUCCESSFUL") {
                         this.myFav()
                     }
                 })
@@ -115,20 +104,19 @@ export default {
 body {
     background-color: #FAF8ED;
 }
-.top {
+
+.title {
+    width: 70%;
+    height: 10vh;
     margin-top: 10vh;
-    .title {
-        width: 70%;
-        height: 10vh;
-        margin-left: 15%;
-        color: #4D5C44;
-        font-size: 4dvh;
-        display: flex;
-        align-items: end;
-        // border: 1px solid black;
-        display: flex;
-        justify-content: space-between;
-    }
+    margin-left: 15%;
+    color: #4D5C44;
+    font-size: 4dvh;
+    display: flex;
+    align-items: end;
+    // border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
 }
 
 .content {
@@ -137,8 +125,7 @@ body {
     margin: auto;
     padding: 2%;
     border: #99b080 0.5vh solid;
-    // background-color: #99b080;
-    color: #4D5C44;;
+    color: #4D5C44;
     border-radius: 2vh;
     font-size: 2.5dvh;
     display: flex;
@@ -150,86 +137,48 @@ body {
     }
 
     .left {
-        width: 20dvw;
+        width: 20vw;
         height: 100%;
         // border: 1px black solid;
 
         .picture {
             width: 100%;
             height: 100%;
+            background-color: #00000013;
 
             img {
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
+                object-fit: contain;
                 display: flex;
                 justify-content: center;
                 border-radius: 1.5vh;
             }
         }
-        
     }
 
     .middle {
         width: 35vw;
         height: 100%;
+        text-align: center;
         // border: 1px black solid;
+        line-height: 3vh;
 
-        .nameAll {
-            // border: 1px black solid;
-            width: 100%;
-
-            .name {
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .nameAbout {
-                color: #4D5C44;
-                text-align: center;
-            }
-        }
-        .dateAll {
-            width: 100%;
-            // border: 1px black solid;
-
-            .date {
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .dateAbout {
-                color: #4D5C44;
-                text-align: center;
-            }
-        }
-
-
-        // .placeAll {
-        //     width: 100%;
-        //     // border: 1px black solid;
-
-        //     .place {
-        //         font-weight: bold;
-        //         text-align: center;
-        //     }
-
-        //     .placeAbout {
-        //         color: #FAF8ED;
-        //         text-align: center;
-        //     }
-        // }
-    }
-    .right{
-        // border: 1px solid black;
-        i{
-            color: #DB3A3A;
-            font-size: 7dvh;
-            // background-color: #FAF8ED;
-            // border-radius: 100% ;
-            // clip-path: circle(47% at 50% 50%);
-            
+        .infoTitle {
+            font-weight: bold;
         }
     }
+
+}
+
+.right {
+    i {
+        color: #DB3A3A;
+        font-size: 7dvh;
+    }
+}
+
+.footer {
+    height: 10vh;
 }
 </style>
