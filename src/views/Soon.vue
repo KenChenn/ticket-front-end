@@ -79,10 +79,12 @@ export default {
     text-decoration: none;
     border-radius: 2vh;
 
+    
+
     .showImg {
         height: 60%;
         width: 100%;
-
+        
         img {
             object-fit: cover;
             width: 100%;

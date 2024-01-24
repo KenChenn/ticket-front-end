@@ -14,7 +14,7 @@
                 <div class="loginInP">帳號</div>
                 <input type="text" class="inputClass" v-model="loginAccount">
                 <div class="warning">
-                    <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
+                <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
                 </div>
 
                 <div class="loginInP">密碼</div>
