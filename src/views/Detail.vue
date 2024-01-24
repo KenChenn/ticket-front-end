@@ -99,7 +99,7 @@
                             <span>{{ item.startSellDateTime }}</span>
                             <span>{{ item.endSellDateTime }}</span>
                         </div>
-                        <button class="btn" @click="seatInfo(item.num)" v-if="item.inTime">座位區域</button>
+                        <button class="btn" @click="seatInfo(item.num),this.getVerify()" v-if="item.inTime" >座位區域</button>
                         <span v-if="item.isEarly">{{ item.startSellDateTime }} 開售</span>
                         <span v-if="item.isAfter">{{ item.endSellDateTime }} 完售</span>
                     </div>
@@ -108,6 +108,11 @@
                     <div class="seatTitle">
                         <span>區域名稱</span>
                         <span>座位價格</span>
+
+                        <!-- 驗證碼 藝術老大可改耶逼 -->
+
+                        <img :src="this.pic"> <input type="text" v-model="codeNum">
+
                     </div>
                     <div class="seatArea" v-for="seatItem in   this.seatList  ">
                         <span>{{ seatItem.area }}</span>
@@ -122,7 +127,7 @@
                             <option value="4">4</option>
                         </select>
                         <button class="btn" v-if="seatItem.remainingTicket > 0 && buyBtn"
-                            @click="buy(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
+                            @click="checkVerify(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
                         <button class="btn" v-if="seatItem.remainingTicket <= 0 && buyBtn" disabled>已售完</button>
                         <button class="btn" v-if="!buyBtn" disabled>請登入</button>
                     </div>
@@ -293,7 +298,6 @@
         </div>
     </div>
     <div class="footer">
-
     </div>
 </template>
 
@@ -323,9 +327,46 @@ export default {
             commentsPerPage: 5, // 每頁顯示的留言數
             currentPage: 1, // 目前所在的頁碼
             buyBtn: false,
+            pic:"",
+            codeNum:""
         }
     },
     methods: {
+        getVerify(){
+            fetch('http://localhost:8080/verify/getcode', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+            })
+                .then(response => response.blob())
+                .then(data => {
+                    console.log(data)
+                    this.pic = window.URL.createObjectURL(data)
+                    console.log(this.pic);
+                })
+        },
+        checkVerify(num, area, selectedQuantity){
+            fetch('http://localhost:8080/verify/checkcode', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    code:this.codeNum
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if(data.rtncode == "SUCCESSFUL"){
+                        console.log("test")
+                        this.buy(num, area, selectedQuantity)
+                    }
+                })
+        },
         codeInfo() {
             // console.log(this.$route.params.codename);
             fetch('http://localhost:8080/api/get_commodity', {
@@ -932,7 +973,7 @@ export default {
                 }
 
                 .btn {
-                    width: 10%;
+                    width: 15%;
                     height: 100%;
                     background-color: #F5A352;
                     border: 0;
@@ -1009,7 +1050,10 @@ export default {
                 align-items: center;
                 font-size: 2.5dvh;
                 // border: 1px solid black;
-                margin-bottom: 2%;
+                margin-bottom: 2%;c
+                span{
+                    color: #4D5C44;
+                }
 
                 select {
                     border-radius: 1.5vh;
@@ -1143,6 +1187,7 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+
             // border: 1px black solid;
             .pageBtn {
                 width: 10%;
