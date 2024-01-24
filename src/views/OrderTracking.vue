@@ -1,51 +1,44 @@
 <template>
     <body>
-        <div class="top">
-            <span class="title">訂單查詢</span>
-        </div>
-        <div class="content" 
-            v-for="(item, index) in this.orderInfoList">
-            <!-- {{ item.startSellDateTime < this.nowDateTime < item.endSellDateTime}} -->
-            <!-- {{ this.nowDateTime }} -->
-            <div class="contentOut" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#89A071' : '#f5a352') : '#DB3A3A' }">
-                <div class="left">
-                    <div class="picture">
-                        <img :src="item.keyvisualImg">
-                    </div>
-                    <div class="orderPayArea area">
-                        <span>狀態：</span>
-                        <div class="orderPay">{{ (item.seatData.length > 0) ? (item.payment ? "已付款" : "未付款") : "已取消訂單" }}</div>
-                        <!-- <div class="orderPay">{{ item.payment}}</div> -->
+        <span class="title">訂單查詢</span>
+        <div class="content" v-for="(item, index) in this.orderInfoList"
+            :style="{ border: item.seatData.length > 0 ? (item.payment ? '0.5vh solid #89A071 ' : '1vh solid #f5a352') : '0.5vh solid #DB3A3A' }">
 
-                    </div>
-                    <div class="orderNumArea area">
-                        <span>訂單編號：</span>
-                        <div class="orderNum">{{ item.buyNum }}</div>
-                    </div>
-                    <div class="seatArea area">
-                        <p class="date">演出日期</p>
-                        <p class="dateAbout">{{ item.showDateTime }}</p>
+            <div class="left">
+                <div class="picture">
+                    <img :src="item.keyvisualImg">
+                </div>
 
-                    </div>
-                    <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
-                    <button type="button" @click="this.goCencel(item.buyNum)"
-                        v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())">取消訂單</button>
+                <div class="order">
+                    狀態：{{ (item.seatData.length > 0) ? (item.payment ? "已付款" : "未付款") : "已取消訂單" }}
                 </div>
-                <div class="right">
-                    <div class="up">
-                        <p class="name">活動名稱</p>
-                        <p class="nameAbout">{{ item.name }}</p>
-                    </div>
-                    <div class="middle">
-                        <span>座位：</span>
-                        <div class="seat" v-for="item2 in item.seatData">{{ item2.area }} - {{ item2.seatNum }}</div>
-                    </div>
-                    <div class="down">
-                        <p class="place">演出地點</p>
-                        <p class="placeAbout">{{ item.place }}</p>
-                    </div>
+
+                <div class="order">
+                    訂單編號：{{ item.buyNum }}
                 </div>
+
             </div>
+            <div class="middle">
+                <p class="infoTitle">活動名稱</p>
+                <p>{{ item.name }}
+                </p>
+                <p class="infoTitle">座位</p>
+                <p v-for="item2 in item.seatData">{{ item2.area }} - {{ item2.seatNum }}</p>
+                <p class="infoTitle">演出日期</p>
+                <p>{{ item.showDateTime }}
+                </p>
+                <p class="infoTitle">演出地點</p>
+                <p>{{ item.place }}</p>
+            </div>
+            <div class="right">
+                <button type="button" @click="this.goCencel(item.buyNum)"
+                    v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())">取消訂單</button>
+
+                <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
+            </div>
+        </div>
+        <div class="footer">
+
         </div>
     </body>
 </template>
@@ -147,116 +140,75 @@ body {
 .title {
     width: 70%;
     height: 10vh;
-    // border: 1px solid black;
     margin-top: 10vh;
     margin-left: 15%;
     color: #4D5C44;
     font-size: 4dvh;
     display: flex;
     align-items: end;
+    // border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
 }
-
 .content {
-    // width: 70%;
-    // height: 40vh;
-    // margin: auto;
-    // padding: 1%;
-    // background-color: #99b080;
-    // color: #FAF8ED;
-    // border-radius: 2vh;
-    // font-size: 2.5dvh;
-    // display: flex;
-    // justify-content: space-between;
-    // margin-top: 2%;
-
-    .contentOut {
     width: 70%;
     height: 40vh;
     margin: auto;
-    padding: 1%;
-    background-color: #99b080;
-    color: #FAF8ED;
+    padding: 2%;
     border-radius: 2vh;
     font-size: 2.5dvh;
+    margin-top: 2%;
     display: flex;
     justify-content: space-between;
-    margin-top: 2%;
-    }
+    border: #99b080 0.5vh solid;
+    color: #4D5C44;
+    // border: 1px solid black;
 
     .left {
-        width: 20dvw;
+        width: 20vw;
         height: 100%;
-        // border: 1px black solid;
+        border: 1px black solid;
 
         .picture {
             width: 100%;
-            height: 20dvh;
+            height: 60%;
+            background-color: #00000013;
 
             img {
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
+                object-fit: contain;
                 display: flex;
                 justify-content: center;
                 border-radius: 1.5vh;
             }
         }
 
-        .area {
-            display: flex;
-            margin-top: 3%;
+        .order{
+            border: 1px black solid;
+
+        }
+    }
+
+    .middle {
+        width: 35vw;
+        height: 100%;
+        text-align: center;
+        line-height: 3vh;
+
+        .infoTitle {
+            font-weight: bold;
         }
     }
 
     .right {
-        width: 65%;
-        height: 100%;
-        // border: 1px black solid;
+        width: 10%;
+        border: 1px black solid;
+        
+    }
 
-        .up {
-            // border: 1px black solid;
-            width: 100%;
-
-            .name {
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .nameAbout {
-                color: #FAF8ED;
-                text-align: center;
-            }
-        }
-
-        .middle {
-            width: 100%;
-            // border: 1px black solid;
-
-            .date {
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .dateAbout {
-                color: #FAF8ED;
-                text-align: center;
-            }
-        }
-
-        .down {
-            width: 100%;
-            // border: 1px black solid;
-
-            .place {
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .placeAbout {
-                color: #FAF8ED;
-                text-align: center;
-            }
-        }
+    .footer {
+        height: 10vh;
     }
 }
 </style>
