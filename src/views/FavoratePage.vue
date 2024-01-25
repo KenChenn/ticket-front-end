@@ -174,7 +174,17 @@ body {
 .right {
     i {
         color: #DB3A3A;
-        font-size: 7dvh;
+        font-size: 5dvh;
+
+        &:hover {
+            transition: 0.1s linear;
+            scale: 1.3;
+        }
+
+        &:active {
+            scale: 0.95;
+            color: #ab3131;
+        }
     }
 }
 
