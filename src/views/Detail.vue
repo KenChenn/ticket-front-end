@@ -388,7 +388,7 @@ export default {
                 .then(data => {
                     // console.log(data)
                     this.codeList = data.commodityList;
-                    // console.log(this.codeList)
+                    console.log(this.codeList)
                 })
                 .catch(error => console.log(error))
         },
@@ -425,23 +425,24 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (!(data.rtncode == "SUCCESSFUL")) {
-                        alert("請先登入才可新增至我的最愛"),
-                            this.$router.push('/LoginPage')
-                    }
-                    this.searchFav = data.is_Track;
-                    console.log(data)
-                })
-                .catch(error => console.log(error),
-                    // alert("請先登入才可新增至我的最愛"),
-                    Swal.fire({
+                    if (data.rtncode != "SUCCESSFUL") {
+                        // alert("請先登入才可新增至我的最愛"),
+                        Swal.fire({
                         title: "請先登入才可新增至我的最愛",
                         icon: "warning",
                         color: "#4D5C44",
                         background: "#FAF8ED",
                         confirmButtonColor: "#F5A352"
                     }),
-                    this.$router.push('/LoginPage'))
+                    this.$router.push('/LoginPage')
+                    }
+                    if(data.rtncode == "SUCCESSFUL"){
+                        alert("新增成功")//
+                    }
+                    this.searchFav = data.is_Track;
+                    console.log(data)
+                })
+                .catch(error => console.log(error),)
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
