@@ -26,6 +26,7 @@
     </body>
 </template>
 <script>
+import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 export default {
     data() {
@@ -58,7 +59,32 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        deleteFav(commodityCodename) {
+        deleteFav(commodityCodename){
+            Swal.fire({
+                title: "是否移除最愛",
+                icon: "warning",
+                color: "#4D5C44",
+                background: "#FAF8ED",
+                confirmButtonText: "確認",
+                confirmButtonColor: "#6e7881",
+                showCancelButton: true,
+                cancelButtonText: "取消",
+                cancelButtonColor: "#F5A352",
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    this.confirmDeleteFav(commodityCodename)
+                    Swal.fire( {
+                        title: "移除最愛成功", 
+                        icon: "success",
+                        color: "#4D5C44",
+                        background: "#FAF8ED",
+                        confirmButtonColor: "#748e63",
+                    })
+                }
+            })
+        },
+        confirmDeleteFav(commodityCodename){
             fetch('http://localhost:8080/api/untrack', {
                 method: "POST",
                 headers: {
@@ -174,7 +200,17 @@ body {
 .right {
     i {
         color: #DB3A3A;
-        font-size: 7dvh;
+        font-size: 5dvh;
+
+        &:hover {
+            transition: 0.1s linear;
+            scale: 1.3;
+        }
+
+        &:active {
+            scale: 0.95;
+            color: #ab3131;
+        }
     }
 }
 

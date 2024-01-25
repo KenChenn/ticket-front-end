@@ -31,6 +31,7 @@
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 export default {
     data() {
@@ -76,10 +77,20 @@ export default {
                             // $cookies.set("account", this.loginAccount)
                             this.$router.push('/');
                         } else {
-                            alert("登入失敗");
+                            // alert("登入失敗");
+                            Swal.fire({
+                                title: "登入失敗",
+                                icon: "error",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#DB3A3A"
+                            });
                             return;
                         }
                     })
+                    // .then(
+                    //     this.$router.push('/')
+                    // )
             }
         },
         passwordVisibility() {
