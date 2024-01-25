@@ -136,7 +136,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   height: 10vh;
-  width: 30%;
+  width: 25%;
   margin-left: 15%;
   z-index: 0;
   position: absolute;
