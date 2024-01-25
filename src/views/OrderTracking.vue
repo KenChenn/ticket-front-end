@@ -34,7 +34,8 @@
                 <button type="button" @click="this.goCencel(item.buyNum)"
                     v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())">取消訂單</button>
 
-                <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
+                <button type="button" @click="this.goPay(item.buyNum)"
+                    v-if="item.seatData.length > 0 && item.payment == false">付款</button>
             </div>
         </div>
         <div class="footer">
@@ -71,9 +72,9 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    console.log(data.data);
                     this.orderInfoList = data.data;
-                    console.log(this.orderInfoList)
+                    // console.log(this.orderInfoList)
                 })
                 .catch(error => console.log(error))
         },
@@ -111,9 +112,6 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.$router.go(0)
-                    // if( data.rtncode == "SUCCESSFUL" ){
-                    //     this.myFav()
-                    // }
                 })
                 .catch(error => console.log(error))
         }
@@ -150,6 +148,7 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
 .content {
     width: 70%;
     height: 40vh;
@@ -184,7 +183,7 @@ body {
             }
         }
 
-        .order{
+        .order {
             border: 1px black solid;
 
         }
@@ -204,7 +203,7 @@ body {
     .right {
         width: 10%;
         border: 1px black solid;
-        
+
     }
 
     .footer {
