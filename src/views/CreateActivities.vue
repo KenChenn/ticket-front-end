@@ -140,7 +140,7 @@ export default {
             this.isEntityName = !!this.name;
             this.isEntityCodeName = !!this.codename;
             this.isEntityOrganizer = !!this.organizer;
-            this.isEntityEnity = !!this.enity
+            // this.isEntityEnity = !!this.enity
             this.isEntityPlace = !!this.place
             this.isEntityIntroduction = !!this.introduction
             // console.log(this.enity);

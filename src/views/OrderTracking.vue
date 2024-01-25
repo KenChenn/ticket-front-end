@@ -60,6 +60,7 @@
     </body>
 </template>
 <script>
+import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 export default {
     data() {
@@ -110,11 +111,49 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    this.$router.go(0)
+                    Swal.fire({
+                        title: "付款成功",
+                        icon: "success",
+                        color: "#4D5C44",
+                        background: "#FAF8ED",
+                        confirmButtonColor: "#748e63"
+                    })
+                    .then(()=>{
+                        location.href = location.href;
+                    })
+                    // this.$router.go(0)
                 })
                 .catch(error => console.log(error))
         },
         goCencel(buyNum) {
+            Swal.fire({
+                title: "是否取消訂單",
+                icon: "warning",
+                color: "#4D5C44",
+                background: "#FAF8ED",
+                confirmButtonText: "確認",
+                confirmButtonColor: "#6e7881",
+                showCancelButton: true,
+                cancelButtonText: "取消",
+                cancelButtonColor: "#F5A352",
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    this.confirmGoCencel(buyNum)
+                    Swal.fire( {
+                        title: "取消訂單成功", 
+                        icon: "success",
+                        color: "#4D5C44",
+                        background: "#FAF8ED",
+                        confirmButtonColor: "#748e63",
+                    })
+                    .then(()=>{
+                        location.href = location.href;
+                    })
+                }
+            })
+        },
+        confirmGoCencel(buyNum) {
             fetch('http://localhost:8080/api/cancelOrder', {
                 method: "POST",
                 headers: {
@@ -128,7 +167,10 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    this.$router.go(0)
+                    // this.$router.go(0)
+                    // if( data.rtncode == "SUCCESSFUL" ){
+                    //     this.myFav()
+                    // }
                 })
                 .catch(error => console.log(error))
         },
