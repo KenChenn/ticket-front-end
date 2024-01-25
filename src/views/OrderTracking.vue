@@ -1,8 +1,10 @@
 <template>
     <body>
         <span class="title">訂單查詢</span>
-        <div class="content" v-for="(item, index) in this.orderInfoList"
-            :style="{ border: item.seatData.length > 0 ? (item.payment ? '0.5vh solid #89A071 ' : '1vh solid #f5a352') : '0.5vh solid #DB3A3A' }">
+        <div class="content" v-for="(item, index) in this.orderInfoList" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#E6E1C8' },
+        {
+            opacity: item.seatData.length > 0 ? (item.payment ? '1' : '1') : '#0.5'
+        }">
 
             <div class="left">
                 <div class="picture">
@@ -23,13 +25,17 @@
 
             </div>
             <div class="middle">
-                <p>活動名稱</p>
-                <p class="infoTitle">{{ item.name }}
-                </p>
-                <p>演出地點</p>
-                <p class="infoTitle">{{ item.place }}</p>
+                <div class="info">
+                    <div class="comp">
+                        <p>活動名稱</p>
+                        <p class="infoTitle">{{ item.name }}
+                        </p>
+                    </div>
+                    <div class="comp">
+                        <p>演出地點</p>
+                        <p class="infoTitle">{{ item.place }}</p>
+                    </div>
 
-                <div class="seatAndDate">
                     <div class="comp">
                         <p>座位
                         </p>
@@ -43,13 +49,13 @@
                 </div>
 
                 <div class="btnArea">
-                    
+
                     <button type="button" @click="this.goCencel(item.buyNum)"
-                    v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())"
-                    class="cancel">取消訂單</button>
-                    
+                        v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())"
+                        class="cancel">取消訂單</button>
+
                     <button type="button" @click="this.goPay(item.buyNum)"
-                    v-if="item.seatData.length > 0 && item.payment == false" class="payment">付款</button>
+                        v-if="item.seatData.length > 0 && item.payment == false" class="payment">付款</button>
                 </div>
             </div>
 
@@ -168,7 +174,6 @@ body {
 
 .content {
     width: 70%;
-    // height: 40vh;
     margin: auto;
     padding: 2%;
     border-radius: 2vh;
@@ -176,7 +181,6 @@ body {
     margin-top: 2%;
     display: flex;
     justify-content: space-between;
-    border: #99b080 0.5vh solid;
     color: #4D5C44;
     // border: 1px solid black;
 
@@ -204,7 +208,7 @@ body {
             line-height: 5vh;
 
             span {
-                color: #f5a352;
+                color: #c26202;
                 // font-weight: bold;
             }
         }
@@ -213,32 +217,32 @@ body {
     .middle {
         width: 40vw;
         height: 100%;
-        text-align: center;
         line-height: 3vh;
+        // border: 1px solid black;
 
-        p {
-            word-wrap: break-word;
-        }
-
-        .infoTitle {
-            // font-weight: bold;
-            color: #f5a352;
-        }
-
-        .seatAndDate {
+        .info {
             width: 100%;
-            height: 45%;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
-            // border: 1px solid black;
         }
-        
+
+        .comp {
+            width: 50%;
+            padding: 1%;
+
+            .infoTitle {
+                color: #c26202;
+                word-wrap: break-word;
+            }
+        }
+
         .btnArea {
             height: 5vh;
             margin-top: 3%;
             display: flex;
             justify-content: space-between;
-            
+
             button {
                 height: 100%;
                 width: 40%;
@@ -252,37 +256,39 @@ body {
                 width: 40%;
                 border-radius: 1vh;
                 font-size: 3dvh;
-                background-color: #FAF8ED;
-                color: #DB3A3A;
-                border: 0.3vh solid;
-
-                &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.05;
-                    background-color: #ffffff;
-                }
-
-                &:active {
-                    scale: 0.95;
-                    background-color: #DB3A3A;
-                    color: #FAF8ED;
-                }
-            }
-
-            .payment {
-                background-color: #F9B572;
+                background-color: #DB3A3A;
+                color: #FAF8ED;
                 border: 0;
 
                 &:hover {
                     transition: 0.1s linear;
                     scale: 1.05;
-                    background-color: #FFC68D;
+                    background-color: #F14242;
                 }
 
                 &:active {
                     scale: 0.95;
-                    background-color: #f5a352;
+                    background-color: #ab3131;
                     color: #FAF8ED;
+                }
+            }
+
+            .payment {
+                color: #FAF8ED;
+                background-color: #748E63;
+                border: 0;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.05;
+                    background-color: #608349;
+                    color: #ffffff;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #4D5C44;
+                    color: #ffffff;
                 }
             }
         }

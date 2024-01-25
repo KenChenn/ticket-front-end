@@ -9,11 +9,11 @@
 
             </div>
             <div class="middle">
-                <p class="infoTitle">活動名稱</p>
-                <p>{{ item.name }}
+                <p>活動名稱</p>
+                <p class="infoTitle">{{ item.name }}
                 </p>
-                <p class="infoTitle">演出日期</p>
-                <p>{{ item.startDate }}
+                <p>演出日期</p>
+                <p class="infoTitle">{{ item.startDate }}
                 </p>
             </div>
             <div class="right">
@@ -124,7 +124,7 @@ body {
     height: 30vh;
     margin: auto;
     padding: 2%;
-    border: #99b080 0.5vh solid;
+    background-color: #CBDABA;
     color: #4D5C44;
     border-radius: 2vh;
     font-size: 2.5dvh;
@@ -133,7 +133,7 @@ body {
     margin-top: 2%;
 
     .first-item {
-        border: #F5A352 1vh solid;
+        background-color: #FFC68D;
     }
 
     .left {
@@ -165,7 +165,7 @@ body {
         line-height: 3vh;
 
         .infoTitle {
-            font-weight: bold;
+            color: #c26202;
         }
     }
 
@@ -175,10 +175,11 @@ body {
     i {
         color: #DB3A3A;
         font-size: 5dvh;
-
+        
         &:hover {
             transition: 0.1s linear;
             scale: 1.3;
+            color: #F14242;
         }
 
         &:active {
