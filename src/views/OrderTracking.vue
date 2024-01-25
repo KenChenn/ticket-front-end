@@ -261,8 +261,8 @@ body {
             line-height: 5vh;
 
             span {
-                color: #c26202;
-                // font-weight: bold;
+                // color: #c26202;
+                font-weight: bold;
             }
         }
     }
@@ -275,9 +275,11 @@ body {
 
         .info {
             width: 100%;
+            min-height: 35vh;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+            border: black 1px solid;
         }
 
         .comp {
@@ -285,7 +287,8 @@ body {
             padding: 1%;
 
             .infoTitle {
-                color: #c26202;
+                // color: #c26202;
+                font-weight: bold;
                 word-wrap: break-word;
             }
         }

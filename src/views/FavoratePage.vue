@@ -191,7 +191,8 @@ body {
         line-height: 3vh;
 
         .infoTitle {
-            color: #c26202;
+            // color: #c26202;
+            font-weight: bold;
         }
     }
 
