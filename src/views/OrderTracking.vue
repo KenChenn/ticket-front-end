@@ -87,9 +87,9 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    console.log(data.data);
                     this.orderInfoList = data.data;
-                    console.log(this.orderInfoList)
+                    // console.log(this.orderInfoList)
                 })
                 .catch(error => console.log(error))
         },
@@ -127,9 +127,6 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.$router.go(0)
-                    // if( data.rtncode == "SUCCESSFUL" ){
-                    //     this.myFav()
-                    // }
                 })
                 .catch(error => console.log(error))
         },

@@ -8,7 +8,6 @@ export default {
       searchData: "",
       dataList: [],
       selectedTab: '1',
-      // shouldReload: true
     }
   },
   computed: {
@@ -48,10 +47,10 @@ export default {
       })
         .then(response => response.json())
         .then(data => {
-          console.log(data.commodityList);
+          // console.log(data.commodityList);
           this.dataList = data.commodityList;
           this.saveSearchData(this.dataList)
-          console.log(this.dataList)
+          // console.log(this.dataList)
           // 將資料存儲到 Local Storage 中，使用 'searchData' 作為鑰匙
           localStorage.setItem('searchDataList', this.dataList);
         })
@@ -63,23 +62,13 @@ export default {
       // }, 1000);
 
     },
-    // reload() {
-    //   location.reload()
-    //   this.shouldReload = false
-
-    // }
   },
   mounted() {
     this.search()
-    // this.$router.go(0)
   },
   created() {
     // 創建頁面時設定
     counter().setUser({});
-    // if (this.shouldReload) {
-    //   this.reload()
-    //   this.shouldReload = false
-    // }
   },
   beforeRouteLeave(to, from, next) {
     // 離開頁面時清除
