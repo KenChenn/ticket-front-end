@@ -47,8 +47,9 @@
                     <button type="button" @click="this.goCencel(item.buyNum)"
                     v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())"
                     class="cancel">取消訂單</button>
-                    <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false"
-                        class="payment">付款</button>
+                    
+                    <button type="button" @click="this.goPay(item.buyNum)"
+                    v-if="item.seatData.length > 0 && item.payment == false" class="payment">付款</button>
                 </div>
             </div>
 
@@ -87,9 +88,10 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     console.log(data.data);
                     this.orderInfoList = data.data;
-                    // console.log(this.orderInfoList)
+                    console.log(this.orderInfoList)
                 })
                 .catch(error => console.log(error))
         },
