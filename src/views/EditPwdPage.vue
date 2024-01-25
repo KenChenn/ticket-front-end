@@ -108,6 +108,13 @@ export default {
                     .then(res => {
                         console.log(res)
                         if (res.rtncode == "SUCCESSFUL") {
+                            Swal.fire({
+                            title: "更改成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63"
+                        });
                             this.$router.push('/UserInfoPage')
                         }
                         if (res.rtncode == "PWD_NOT_CORRECT") {

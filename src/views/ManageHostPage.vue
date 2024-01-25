@@ -10,7 +10,7 @@
             <div class="host" v-for="(name, index) in this.nameList" :key="index">
                 <button class="editBtn" @click="goToEditPage(idList[index])">編輯</button>
                 <span class="kaisyaiName">{{ name }}</span>
-                <button class="cencelBtn" @click="this.delete(this.idList[index])">刪除</button>
+                <button class="cencelBtn" @click="this.delete(this.idList[index] ,name)">刪除</button>
             </div>
         </div>
     </div>
@@ -29,7 +29,12 @@ export default {
         goCreateHost() {
             this.$router.push('/CreateHost');
         },
-        delete(id) {
+        delete(id, name){
+            if(confirm(`是否刪除主辦單位　　${name}`) == true){
+                this.confirmDelete(id)
+            }
+        },
+        confirmDelete(id) {
             console.log("====");
             fetch('http://localhost:8080/api/delete_organizer',
                 {
@@ -44,6 +49,7 @@ export default {
                     console.log(res.rtncode);
                     if (res.rtncode == "SUCCESSFUL") {
                         console.log("刪除成功");
+                        alert("刪除主辦單位成功");
                         this.nameList = this.nameList.filter((name, index) => this.idList[index] !== id);
                     }
                 })

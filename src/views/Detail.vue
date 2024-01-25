@@ -302,6 +302,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 export default {
     data() {
@@ -424,7 +425,14 @@ export default {
                     console.log(data)
                 })
                 .catch(error => console.log(error),
-                    alert("請先登入才可新增至我的最愛"),
+                    // alert("請先登入才可新增至我的最愛"),
+                    Swal.fire({
+                        title: "請先登入才可新增至我的最愛",
+                        icon: "warning",
+                        color: "#4D5C44",
+                        background: "#FAF8ED",
+                        confirmButtonColor: "#F5A352"
+                    }),
                     this.$router.push('/LoginPage'))
         },
         cencelFav() {
@@ -488,10 +496,24 @@ export default {
                         // console.log(data.rtncode)
                         // console.log(this.commentList)
                         if (data.rtncode == "PLEASE_LOGIN_FIRST") {
-                            alert("請先登入才可留言")
+                            // alert("請先登入才可留言")
+                            Swal.fire({
+                                title: "請先登入才可留言",
+                                icon: "warning",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#F5A352"
+                            })
                         }
                         if (data.rtncode == "PARAM_ERROR") {
-                            alert("請輸入欲發表的留言")
+                            // alert("請輸入欲發表的留言")
+                            Swal.fire({
+                                title: "請輸入欲發表的留言",
+                                icon: "warning",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#F5A352"
+                            })
                         }
                         if (data.rtncode == "SUCCESSFUL") {
                             this.comment()
@@ -500,7 +522,14 @@ export default {
                     })
                     .catch(error => console.log(error))
             } else {
-                alert("請輸入欲發表的留言")
+                // alert("請輸入欲發表的留言")
+                Swal.fire({
+                    title: "請輸入欲發表的留言",
+                    icon: "warning",
+                    color: "#4D5C44",
+                    background: "#FAF8ED",
+                    confirmButtonColor: "#F5A352"
+                })
             }
         },
         deleteComment(id) {
@@ -519,13 +548,34 @@ export default {
                 .then(data => {
                     console.log(data.rtncode)
                     if (data.rtncode == "PLEASE_LOGIN_FIRST") {
-                        alert("請先登入才可刪除")
+                        // alert("請先登入才可刪除")
+                        Swal.fire({
+                            title: "請先登入才可刪除",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        })
                     }
                     if (data.rtncode == "COMMENT_DELETE_ERROR") {
-                        alert("刪除留言失敗")
+                        // alert("刪除留言失敗")
+                        Swal.fire({
+                            title: "刪除留言失敗",
+                            icon: "error",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#DB3A3A"
+                        });
                     }
                     if (data.rtncode == "COMMENTER_ERROR") {
-                        alert("非留言者本人")
+                        // alert("非留言者本人")
+                        Swal.fire({
+                            title: "非留言者本人",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        })
                     }
                     if (data.rtncode == "SUCCESSFUL") {
                         // 找到被刪除留言在 commentList 中的索引
@@ -653,15 +703,36 @@ export default {
                 .then(data => {
                     console.log(data);
                     if (data.rtncode == "SUCCESSFUL") {
-                        alert("購買成功")
-                        this.$router.go(0); //重整頁面
+                        Swal.fire({
+                            title: "購買成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63"
+                        });
+                        this.$router.push('/OrderTracking')
+                        // this.$router.go(0); //重整頁面
                     }
                     if (data.rtncode == "PARAM_ERROR") {
-                        alert("請選擇欲購買張數")
+                        Swal.fire({
+                            title: "請選擇欲購買張數",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        });
                     }
                     if (data.rtncode == "NOT_ENOUGH_TICKETS") {
-                        alert("剩餘張數不足，請重新選擇欲購買張數")
-                        this.$router.go(0);
+                        Swal.fire({
+                            title: "剩餘張數不足",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        }).then(()=>{
+                            location.href = location.href;
+                        })
+                        // this.$router.go(0);
                     }
                 })
                 .catch(error => console.log(error))

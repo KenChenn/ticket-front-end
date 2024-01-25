@@ -79,6 +79,7 @@
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 import axios from 'axios'
 export default {
@@ -114,7 +115,13 @@ export default {
         },
         register() {
             if (!this.account && !this.username && !this.email && !this.birthday && !this.password && !this.phoneNumber && !this.name) {
-                alert("請輸入註冊資訊");
+                Swal.fire({
+                    title: "請輸入註冊資訊",
+                    icon: "warning",
+                    color: "#4D5C44",
+                    background: "#FAF8ED",
+                    confirmButtonColor: "#F5A352"
+                });
                 return;
             }
 
@@ -178,8 +185,15 @@ export default {
                         this.isReapeatUsername = false
                     };
                     if (res.data.rtncode == "SUCCESSFUL") {
-                        this.$router.push('/LoginPage')
                         console.log("註冊成功");
+                        Swal.fire({
+                            title: "註冊成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63"
+                        });
+                        this.$router.push('/LoginPage')
                     }
                 })
             }

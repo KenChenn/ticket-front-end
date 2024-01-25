@@ -88,8 +88,15 @@ export default {
                             this.isReapeatUsername = false
                         };
                         if (res.rtncode == "SUCCESSFUL") {
-                            this.$router.push('/UserInfoPage')
                             console.log("更改成功");
+                            Swal.fire({
+                            title: "更改成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63"
+                        });
+                            this.$router.push('/UserInfoPage')
                         }
                         // this.user = res.data.data.username
                         // this.email = res.data.data.email
