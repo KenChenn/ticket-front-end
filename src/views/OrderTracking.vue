@@ -43,13 +43,13 @@
                 </div>
 
                 <div class="btnArea">
-                    
+
                     <button type="button" @click="this.goCencel(item.buyNum)"
-                    v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())"
-                    class="cancel">取消訂單</button>
-                    
+                        v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())"
+                        class="cancel">取消訂單</button>
+
                     <button type="button" @click="this.goPay(item.buyNum)"
-                    v-if="item.seatData.length > 0 && item.payment == false" class="payment">付款</button>
+                        v-if="item.seatData.length > 0 && item.payment == false" class="payment">付款</button>
                 </div>
             </div>
 
@@ -92,7 +92,18 @@ export default {
                     console.log(data);
                     console.log(data.data);
                     this.orderInfoList = data.data;
-                    console.log(this.orderInfoList)
+                    // console.log(this.orderInfoList)
+                    this.orderInfoList.forEach(item => {
+                        //時間格式調整
+                        var showDateTime = new Date(item.showDateTime);
+                        var showDateTimeYear = showDateTime.getFullYear()
+                        var showDateTimeMonth = (showDateTime.getMonth() + 1).toString().padStart(2, '0')
+                        var showDateTimeDate = (showDateTime.getDate()).toString().padStart(2, '0')
+                        var showDateTimeHour = (showDateTime.getHours()).toString().padStart(2, '0')
+                        var showDateTimeMin = (showDateTime.getMinutes()).toString().padStart(2, '0')
+                        var space = "　"
+                        item.showDateTime = showDateTimeYear + "-" + showDateTimeMonth + "-" + showDateTimeDate + space + showDateTimeHour + " : " + showDateTimeMin
+                    })
                 })
                 .catch(error => console.log(error))
         },
@@ -118,9 +129,9 @@ export default {
                         background: "#FAF8ED",
                         confirmButtonColor: "#748e63"
                     })
-                    .then(()=>{
-                        location.href = location.href;
-                    })
+                        .then(() => {
+                            location.href = location.href;
+                        })
                     // this.$router.go(0)
                 })
                 .catch(error => console.log(error))
@@ -137,21 +148,21 @@ export default {
                 cancelButtonText: "取消",
                 cancelButtonColor: "#F5A352",
             })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    this.confirmGoCencel(buyNum)
-                    Swal.fire( {
-                        title: "取消訂單成功", 
-                        icon: "success",
-                        color: "#4D5C44",
-                        background: "#FAF8ED",
-                        confirmButtonColor: "#748e63",
-                    })
-                    .then(()=>{
-                        location.href = location.href;
-                    })
-                }
-            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.confirmGoCencel(buyNum)
+                        Swal.fire({
+                            title: "取消訂單成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63",
+                        })
+                            .then(() => {
+                                location.href = location.href;
+                            })
+                    }
+                })
         },
         confirmGoCencel(buyNum) {
             fetch('http://localhost:8080/api/cancelOrder', {
@@ -274,13 +285,13 @@ body {
             justify-content: space-between;
             // border: 1px solid black;
         }
-        
+
         .btnArea {
             height: 5vh;
             margin-top: 3%;
             display: flex;
             justify-content: space-between;
-            
+
             button {
                 height: 100%;
                 width: 40%;

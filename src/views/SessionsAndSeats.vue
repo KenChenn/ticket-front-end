@@ -102,17 +102,17 @@ export default {
             ],
 
             //防呆用
-            // isEmptyShowDateTime: true,
-            // isEmptyStartSellDateTime: true,
-            // isEmptyEndSellDateTime: true,
-            // isEmptyArea: true,
-            // isEmptySeat: true,
-            // isEmptyPrice: true,
+            isEmptyShowDateTime: true,
+            isEmptyStartSellDateTime: true,
+            isEmptyEndSellDateTime: true,
+            isEmptyArea: true,
+            isEmptySeat: true,
+            isEmptyPrice: true,
 
-            // isRepeatArea: true,
-            // startIsAfterShow: true,
-            // endIsafterShow: true,
-            // endIsEarlyStart: true
+            isRepeatArea: true,
+            startIsAfterShow: true,
+            endIsafterShow: true,
+            endIsEarlyStart: true
         }
     },
     methods: {
@@ -193,70 +193,80 @@ export default {
                         session.endIsEarlyStart = false
                     }
 
-                    if (!session.isEmptyShowDateTime && !session.isEmptyStartSellDateTime && !session.isEmptyEndSellDateTime && !seat.isEmptyArea && !seat.isEmptySeat && !seat.isEmptyPrice && !seat.isRepeatArea && !session.startIsAfterShow && !session.endIsafterShow && !session.endIsEarlyStart) {
-                        this.activity.sessionData = this.sessionList
-
-                        const allShowDateTimes = this.sessionList.flatMap(item => item.showDateTime);
-
-                        const earliestDateTime = allShowDateTimes.reduce((earliest, current) => (current < earliest ? current : earliest), allShowDateTimes[0]);
-                        const latestDateTime = allShowDateTimes.reduce((latest, current) => (current > latest ? current : latest), allShowDateTimes[0]);
-
-                        this.activity.startDate = earliestDateTime
-                        this.activity.endDate = latestDateTime
-
-                        if (this.activity.keyvisualImg == undefined) {
-                            this.activity.keyvisualImg = ""
-                        }
-                        if (this.activity.introduceImg1 == undefined) {
-                            this.activity.introduceImg1 = ""
-                        }
-                        if (this.activity.introduceImg2 == undefined) {
-                            this.activity.introduceImg2 = ""
-                        }
-                        console.log(this.activity);
-
-                        fetch('http://localhost:8080/api/add_commodity_and_session', {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            credentials: 'include',
-                            body: JSON.stringify({
-                                codeName: this.activity.codename,
-                                name: this.activity.name,
-                                introduction: this.activity.introduction,
-                                entity: this.activity.enity,
-                                place: this.activity.place,
-                                organizer: this.activity.organizer,
-                                startDate: this.activity.startDate,
-                                endDate: this.activity.endDate,
-                                keyvisual_img: this.activity.keyvisualImg,
-                                introduce_img1: this.activity.introduceImg1,
-                                introduce_img2: this.activity.introduceImg2,
-                                sessionData: this.activity.sessionData
-                            }),
-                        }).then(response => response.json())
-                            .then(res => {
-                                console.log(res.rtncode);
-                                if (res.rtncode == "SUCCESSFUL") {
-                                    // 刪除名為 "acttivity" 的 localStorage
-                                    localStorage.removeItem("acttivity");
-                                    this.$router.push('/ActivityAndHostPage')
-                                }
-                                if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
-                                    alert("請先登入")
-                                    this.$router.push('/AdminLoginPage');
-                                }
-                                if (res.rtncode == "PARAM_ERROR") {
-                                    alert("請確認資料是否填寫完畢")
-                                }
-                                if (res.rtncode == "CODENAME_EXISTED") {
-                                    alert("活動代號已存在，請重新輸入")
-                                    this.$router.push('/CreateActivities')
-                                }
-                            })
-                    }
+                    this.isEmptyShowDateTime = session.isEmptyShowDateTime
+                    this.isEmptyStartSellDateTime = session.isEmptyStartSellDateTime
+                    this.isEmptyEndSellDateTime = session.isEmptyEndSellDateTime
+                    this.isEmptyArea = seat.isEmptyArea
+                    this.isEmptySeat = seat.isEmptySeat
+                    this.isEmptyPrice = seat.isEmptyPrice
+                    this.isRepeatArea = seat.isRepeatArea
+                    this.startIsAfterShow = session.startIsAfterShow
+                    this.endIsafterShow = session.endIsafterShow
+                    this.endIsEarlyStart = session.endIsEarlyStart
                 }
+            }
+            if (!this.isEmptyShowDateTime && !this.isEmptyStartSellDateTime && !this.isEmptyEndSellDateTime && !this.isEmptyArea && !this.isEmptySeat && !this.isEmptyPrice && !this.isRepeatArea && !this.startIsAfterShow && !this.endIsafterShow && !this.endIsEarlyStart) {
+                this.activity.sessionData = this.sessionList
+
+                const allShowDateTimes = this.sessionList.flatMap(item => item.showDateTime);
+
+                const earliestDateTime = allShowDateTimes.reduce((earliest, current) => (current < earliest ? current : earliest), allShowDateTimes[0]);
+                const latestDateTime = allShowDateTimes.reduce((latest, current) => (current > latest ? current : latest), allShowDateTimes[0]);
+
+                this.activity.startDate = earliestDateTime
+                this.activity.endDate = latestDateTime
+
+                if (this.activity.keyvisualImg == undefined) {
+                    this.activity.keyvisualImg = ""
+                }
+                if (this.activity.introduceImg1 == undefined) {
+                    this.activity.introduceImg1 = ""
+                }
+                if (this.activity.introduceImg2 == undefined) {
+                    this.activity.introduceImg2 = ""
+                }
+                console.log(this.activity);
+
+                fetch('http://localhost:8080/api/add_commodity_and_session', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        codeName: this.activity.codename,
+                        name: this.activity.name,
+                        introduction: this.activity.introduction,
+                        entity: this.activity.enity,
+                        place: this.activity.place,
+                        organizer: this.activity.organizer,
+                        startDate: this.activity.startDate,
+                        endDate: this.activity.endDate,
+                        keyvisual_img: this.activity.keyvisualImg,
+                        introduce_img1: this.activity.introduceImg1,
+                        introduce_img2: this.activity.introduceImg2,
+                        sessionData: this.activity.sessionData
+                    }),
+                }).then(response => response.json())
+                    .then(res => {
+                        console.log(res.rtncode);
+                        if (res.rtncode == "SUCCESSFUL") {
+                            // 刪除名為 "acttivity" 的 localStorage
+                            localStorage.removeItem("acttivity");
+                            this.$router.push('/ActivityAndHostPage')
+                        }
+                        if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
+                            alert("請先登入")
+                            this.$router.push('/AdminLoginPage');
+                        }
+                        if (res.rtncode == "PARAM_ERROR") {
+                            alert("請確認資料是否填寫完畢")
+                        }
+                        if (res.rtncode == "CODENAME_EXISTED") {
+                            alert("活動代號已存在，請重新輸入")
+                            this.$router.push('/CreateActivities')
+                        }
+                    })
             }
         },
         addArea(index) {

@@ -12,7 +12,7 @@
                         <span>活動開始時間</span>
                         <input type="datetime-local" class="timesInput" v-model="item.showDateTime" :min="minShowDateTime">
                     </div>
-                    <div v-if="!isEmptyShowDateTime" class=" error">請輸入活動開始時間</div>
+                    <div v-if="item.isEmptyShowDateTime" class=" error">請輸入活動開始時間</div>
                 </div>
                 <div class="timesAll">
                     <div class="timesTitle">
@@ -20,8 +20,8 @@
                         <input type="datetime-local" class="timesInput" v-model="item.startSellDateTime"
                             :min="minStartSellDateTime" :max="maxStartSellDateTime">
                     </div>
-                    <div v-if="!isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
-                    <div v-if="!startIsAfterShow" class="error">開售時間已晚於活動開始時間</div>
+                    <div v-if="item.isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
+                    <div v-if="item.startIsAfterShow" class="error">開售時間已晚於活動開始時間</div>
                 </div>
 
                 <div class="timesAll">
@@ -31,8 +31,8 @@
                             @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)" :min="minEndSellDateTime"
                             :max="maxEndSellDateTime">
                     </div>
-                    <div v-if="!isEmptyEndSellDateTime" class=" error ">請輸入停售時間</div>
-                    <div v-if="!endIsafterShow" class=" error ">停售時間已晚於活動開始時間</div>
+                    <div v-if="item.isEmptyEndSellDateTime" class=" error ">請輸入停售時間</div>
+                    <div v-if="item.endIsafterShow" class=" error ">停售時間已晚於活動開始時間</div>
                 </div>
             </div>
 
@@ -54,10 +54,10 @@
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
-            <div class="areaError">
-                <div v-if="!isEmptyArea" class="error errorArea">請輸入區域名稱 </div>
-                <div v-if="!isEmptySeat" class="error errorSeat">請輸入可出售座位數 </div>
-                <div v-if="!isEmptyPrice" class="error errorPrice">請輸入座位價格 </div>
+            <div class="areaError" v-for="(areaItem, areaIndex) in item.seatData">
+                <div v-if="areaItem.isEmptyArea" class="error errorArea">請輸入區域名稱 </div>
+                <div v-if="areaItem.isEmptySeat" class="error errorSeat">請輸入可出售座位數 </div>
+                <div v-if="areaItem.isEmptyPrice" class="error errorPrice">請輸入座位價格 </div>
             </div>
 
         </div>
@@ -120,87 +120,94 @@ export default {
                 item.commodity_codename = this.EditActtivity.codename;
             })
 
-            // 防呆區域名稱相同
             for (const session of this.sessionList) {
                 const areaMap = {}; //存已出現區域名稱
                 for (const seat of session.seatData) {
+                    // 防呆未輸入
+                    if (session.showDateTime == "") {
+                        alert("有活動開始時間未輸入")
+                        session.isEmptyShowDateTime = true
+                    } else {
+                        session.isEmptyShowDateTime = false
+                    }
+                    if (session.startSellDateTime == "") {
+                        alert("有開售時間未輸入")
+                        session.isEmptyStartSellDateTime = true
+                    } else {
+                        session.isEmptyStartSellDateTime = false
+                    }
+                    if (session.endSellDateTime == "") {
+                        alert("有停售時間未輸入")
+                        session.isEmptyEndSellDateTime = true
+                    } else {
+                        session.isEmptyEndSellDateTime = false
+                    }
+                    if (seat.area == "") {
+                        alert("有區域名稱未輸入")
+                        seat.isEmptyArea = true
+                    } else {
+                        seat.isEmptyArea = false
+                    }
+                    if (seat.maxSeatNum <= 0) {
+                        alert("有可出售座位數未輸入")
+                        seat.isEmptySeat = true
+                    } else {
+                        seat.isEmptySeat = false
+                    }
+                    if (seat.price <= 0) {
+                        alert("有座位價格未輸入")
+                        seat.isEmptyPrice = true
+                    } else {
+                        seat.isEmptyPrice = false
+                    }
+
+                    // 防呆區域名稱相同
                     // 检查当前区域是否已经出现过
-                    if (areaMap[seat.area]) {
+                    if (areaMap[seat.area] && seat.area != "") {
                         alert("有重複的區域名稱")
-                        this.isRepeatArea = false
+                        seat.isRepeatArea = true
                         return
                     } else {
                         // 如果没有出现过，将其添加到 areaMap 中
                         areaMap[seat.area] = true;
-                        this.isRepeatArea = true
+                        seat.isRepeatArea = false
                     }
-                }
-            }
-            // 防呆未輸入
-            for (const session of this.sessionList) {
-                for (const seat of session.seatData) {
-                    if (session.showDateTime == "") {
-                        alert("有活動開始時間未輸入")
-                        this.isEmptyShowDateTime = false
-                    } else {
-                        this.isEmptyShowDateTime = true
-                    }
-                    if (session.startSellDateTime == "") {
-                        alert("有開售時間未輸入")
-                        this.isEmptyStartSellDateTime = false
-                    } else {
-                        this.isEmptyStartSellDateTime = true
-                    }
-                    if (session.endSellDateTime == "") {
-                        alert("有停售時間未輸入")
-                        this.isEmptyEndSellDateTime = false
-                    } else {
-                        this.isEmptyEndSellDateTime = true
-                    }
-                    if (seat.area == "") {
-                        alert("有區域名稱未輸入")
-                        this.isEmptyArea = false
-                    } else {
-                        this.isEmptyArea = true
-                    }
-                    if (seat.maxSeatNum <= 0) {
-                        alert("有可出售座位數未輸入")
-                        this.isEmptySeat = false
-                    } else {
-                        this.isEmptySeat = true
-                    }
-                    if (seat.price <= 0) {
-                        alert("有座位價格未輸入")
-                        this.isEmptyPrice = false
-                    } else {
-                        this.isEmptyPrice = true
-                    }
-                }
-            }
 
-            //防呆時間早晚順序錯誤
-            for (const session of this.sessionList) {
-                if (session.showDateTime < session.startSellDateTime) {
-                    this.startIsAfterShow = false
-                    alert("開售時間已晚於活動開始時間")
-                } else {
-                    this.startIsAfterShow = true
-                }
-                if (session.showDateTime < session.endSellDateTime) {
-                    this.endIsafterShow = false
-                    alert("停售時間已晚於活動開始時間")
-                } else {
-                    this.endIsafterShow = true
-                }
-                if (session.endSellDateTime < session.startSellDateTime) {
-                    this.endIsEarlyStart = false
-                    alert("停售時間已早於開售時間")
-                } else {
-                    this.endIsEarlyStart = true
+                    //防呆時間早晚順序錯誤
+                    if (session.showDateTime != "" && session.startSellDateTime != "" && session.showDateTime < session.startSellDateTime) {
+                        session.startIsAfterShow = true
+                        alert("開售時間已晚於活動開始時間")
+                    } else {
+                        session.startIsAfterShow = false
+                    }
+                    if (session.showDateTime != "" && session.endSellDateTime != "" && session.showDateTime < session.endSellDateTime) {
+                        session.endIsafterShow = true
+                        alert("停售時間已晚於活動開始時間")
+                    } else {
+                        session.endIsafterShow = false
+                    }
+                    if (session.startSellDateTime != "" && session.endSellDateTime != "" && session.endSellDateTime < session.startSellDateTime) {
+                        session.endIsEarlyStart = true
+                        alert("停售時間已早於開售時間")
+                    } else {
+                        session.endIsEarlyStart = false
+                    }
+
+                    this.isEmptyShowDateTime = session.isEmptyShowDateTime
+                    this.isEmptyStartSellDateTime = session.isEmptyStartSellDateTime
+                    this.isEmptyEndSellDateTime = session.isEmptyEndSellDateTime
+                    this.isEmptyArea = seat.isEmptyArea
+                    this.isEmptySeat = seat.isEmptySeat
+                    this.isEmptyPrice = seat.isEmptyPrice
+                    this.isRepeatArea = seat.isRepeatArea
+                    this.startIsAfterShow = session.startIsAfterShow
+                    this.endIsafterShow = session.endIsafterShow
+                    this.endIsEarlyStart = session.endIsEarlyStart
+
+
                 }
             }
-
-            if (this.isEmptyShowDateTime && this.isEmptyStartSellDateTime && this.isEmptyEndSellDateTime && this.isEmptyArea && this.isEmptySeat && this.isEmptyPrice && this.isRepeatArea && this.startIsAfterShow && this.endIsafterShow && this.endIsEarlyStart) {
+            if (!this.isEmptyShowDateTime && !this.isEmptyStartSellDateTime && !this.isEmptyEndSellDateTime && !this.isEmptyArea && !this.isEmptySeat && !this.isEmptyPrice && !this.isRepeatArea && !this.startIsAfterShow && !this.endIsafterShow && !this.endIsEarlyStart) {
                 this.EditActtivity.sessionData = this.sessionList
 
                 const allShowDateTimes = this.sessionList.flatMap(item => item.showDateTime);
@@ -254,7 +261,7 @@ export default {
                             this.$router.push('/AdminLoginPage');
                         }
                         if (res.rtncode == "PARAM_ERROR") {
-                            alert("請確認資料是否填寫完畢")
+                            alert("請確認資料是否填寫完畢 或 填寫時間是否晚於本機時間")
                         }
                         if (res.rtncode == "CODENAME_EXISTED") {
                             alert("活動代號已存在，請重新輸入")
@@ -272,75 +279,18 @@ export default {
             })
         },
         addEvent() {
-            const index = this.sessionList.length - 1
-            const item = this.sessionList[index]
-
-            if (item.showDateTime == "") {
-                this.isEmptyShowDateTime = false
-            } else {
-                this.isEmptyShowDateTime = true
-            }
-            if (item.showDateTime < item.startSellDateTime) {
-                this.startIsAfterShow = false
-            } else {
-                this.startIsAfterShow = true
-            }
-            if (item.showDateTime < item.endSellDateTime) {
-                this.endIsafterShow = false
-            } else {
-                this.endIsafterShow = true
-            }
-
-            if (item.startSellDateTime == "") {
-                this.isEmptyStartSellDateTime = false
-            } else {
-                this.isEmptyStartSellDateTime = true
-            }
-
-            if (item.endSellDateTime == "") {
-                this.isEmptyEndSellDateTime = false
-            } else {
-                this.isEmptyEndSellDateTime = true
-            }
-            if (item.endSellDateTime < item.startSellDateTime) {
-                this.endIsEarlyStart = false
-            } else {
-                this.endIsEarlyStart = true
-            }
-
-            if (item.seatData[item.seatData.length - 1].area == "") {
-                this.isEmptyArea = false
-            } else {
-                this.isEmptyArea = true
-            }
-            if (item.seatData[item.seatData.length - 1].maxSeatNum <= 0) {
-                this.isEmptySeat = false
-            } else {
-                this.isEmptySeat = true
-            }
-            if (item.seatData[item.seatData.length - 1].price <= 0) {
-                this.isEmptyPrice = false
-            } else {
-                this.isEmptyPrice = true
-            }
-
-            if (this.isEmptyShowDateTime &&
-                this.isEmptyStartSellDateTime &&
-                this.isEmptyEndSellDateTime && this.startIsAfterShow && this.endIsafterShow && this.endIsEarlyStart && this.isEmptyArea && this.isEmptySeat && this.isEmptyPrice) {
-                this.sessionList.push({
-                    commodity_codename: "",
-                    showDateTime: "",
-                    startSellDateTime: "",
-                    endSellDateTime: "",
-                    seatData: [{
-                        // num: 0,
-                        area: "",
-                        maxSeatNum: 0,
-                        price: 0,
-                    }],
-                })
-            }
-            // console.log(this.sessionList);
+            this.sessionList.push({
+                commodity_codename: "",
+                showDateTime: "",
+                startSellDateTime: "",
+                endSellDateTime: "",
+                seatData: [{
+                    // num: 0,
+                    area: "",
+                    maxSeatNum: 0,
+                    price: 0,
+                }],
+            })
         },
         EndSellDateTime(startSellDateTime, showDateTime) {
             this.minEndSellDateTime = startSellDateTime
@@ -433,14 +383,14 @@ export default {
         }
     },
     created() {
-            // 創建頁面時設定
-            counter().setManager({});
-        },
-        beforeRouteLeave(to, from, next) {
-            // 離開頁面時清除
-            counter().setManager(null);
-            next();
-        },
+        // 創建頁面時設定
+        counter().setManager({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setManager(null);
+        next();
+    },
 }
 </script>
 <style scoped lang="scss">
