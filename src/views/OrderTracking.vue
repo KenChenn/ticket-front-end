@@ -1,55 +1,72 @@
 <template>
     <body>
-        <div class="top">
-            <span class="title">訂單查詢</span>
-        </div>
-        <div class="content" 
-            v-for="(item, index) in this.orderInfoList">
-            <!-- {{ item.startSellDateTime < this.nowDateTime < item.endSellDateTime}} -->
-            <!-- {{ this.nowDateTime }} -->
-            <div class="contentOut" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#89A071' : '#f5a352') : '#DB3A3A' }">
-                <div class="left">
-                    <div class="picture">
-                        <img :src="item.keyvisualImg">
-                    </div>
-                    <div class="orderPayArea area">
-                        <span>狀態：</span>
-                        <div class="orderPay">{{ (item.seatData.length > 0) ? (item.payment ? "已付款" : "未付款") : "已取消訂單" }}</div>
-                        <!-- <div class="orderPay">{{ item.payment}}</div> -->
+        <span class="title">訂單查詢</span>
+        <div class="content" v-for="(item, index) in this.orderInfoList" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#E6E1C8' },
+        {
+            opacity: item.seatData.length > 0 ? (item.payment ? '1' : '1') : '#0.5'
+        }">
 
-                    </div>
-                    <div class="orderNumArea area">
-                        <span>訂單編號：</span>
-                        <div class="orderNum">{{ item.buyNum }}</div>
-                    </div>
-                    <div class="seatArea area">
-                        <p class="date">演出日期</p>
-                        <p class="dateAbout">{{ item.showDateTime }}</p>
-
-                    </div>
-                    <button type="button" @click="this.goPay(item.buyNum)" v-if="item.payment == false">付款</button>
-                    <button type="button" @click="this.goCencel(item.buyNum)"
-                        v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())">取消訂單</button>
+            <div class="left">
+                <div class="picture">
+                    <img :src="item.keyvisualImg">
                 </div>
-                <div class="right">
-                    <div class="up">
-                        <p class="name">活動名稱</p>
-                        <p class="nameAbout">{{ item.name }}</p>
+                <div class="order">
+                    訂單狀態：
+                    <span>
+                        {{ (item.seatData.length > 0) ? (item.payment ? "已付款" : "未付款") : "已取消訂單" }}
+                    </span>
+                </div>
+                <div class="order">
+                    訂單編號：
+                    <span>
+                        {{ item.buyNum }}
+                    </span>
+                </div>
+
+            </div>
+            <div class="middle">
+                <div class="info">
+                    <div class="comp">
+                        <p>活動名稱</p>
+                        <p class="infoTitle">{{ item.name }}
+                        </p>
                     </div>
-                    <div class="middle">
-                        <span>座位：</span>
-                        <div class="seat" v-for="item2 in item.seatData">{{ item2.area }} - {{ item2.seatNum }}</div>
+                    <div class="comp">
+                        <p>演出地點</p>
+                        <p class="infoTitle">{{ item.place }}</p>
                     </div>
-                    <div class="down">
-                        <p class="place">演出地點</p>
-                        <p class="placeAbout">{{ item.place }}</p>
+
+                    <div class="comp">
+                        <p>座位
+                        </p>
+                        <p class="infoTitle" v-for="item2 in item.seatData">{{ item2.area }} - {{ item2.seatNum }}</p>
                     </div>
+                    <div class="comp">
+                        <p>演出日期
+                        </p>
+                        <p class="infoTitle">{{ item.showDateTime }}</p>
+                    </div>
+                </div>
+
+                <div class="btnArea">
+
+                    <button type="button" @click="this.goCencel(item.buyNum)"
+                        v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())"
+                        class="cancel">取消訂單</button>
+
+                    <button type="button" @click="this.goPay(item.buyNum)"
+                        v-if="item.seatData.length > 0 && item.payment == false" class="payment">付款</button>
                 </div>
             </div>
+
+        </div>
+        <div class="footer">
+
         </div>
     </body>
 </template>
 <script>
+import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 export default {
     data() {
@@ -79,8 +96,20 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
+                    console.log(data.data);
                     this.orderInfoList = data.data;
-                    console.log(this.orderInfoList)
+                    // console.log(this.orderInfoList)
+                    this.orderInfoList.forEach(item => {
+                        //時間格式調整
+                        var showDateTime = new Date(item.showDateTime);
+                        var showDateTimeYear = showDateTime.getFullYear()
+                        var showDateTimeMonth = (showDateTime.getMonth() + 1).toString().padStart(2, '0')
+                        var showDateTimeDate = (showDateTime.getDate()).toString().padStart(2, '0')
+                        var showDateTimeHour = (showDateTime.getHours()).toString().padStart(2, '0')
+                        var showDateTimeMin = (showDateTime.getMinutes()).toString().padStart(2, '0')
+                        var space = "　"
+                        item.showDateTime = showDateTimeYear + "-" + showDateTimeMonth + "-" + showDateTimeDate + space + showDateTimeHour + " : " + showDateTimeMin
+                    })
                 })
                 .catch(error => console.log(error))
         },
@@ -99,11 +128,49 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    this.$router.go(0)
+                    Swal.fire({
+                        title: "付款成功",
+                        icon: "success",
+                        color: "#4D5C44",
+                        background: "#FAF8ED",
+                        confirmButtonColor: "#748e63"
+                    })
+                        .then(() => {
+                            location.href = location.href;
+                        })
+                    // this.$router.go(0)
                 })
                 .catch(error => console.log(error))
         },
         goCencel(buyNum) {
+            Swal.fire({
+                title: "是否取消訂單",
+                icon: "warning",
+                color: "#4D5C44",
+                background: "#FAF8ED",
+                confirmButtonText: "確認",
+                confirmButtonColor: "#6e7881",
+                showCancelButton: true,
+                cancelButtonText: "取消",
+                cancelButtonColor: "#F5A352",
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.confirmGoCencel(buyNum)
+                        Swal.fire({
+                            title: "取消訂單成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63",
+                        })
+                            .then(() => {
+                                location.href = location.href;
+                            })
+                    }
+                })
+        },
+        confirmGoCencel(buyNum) {
             fetch('http://localhost:8080/api/cancelOrder', {
                 method: "POST",
                 headers: {
@@ -117,13 +184,13 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    this.$router.go(0)
+                    // this.$router.go(0)
                     // if( data.rtncode == "SUCCESSFUL" ){
                     //     this.myFav()
                     // }
                 })
                 .catch(error => console.log(error))
-        }
+        },
     },
     mounted() {
         this.orderInfo()
@@ -147,116 +214,144 @@ body {
 .title {
     width: 70%;
     height: 10vh;
-    // border: 1px solid black;
     margin-top: 10vh;
     margin-left: 15%;
     color: #4D5C44;
     font-size: 4dvh;
     display: flex;
     align-items: end;
+    // border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
 }
 
 .content {
-    // width: 70%;
-    // height: 40vh;
-    // margin: auto;
-    // padding: 1%;
-    // background-color: #99b080;
-    // color: #FAF8ED;
-    // border-radius: 2vh;
-    // font-size: 2.5dvh;
-    // display: flex;
-    // justify-content: space-between;
-    // margin-top: 2%;
-
-    .contentOut {
     width: 70%;
-    height: 40vh;
     margin: auto;
-    padding: 1%;
-    background-color: #99b080;
-    color: #FAF8ED;
+    padding: 2%;
     border-radius: 2vh;
     font-size: 2.5dvh;
+    margin-top: 2%;
     display: flex;
     justify-content: space-between;
-    margin-top: 2%;
-    }
+    color: #4D5C44;
+    // border: 1px solid black;
 
     .left {
-        width: 20dvw;
+        width: 21vw;
         height: 100%;
         // border: 1px black solid;
 
         .picture {
             width: 100%;
-            height: 20dvh;
+            height: 60%;
+            background-color: #00000013;
+            display: block;
 
             img {
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
-                display: flex;
+                object-fit: contain;
+                display: block;
                 justify-content: center;
-                border-radius: 1.5vh;
             }
         }
 
-        .area {
-            display: flex;
-            margin-top: 3%;
+        .order {
+            line-height: 5vh;
+
+            span {
+                // color: #c26202;
+                font-weight: bold;
+            }
         }
     }
 
-    .right {
-        width: 65%;
+    .middle {
+        width: 40vw;
         height: 100%;
-        // border: 1px black solid;
+        line-height: 3vh;
+        // border: 1px solid black;
 
-        .up {
-            // border: 1px black solid;
+        .info {
             width: 100%;
+            min-height: 35vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            // border: black 1px solid;
+        }
 
-            .name {
+        .comp {
+            width: 50%;
+            padding: 1%;
+
+            .infoTitle {
+                // color: #c26202;
                 font-weight: bold;
-                text-align: center;
-            }
-
-            .nameAbout {
-                color: #FAF8ED;
-                text-align: center;
+                word-wrap: break-word;
             }
         }
 
-        .middle {
-            width: 100%;
-            // border: 1px black solid;
+        .btnArea {
+            height: 5vh;
+            margin-top: 3%;
+            display: flex;
+            justify-content: space-between;
 
-            .date {
-                font-weight: bold;
-                text-align: center;
+            button {
+                height: 100%;
+                width: 40%;
+                border-radius: 1vh;
+                font-size: 3dvh;
+                background-color: #FAF8ED;
             }
 
-            .dateAbout {
+            .cancel {
+                height: 100%;
+                width: 40%;
+                border-radius: 1vh;
+                font-size: 3dvh;
+                background-color: #DB3A3A;
                 color: #FAF8ED;
-                text-align: center;
+                border: 0;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.05;
+                    background-color: #F14242;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #ab3131;
+                    color: #FAF8ED;
+                }
+            }
+
+            .payment {
+                color: #FAF8ED;
+                background-color: #748E63;
+                border: 0;
+
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.05;
+                    background-color: #608349;
+                    color: #ffffff;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #4D5C44;
+                    color: #ffffff;
+                }
             }
         }
+    }
 
-        .down {
-            width: 100%;
-            // border: 1px black solid;
-
-            .place {
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .placeAbout {
-                color: #FAF8ED;
-                text-align: center;
-            }
-        }
+    .footer {
+        height: 10vh;
     }
 }
 </style>

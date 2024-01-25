@@ -1,7 +1,11 @@
 @import "../../node_modules/bootstrap/scss/_functions.scss";
 @import "../assets/variables";
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
-
-body{
-    margin: 0;
+@font-face {
+  font-family: "oppoSans";
+  src: url("../../public/material/oppoSans3-Medium.woff") format("woff");
+}
+body {
+  font-family: 'oppoSans';
+  margin: 0;
 }

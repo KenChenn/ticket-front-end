@@ -140,7 +140,7 @@ export default {
             this.isEntityName = !!this.name;
             this.isEntityCodeName = !!this.codename;
             this.isEntityOrganizer = !!this.organizer;
-            this.isEntityEnity = !!this.enity
+            // this.isEntityEnity = !!this.enity
             this.isEntityPlace = !!this.place
             this.isEntityIntroduction = !!this.introduction
             // console.log(this.enity);
@@ -274,13 +274,13 @@ export default {
     },
 
     mounted() {
-        // let activity = JSON.parse(localStorage.getItem("acttivity"))
-        // this.codename = activity.codename
-        // this.name = activity.name
-        // this.introduction = activity.introduction
-        // this.enity = activity.enity
-        // this.place = activity.place
-        // this.organizer = activity.organizer
+        let activity = JSON.parse(localStorage.getItem("acttivity"))
+        this.codename = activity.codename
+        this.name = activity.name
+        this.introduction = activity.introduction
+        this.enity = activity.enity
+        this.place = activity.place
+        this.organizer = activity.organizer
 
         fetch('http://localhost:8080/api/get_organizer_data',
             {

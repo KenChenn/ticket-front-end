@@ -106,13 +106,9 @@
                 </div>
                 <div class="seat" v-if="seat">
                     <div class="seatTitle">
+                        <!-- 驗證碼 藝術老大可改耶逼 -->
                         <span>區域名稱</span>
                         <span>座位價格</span>
-
-                        <!-- 驗證碼 藝術老大可改耶逼 -->
-
-                        <img :src="this.pic"> <input type="text" v-model="codeNum">
-
                     </div>
                     <div class="seatArea" v-for="seatItem in   this.seatList  ">
                         <span>{{ seatItem.area }}</span>
@@ -130,6 +126,13 @@
                             @click="checkVerify(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
                         <button class="btn" v-if="seatItem.remainingTicket <= 0 && buyBtn" disabled>已售完</button>
                         <button class="btn" v-if="!buyBtn" disabled>請登入</button>
+                    </div>
+                    <div class="verify">
+                        <span>
+                            請輸入購票驗證碼
+                        </span>
+                        <img :src="this.pic">
+                        <input type="text" v-model="codeNum">
                     </div>
                 </div>
             </div>
@@ -302,6 +305,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 export default {
     data() {
@@ -428,6 +432,16 @@ export default {
                     this.searchFav = data.is_Track;
                     console.log(data)
                 })
+                .catch(error => console.log(error),
+                    // alert("請先登入才可新增至我的最愛"),
+                    Swal.fire({
+                        title: "請先登入才可新增至我的最愛",
+                        icon: "warning",
+                        color: "#4D5C44",
+                        background: "#FAF8ED",
+                        confirmButtonColor: "#F5A352"
+                    }),
+                    this.$router.push('/LoginPage'))
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
@@ -490,10 +504,24 @@ export default {
                         // console.log(data.rtncode)
                         // console.log(this.commentList)
                         if (data.rtncode == "PLEASE_LOGIN_FIRST") {
-                            alert("請先登入才可留言")
+                            // alert("請先登入才可留言")
+                            Swal.fire({
+                                title: "請先登入才可留言",
+                                icon: "warning",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#F5A352"
+                            })
                         }
                         if (data.rtncode == "PARAM_ERROR") {
-                            alert("請輸入欲發表的留言")
+                            // alert("請輸入欲發表的留言")
+                            Swal.fire({
+                                title: "請輸入欲發表的留言",
+                                icon: "warning",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#F5A352"
+                            })
                         }
                         if (data.rtncode == "SUCCESSFUL") {
                             this.comment()
@@ -502,7 +530,14 @@ export default {
                     })
                     .catch(error => console.log(error))
             } else {
-                alert("請輸入欲發表的留言")
+                // alert("請輸入欲發表的留言")
+                Swal.fire({
+                    title: "請輸入欲發表的留言",
+                    icon: "warning",
+                    color: "#4D5C44",
+                    background: "#FAF8ED",
+                    confirmButtonColor: "#F5A352"
+                })
             }
         },
         deleteComment(id) {
@@ -521,13 +556,34 @@ export default {
                 .then(data => {
                     console.log(data.rtncode)
                     if (data.rtncode == "PLEASE_LOGIN_FIRST") {
-                        alert("請先登入才可刪除")
+                        // alert("請先登入才可刪除")
+                        Swal.fire({
+                            title: "請先登入才可刪除",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        })
                     }
                     if (data.rtncode == "COMMENT_DELETE_ERROR") {
-                        alert("刪除留言失敗")
+                        // alert("刪除留言失敗")
+                        Swal.fire({
+                            title: "刪除留言失敗",
+                            icon: "error",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#DB3A3A"
+                        });
                     }
                     if (data.rtncode == "COMMENTER_ERROR") {
-                        alert("非留言者本人")
+                        // alert("非留言者本人")
+                        Swal.fire({
+                            title: "非留言者本人",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        })
                     }
                     if (data.rtncode == "SUCCESSFUL") {
                         // 找到被刪除留言在 commentList 中的索引
@@ -671,15 +727,36 @@ export default {
                 .then(data => {
                     console.log(data);
                     if (data.rtncode == "SUCCESSFUL") {
-                        alert("購買成功")
-                        this.$router.go(0); //重整頁面
+                        Swal.fire({
+                            title: "購買成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63"
+                        });
+                        this.$router.push('/OrderTracking')
+                        // this.$router.go(0); //重整頁面
                     }
                     if (data.rtncode == "PARAM_ERROR") {
-                        alert("請選擇欲購買張數")
+                        Swal.fire({
+                            title: "請選擇欲購買張數",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        });
                     }
                     if (data.rtncode == "NOT_ENOUGH_TICKETS") {
-                        alert("剩餘張數不足，請重新選擇欲購買張數")
-                        this.$router.go(0);
+                        Swal.fire({
+                            title: "剩餘張數不足",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        }).then(()=>{
+                            location.href = location.href;
+                        })
+                        // this.$router.go(0);
                     }
                 })
                 .catch(error => console.log(error))
@@ -818,7 +895,6 @@ export default {
             width: 85%;
             height: 80%;
             margin-right: 5%;
-            // border-bottom: #F5A352 solid 0.5vh;
             background-color: #00000013;
 
             img {
@@ -848,14 +924,12 @@ export default {
                     transition: 0.1s linear;
                     scale: 1.05;
                     background-color: #eb2626;
-                    box-shadow: 0 0 0.5vh #000;
                 }
 
                 &:active {
                     scale: 0.95;
                     background-color: #e4e4e3;
                     color: #DB3A3A;
-                    box-shadow: inset 0 0 0.5vh #000000;
                 }
             }
 
@@ -870,14 +944,12 @@ export default {
                     transition: 0.1s linear;
                     scale: 1.05;
                     background-color: #ffffff;
-                    box-shadow: 0 0 0.5vh #000;
                 }
 
                 &:active {
                     scale: 0.95;
                     background-color: #DB3A3A;
                     color: #FAF8ED;
-                    box-shadow: inset 0 0 0.5vh #000000;
                 }
             }
 
@@ -945,12 +1017,13 @@ export default {
     }
 
     .bookmark {
-        width: 100%;
+        width: 85%;
         padding: 0 3%;
 
         // border: 1px black solid;
         //立即購票
         .buyTicket {
+
             .title {
                 height: 10vh;
                 width: 70%;
@@ -993,26 +1066,31 @@ export default {
 
                 .btn {
                     width: 15%;
-                    height: 100%;
-                    background-color: #F5A352;
-                    border: 0;
-                    border-radius: 1.5vh;
-                    font-size: 2.5dvh;
-                    color: #FAF8ED;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                }
+            }
 
-                    &:hover {
-                        transition: 0.1s linear;
-                        scale: 1.1;
-                        background-color: #FFC68D;
-                    }
+            .btn {
+                width: 10%;
+                height: 100%;
+                border: 0;
+                border-radius: 1.5vh;
+                font-size: 2.5dvh;
+                background-color: #F5A352;
+                color: #FAF8ED;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-                    &:active {
-                        scale: 0.95;
-                        background-color: #c26202;
-                    }
+                &:hover {
+                    transition: 0.1s linear;
+                    scale: 1.1;
+                    background-color: #FFC68D;
+                    color: #ffffff;
+                }
+
+                &:active {
+                    scale: 0.95;
+                    background-color: #c26202;
                 }
             }
 
@@ -1020,47 +1098,25 @@ export default {
 
                 // border: 1px solid black;
                 span {
-                    color: #FAF8ED;
+                    color: #4D5C44;
                     font-size: 2.5dvh;
                 }
 
-
                 .seatTitle {
                     width: 30%;
+                    height: 10vh;
                     display: flex;
+                    flex-wrap: wrap;
                     justify-content: space-between;
                     align-items: center;
                     // border: 1px solid black;
 
                     span {
-                        color: #ffc68d;
+                        color: #c26202;
                         font-size: 3dvh;
                     }
                 }
 
-                .btn {
-                    width: 10%;
-                    height: 100%;
-                    background-color: #F5A352;
-                    border: 0;
-                    border-radius: 1.5vh;
-                    font-size: 2.5dvh;
-                    color: #FAF8ED;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    &:hover {
-                        transition: 0.1s linear;
-                        scale: 1.1;
-                        background-color: #FFC68D;
-                    }
-
-                    &:active {
-                        scale: 0.95;
-                        background-color: #c26202;
-                    }
-                }
             }
 
             .seatArea {
@@ -1068,16 +1124,47 @@ export default {
                 justify-content: space-between;
                 align-items: center;
                 font-size: 2.5dvh;
-                // border: 1px solid black;
                 margin-bottom: 2%;
 
-                c span {
+                select {
+                    border: 0;
+                    // border-radius: 1.5vh;
+                    text-align: center;
                     color: #4D5C44;
+                    background-color: #FAF8ED;
+                    border-bottom: #F5A352 solid 0.3vh;
+                }
+            }
+
+            .verify {
+                width: 100%;
+                height: 10vh;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                // border: 1px solid black;
+
+                span {
+                    color: #c26202;
+                    font-size: 3dvh;
                 }
 
-                select {
-                    border-radius: 1.5vh;
-                    text-align: center;
+                img {
+                    height: 80%;
+                    width: 20%;
+                }
+
+                input {
+                    width: 15%;
+                    border: 0;
+                    border-bottom: #F5A352 solid 0.3vh;
+                    background-color: #FAF8ED;
+                    color: #4D5C44;
+                    font-size: 2.5dvh;
+
+                    &:focus {
+                        outline: none;
+                    }
                 }
             }
         }
@@ -1085,7 +1172,6 @@ export default {
 
     //相關討論
     .forum {
-        padding-top: 5%;
         font-size: 2.5dvh;
 
         .comment {
@@ -1096,7 +1182,6 @@ export default {
             display: flex;
             justify-content: space-between;
             font-size: 3dvh;
-            // border: 1px black solid;
             color: #4D5C44;
 
             .commentInput {
@@ -1128,13 +1213,11 @@ export default {
                     transition: 0.1s linear;
                     scale: 1.1;
                     background-color: #FFC68D;
-                    box-shadow: 0 0 0.5vh #000;
                 }
 
                 &:active {
                     scale: 0.95;
                     background-color: #c26202;
-                    box-shadow: inset 0 0 0.5vh #000000;
                 }
             }
         }
@@ -1226,13 +1309,11 @@ export default {
                     transition: 0.1s linear;
                     scale: 1.1;
                     background-color: #FFC68D;
-                    box-shadow: 0 0 0.5vh #000;
                 }
 
                 &:active {
                     scale: 0.95;
                     background-color: #c26202;
-                    box-shadow: inset 0 0 0.5vh #000000;
                 }
             }
         }

@@ -35,12 +35,18 @@ export default {
     },
     methods: {
         goManageHostPage() {
-            this.$router.push('/ManageHostPage')
+            this.$router.push('/ManageHostPage') 
         },
         goCreateActivities() {
             this.$router.push('/CreateActivities')
         },
-        deleteActivity(codename) {
+        deleteActivity(codename){
+            const activityName = this.activityList.find(item => item.codename === codename)?.name || "該活動";
+            if(confirm(`是否刪除活動　　${activityName}`) == true){
+                this.confirmDeleteActivity(codename)
+            }
+        },
+        confirmDeleteActivity(codename) {
             fetch('http://localhost:8080/api/delete_commodity', {
                 method: "POST",
                 headers: {
@@ -57,8 +63,13 @@ export default {
                     if (data.rtncode == "PLEASE_LOGIN_FIRST") {
                         alert("請先登入才可刪除")
                     }
+                    if (data.rtncode == "SESSIONS_ALREADY_SELLED") {
+                        // alert("已開始售票，無法刪除活動")
+                        alert("已開始售票，無法刪除該活動")
+                    }
                     if (data.rtncode == "SUCCESSFUL") {
-                        console.log("刪除成功");
+                        console.log("刪除活動成功");
+                        alert("刪除活動成功");
                         this.getAllCommodity()
                     }
                 })
