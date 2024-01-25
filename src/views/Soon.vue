@@ -70,6 +70,9 @@ export default {
     padding: 3% 10% 0% 10%;
 }
 
+.show:hover{
+    background-color: #FFC68D;
+}
 .show {
     width: 30%;
     height: 35vh;
@@ -78,8 +81,6 @@ export default {
     color: #FAF8ED;
     text-decoration: none;
     border-radius: 2vh;
-
-    
 
     .showImg {
         height: 60%;
@@ -91,6 +92,7 @@ export default {
             height: 100%;
             border-radius: 2vh 2vh 0 0;
         }
+        
     }
 
     .infoArea {

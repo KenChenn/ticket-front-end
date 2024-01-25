@@ -99,7 +99,7 @@
                             <span>{{ item.startSellDateTime }}</span>
                             <span>{{ item.endSellDateTime }}</span>
                         </div>
-                        <button class="btn" @click="seatInfo(item.num),this.getVerify()" v-if="item.inTime" >座位區域</button>
+                        <button class="btn" @click="seatInfo(item.num), this.getVerify()" v-if="item.inTime">座位區域</button>
                         <span v-if="item.isEarly">{{ item.startSellDateTime }} 開售</span>
                         <span v-if="item.isAfter">{{ item.endSellDateTime }} 完售</span>
                     </div>
@@ -306,6 +306,7 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
+            nowTime:new Date(),
             codeList: [],
             trackerList: [],
             commodityCodenameList: [],
@@ -327,12 +328,12 @@ export default {
             commentsPerPage: 5, // 每頁顯示的留言數
             currentPage: 1, // 目前所在的頁碼
             buyBtn: false,
-            pic:"",
-            codeNum:""
+            pic: "",
+            codeNum: "",
         }
     },
     methods: {
-        getVerify(){
+        getVerify() {
             fetch('http://localhost:8080/verify/getcode', {
                 method: "GET",
                 headers: {
@@ -347,7 +348,7 @@ export default {
                     console.log(this.pic);
                 })
         },
-        checkVerify(num, area, selectedQuantity){
+        checkVerify(num, area, selectedQuantity) {
             fetch('http://localhost:8080/verify/checkcode', {
                 method: "POST",
                 headers: {
@@ -355,13 +356,13 @@ export default {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    code:this.codeNum
+                    code: this.codeNum
                 })
             })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    if(data.rtncode == "SUCCESSFUL"){
+                    if (data.rtncode == "SUCCESSFUL") {
                         console.log("test")
                         this.buy(num, area, selectedQuantity)
                     }
@@ -420,12 +421,13 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
+                    if (!(data.rtncode == "SUCCESSFUL")) {
+                        alert("請先登入才可新增至我的最愛"),
+                            this.$router.push('/LoginPage')
+                    }
                     this.searchFav = data.is_Track;
                     console.log(data)
                 })
-                .catch(error => console.log(error),
-                    alert("請先登入才可新增至我的最愛"),
-                    this.$router.push('/LoginPage'))
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
@@ -560,6 +562,19 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.sessionList = data.data;
+                    // console.log(this.nowTime);
+                    // console.log(data.data[(data.data.length)-1].showDateTime);
+                    
+                    for (const session of this.sessionList) {
+                        const sessionTime = new Date(session.showDateTime);
+                        if (sessionTime < this.nowTime) {
+                            alert("活動已過期");
+                            this.$router.push('/');
+                            return;  
+                        }
+                    }
+
+
                     this.sessionList.forEach(item => {
                         var current = new Date()
                         // console.log(current);
@@ -606,6 +621,9 @@ export default {
                     })
                 })
                 .catch(error => console.log(error))
+        },
+        checkIfExpired() {
+
         },
         seatInfo(num) {
             console.log(num);
@@ -748,6 +766,7 @@ export default {
         this.searchFavorate()
         this.sessionInfo()
         console.log($cookies.get("account"));
+        this.checkIfExpired()
     },
     computed: {
         // 計算當前頁碼的留言列表
@@ -1050,8 +1069,9 @@ export default {
                 align-items: center;
                 font-size: 2.5dvh;
                 // border: 1px solid black;
-                margin-bottom: 2%;c
-                span{
+                margin-bottom: 2%;
+
+                c span {
                     color: #4D5C44;
                 }
 

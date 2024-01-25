@@ -145,6 +145,11 @@ const router = createRouter({
       name: "EditSessionsAndSeats",
       component: () => import("../views/EditSessionsAndSeats.vue"),
     },
+    {
+      path: "/SendInfo",
+      name: "SendInfo",
+      component: () => import("../views/SendInfo.vue"),
+    },
   ],
 });
 
