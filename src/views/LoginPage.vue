@@ -14,7 +14,7 @@
                 <div class="loginInP">帳號</div>
                 <input type="text" class="inputClass" v-model="loginAccount">
                 <div class="warning">
-                <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
+                    <span v-if="!isEntityAccount" class="warning">請輸入帳號</span>
                 </div>
 
                 <div class="loginInP">密碼</div>
@@ -69,7 +69,11 @@ export default {
                         console.log(res)
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("登入成功");
-                            $cookies.set("account", this.loginAccount)
+                            // 設定過期時間60分鐘的 cookie
+                            const now = new Date();
+                            const expires = new Date(now.getTime() + 60 * 60 * 1000); 
+                            document.cookie = `account=${this.loginAccount}; expires=${expires.toUTCString()}; path=/`;
+                            // $cookies.set("account", this.loginAccount)
                             this.$router.push('/');
                         } else {
                             alert("登入失敗");

@@ -54,7 +54,7 @@
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
-            <div class="areaError"  v-for="(areaItem, areaIndex) in item.seatData">
+            <div class="areaError" v-for="(areaItem, areaIndex) in item.seatData">
                 <div v-if="areaItem.isEmptyArea" class="error errorArea">請輸入區域名稱 </div>
                 <div v-if="areaItem.isRepeatArea" class="error errorArea">有重複的區域名稱 </div>
                 <div v-if="areaItem.isEmptySeat" class="error errorSeat">請輸入可出售座位數 </div>
@@ -162,7 +162,6 @@ export default {
                     }
 
                     // 防呆區域名稱相同
-                    
                     // 检查当前区域是否已经出现过
                     if (areaMap[seat.area] && seat.area != "") {
                         alert("有重複的區域名稱")
@@ -194,7 +193,7 @@ export default {
                         session.endIsEarlyStart = false
                     }
 
-                    if (session.isEmptyShowDateTime && session.isEmptyStartSellDateTime && session.isEmptyEndSellDateTime && seat.isEmptyArea && seat.isEmptySeat && seat.isEmptyPrice && seat.isRepeatArea && session.startIsAfterShow && session.endIsafterShow && session.endIsEarlyStart) {
+                    if (!session.isEmptyShowDateTime && !session.isEmptyStartSellDateTime && !session.isEmptyEndSellDateTime && !seat.isEmptyArea && !seat.isEmptySeat && !seat.isEmptyPrice && !seat.isRepeatArea && !session.startIsAfterShow && !session.endIsafterShow && !session.endIsEarlyStart) {
                         this.activity.sessionData = this.sessionList
 
                         const allShowDateTimes = this.sessionList.flatMap(item => item.showDateTime);
@@ -240,6 +239,8 @@ export default {
                             .then(res => {
                                 console.log(res.rtncode);
                                 if (res.rtncode == "SUCCESSFUL") {
+                                    // 刪除名為 "acttivity" 的 localStorage
+                                    localStorage.removeItem("acttivity");
                                     this.$router.push('/ActivityAndHostPage')
                                 }
                                 if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
