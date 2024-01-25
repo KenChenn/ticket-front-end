@@ -279,7 +279,7 @@ body {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            border: black 1px solid;
+            // border: black 1px solid;
         }
 
         .comp {
