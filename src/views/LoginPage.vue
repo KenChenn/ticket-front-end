@@ -70,6 +70,8 @@ export default {
                         console.log(res)
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("登入成功");
+                            this.isLogIn = true;
+                            this.$forceUpdate();
                             // 設定過期時間60分鐘的 cookie
                             const now = new Date();
                             const expires = new Date(now.getTime() + 60 * 60 * 1000); 

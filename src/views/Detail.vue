@@ -310,6 +310,7 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
+            nowTime:new Date(),
             codeList: [],
             trackerList: [],
             commodityCodenameList: [],
@@ -332,7 +333,7 @@ export default {
             currentPage: 1, // 目前所在的頁碼
             buyBtn: false,
             pic: "",
-            codeNum: ""
+            codeNum: "",
         }
     },
     methods: {
@@ -387,7 +388,7 @@ export default {
                 .then(data => {
                     // console.log(data)
                     this.codeList = data.commodityList;
-                    // console.log(this.codeList)
+                    console.log(this.codeList)
                 })
                 .catch(error => console.log(error))
         },
@@ -424,19 +425,24 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    this.searchFav = data.is_Track;
-                    console.log(data)
-                })
-                .catch(error => console.log(error),
-                    // alert("請先登入才可新增至我的最愛"),
-                    Swal.fire({
+                    if (data.rtncode != "SUCCESSFUL") {
+                        // alert("請先登入才可新增至我的最愛"),
+                        Swal.fire({
                         title: "請先登入才可新增至我的最愛",
                         icon: "warning",
                         color: "#4D5C44",
                         background: "#FAF8ED",
                         confirmButtonColor: "#F5A352"
                     }),
-                    this.$router.push('/LoginPage'))
+                    this.$router.push('/LoginPage')
+                    }
+                    if(data.rtncode == "SUCCESSFUL"){
+                        alert("新增成功")//
+                    }
+                    this.searchFav = data.is_Track;
+                    console.log(data)
+                })
+                .catch(error => console.log(error),)
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
@@ -613,6 +619,19 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.sessionList = data.data;
+                    // console.log(this.nowTime);
+                    // console.log(data.data[(data.data.length)-1].showDateTime);
+                    
+                    for (const session of this.sessionList) {
+                        const sessionTime = new Date(session.showDateTime);
+                        if (sessionTime < this.nowTime) {
+                            alert("活動已過期");
+                            this.$router.push('/');
+                            return;  
+                        }
+                    }
+
+
                     this.sessionList.forEach(item => {
                         var current = new Date()
                         // console.log(current);
@@ -659,6 +678,9 @@ export default {
                     })
                 })
                 .catch(error => console.log(error))
+        },
+        checkIfExpired() {
+
         },
         seatInfo(num) {
             console.log(num);
@@ -822,6 +844,7 @@ export default {
         this.searchFavorate()
         this.sessionInfo()
         console.log($cookies.get("account"));
+        this.checkIfExpired()
     },
     computed: {
         // 計算當前頁碼的留言列表

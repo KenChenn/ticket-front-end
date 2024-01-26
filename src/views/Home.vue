@@ -11,6 +11,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(counter, ['dataList']),
   },
   methods: {
     ...mapActions(counter, ["saveSearchData"]),
@@ -50,7 +51,7 @@ export default {
           // console.log(data.commodityList);
           this.dataList = data.commodityList;
           this.saveSearchData(this.dataList)
-          // console.log(this.dataList)
+          console.log(this.dataList)
           // 將資料存儲到 Local Storage 中，使用 'searchData' 作為鑰匙
           localStorage.setItem('searchDataList', this.dataList);
         })
@@ -94,7 +95,7 @@ export default {
     </div>
   </div>
 
-  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
         aria-current="true" aria-label="Slide 1"></button>
@@ -105,16 +106,36 @@ export default {
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
+        <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
+<<<<<<< HEAD
         <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
+=======
+        <img src="" class="d-block w-100" alt="...">
+>>>>>>> 7da5b2c96203384725088d1692dcd9fbf935caa8
       </div>
       <div class="carousel-item">
         <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
       </div>
     </div>
+  </div> -->
+
+
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button v-for="(item, index) in dataList" type="button" :key="index" data-bs-target="#carouselExampleIndicators"
+        :data-bs-slide-to="index" :class="{ 'active': index === 0 }" aria-current="true"
+        aria-label="Slide {{ index + 1 }}"></button>
+    </div>
+    <div class="carousel-inner">
+      <div v-for="(item, index) in dataList" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
+        <img :src="item.keyvisualImg" class="d-block w-100" alt="...">
+      </div>
+    </div>
   </div>
+
+
 
   <!-- 下方導行列 -->
   <div class="navigate">

@@ -102,7 +102,7 @@ export default {
 
     <!-- 管理者 -->
     <div class="manager" v-if="manager">
-      <RouterLink to="/ActivityAndHostPage" class="managerHomePage">回首頁</RouterLink>
+      <RouterLink to="/ActivityAndHostPage" class="managerHomePage">管理頁</RouterLink>
       <button type="button" @click="this.signOut()" class="signOut">登出</button>
     </div>
 
@@ -132,7 +132,7 @@ export default {
 
 <style scoped lang="scss">
 .headerShow {
-  width: 30%;
+  width: 35%;
   height: 10vh;
   right: 15%;
   background-color: #44ff00;
