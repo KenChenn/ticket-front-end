@@ -7,6 +7,7 @@ export default {
       ...mapState(counter, ['dataList']),
       searchData: "",
       dataList: [],
+      slideShowData:[],
       selectedTab: '1',
       codename: "/Detail/", // /原本的/變數內容
     }
@@ -50,6 +51,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           // console.log(data.commodityList);
+          if(this.slideShowData.length===0){
+            this.slideShowData =  data.commodityList;
+          }
           this.dataList = data.commodityList;
           this.saveSearchData(this.dataList)
           console.log(this.dataList)
@@ -121,12 +125,12 @@ export default {
 
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button v-for="(item, index) in dataList" type="button" :key="index" data-bs-target="#carouselExampleIndicators"
+      <button v-for="(item, index) in slideShowData" type="button" :key="index" data-bs-target="#carouselExampleIndicators"
         :data-bs-slide-to="index" :class="{ 'active': index === 0 }" aria-current="true"
         aria-label="Slide {{ index + 1 }}"></button>
     </div>
     <div class="carousel-inner">
-      <div v-for="(item, index) in dataList" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
+      <div v-for="(item, index) in slideShowData" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
         <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
           <div class="showImg" @click="this.codename = this.codename + item.codename">
             <img :src="item.keyvisualImg" class="d-block w-100" alt="..." >
