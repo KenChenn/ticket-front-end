@@ -2,9 +2,12 @@
     <body>
         <span class="titleInterest">感興趣的分類</span>
         <div class="interest">
-            <button type="button" class="japan">日本</button>
-            <button type="button" class="korea">韓國</button>
-            <button type="button" class="taiwan">台灣</button>
+            <button type="button" class="area" v-if="!japan" @click="japanArea">日本</button>
+            <button type="button" class="noArea" v-if="japan" @click="japanArea">日本</button>
+            <button type="button" class="area" v-if="!korea" @click="koreaArea">韓國</button>
+            <button type="button" class="noArea" v-if="korea" @click="koreaArea">韓國</button>
+            <button type="button" class="area" v-if="!taiwan" @click="taiwanArea">台灣</button>
+            <button type="button" class="noArea" v-if="taiwan" @click="taiwanArea">台灣</button>
         </div>
         <span class="titleFavorate">最愛列表</span>
         <div class="content" v-for="(item, index) in this.trackerList" :key="index" :class="{ 'first-item': index === 0 }">
@@ -37,6 +40,9 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
+            japan: false,
+            korea: false,
+            taiwan: false,
             nameAbout: "",
             orderNumberAbout: "",
             dateAbout: "",
@@ -48,6 +54,15 @@ export default {
         }
     },
     methods: {
+        japanArea() {
+            this.japan = !this.japan
+        },
+        koreaArea(){
+            this.korea = !this.korea
+        },
+        taiwanArea(){
+            this.taiwan = !this.taiwan
+        },
         myFav() {
             fetch('http://localhost:8080/api/getTrackingList', {
                 method: "POST",
@@ -65,7 +80,7 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        deleteFav(commodityCodename){
+        deleteFav(commodityCodename) {
             Swal.fire({
                 title: "是否移除最愛",
                 icon: "warning",
@@ -77,20 +92,20 @@ export default {
                 cancelButtonText: "取消",
                 cancelButtonColor: "#F5A352",
             })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    this.confirmDeleteFav(commodityCodename)
-                    Swal.fire( {
-                        title: "移除最愛成功", 
-                        icon: "success",
-                        color: "#4D5C44",
-                        background: "#FAF8ED",
-                        confirmButtonColor: "#748e63",
-                    })
-                }
-            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.confirmDeleteFav(commodityCodename)
+                        Swal.fire({
+                            title: "移除最愛成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63",
+                        })
+                    }
+                })
         },
-        confirmDeleteFav(commodityCodename){
+        confirmDeleteFav(commodityCodename) {
             fetch('http://localhost:8080/api/untrack', {
                 method: "POST",
                 headers: {
@@ -150,30 +165,29 @@ body {
     display: flex;
     justify-content: space-between;
 }
-.interest{
-    width: 50vw;
+
+.interest {
+    width: 40vw;
     margin-top: 1%;
     padding-left: 15%;
     display: flex;
     justify-content: space-between;
-    .japan{
-        border: 0;
-        background-color: #f5a352;
-        font-size: 3dvh;
-    }
-    .korea{
-        border: 0;
-        background-color: #f5a352;
-        font-size: 3dvh;
 
-    }
-    .taiwan{
+    .area {
+        width: 5vw;
         border: 0;
         background-color: #FFC68D;
         font-size: 3dvh;
+    }
 
+    .noArea {
+        width: 5vw;
+        border: 0;
+        background-color: #f5a352;
+        font-size: 3dvh;
     }
 }
+
 .titleFavorate {
     width: 70%;
     height: 10vh;
@@ -262,5 +276,4 @@ body {
 
 .footer {
     height: 10vh;
-}
-</style>
+}</style>
