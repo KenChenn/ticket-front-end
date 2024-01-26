@@ -200,7 +200,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 2%;
-
+    box-shadow: 0 0 0.3vh #808080;
     .first-item {
         background-color: #FFC68D;
     }
@@ -245,10 +245,11 @@ body {
     i {
         color: #DB3A3A;
         font-size: 5dvh;
-        
+        transition: 0.1s linear;
+
         &:hover {
-            transition: 0.1s linear;
-            scale: 1.3;
+            transition: 0.2s linear;
+            scale: 1.2;
             color: #F14242;
         }
 

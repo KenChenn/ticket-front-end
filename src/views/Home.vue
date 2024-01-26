@@ -159,7 +159,7 @@ export default {
   height: 10vh;
   width: 20%;
   margin-left: 15%;
-  z-index: 0;
+  z-index: 5;
   position: absolute;
   position: fixed;
   top: 0;
@@ -227,6 +227,7 @@ export default {
   z-index: 5;
   position: sticky;
   top: 10vh;
+  box-shadow: 0 1 0.3vh #808080;
   // border: 1px solid black;
 }
 
@@ -242,10 +243,11 @@ export default {
   color: #faf8ed;
   font-size: 2rem;
   text-decoration: none;
+  box-shadow: 0 -1 0.3vh #808080;
 }
 
 .navigate a.active {
-  // transition: 0.2s linear;
+  transition: 0.2s linear;
   background-color: #99B080;
 }
 

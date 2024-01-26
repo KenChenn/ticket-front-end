@@ -203,13 +203,13 @@ export default {
                 border-radius: 1.5vh;
                 margin-left: 43%;
                 font-size: 2.5dvh;
-
+                transition: 0.1s linear;
                 &:hover {
-                    transition: 0.1s linear;
+                    transition: 0.2s linear;
                     color: #FAF8ED;
                     border: 0;
                     background-color: #F5A352;
-                    scale: 1.1;
+                    scale: 1.05;
                 }
 
                 &:active {

@@ -236,7 +236,7 @@ body {
     justify-content: space-between;
     color: #4D5C44;
     // border: 1px solid black;
-
+    box-shadow: 0 0 0.3vh #808080;
     .left {
         width: 21vw;
         height: 100%;
@@ -315,9 +315,9 @@ body {
                 background-color: #DB3A3A;
                 color: #FAF8ED;
                 border: 0;
-
+                transition: 0.1s linear;
                 &:hover {
-                    transition: 0.1s linear;
+                    transition: 0.2s linear;
                     scale: 1.05;
                     background-color: #F14242;
                 }
@@ -333,9 +333,9 @@ body {
                 color: #FAF8ED;
                 background-color: #748E63;
                 border: 0;
-
+                transition: 0.1s linear;
                 &:hover {
-                    transition: 0.1s linear;
+                    transition: 0.2s linear;
                     scale: 1.05;
                     background-color: #608349;
                     color: #ffffff;

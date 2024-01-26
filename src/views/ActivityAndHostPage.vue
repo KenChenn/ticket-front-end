@@ -134,18 +134,17 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #FAF8ED;
-    margin-top: 10vh;
+    margin-top: 5vh;
     padding: 5vh 0;
 
     .up {
         width: 70%;
         height: 10%;
-        margin-left: 15%;
+        margin: 2% 15%;
         display: flex;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
         button {
             height: 70%;
             width: 25%;
@@ -155,13 +154,14 @@ export default {
             color: #89A071;
             background-color: #FAF8ED;
             border-radius: 1vh;
+            transition: 0.1s linear;
         }
 
         button:hover {
-            transition: 0.1s linear;
+            transition: 0.2s linear;
             color: #FAF8ED;
             background-color: #89A071;
-            scale: 1.1;
+            scale: 1.05;
         }
 
         button:active {
@@ -215,14 +215,16 @@ export default {
                         color: #F5A352;
                         background-color: #FAF8ED;
                         border: 0.3vh solid #F5A352;
+                        transition: 0.1s linear;
 
-                        button:hover {
+                        &:hover {
                             transition: 0.1s linear;
                             background-color: #F9B572;
+                            color: #FAF8ED;
                             scale: 1.1;
                         }
 
-                        button:active {
+                        &:active {
                             scale: 0.95;
                             background-color: #c26202;
                         }
@@ -245,14 +247,16 @@ export default {
                         color: #DB3A3A;
                         background-color: #FAF8ED;
                         border: 0.3vh solid #DB3A3A;
+                        transition: 0.1s linear;
 
-                        button:hover {
+                        &:hover {
                             transition: 0.1s linear;
                             background-color: #d05757;
+                            color: #FAF8ED;
                             scale: 1.1;
                         }
 
-                        button:active {
+                        &:active {
                             scale: 0.95;
                             background-color: #ab3131;
                         }

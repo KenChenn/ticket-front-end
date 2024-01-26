@@ -153,6 +153,7 @@ export default {
     width: 100%;
     height: 100%;
     margin-top: 10vh;
+
     .down {
         width: 100%;
         height: 100%;
@@ -176,15 +177,14 @@ export default {
 
         .create {
             width: 70%;
-            height: 80%;
-            padding: 3%;
+            min-height: 60vh;
+            padding: 2%;
             border: #F5A352 0.3vh solid;
             border-radius: 2vh;
             margin: auto;
             display: flex;
             flex-wrap: wrap;
         }
-
 
         .allP {
             width: 50%;
@@ -216,6 +216,7 @@ export default {
         .btn {
             height: 10%;
             width: 14%;
+            margin-top: 2%;
             border: 0.3vh solid #F5A352;
             background-color: #FAF8ED;
             color: #F5A352;
@@ -225,10 +226,11 @@ export default {
             border-radius: 1.5vh;
             margin: auto;
             font-size: 2.5dvh;
+            transition: 0.1s linear;
 
             &:hover {
-                transition: 0.1s linear;
-                border: 0;
+                transition: 0.2s linear;
+                border: 0.3vh solid #748E63;
                 background-color: #748E63;
                 color: #FAF8ED;
                 scale: 1.1;

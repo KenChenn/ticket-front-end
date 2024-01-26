@@ -4,6 +4,7 @@ import counter from '../stores/counter';
 export default {
     data() {
         return {
+            // ...mapState(counter,['dataList','testArray','test']),
             codename: "/Detail/", // /原本的/變數內容
         }
     },
@@ -23,15 +24,16 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <RouterLink to="/Detail" class="show" v-for="(item, index) in this.dataList">
+        <RouterLink to="/" class="show" v-for="(item, index) in this.dataList">
             <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
                 <!-- 節目圖片 -->
                 <div class="showImg" @click="this.codename = this.codename + item.codename">
                     <img :src="item.keyvisualImg">
                 </div>
+
                 <div class="infoArea" @click="this.codename = this.codename + item.codename">
-                    <!-- 節目名稱 -->
                     <div class="showName">
+                        <!-- 節目名稱 -->
                         {{ item.name }}
                     </div>
                     <!-- 節目開售日期 -->
@@ -47,8 +49,14 @@ export default {
                         </span>
                     </div>
                 </div>
+                <!-- //測試 -->
+                <!-- <div class="one" v-for="(item,index) in this.dataList">
+                <p class="text"> {{ item.codename }}</p>
+                <img :src="item.keyvisualImg ">
+            </div> -->
             </RouterLink>
         </RouterLink>
+
     </div>
 </template>
 
@@ -60,6 +68,13 @@ export default {
     justify-content: space-around;
     background-color: #99B080;
     padding: 3% 10% 0% 10%;
+    box-shadow: 0 0 1vh #000;
+}
+
+.show:hover {
+    scale: 1.03;
+    transition: 0.3s ease-out;
+    z-index: 0;
 }
 
 .show {
@@ -70,6 +85,7 @@ export default {
     color: #FAF8ED;
     text-decoration: none;
     border-radius: 2vh;
+    box-shadow: 0 0 1vh #808080;
 
     .showImg {
         height: 60%;
@@ -91,7 +107,7 @@ export default {
 
         .showName {
             height: 60%;
-            font-size: 3dvh;
+            font-size: 2.5dvh;
             word-wrap: break-all;
             display: flex;
             align-items: center;

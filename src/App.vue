@@ -30,6 +30,7 @@ export default {
   box-sizing: border-box;
   position: absolute;
   position: fixed;
+  z-index: 5;
   top: 0;
 } 
 

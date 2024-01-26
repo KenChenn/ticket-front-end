@@ -29,7 +29,7 @@ export default {
         })
         .catch(error => console.log(error))
     },
-    toUserInfoPage(){
+    toUserInfoPage() {
       this.$router.push("/UserInfoPage")
     }
   },
@@ -84,7 +84,7 @@ export default {
         if (res.rtncode == "PARAM_ERROR") {
           this.isLogIn = false
         }
-        if(res.rtncode =="SUCCESSFUL"){
+        if (res.rtncode == "SUCCESSFUL") {
           this.isLogIn = true
         }
       })
@@ -124,9 +124,7 @@ export default {
         <RouterLink to="/LoginPage" class="loginPage">登入</RouterLink>
       </div>
     </div>
-
-
-
+    
   </div>
 </template>
 
@@ -141,7 +139,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  z-index: 5;
   // border: 1px black solid;
 
   .manager {
@@ -189,10 +187,11 @@ export default {
       display: flex;
       align-items: center;
 
-      i{
+      i {
         font-size: 3dvh;
         color: #FAF8ED;
       }
+
       .favoratePage {
         text-decoration: none;
         color: #FAF8ED;
