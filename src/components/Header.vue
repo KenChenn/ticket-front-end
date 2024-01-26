@@ -190,6 +190,7 @@ export default {
       i {
         font-size: 3dvh;
         color: #FAF8ED;
+        cursor: pointer;
       }
 
       .favoratePage {
