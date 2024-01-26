@@ -8,6 +8,7 @@ export default {
       searchData: "",
       dataList: [],
       selectedTab: '1',
+      codename: "/Detail/", // /原本的/變數內容
     }
   },
   computed: {
@@ -130,7 +131,11 @@ export default {
     </div>
     <div class="carousel-inner">
       <div v-for="(item, index) in dataList" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
-        <img :src="item.keyvisualImg" class="d-block w-100" alt="...">
+        <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
+          <div class="showImg" @click="this.codename = this.codename + item.codename">
+            <img :src="item.keyvisualImg" class="d-block w-100" alt="..." >
+          </div>
+        </RouterLink>
       </div>
     </div>
   </div>
