@@ -110,11 +110,7 @@ export default {
         <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-<<<<<<< HEAD
         <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
-=======
-        <img src="" class="d-block w-100" alt="...">
->>>>>>> 7da5b2c96203384725088d1692dcd9fbf935caa8
       </div>
       <div class="carousel-item">
         <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
@@ -246,7 +242,7 @@ export default {
   border-radius: 3vh 3vh 0 0;
   background-color: #748e63;
   color: #faf8ed;
-  font-size: 2rem;
+  font-size: 4dvh;
   text-decoration: none;
   box-shadow: 0 -1 0.3vh #808080;
 }
