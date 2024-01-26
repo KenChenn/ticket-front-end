@@ -437,7 +437,14 @@ export default {
                     this.$router.push('/LoginPage')
                     }
                     if(data.rtncode == "SUCCESSFUL"){
-                        alert("新增成功")//
+                        // alert("新增成功")
+                        Swal.fire({
+                            title: "新增成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63"
+                        });
                     }
                     this.searchFav = data.is_Track;
                     console.log(data)
@@ -625,7 +632,14 @@ export default {
                     for (const session of this.sessionList) {
                         const sessionTime = new Date(session.showDateTime);
                         if (sessionTime < this.nowTime) {
-                            alert("活動已過期");
+                            // alert("活動已過期");
+                            Swal.fire({
+                                title: "活動已過期",
+                                icon: "error",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#DB3A3A"
+                            });
                             this.$router.push('/');
                             return;  
                         }
