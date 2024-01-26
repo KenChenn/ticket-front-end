@@ -32,9 +32,9 @@ export default {
                 </div>
 
                 <div class="infoArea" @click="this.codename = this.codename + item.codename">
-                    <div class="showName" >
+                    <div class="showName">
                         <!-- 節目名稱 -->
-                            {{ item.name }}
+                        {{ item.name }}
                     </div>
                     <!-- 節目開售日期 -->
                     <div class="showDate">
@@ -68,6 +68,13 @@ export default {
     justify-content: space-around;
     background-color: #99B080;
     padding: 3% 10% 0% 10%;
+    box-shadow: 0 0 1vh #000;
+}
+
+.show:hover {
+    scale: 1.03;
+    transition: 0.3s ease-out;
+    z-index: 0;
 }
 
 .show {
@@ -78,13 +85,12 @@ export default {
     color: #FAF8ED;
     text-decoration: none;
     border-radius: 2vh;
-
-    
+    box-shadow: 0 0 1vh #808080;
 
     .showImg {
         height: 60%;
         width: 100%;
-        
+
         img {
             object-fit: cover;
             width: 100%;
@@ -101,7 +107,7 @@ export default {
 
         .showName {
             height: 60%;
-            font-size: 3dvh;
+            font-size: 2.5dvh;
             word-wrap: break-all;
             display: flex;
             align-items: center;
@@ -111,7 +117,7 @@ export default {
         .showDate {
             width: 40%;
             font-size: 2.5dvh;
-            font-weight:lighter;
+            font-weight: lighter;
             display: flex;
             align-items: center;
             // border: 1px black solid;
@@ -127,7 +133,7 @@ export default {
             margin-left: 70%;
             margin-top: -7%;
             background-color: #F5A352;
-            font-size: 2dvh;   
+            font-size: 2dvh;
         }
     }
 }

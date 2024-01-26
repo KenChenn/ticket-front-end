@@ -1,6 +1,12 @@
 <template>
     <body>
-        <span class="title">最愛列表</span>
+        <span class="titleInterest">感興趣的分類</span>
+        <div class="interest">
+            <button type="button" class="japan">日本</button>
+            <button type="button" class="korea">韓國</button>
+            <button type="button" class="taiwan">台灣</button>
+        </div>
+        <span class="titleFavorate">最愛列表</span>
         <div class="content" v-for="(item, index) in this.trackerList" :key="index" :class="{ 'first-item': index === 0 }">
             <div class="left">
                 <div class="picture">
@@ -131,10 +137,47 @@ body {
     background-color: #FAF8ED;
 }
 
-.title {
+.titleInterest {
     width: 70%;
     height: 10vh;
     margin-top: 10vh;
+    margin-left: 15%;
+    color: #4D5C44;
+    font-size: 4dvh;
+    display: flex;
+    align-items: end;
+    // border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+.interest{
+    width: 50vw;
+    margin-top: 1%;
+    padding-left: 15%;
+    display: flex;
+    justify-content: space-between;
+    .japan{
+        border: 0;
+        background-color: #f5a352;
+        font-size: 3dvh;
+    }
+    .korea{
+        border: 0;
+        background-color: #f5a352;
+        font-size: 3dvh;
+
+    }
+    .taiwan{
+        border: 0;
+        background-color: #FFC68D;
+        font-size: 3dvh;
+
+    }
+}
+.titleFavorate {
+    width: 70%;
+    height: 10vh;
+    margin-top: 1vh;
     margin-left: 15%;
     color: #4D5C44;
     font-size: 4dvh;
@@ -157,7 +200,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 2%;
-
+    box-shadow: 0 0 0.3vh #808080;
     .first-item {
         background-color: #FFC68D;
     }
@@ -202,10 +245,11 @@ body {
     i {
         color: #DB3A3A;
         font-size: 5dvh;
-        
+        transition: 0.1s linear;
+
         &:hover {
-            transition: 0.1s linear;
-            scale: 1.3;
+            transition: 0.2s linear;
+            scale: 1.2;
             color: #F14242;
         }
 

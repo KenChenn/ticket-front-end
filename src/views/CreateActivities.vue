@@ -490,9 +490,10 @@ body{
         justify-content: center;
         align-items: center;
         margin: 3% auto 0 auto;
+        transition: 0.1s linear;
 
         &:hover {
-            transition: 0.1s linear;
+            transition: 0.2s linear;
             border: 0;
             background-color: #748E63;
             border: 0.3vh solid #748E63;

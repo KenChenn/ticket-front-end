@@ -29,7 +29,7 @@ export default {
         })
         .catch(error => console.log(error))
     },
-    toUserInfoPage(){
+    toUserInfoPage() {
       this.$router.push("/UserInfoPage")
     }
   },
@@ -84,7 +84,7 @@ export default {
         if (res.rtncode == "PARAM_ERROR") {
           this.isLogIn = false
         }
-        if(res.rtncode =="SUCCESSFUL"){
+        if (res.rtncode == "SUCCESSFUL") {
           this.isLogIn = true
         }
       })
@@ -102,7 +102,7 @@ export default {
 
     <!-- 管理者 -->
     <div class="manager" v-if="manager">
-      <RouterLink to="/ActivityAndHostPage" class="managerHomePage">回首頁</RouterLink>
+      <RouterLink to="/ActivityAndHostPage" class="managerHomePage">管理頁</RouterLink>
       <button type="button" @click="this.signOut()" class="signOut">登出</button>
     </div>
 
@@ -124,15 +124,13 @@ export default {
         <RouterLink to="/LoginPage" class="loginPage">登入</RouterLink>
       </div>
     </div>
-
-
-
+    
   </div>
 </template>
 
 <style scoped lang="scss">
 .headerShow {
-  width: 30%;
+  width: 35%;
   height: 10vh;
   right: 15%;
   background-color: #44ff00;
@@ -141,7 +139,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  z-index: 5;
   // border: 1px black solid;
 
   .manager {
@@ -189,10 +187,11 @@ export default {
       display: flex;
       align-items: center;
 
-      i{
+      i {
         font-size: 3dvh;
         color: #FAF8ED;
       }
+
       .favoratePage {
         text-decoration: none;
         color: #FAF8ED;

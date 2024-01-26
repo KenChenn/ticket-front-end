@@ -251,9 +251,10 @@ export default {
             border-radius: 1.5vh;
             margin: auto;
             font-size: 2.5dvh;
+            transition: 0.1s linear;
 
             &:hover {
-                transition: 0.1s linear;
+                transition: 0.2s linear;
                 border: 0;
                 background-color: #748E63;
                 color: #FAF8ED;

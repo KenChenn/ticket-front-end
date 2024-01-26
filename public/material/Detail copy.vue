@@ -758,28 +758,24 @@ export default {
                     background-color: #DB3A3A;
                     color: #FAF8ED;
                     border: #DB3A3A solid 0.5vh;
+                    box-shadow: 0 0 1vh #808080;
+
                 }
 
                 .dislike {
-                    // background-color: #DB3A3A;
                     color: #DB3A3A;
                     background-color: #FAF8ED;
                     border: #DB3A3A solid 0.5vh;
+                    box-shadow: 0 0 1vh #808080;
+                    
                 }
 
                 button {
-                    // width: 100%;
-                    // height: 100%;
-                    // border-radius: 1.5vh;
-                    // border: none;
-                    // font-size: 5dvh;
-                    // color: #DB3A3A;
-                    // background-color: #FAF8ED;
-                    // border: #DB3A3A solid 0.5vh;
+                    box-shadow: 0 0 1vh #808080;
 
                     &:hover {
                         transition: 0.1s linear;
-                        scale: 1.05;
+                        scale: 1.03;
                         background-color: #ffffff;
                     }
 

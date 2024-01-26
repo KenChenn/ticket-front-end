@@ -148,9 +148,10 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                transition: 0.1s linear;
                 &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.1;
+                    transition: 0.2s linear;
+                    scale: 1.05;
                     background-color: #FFC68D;
                 }
 

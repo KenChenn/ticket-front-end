@@ -184,8 +184,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i
-                            class="fa-solid fa-x"></i>
+                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i class="fa-solid fa-trash"></i>
                     </button>
 
                 </div>
@@ -310,6 +309,7 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
+            nowTime: new Date(),
             codeList: [],
             trackerList: [],
             commodityCodenameList: [],
@@ -332,7 +332,7 @@ export default {
             currentPage: 1, // 目前所在的頁碼
             buyBtn: false,
             pic: "",
-            codeNum: ""
+            codeNum: "",
         }
     },
     methods: {
@@ -387,7 +387,7 @@ export default {
                 .then(data => {
                     // console.log(data)
                     this.codeList = data.commodityList;
-                    // console.log(this.codeList)
+                    console.log(this.codeList)
                 })
                 .catch(error => console.log(error))
         },
@@ -424,19 +424,24 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
+                    if (data.rtncode != "SUCCESSFUL") {
+                        // alert("請先登入才可新增至我的最愛"),
+                        Swal.fire({
+                            title: "請先登入才可新增至我的最愛",
+                            icon: "warning",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#F5A352"
+                        }),
+                            this.$router.push('/LoginPage')
+                    }
+                    if (data.rtncode == "SUCCESSFUL") {
+                        alert("新增成功")//
+                    }
                     this.searchFav = data.is_Track;
                     console.log(data)
                 })
-                .catch(error => console.log(error),
-                    // alert("請先登入才可新增至我的最愛"),
-                    Swal.fire({
-                        title: "請先登入才可新增至我的最愛",
-                        icon: "warning",
-                        color: "#4D5C44",
-                        background: "#FAF8ED",
-                        confirmButtonColor: "#F5A352"
-                    }),
-                    this.$router.push('/LoginPage'))
+                .catch(error => console.log(error),)
         },
         cencelFav() {
             fetch('http://localhost:8080/api/untrack', {
@@ -613,6 +618,19 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.sessionList = data.data;
+                    // console.log(this.nowTime);
+                    // console.log(data.data[(data.data.length)-1].showDateTime);
+
+                    for (const session of this.sessionList) {
+                        const sessionTime = new Date(session.showDateTime);
+                        if (sessionTime < this.nowTime) {
+                            alert("活動已過期");
+                            this.$router.push('/');
+                            return;
+                        }
+                    }
+
+
                     this.sessionList.forEach(item => {
                         var current = new Date()
                         // console.log(current);
@@ -659,6 +677,9 @@ export default {
                     })
                 })
                 .catch(error => console.log(error))
+        },
+        checkIfExpired() {
+
         },
         seatInfo(num) {
             console.log(num);
@@ -732,7 +753,7 @@ export default {
                             color: "#4D5C44",
                             background: "#FAF8ED",
                             confirmButtonColor: "#F5A352"
-                        }).then(()=>{
+                        }).then(() => {
                             location.href = location.href;
                         })
                         // this.$router.go(0);
@@ -822,6 +843,7 @@ export default {
         this.searchFavorate()
         this.sessionInfo()
         console.log($cookies.get("account"));
+        this.checkIfExpired()
     },
     computed: {
         // 計算當前頁碼的留言列表
@@ -897,10 +919,12 @@ export default {
                 color: #FAF8ED;
                 background-color: #DB3A3A;
                 border: #DB3A3A solid 0.3vh;
+                transition: 0.1s linear;
+                box-shadow: 0 0 0.3vh #808080;
 
                 &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.05;
+                    transition: 0.2s linear;
+                    scale: 1.03;
                     background-color: #eb2626;
                 }
 
@@ -917,10 +941,12 @@ export default {
                 color: #DB3A3A;
                 background-color: #FAF8ED;
                 border: #DB3A3A solid 0.3vh;
+                box-shadow: 0 0 0.3vh #808080;
+                transition: 0.1s linear;
 
                 &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.05;
+                    transition: 0.2s linear;
+                    scale: 1.03;
                     background-color: #ffffff;
                 }
 
@@ -1022,6 +1048,7 @@ export default {
                 padding: 2%;
                 margin-bottom: 2%;
                 // border: 1px solid black;
+                box-shadow: 0 0 0.3vh #808080;
 
                 span {
                     color: #FAF8ED;
@@ -1058,10 +1085,11 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                transition: 0.1s;
 
                 &:hover {
-                    transition: 0.1s linear;
-                    scale: 1.1;
+                    transition: 0.2s linear;
+                    scale: 1.05;
                     background-color: #FFC68D;
                     color: #ffffff;
                 }
@@ -1186,9 +1214,11 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                box-shadow: 0 0 0.3vh #808080;
+                transition: 0.1s linear;
 
                 &:hover {
-                    transition: 0.1s linear;
+                    transition: 0.2s linear;
                     scale: 1.1;
                     background-color: #FFC68D;
                 }
@@ -1210,6 +1240,7 @@ export default {
             display: flex;
             justify-content: space-between;
             color: #FAF8ED;
+            box-shadow: 0 0 0.3vh #808080;
 
             .circleArea {
                 width: 3vw;
@@ -1228,7 +1259,7 @@ export default {
             }
 
             .info {
-                width: 100%;
+                min-width: 90%;
                 margin-left: 2%;
                 color: #FAF8ED;
 
@@ -1247,9 +1278,10 @@ export default {
                 background-color: #FAF8ED;
                 color: #DB3A3A;
                 border: #DB3A3A solid 0.3vh;
+                transition: 0.1s linear;
 
                 &:hover {
-                    transition: 0.1s linear;
+                    transition: 0.2s linear;
                     scale: 1.05;
                     background-color: #ffffff;
                 }
@@ -1268,7 +1300,6 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
-
             // border: 1px black solid;
             .pageBtn {
                 width: 10%;
@@ -1282,9 +1313,11 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                box-shadow: 0 0 0.3vh #808080;
+                transition: 0.1s linear;
 
                 &:hover {
-                    transition: 0.1s linear;
+                    transition: 0.2s linear;
                     scale: 1.1;
                     background-color: #FFC68D;
                 }
@@ -1322,5 +1355,4 @@ export default {
 .footer {
     width: 100%;
     height: 10vh;
-}
-</style>
+}</style>

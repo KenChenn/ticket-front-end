@@ -426,12 +426,13 @@ body {
         border: 0.3vh solid #89A071;
         color: #89A071;
         background-color: #FAF8ED;
+        transition: 0.1s linear;
 
         &:hover {
-            transition: 0.1s linear;
+            transition: 0.2s linear;
             color: #FAF8ED;
             background-color: #89A071;
-            scale: 1.1;
+            scale: 1.05;
         }
 
         &:active {
@@ -486,9 +487,10 @@ body {
         background-color: #FAF8ED;
         color: #DB3A3A;
         border: #DB3A3A solid 0.3vh;
+        transition: 0.1s linear;
 
         &:hover {
-            transition: 0.1s linear;
+            transition: 0.2s linear;
             scale: 1.05;
             background-color: #ffffff;
         }
@@ -544,12 +546,13 @@ body {
             border: 0.3vh solid #89A071;
             color: #89A071;
             background-color: #FAF8ED;
+            transition: 0.1s linear;
 
             &:hover {
-                transition: 0.1s linear;
+                transition: 0.2s linear;
                 color: #FAF8ED;
                 background-color: #89A071;
-                scale: 1.1;
+                scale: 1.05;
             }
 
             &:active {
@@ -594,15 +597,15 @@ body {
     margin: auto;
     margin-top: 2%;
     font-size: 3dvh;
+    transition: 0.1s linear;
 
     &:hover {
-        transition: 0.1s linear;
+        transition: 0.2s linear;
         border: 0;
         background-color: #748E63;
         border: 0.3vh solid #748E63;
-
         color: #FAF8ED;
-        scale: 1.1;
+        scale: 1.05;
     }
 
     &:active {

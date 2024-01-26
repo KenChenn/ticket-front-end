@@ -10,7 +10,7 @@
             <div class="host" v-for="(name, index) in this.nameList" :key="index">
                 <button class="editBtn" @click="goToEditPage(idList[index])">編輯</button>
                 <span class="kaisyaiName">{{ name }}</span>
-                <button class="cencelBtn" @click="this.delete(this.idList[index] ,name)">刪除</button>
+                <button class="cencelBtn" @click="this.delete(this.idList[index], name)">刪除</button>
             </div>
         </div>
     </div>
@@ -29,8 +29,8 @@ export default {
         goCreateHost() {
             this.$router.push('/CreateHost');
         },
-        delete(id, name){
-            if(confirm(`是否刪除主辦單位　　${name}`) == true){
+        delete(id, name) {
+            if (confirm(`是否刪除主辦單位　　${name}`) == true) {
                 this.confirmDelete(id)
             }
         },
@@ -122,16 +122,17 @@ export default {
             border: 0.3vh solid #89A071;
             color: #89A071;
             background-color: #FAF8ED;
+            transition: 0.1s linear;
         }
 
-        .plusBtn:hover {
-            transition: 0.1s linear;
+        button:hover {
+            transition: 0.2s linear;
             color: #FAF8ED;
             background-color: #89A071;
-            scale: 1.1;
+            scale: 1.05;
         }
 
-        .plusBtn:active {
+        button:active {
             scale: 0.95;
             background-color: #4D5C44;
         }
@@ -160,14 +161,16 @@ export default {
                 color: #F5A352;
                 background-color: #FAF8ED;
                 border: 0.3vh solid #F5A352;
+                transition: 0.1s linear;
 
-                button:hover {
-                    transition: 0.1s linear;
+                &:hover {
+                    transition: 0.2s linear;
                     background-color: #F9B572;
-                    scale: 1.1;
+                    color: #FAF8ED;
+                    scale: 1.05;
                 }
 
-                button:active {
+                &:active {
                     scale: 0.95;
                     background-color: #c26202;
                 }
@@ -189,13 +192,16 @@ export default {
                 color: #DB3A3A;
                 background-color: #FAF8ED;
                 border: 0.3vh solid #DB3A3A;
-                button:hover {
-                    transition: 0.1s linear;
+                transition: 0.1s linear;
+
+                &:hover {
+                    transition: 0.2s linear;
+                    color: #FAF8ED;
                     background-color: #d05757;
-                    scale: 1.1;
+                    scale: 1.05;
                 }
 
-                button:active {
+                &:active {
                     scale: 0.95;
                     background-color: #ab3131;
                 }

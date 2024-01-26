@@ -11,6 +11,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(counter, ['dataList']),
   },
   methods: {
     ...mapActions(counter, ["saveSearchData"]),
@@ -50,7 +51,7 @@ export default {
           // console.log(data.commodityList);
           this.dataList = data.commodityList;
           this.saveSearchData(this.dataList)
-          // console.log(this.dataList)
+          console.log(this.dataList)
           // 將資料存儲到 Local Storage 中，使用 'searchData' 作為鑰匙
           localStorage.setItem('searchDataList', this.dataList);
         })
@@ -94,7 +95,7 @@ export default {
     </div>
   </div>
 
-  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
         aria-current="true" aria-label="Slide 1"></button>
@@ -105,16 +106,36 @@ export default {
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
+        <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
+<<<<<<< HEAD
+        <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
+=======
+        <img src="" class="d-block w-100" alt="...">
+>>>>>>> 7da5b2c96203384725088d1692dcd9fbf935caa8
       </div>
       <div class="carousel-item">
         <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
       </div>
     </div>
+  </div> -->
+
+
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button v-for="(item, index) in dataList" type="button" :key="index" data-bs-target="#carouselExampleIndicators"
+        :data-bs-slide-to="index" :class="{ 'active': index === 0 }" aria-current="true"
+        aria-label="Slide {{ index + 1 }}"></button>
+    </div>
+    <div class="carousel-inner">
+      <div v-for="(item, index) in dataList" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
+        <img :src="item.keyvisualImg" class="d-block w-100" alt="...">
+      </div>
+    </div>
   </div>
+
+
 
   <!-- 下方導行列 -->
   <div class="navigate">
@@ -136,9 +157,9 @@ export default {
 <style lang="scss" scoped>
 .header {
   height: 10vh;
-  width: 30%;
+  width: 20%;
   margin-left: 15%;
-  z-index: 0;
+  z-index: 5;
   position: absolute;
   position: fixed;
   top: 0;
@@ -167,11 +188,14 @@ export default {
       color: #faf8ed;
 
       i:hover {
-        color: #ffe3c7;
+        transition: 0.1s linear;
+        scale: 1.1;
+        color: #ffffff;
       }
 
       i:active {
-        color: #F5A352;
+        scale: 0.95;
+        color: #c26202;
       }
     }
   }
@@ -183,7 +207,7 @@ export default {
   top: 10vh;
   position: fixed;
   z-index: -1;
-  background: linear-gradient(to right, rgba(43, 43, 41, 1) 0%, rgba(43, 43, 41, 0) 25%, rgba(43, 43, 41, 0) 75%, rgba(43, 43, 41, 1) 100%);
+  background-color: #00000013;
 }
 
 .carousel-item img {
@@ -203,14 +227,14 @@ export default {
   z-index: 5;
   position: sticky;
   top: 10vh;
+  box-shadow: 0 1 0.3vh #808080;
   // border: 1px solid black;
 }
 
 .navigate a {
   width: 20vw;
-  height: 10vh;
-  margin-left: 2%;
-  margin-right: 2%;
+  height: 7vh;
+  margin: 3vh 2% 0 2%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,9 +243,11 @@ export default {
   color: #faf8ed;
   font-size: 2rem;
   text-decoration: none;
+  box-shadow: 0 -1 0.3vh #808080;
 }
 
 .navigate a.active {
+  transition: 0.2s linear;
   background-color: #99B080;
 }
 
