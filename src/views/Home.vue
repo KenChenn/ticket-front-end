@@ -108,7 +108,7 @@ export default {
         <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="../../public/material/雨的遊行_medium.png" class="d-block w-100" alt="...">
+        <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
         <img src="../../public/material/ヘッダー_kktix_1200-630_medium.png" class="d-block w-100" alt="...">
@@ -136,7 +136,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   height: 10vh;
-  width: 30%;
+  width: 20%;
   margin-left: 15%;
   z-index: 0;
   position: absolute;
@@ -167,11 +167,14 @@ export default {
       color: #faf8ed;
 
       i:hover {
-        color: #ffe3c7;
+        transition: 0.1s linear;
+        scale: 1.1;
+        color: #ffffff;
       }
 
       i:active {
-        color: #F5A352;
+        scale: 0.95;
+        color: #c26202;
       }
     }
   }
@@ -183,7 +186,7 @@ export default {
   top: 10vh;
   position: fixed;
   z-index: -1;
-  background: linear-gradient(to right, rgba(43, 43, 41, 1) 0%, rgba(43, 43, 41, 0) 25%, rgba(43, 43, 41, 0) 75%, rgba(43, 43, 41, 1) 100%);
+  background-color: #00000013;
 }
 
 .carousel-item img {
@@ -208,9 +211,8 @@ export default {
 
 .navigate a {
   width: 20vw;
-  height: 10vh;
-  margin-left: 2%;
-  margin-right: 2%;
+  height: 7vh;
+  margin: 3vh 2% 0 2%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -222,6 +224,7 @@ export default {
 }
 
 .navigate a.active {
+  // transition: 0.2s linear;
   background-color: #99B080;
 }
 
