@@ -934,7 +934,7 @@ export default {
                 background-color: #DB3A3A;
                 border: #DB3A3A solid 0.3vh;
                 transition: 0.1s linear;
-                box-shadow: 0 0 0.3vh #808080;
+                box-shadow: 0 0 0.3vh #00000050;
 
                 &:hover {
                     transition: 0.2s linear;
@@ -955,7 +955,7 @@ export default {
                 color: #DB3A3A;
                 background-color: #FAF8ED;
                 border: #DB3A3A solid 0.3vh;
-                box-shadow: 0 0 0.3vh #808080;
+                box-shadow: 0 0 0.3vh #00000050;
                 transition: 0.1s linear;
 
                 &:hover {
@@ -1062,7 +1062,7 @@ export default {
                 padding: 2%;
                 margin-bottom: 2%;
                 // border: 1px solid black;
-                box-shadow: 0 0 0.3vh #808080;
+                box-shadow: 0 0 0.3vh #00000050;
 
                 span {
                     color: #FAF8ED;
@@ -1228,7 +1228,7 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                box-shadow: 0 0 0.3vh #808080;
+                box-shadow: 0 0 0.3vh #00000050;
                 transition: 0.1s linear;
 
                 &:hover {
@@ -1254,7 +1254,7 @@ export default {
             display: flex;
             justify-content: space-between;
             color: #FAF8ED;
-            box-shadow: 0 0 0.3vh #808080;
+            box-shadow: 0 0 0.3vh #00000050;
 
             .circleArea {
                 width: 3vw;
@@ -1327,7 +1327,7 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                box-shadow: 0 0 0.3vh #808080;
+                box-shadow: 0 0 0.3vh #00000050;
                 transition: 0.1s linear;
 
                 &:hover {

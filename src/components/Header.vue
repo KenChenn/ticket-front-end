@@ -144,8 +144,8 @@ export default {
   width: 35%;
   height: 10vh;
   right: 15%;
-  background-color: #44ff00;
-  // background-color: #F9B572;
+  // background-color: #44ff00;
+  background-color: #F9B572;
   position: fixed;
   display: flex;
   justify-content: space-between;
