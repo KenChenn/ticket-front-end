@@ -236,7 +236,7 @@ body {
     justify-content: space-between;
     color: #4D5C44;
     // border: 1px solid black;
-    box-shadow: 0 0 0.3vh #808080;
+    box-shadow: 0 0 0.3vh #00000050;
     .left {
         width: 21vw;
         height: 100%;

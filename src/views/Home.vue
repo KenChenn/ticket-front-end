@@ -7,7 +7,7 @@ export default {
       ...mapState(counter, ['dataList']),
       searchData: "",
       dataList: [],
-      slideShowData:[],
+      slideShowData: [],
       selectedTab: '1',
       codename: "/Detail/", // /原本的/變數內容
     }
@@ -51,8 +51,8 @@ export default {
         .then(response => response.json())
         .then(data => {
           // console.log(data.commodityList);
-          if(this.slideShowData.length===0){
-            this.slideShowData =  data.commodityList;
+          if (this.slideShowData.length === 0) {
+            this.slideShowData = data.commodityList;
           }
           this.dataList = data.commodityList;
           this.saveSearchData(this.dataList)
@@ -122,23 +122,29 @@ export default {
     </div>
   </div> -->
 
-
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button v-for="(item, index) in slideShowData" type="button" :key="index" data-bs-target="#carouselExampleIndicators"
-        :data-bs-slide-to="index" :class="{ 'active': index === 0 }" aria-current="true"
-        aria-label="Slide {{ index + 1 }}"></button>
+      <button v-for="(item, index) in slideShowData" type="button" :key="index"
+        data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="index" :class="{ 'active': index === 0 }"
+        aria-current="true" aria-label="Slide {{ index + 1 }}"></button>
     </div>
     <div class="carousel-inner">
       <div v-for="(item, index) in slideShowData" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
         <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
+          <span>
+            {{ item.name }}
+          </span>
           <div class="showImg" @click="this.codename = this.codename + item.codename">
-            <img :src="item.keyvisualImg" class="d-block w-100" alt="..." >
+            <img :src="item.keyvisualImg" class="d-block w-100" alt="...">
           </div>
         </RouterLink>
       </div>
     </div>
+    <div class="showName">
+
+    </div>
   </div>
+
 
 
 
@@ -211,15 +217,50 @@ export default {
   height: 80vh;
   top: 10vh;
   position: fixed;
+  display: flex;
+  align-items: center;
   z-index: -1;
-  background-color: #00000013;
+  background-color: #000000a9;
 }
 
-.carousel-item img {
-  width: 100%;
-  height: 80vh;
-  display: block;
-  object-fit: contain;
+.carousel-item {
+
+  :hover {
+    transition: 0.3s;
+    filter: grayscale(0%);
+  }
+
+  :hover span {
+    transition: 0.2s linear;
+    transform: translateY(-20vh);
+    opacity: 1;
+  }
+
+  :hover img{
+    opacity: 0.5;
+  }
+  span {
+    width: 80%;
+    height: 30%;
+    font-size: 5dvh;
+    opacity: 0;
+    z-index: 2;
+    position: absolute;
+    bottom: -30%;
+    left: 10%;
+    color: #faf8ed;
+    transition: 0.3s linear;
+    // border: 1px solid black;
+  }
+
+  img {
+    width: 100%;
+    height: 70vh;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.8)) grayscale(30%);
+    transition: 0.3s;
+  }
 }
 
 .navigate {
@@ -232,7 +273,7 @@ export default {
   z-index: 5;
   position: sticky;
   top: 10vh;
-  box-shadow: 0 1 0.3vh #808080;
+  box-shadow: 0 -0.3vh 1vh #00000050;
   // border: 1px solid black;
 }
 
@@ -248,7 +289,8 @@ export default {
   color: #faf8ed;
   font-size: 4dvh;
   text-decoration: none;
-  box-shadow: 0 -1 0.3vh #808080;
+  box-shadow: 0 -0.1vh 0.3vh #00000050;
+
 }
 
 .navigate a.active {
