@@ -224,6 +224,9 @@ export default {
 }
 
 .carousel-item {
+  // border: 1px solid black;
+  width: 100%;
+  height: 90%;
 
   :hover {
     transition: 0.3s;
@@ -232,13 +235,15 @@ export default {
 
   :hover span {
     transition: 0.2s linear;
+    filter: drop-shadow(5px 5px 2px rgba(0, 0, 0, 0.8)) grayscale(30%);
     transform: translateY(-20vh);
     opacity: 1;
   }
 
-  :hover img{
+  :hover img {
     opacity: 0.5;
   }
+
   span {
     width: 80%;
     height: 30%;
