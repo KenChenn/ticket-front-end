@@ -3,10 +3,11 @@
         <div class="up">
             <!-- 主辦單位管理按鈕 -->
             <button class="host" @click="this.goManageHostPage()">主辦單位管理</button>
-
+            <!-- 發送訊息頁面按鈕 -->
+            <button class="subscribeMsg" @click="this.goSendInfo()">發送訂閱訊息</button>
             <!-- 建立活動按鈕 -->
             <button class="act" @click="this.goCreateActivities()">建立活動</button>
-        </div>
+        </div>  
         <div class="down">
             <div class="actSq">
                 <div class="sqUp">
@@ -36,6 +37,9 @@ export default {
     methods: {
         goManageHostPage() {
             this.$router.push('/ManageHostPage') 
+        }, 
+        goSendInfo() {
+            this.$router.push('/SendInfo')
         },
         goCreateActivities() {
             this.$router.push('/CreateActivities')

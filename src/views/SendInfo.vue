@@ -6,20 +6,85 @@
             <br>
             <span class="sendPersonP">發送群體</span>
             <br>
-            <select name="" id="" class="selectClass"></select>
+            <select name="" id="" class="selectClass" v-model="target">
+                <option disabled value="">請選擇發送群體</option>
+                <option v-for="item in subscribeList"  :value="item" >{{ item.split('.')[1] }}</option>
+            </select>
             <br><br>
-            <span class="sendMessegeP">發送訊息內容</span>
+            <span class="sendMessegeP" >發送訊息內容</span>
             <br>
-            <input type="text" class="inputClass">
+            <input type="text" class="inputClass" v-model="message">
             <br>
-            <button class="btn">確認</button>
+            <button class="btn" @click="sendSubscribeMsg()">確認</button>
         </div>
 
     </div>
 </template>
 <script>
-export default {
+import Swal from 'sweetalert2'
 
+
+export default {
+    data() {
+        return {
+            subscribeList:"",
+            target:"",
+            message:""
+        }
+    },
+    methods: {
+        getSubscribeData(){
+            fetch('http://localhost:8080/api/getAllSubscribe', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+                .then(response => response.json())
+                .then(data =>{
+                    this.subscribeList = data.typeList
+                    console.log(this.subscribeList);
+                })
+        },
+        sendSubscribeMsg(){
+            if(this.target.length<=0){
+                console.log("請選擇發送群體");
+                return;
+            }
+            if(this.message<=0){
+                console.log("請選擇輸入訊息");
+                return;
+            }
+            fetch('http://localhost:8080/api/SendSubscribeMsg', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    subscribe: this.target,
+                    message:this.message
+                })
+            }).then(response => response.json())
+                .then(res => {
+                    if(res.rtncode == "SUCCESSFUL"){
+                        Swal.fire({
+                            title:"發送成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63",
+                        })
+                    }
+                })
+
+            console.log(this.target);
+            console.log(this.message);
+        }
+    },
+    mounted() {
+        this.getSubscribeData()
+    },
 }
 </script>
 <style scoped lang="scss">

@@ -2,12 +2,10 @@
     <body>
         <span class="titleInterest">感興趣的分類</span>
         <div class="interest">
-            <button type="button" class="area" v-if="!japan" @click="japanArea">日本</button>
-            <button type="button" class="noArea" v-if="japan" @click="japanArea">日本</button>
-            <button type="button" class="area" v-if="!korea" @click="koreaArea">韓國</button>
-            <button type="button" class="noArea" v-if="korea" @click="koreaArea">韓國</button>
-            <button type="button" class="area" v-if="!taiwan" @click="taiwanArea">台灣</button>
-            <button type="button" class="noArea" v-if="taiwan" @click="taiwanArea">台灣</button>
+            <div v-for="item in this.subscribeList">
+                <button type="button" class="noArea" v-if="this.alreadySubscribeList.includes(item)" @click="cancelSubscribe(item)">{{ item }}</button>
+                <button type="button" class="area " v-else @click="subscribe(item)">{{ item }}</button>
+            </div>
         </div>
         <span class="titleFavorate">最愛列表</span>
         <div class="content" v-for="(item, index) in this.trackerList" :key="index" :class="{ 'first-item': index === 0 }">
@@ -51,6 +49,8 @@ export default {
             // aboutToStart: true,   //開始狀態
             trackerList: [],
             myFavList: [],
+            subscribeList:[],
+            alreadySubscribeList:[]
         }
     },
     methods: {
@@ -126,10 +126,103 @@ export default {
                     }
                 })
                 .catch(error => console.log(error))
+        },
+        getSubscribeData(){
+            fetch('http://localhost:8080/api/getAllSubscribe', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+                .then(response => response.json())
+                .then(data =>{
+                    for(let i=0; i < data.typeList.length;i++){
+                        let str = data.typeList[i];
+                        this.subscribeList.push(str.split('.')[1])
+                    }
+                    console.log(this.subscribeList);
+                })
+        },
+        getAlreadySubscribeList(){
+            fetch('http://localhost:8080/api/getSubscribeList', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(data =>{
+                    this.alreadySubscribeList=[]
+                    for(let i=0; i < data.subscribeList.length;i++){
+                        this.alreadySubscribeList.push(data.subscribeList[i].subscribe)
+                    }
+                    console.log(this.alreadySubscribeList);
+                })
+        },
+        subscribe(item){
+            fetch('http://localhost:8080/api/subscribe', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    subscribe:item
+                })
+            })
+                .then(response => response.json())
+                .then(data =>{
+                    console.log(data);
+                    if(data.rtncode == "SUCCESSFUL"){
+                        Swal.fire({
+                            title:"訂閱成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63",
+                        }).then(function(result){
+                            if(result.isConfirmed == true){
+                                this.getAlreadySubscribeList();
+                            }
+                        }.bind(this))
+                    }
+                })
+        },
+        cancelSubscribe(item){
+            fetch('http://localhost:8080/api/cancelSubscribe', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    subscribe:item
+                })
+            })
+                .then(response => response.json())
+                .then(data =>{
+                    console.log(data);
+                    if(data.rtncode == "SUCCESSFUL"){
+                        Swal.fire({
+                            title:"取消訂閱成功",
+                            icon: "success",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#748e63",
+                        }).then(function(result){
+                            if(result.isConfirmed == true){
+                                this.getAlreadySubscribeList();
+                            }
+                        }.bind(this))
+                    }
+                })
         }
     },
     mounted() {
         this.myFav()
+        this.getSubscribeData()
+        this.getAlreadySubscribeList()
     },
     created() {
         // 在页面创建时设置特定的对象
