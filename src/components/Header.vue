@@ -1,13 +1,23 @@
+<script setup>
+import counter from '../stores/counter'
+import { mapState, mapActions } from 'pinia'
+
+</script>
+
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import counter from '../stores/counter'
 import { Value } from "sass";
 export default {
   data() {
     return {
-      isLogIn: false,  //登入狀態(已登入的狀態，記得關!!)
+      ...mapState(counter, ['isLogIn']),
+      //登入狀態(已登入的狀態，記得關!!)
+      // isLogIn: false, 
       dataList: [],
     };
+  },
+  computed:{
+
   },
   methods: {
     signOut() {
@@ -24,7 +34,7 @@ export default {
           if (data.rtncode == "SUCCESSFUL") {
             $cookies.remove("account");
             this.$router.push("/"),
-              this.isLogIn = false
+            counter().isLogIn = false
           }
         })
         .catch(error => console.log(error))
@@ -82,12 +92,13 @@ export default {
         console.log(res)
         console.log($cookies.get("account"))
         if (res.rtncode == "PARAM_ERROR") {
-          this.isLogIn = false
+          counter().isLogIn = false
         }
         if (res.rtncode == "SUCCESSFUL") {
-          this.isLogIn = true
+          counter().isLogIn = true
         }
       })
+      console.log(counter().isLogIn);
   },
   // created() {
   //   console.log($cookies.get("account"))
@@ -111,7 +122,7 @@ export default {
       <RouterLink to="/" class="homePage">回首頁</RouterLink>
 
       <!-- 已登入 -->
-      <div class="isLogIn" v-if="isLogIn">
+      <div class="isLogIn" v-if="counter().isLogIn">
         <i class="fa-solid fa-circle-user" @click="toUserInfoPage"></i>
         <RouterLink to="/FavoratePage" class="favoratePage">最愛清單</RouterLink>
         <RouterLink to="/OrderTracking" class="orderTracking">訂單查詢</RouterLink>

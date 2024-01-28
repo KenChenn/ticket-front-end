@@ -30,12 +30,19 @@
         </div>
     </div>
 </template>
+<script setup>
+import counter from '../stores/counter'
+import { mapState, mapActions } from 'pinia'
+
+</script>
 <script>
 import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 export default {
     data() {
         return {
+            ...mapState(counter, ['isLogIn']),
+
             loginAccount: "",
             loginPassword: "",
             isEntityAccount: true,
@@ -70,7 +77,8 @@ export default {
                         console.log(res)
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("登入成功");
-                            this.isLogIn = true;
+                            // this.isLogIn = true;
+                            counter().isLogIn = true;
                             this.$forceUpdate();
                             // 設定過期時間60分鐘的 cookie
                             const now = new Date();

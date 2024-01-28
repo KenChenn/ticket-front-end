@@ -5,15 +5,20 @@ export default defineStore("counter",{
         headerLink: null,
         headerHomeLink: null,
         manager: null,
+        isLogIn:false,
+        dataList:[],
+        testArray:[{title:1,content:123},{title:2,content:123},{title:3,content:123}],
+        test:"123",
+        location:1,
     }),
-    state(){
-        return{
-            dataList:[],
-            testArray:[{title:1,content:123},{title:2,content:123},{title:3,content:123}],
-            test:"123",
-            location:1,
-        }
-    },
+    // state(){
+    //     return{
+    //         dataList:[],
+    //         testArray:[{title:1,content:123},{title:2,content:123},{title:3,content:123}],
+    //         test:"123",
+    //         location:1,
+    //     }
+    // },
     getters:{
         locationInfo(){
             return `現在位置:${this.location}`
