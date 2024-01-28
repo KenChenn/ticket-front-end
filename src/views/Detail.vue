@@ -111,9 +111,11 @@
                         <span>座位價格</span>
                     </div>
                     <div class="seatArea" v-for="seatItem in   this.seatList  ">
-                        <span>{{ seatItem.area }}</span>
-                        <span>{{ seatItem.price }}</span>
-                        <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
+                        <div class="areaAndPrice">
+                            <span>{{ seatItem.area }}</span>
+                            <span>{{ seatItem.price }}</span>
+                            <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
+                        </div>
                         <select name="" id="" v-model="seatItem.selectedQuantity"
                             v-if="seatItem.remainingTicket > 0 && buyBtn">
                             <option value="" disabled selected hidden>請選擇張數</option>
@@ -184,7 +186,8 @@
                         </div>
                     </div>
 
-                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i class="fa-solid fa-trash"></i>
+                    <button type="button" class="deleteComment" @click="deleteComment(item.id)" v-if="item.isUser"><i
+                            class="fa-solid fa-trash"></i>
                     </button>
 
                 </div>
@@ -435,7 +438,7 @@ export default {
                         }),
                             this.$router.push('/LoginPage')
                     }
-                    if(data.rtncode == "SUCCESSFUL"){
+                    if (data.rtncode == "SUCCESSFUL") {
                         // alert("新增成功")
                         Swal.fire({
                             title: "新增成功",
@@ -1145,15 +1148,26 @@ export default {
                 align-items: center;
                 font-size: 2.5dvh;
                 margin-bottom: 2%;
+                // border: 1px solid black;
+
+                .areaAndPrice {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 50%;
+                    // border: 1px solid black;
+                }
 
                 select {
                     border: 0;
                     // border-radius: 1.5vh;
+                    // margin-left: 10%;
                     text-align: center;
                     color: #4D5C44;
                     background-color: #FAF8ED;
                     border-bottom: #F5A352 solid 0.3vh;
                 }
+
             }
 
             .verify {
@@ -1273,7 +1287,7 @@ export default {
             }
 
             .info {
-                min-width: 90%;
+                width: 100%;
                 margin-left: 2%;
                 color: #FAF8ED;
 
@@ -1314,6 +1328,7 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+
             // border: 1px black solid;
             .pageBtn {
                 width: 10%;
@@ -1369,4 +1384,5 @@ export default {
 .footer {
     width: 100%;
     height: 10vh;
-}</style>
+}
+</style>
