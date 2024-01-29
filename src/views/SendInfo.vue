@@ -1,23 +1,17 @@
 <template>
     <div class="main">
-        <br><br><br><br>
-        <h2 class="pClass">發送訊息</h2>
+        <div class="pClass">發送訊息</div>
         <div class="infoSq">
-            <br>
-            <span class="sendPersonP">發送群體</span>
-            <br>
+            <div class="title">發送群體
+            </div>
             <select name="" id="" class="selectClass" v-model="target">
                 <option disabled value="">請選擇發送群體</option>
-                <option v-for="item in subscribeList"  :value="item" >{{ item.split('.')[1] }}</option>
+                <option v-for="item in subscribeList" :value="item">{{ item.split('.')[1] }}</option>
             </select>
-            <br><br>
-            <span class="sendMessegeP" >發送訊息內容</span>
-            <br>
-            <input type="text" class="inputClass" v-model="message">
-            <br>
+            <div class="title">發送訊息內容</div>
+            <textarea name="" id="" cols="30" rows="10" class="inputClass" v-model="message"></textarea>
             <button class="btn" @click="sendSubscribeMsg()">確認</button>
         </div>
-
     </div>
 </template>
 <script>
@@ -28,13 +22,13 @@ import counter from '../stores/counter'
 export default {
     data() {
         return {
-            subscribeList:"",
-            target:"",
-            message:""
+            subscribeList: "",
+            target: "",
+            message: ""
         }
     },
     methods: {
-        getSubscribeData(){
+        getSubscribeData() {
             fetch('http://localhost:8080/api/getAllSubscribe', {
                 method: "GET",
                 headers: {
@@ -42,17 +36,17 @@ export default {
                 }
             })
                 .then(response => response.json())
-                .then(data =>{
+                .then(data => {
                     this.subscribeList = data.typeList
                     console.log(this.subscribeList);
                 })
         },
-        sendSubscribeMsg(){
-            if(this.target.length<=0){
+        sendSubscribeMsg() {
+            if (this.target.length <= 0) {
                 console.log("請選擇發送群體");
                 return;
             }
-            if(this.message<=0){
+            if (this.message <= 0) {
                 console.log("請選擇輸入訊息");
                 return;
             }
@@ -64,13 +58,13 @@ export default {
                 credentials: 'include',
                 body: JSON.stringify({
                     subscribe: this.target,
-                    message:this.message
+                    message: this.message
                 })
             }).then(response => response.json())
                 .then(res => {
-                    if(res.rtncode == "SUCCESSFUL"){
+                    if (res.rtncode == "SUCCESSFUL") {
                         Swal.fire({
-                            title:"發送成功",
+                            title: "發送成功",
                             icon: "success",
                             color: "#4D5C44",
                             background: "#FAF8ED",
@@ -99,58 +93,90 @@ export default {
 </script>
 <style scoped lang="scss">
 .main {
-    height: 100vh;
-    width: 100vw;
-
     .pClass {
-        margin-left: 21%;
-        color: #4D5C44;
+        width: 70%;
+        height: 10vh;
+        margin-top: 10vh;
+        // border: 1px solid black;
+        margin-left: 15%;
+        color: #c26202;
+        font-size: 4dvh;
+        display: flex;
+        align-items: end;
     }
 
     .infoSq {
-        height: 70%;
-        width: 60%;
-        margin-left: 20%;
-        background-color: #FFC68D;
-        border-radius: 15px;
+        width: 70%;
+        height: 70vh;
+        border: #F5A352 0.3vh solid;
+        margin: auto;
+        border-radius: 2vh;
+        padding: 2%;
+        display: block;
+        justify-content: center;
+        align-items: center;
 
-        .sendPersonP {
+        .title {
+            width: 100%;
+            font-size: 3dvh;
+            margin: 1% 0;
+            text-align: center;
             color: #4D5C44;
-            font-size: 1.2rem;
-            margin-left: 45%;
+            // border: 1px solid black;
         }
 
-        .sendMessegeP {
-            color: #4D5C44;
-            font-size: 1.17rem;
-            margin-left: 42.5%;
-
-        }
-        .selectClass{
-            width: 75%;
-            height: 8%;
-            margin-left: 12%;
-            border-radius: 15px;
-            background-color: #FAF8ED;
-            border: 1pt solid #FAF8ED;
-            color: #4D5C44;
-        }
-        .inputClass{
-            width: 75%;
-            height: 8%;
-            margin-left: 12%;
-            border-radius: 15px;
-            background-color: #FAF8ED;
-            border: 1pt solid #FAF8ED;
-        }
-        .btn{
-            width: 8%;
+        .selectClass {
+            width: 50%;
             height: 10%;
-            background-color: #748E63;
-            color: #FAF8ED;
-            border-radius: 15px;
-            margin-top: 20%;
-            margin-left: 45%;
+            margin: 1% 25%;
+
+            font-size: 3dvh;
+            text-align: center;
+            border: 0;
+            border-bottom: #F5A352 0.3vh solid;
+            background-color: #FAF8ED;
+            color: #4D5C44;
+
+            :focus {
+                outline: none;
+            }
+        }
+
+        .inputClass {
+            width: 70%;
+            height: 30%;
+            margin-left: 15%;
+            background-color: #FAF8ED;
+            border: #F5A352 0.3vh solid;
+        }
+
+        .btn {
+            height: 10%;
+            width: 14%;
+            border: 0.3vh solid #F5A352;
+            background-color: #FAF8ED;
+            color: #F5A352;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1.5vh;
+            margin: auto;
+            margin-top: 5%;
+            font-size: 2.5dvh;
+            transition: 0.1s linear;
+
+            &:hover {
+                transition: 0.2s linear;
+                border: 0;
+                background-color: #748E63;
+                color: #FAF8ED;
+                scale: 1.1;
+            }
+
+            &:active {
+                scale: 0.95;
+            }
         }
     }
-}</style>
+}
+</style>
