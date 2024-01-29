@@ -39,6 +39,7 @@
 </template>
 <script>
 import counter from '../stores/counter'
+import Swal from 'sweetalert2'
 export default {
     data() {
         return {
