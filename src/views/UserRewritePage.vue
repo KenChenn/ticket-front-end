@@ -40,7 +40,6 @@
 <script>
 import Swal from 'sweetalert2'
 import counter from '../stores/counter'
-import Swal from 'sweetalert2'
 export default {
     data() {
         return {
