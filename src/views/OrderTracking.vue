@@ -232,6 +232,7 @@ body {
     display: flex;
     justify-content: space-between;
     select{
+        width: 10%;
         border: 0;
         background-color: #FAF8ED;
         color: #4D5C44;
@@ -254,21 +255,21 @@ body {
     // border: 1px solid black;
     box-shadow: 0 0 0.3vh #00000050;
     .left {
-        width: 21vw;
+        width: 20vw;
         height: 100%;
         // border: 1px black solid;
-
+        
         .picture {
             width: 100%;
-            height: 60%;
+            height: 20vh;
             background-color: #00000013;
-            display: block;
+            // border: 1px black solid;
 
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
-                display: block;
+                display: flex;
                 justify-content: center;
             }
         }
@@ -284,14 +285,15 @@ body {
     }
 
     .middle {
-        width: 40vw;
+        width: 45vw;
         height: 100%;
+        padding: 1%;
         line-height: 3vh;
         // border: 1px solid black;
 
         .info {
             width: 100%;
-            min-height: 35vh;
+            min-height: 5vh;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -303,7 +305,6 @@ body {
             padding: 1%;
 
             .infoTitle {
-                // color: #c26202;
                 font-weight: bold;
                 word-wrap: break-word;
             }
@@ -311,7 +312,6 @@ body {
 
         .btnArea {
             height: 5vh;
-            margin-top: 3%;
             display: flex;
             justify-content: space-between;
 
