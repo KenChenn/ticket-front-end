@@ -111,7 +111,7 @@ export default {
         // 創建頁面時設定
         counter().setUser({});
         if ($cookies.get("account") != null) {
-            alert("已登入")
+            // alert("已登入")
             this.$router.push('/')
         }
     },
