@@ -48,7 +48,7 @@
                 </div>
                 <div class="allP">
                     <span>生日</span>
-                    <input type="date" class="allInput" v-model="birthday" :max="maxBirthday">
+                    <input type="date" class="allInput" v-model="birthday" :max="maxBirthday" :min="minBirthday">
                     <div class="warning">
                         <span v-if="!isBirthday">請輸入生日</span>
                     </div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn" @click="register()">
-                    註冊                    
+                    註冊
                 </button>
 
 
@@ -212,6 +212,9 @@ export default {
         maxBirthday() {
             const today = new Date().toISOString().split('T')[0];
             return today;
+        },
+        minBirthday() {
+            return '1900-01-01';
         }
     },
     created() {
@@ -310,7 +313,8 @@ export default {
             background-color: #FAF8ED;
             border-bottom: #89A071 0.3vh solid;
             color: #4D5C44;
-            &:focus{
+
+            &:focus {
                 outline: 0;
             }
         }
@@ -321,11 +325,13 @@ export default {
             color: #4D5C44;
             // border: 1px black solid;
         }
-        .allP span{
+
+        .allP span {
             width: 100%;
             height: 30%;
             display: flex;
         }
+
         i {
             margin-left: 1%;
             font-size: 2dvh;
@@ -343,26 +349,28 @@ export default {
 
         .btn {
             width: 14%;
-                height: 10%;
-                border:0.3vh solid #4D5C44;
-                // border: 0;
-                color: #4D5C44;
-                border-radius: 1.5vh;
-                margin-left: 43%;
-                font-size: 2.5dvh;
-                transition: 0.1s linear;
-                &:hover{
-                    transition: 0.2s linear;
-                    color: #FAF8ED;
-                    border:0;
-                    background-color: #F5A352;
-                    scale: 1.05;
-                }
-                &:active{
-                    scale: 0.95;
-                }
+            height: 10%;
+            border: 0.3vh solid #4D5C44;
+            // border: 0;
+            color: #4D5C44;
+            border-radius: 1.5vh;
+            margin-left: 43%;
+            font-size: 2.5dvh;
+            transition: 0.1s linear;
+
+            &:hover {
+                transition: 0.2s linear;
+                color: #FAF8ED;
+                border: 0;
+                background-color: #F5A352;
+                scale: 1.05;
+            }
+
+            &:active {
+                scale: 0.95;
+            }
         }
-        
+
     }
 }
 </style>
