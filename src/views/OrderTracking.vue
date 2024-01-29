@@ -1,10 +1,18 @@
 <template>
     <body>
-        <span class="title">訂單查詢</span>
-        <div class="content" v-for="(item, index) in this.orderInfoList" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#E6E1C8' },
-        {
-            opacity: item.seatData.length > 0 ? (item.payment ? '1' : '1') : '#0.5'
-        }">
+        <div class="title">
+            <span>
+                訂單查詢
+            </span>
+            <select name="" id="">
+                <option value="1">未付款</option>
+                <option value="2">已付款</option>
+                <option value="3">已取消</option>
+            </select>
+        </div>
+        <div class="content" v-for="(item, index) in this.orderInfoList" :style="
+        { backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#c0c0c0' },
+        {opacity: item.seatData.length > 0 ? '1' : '0.5'}">
 
             <div class="left">
                 <div class="picture">
@@ -223,6 +231,13 @@ body {
     // border: 1px solid black;
     display: flex;
     justify-content: space-between;
+    select{
+        border: 0;
+        background-color: #FAF8ED;
+        color: #4D5C44;
+        border-bottom: 0.3vh solid #F5A352;
+        font-size: 3dvh;
+    }
 }
 
 .content {
@@ -235,6 +250,7 @@ body {
     display: flex;
     justify-content: space-between;
     color: #4D5C44;
+    // opacity: 0.4;
     // border: 1px solid black;
     box-shadow: 0 0 0.3vh #00000050;
     .left {
