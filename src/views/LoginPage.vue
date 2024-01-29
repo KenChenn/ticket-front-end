@@ -82,7 +82,7 @@ export default {
                             this.$forceUpdate();
                             // 設定過期時間60分鐘的 cookie
                             const now = new Date();
-                            const expires = new Date(now.getTime() + 60 * 60 * 1000); 
+                            const expires = new Date(now.getTime() + 60 * 60 * 1000);
                             document.cookie = `account=${this.loginAccount}; expires=${expires.toUTCString()}; path=/`;
                             // $cookies.set("account", this.loginAccount)
                             this.$router.push('/');
@@ -98,9 +98,9 @@ export default {
                             return;
                         }
                     })
-                    // .then(
-                    //     this.$router.push('/')
-                    // )
+                // .then(
+                //     this.$router.push('/')
+                // )
             }
         },
         passwordVisibility() {
@@ -110,6 +110,10 @@ export default {
     created() {
         // 創建頁面時設定
         counter().setUser({});
+        if ($cookies.get("account") != null) {
+            alert("已登入")
+            this.$router.push('/')
+        }
     },
     beforeRouteLeave(to, from, next) {
         // 離開頁面時清除
@@ -212,6 +216,7 @@ export default {
                 margin-left: 43%;
                 font-size: 2.5dvh;
                 transition: 0.1s linear;
+
                 &:hover {
                     transition: 0.2s linear;
                     color: #FAF8ED;
