@@ -5,6 +5,9 @@
                 個人資料
             </div>
             <div class="info">           
+            <span class="spanP">帳號</span>
+            <span class="infoSpan">{{this.account}}</span>
+
             <span class="spanP">使用者名稱</span>
             <span class="infoSpan">{{this.user}}</span>
                         
@@ -36,6 +39,7 @@ export default {
             email: "",
             birth: "",
             phone: "",
+            account: $cookies.get("account")
         }
     },
     methods: {
@@ -75,7 +79,7 @@ export default {
         counter().setUser(null);
         next();
     },
-    
+
     // components: {
     //     UserRewritePage
     // }
@@ -83,7 +87,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
- 
+
     .down {
         width: 100%;
         height: 89%;
@@ -149,6 +153,7 @@ export default {
                 justify-content: center;
                 align-items: center;
                 transition: 0.1s linear;
+
                 &:hover {
                     transition: 0.2s linear;
                     scale: 1.05;

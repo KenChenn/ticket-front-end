@@ -4,63 +4,67 @@
             <span class="title">編輯場次及座位</span>
             <button type="button" class="completeEditing" @click="createActtivity">編輯活動完成</button>
         </div>
-        <div class="content" v-for="(item, index) in this.sessionList" :key="index">
-            <div class="timesArea">
+        <div class="content" v-for="(item, index) in this.sessionList" :key="index"
+            :style="{ opacity: item.disabled ? '0.5' : '1' }">
+            <fieldset :disabled="item.disabled">
+                <div class="timesArea">
 
-                <div class="timesAll">
-                    <div class="timesTitle">
-                        <span>活動開始時間</span>
-                        <input type="datetime-local" class="timesInput" v-model="item.showDateTime" :min="minShowDateTime">
+                    <div class="timesAll">
+                        <div class="timesTitle">
+                            <span>活動開始時間</span>
+                            <input type="datetime-local" class="timesInput" v-model="item.showDateTime"
+                                :min="minShowDateTime">
+                        </div>
+                        <div v-if="item.isEmptyShowDateTime" class=" error">請輸入活動開始時間</div>
                     </div>
-                    <div v-if="item.isEmptyShowDateTime" class=" error">請輸入活動開始時間</div>
-                </div>
-                <div class="timesAll">
-                    <div class="timesTitle">
-                        <span>開售時間</span>
-                        <input type="datetime-local" class="timesInput" v-model="item.startSellDateTime"
-                            :min="minStartSellDateTime" :max="maxStartSellDateTime">
+                    <div class="timesAll">
+                        <div class="timesTitle">
+                            <span>開售時間</span>
+                            <input type="datetime-local" class="timesInput" v-model="item.startSellDateTime"
+                                :min="minStartSellDateTime" :max="maxStartSellDateTime">
+                        </div>
+                        <div v-if="item.isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
+                        <div v-if="item.startIsAfterShow" class="error">開售時間已晚於活動開始時間</div>
                     </div>
-                    <div v-if="item.isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
-                    <div v-if="item.startIsAfterShow" class="error">開售時間已晚於活動開始時間</div>
-                </div>
 
-                <div class="timesAll">
-                    <div class="timesTitle">
-                        <span>停售時間</span>
-                        <input type="datetime-local" class="timesInput" v-model="item.endSellDateTime"
-                            @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)" :min="minEndSellDateTime"
-                            :max="maxEndSellDateTime">
+                    <div class="timesAll">
+                        <div class="timesTitle">
+                            <span>停售時間</span>
+                            <input type="datetime-local" class="timesInput" v-model="item.endSellDateTime"
+                                @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)"
+                                :min="minEndSellDateTime" :max="maxEndSellDateTime">
+                        </div>
+                        <div v-if="item.isEmptyEndSellDateTime" class=" error ">請輸入停售時間</div>
+                        <div v-if="item.endIsafterShow" class=" error ">停售時間已晚於活動開始時間</div>
                     </div>
-                    <div v-if="item.isEmptyEndSellDateTime" class=" error ">請輸入停售時間</div>
-                    <div v-if="item.endIsafterShow" class=" error ">停售時間已晚於活動開始時間</div>
                 </div>
-            </div>
 
-            <button type="button" class="delete" @click="deleteEvent(index)">刪除場次</button>
+                <button type="button" class="delete" @click="deleteEvent(index)">刪除場次</button>
 
-            <div class="seatArea">
-                <span>區域名稱</span>
-                <span>可出售座位數</span>
-                <span>座位價格</span>
-                <button type="button" class="addArea" @click="addArea(index)">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-            </div>
-            <div class="inputArea" v-for="(areaItem, areaIndex) in item.seatData" :key="areaIndex">
-                <input type="text" class="areaInput" v-model="areaItem.area">
-                <input type="number" class="areaInput" v-model="areaItem.maxSeatNum">
-                <input type="number" class="areaInput" v-model="areaItem.price">
-                <button type="button" class="delete" @click="deleteArea(index, areaIndex)">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
-            </div>
-            <div class="areaError" v-for="(areaItem, areaIndex) in item.seatData">
-                <div v-if="areaItem.isEmptyArea" class="error errorArea">請輸入區域名稱 </div>
-                <div v-if="areaItem.isEmptySeat" class="error errorSeat">請輸入可出售座位數 </div>
-                <div v-if="areaItem.isEmptyPrice" class="error errorPrice">請輸入座位價格 </div>
-            </div>
-
+                <div class="seatArea">
+                    <span>區域名稱</span>
+                    <span>可出售座位數</span>
+                    <span>座位價格</span>
+                    <button type="button" class="addArea" @click="addArea(index)">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <div class="inputArea" v-for="(areaItem, areaIndex) in item.seatData" :key="areaIndex">
+                    <input type="text" class="areaInput" v-model="areaItem.area">
+                    <input type="number" class="areaInput" v-model="areaItem.maxSeatNum">
+                    <input type="number" class="areaInput" v-model="areaItem.price">
+                    <button type="button" class="delete" @click="deleteArea(index, areaIndex)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <div class="areaError" v-for="(areaItem, areaIndex) in item.seatData">
+                    <div v-if="areaItem.isEmptyArea" class="error errorArea">請輸入區域名稱 </div>
+                    <div v-if="areaItem.isEmptySeat" class="error errorSeat">請輸入可出售座位數 </div>
+                    <div v-if="areaItem.isEmptyPrice" class="error errorPrice">請輸入座位價格 </div>
+                </div>
+            </fieldset>
         </div>
+
         <button type="button" class="addEvent" @click="addEvent">新增場次</button>
         <div class="footer">
         </div>
@@ -120,6 +124,7 @@ export default {
                 item.commodity_codename = this.EditActtivity.codename;
             })
 
+            console.log(this.sessionList);
             for (const session of this.sessionList) {
                 const areaMap = {}; //存已出現區域名稱
                 for (const seat of session.seatData) {
@@ -203,8 +208,6 @@ export default {
                     this.startIsAfterShow = session.startIsAfterShow
                     this.endIsafterShow = session.endIsafterShow
                     this.endIsEarlyStart = session.endIsEarlyStart
-
-
                 }
             }
             if (!this.isEmptyShowDateTime && !this.isEmptyStartSellDateTime && !this.isEmptyEndSellDateTime && !this.isEmptyArea && !this.isEmptySeat && !this.isEmptyPrice && !this.isRepeatArea && !this.startIsAfterShow && !this.endIsafterShow && !this.endIsEarlyStart) {
@@ -357,6 +360,16 @@ export default {
                 console.log(res.data)
                 if (res.rtncode == "SUCCESSFUL") {
                     this.sessionList = res.data.sessionData
+                    console.log(this.sessionList)
+                    this.sessionList.forEach(item => {
+                        var today = new Date();
+                        var endSellDateTime = new Date(item.endSellDateTime);
+                        if (endSellDateTime.getFullYear() === today.getFullYear() && endSellDateTime.getMonth() === today.getMonth() && endSellDateTime.getDate()- 1 <= today.getDate()) {
+                            item.disabled = true
+                        } else {
+                            item.disabled = false
+                        }
+                    })
                 } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                     alert("請先登入")
                 }
@@ -469,6 +482,7 @@ body {
         &:focus {
             outline: none;
         }
+
     }
 
     .error {
