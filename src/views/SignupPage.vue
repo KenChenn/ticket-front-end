@@ -51,6 +51,7 @@
                     <input type="date" class="allInput" v-model="birthday" :max="maxBirthday" :min="minBirthday">
                     <div class="warning">
                         <span v-if="!isBirthday">請輸入生日</span>
+                        <span v-if="!isValidBirthday">請輸入有效生日</span>
                     </div>
                 </div>
                 <div class="allP">
@@ -101,6 +102,7 @@ export default {
             isValidPassword: true,
             isValidPhoneNumber: true,
             isValidName: true,
+            isValidBirthday: true,
             //確認輸入資料是否已存在
             isReapeatUsername: false,
             isReapeatAccount: false,
@@ -144,8 +146,11 @@ export default {
             const realName = /^[\u4e00-\u9fa5]{1,3}(?:·[\u4e00-\u9fa5]{1,2})*$/
             this.isValidName = realName.test(this.name)
 
+            if (new Date(this.birthday) < new Date(this.minBirthday)) {
+                this.isValidBirthday = false
+            }
 
-            if (this.isAccount && this.isUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName) {
+            if (this.isAccount && this.isUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday) {
                 const account = {
                     account: this.account,
                     username: this.username,

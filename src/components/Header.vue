@@ -39,6 +39,25 @@ export default {
         })
         .catch(error => console.log(error))
     },
+    adminSignOut(){
+      fetch('http://localhost:8080/api/logout', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include'
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          if (data.rtncode == "SUCCESSFUL") {
+            $cookies.remove("adminAccount");
+            this.$router.push("/")
+              // counter().isLogIn = false
+          }
+        })
+        .catch(error => console.log(error))
+    },
     toUserInfoPage() {
       this.$router.push("/UserInfoPage")
     }
@@ -100,12 +119,6 @@ export default {
       })
     console.log(counter().isLogIn);
   },
-  // created() {
-  //   console.log($cookies.get("account"))
-  //   if ($cookies.get("account") != null) {
-  //     this.isLogIn = true
-  //   }
-  // }
 };
 </script>
 <template>
@@ -114,7 +127,7 @@ export default {
     <!-- 管理者 -->
     <div class="manager" v-if="manager">
       <RouterLink to="/ActivityAndHostPage" class="managerHomePage">管理頁</RouterLink>
-      <button type="button" @click="this.signOut()" class="signOut">登出 <i class="fa-solid fa-right-from-bracket"></i></button>
+      <button type="button" @click="this.adminSignOut()" class="signOut">登出 <i class="fa-solid fa-right-from-bracket"></i></button>
     </div>
 
     <!-- 使用者 -->

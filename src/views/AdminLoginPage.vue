@@ -69,7 +69,7 @@ export default {
                             // 設定過期時間60分鐘的 cookie
                             const now = new Date();
                             const expires = new Date(now.getTime() + 60 * 60 * 1000);
-                            document.cookie = `account=${this.loginAccount}; expires=${expires.toUTCString()}; path=/`;
+                            document.cookie = `adminAccount=${this.loginAccount}; expires=${expires.toUTCString()}; path=/`;
                             this.$router.push('/ActivityAndHostPage');
                         } else {
                             alert("登入失敗");
