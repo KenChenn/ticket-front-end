@@ -252,7 +252,7 @@ export default {
                         console.log(res.rtncode);
                         if (res.rtncode == "SUCCESSFUL") {
                             // 刪除名為 "acttivity" 的 localStorage
-                            localStorage.removeItem("acttivity");
+                            localStorage.removeItem("acttivity")
                             this.$router.push('/ActivityAndHostPage')
                         }
                         if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
