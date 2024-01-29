@@ -7,7 +7,7 @@
             <button class="subscribeMsg" @click="this.goSendInfo()">發送訂閱訊息</button>
             <!-- 建立活動按鈕 -->
             <button class="act" @click="this.goCreateActivities()">建立活動</button>
-        </div>  
+        </div>
         <div class="down">
             <div class="actSq">
                 <div class="sqUp">
@@ -17,7 +17,8 @@
 
                     <!-- 活動區域 -->
                     <div class="plusAct" v-for="item in activityList">
-                        <button class="hensyu" @click="edit(item.codename)">編輯</button>
+                        <button class="hensyu" @click="edit(item.codename)" v-if="item.edit">編輯</button>
+                        <button class="hensyu2" v-if="!item.edit" disabled>無法編輯</button>
                         <div class="spanName">{{ item.name }}</div>
                         <button class="cencel" @click="deleteActivity(item.codename)">刪除</button>
                     </div>
@@ -36,17 +37,17 @@ export default {
     },
     methods: {
         goManageHostPage() {
-            this.$router.push('/ManageHostPage') 
-        }, 
+            this.$router.push('/ManageHostPage')
+        },
         goSendInfo() {
             this.$router.push('/SendInfo')
         },
         goCreateActivities() {
             this.$router.push('/CreateActivities')
         },
-        deleteActivity(codename){
+        deleteActivity(codename) {
             const activityName = this.activityList.find(item => item.codename === codename)?.name || "該活動";
-            if(confirm(`是否刪除活動　　${activityName}`) == true){
+            if (confirm(`是否刪除活動　　${activityName}`) == true) {
                 this.confirmDeleteActivity(codename)
             }
         },
@@ -91,6 +92,14 @@ export default {
                     console.log(res.data)
                     if (res.rtncode == "SUCCESSFUL") {
                         this.activityList = res.data
+                        this.activityList.forEach(item => {
+                            if (new Date(item.endDate) < new Date()) {
+                                item.edit = false
+                            } else {
+                                item.edit = true
+                            }
+
+                        })
                     } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                         alert("請先登入")
                         this.$router.push('/AdminLoginPage')
@@ -149,6 +158,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         button {
             height: 70%;
             width: 25%;
@@ -232,6 +242,16 @@ export default {
                             scale: 0.95;
                             background-color: #c26202;
                         }
+                    }
+
+                    .hensyu2 {
+                        width: 10%;
+                        height: 20%;
+                        border-radius: 1vh;
+                        font-size: 2.5dvh;
+                        // color: #F5A352;
+                        background-color: #FAF8ED;
+                        // border: 0.3vh solid #F5A352;
                     }
 
                     .spanName {

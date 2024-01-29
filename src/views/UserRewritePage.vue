@@ -13,6 +13,9 @@
             </div>
             <div class="reWriteSq">
 
+                <span class="allP">帳號</span>
+                <input type="text" class="allInput" v-model="editedAccount" disabled>
+
                 <span class="allP">使用者名稱</span>
                 <input type="text" class="allInput" v-model="editedUser">
                 <div class="warning">
@@ -47,6 +50,7 @@ export default {
             editedEmail: "",
             editedPhone: "",
             editedBirth: "",
+            editedAccount: $cookies.get("account"),
 
             isUsername: true,
             isValidEmail: true,
@@ -91,12 +95,12 @@ export default {
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("更改成功");
                             Swal.fire({
-                            title: "更改成功",
-                            icon: "success",
-                            color: "#4D5C44",
-                            background: "#FAF8ED",
-                            confirmButtonColor: "#748e63"
-                        });
+                                title: "更改成功",
+                                icon: "success",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#748e63"
+                            });
                             this.$router.push('/UserInfoPage')
                         }
                         // this.user = res.data.data.username
@@ -214,6 +218,7 @@ export default {
                 justify-content: center;
                 align-items: center;
                 transition: 0.1s linear;
+
                 &:hover {
                     transition: 0.2s linear;
                     scale: 1.05;
