@@ -9,13 +9,16 @@ export default {
         }
     },
     computed: {
-        ...mapState(counter, ['dataList', 'testArray', 'test'])
+        ...mapState(counter, ['dataList', 'testArray', 'test']),
+        //依照時間排列
+        sortedDataList() {
+            return this.dataList.slice().sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+        }
     },
     methods: {
         ...mapActions(counter, []),
     },
     mounted() {
-
     },
 }
 </script>
@@ -24,7 +27,7 @@ export default {
     <div class="showArea">
 
         <!-- 節目卡片區域 -->
-        <RouterLink to="/" class="show" v-for="(item, index) in this.dataList">
+        <RouterLink to="/" class="show" v-for="(item, index) in sortedDataList">
             <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
                 <!-- 節目圖片 -->
                 <div class="showImg" @click="this.codename = this.codename + item.codename">
