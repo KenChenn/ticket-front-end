@@ -103,38 +103,38 @@
                         <span v-if="item.isEarly">{{ item.startSellDateTime }} 開售</span>
                         <span v-if="item.isAfter">{{ item.endSellDateTime }} 完售</span>
                     </div>
-                </div>
-                <div class="seat" v-if="seat">
-                    <div class="seatTitle">
-                        <!-- 驗證碼 藝術老大可改耶逼 -->
-                        <span>區域名稱</span>
-                        <span>座位價格</span>
-                    </div>
-                    <div class="seatArea" v-for="seatItem in   this.seatList  ">
-                        <div class="areaAndPrice">
-                            <span>{{ seatItem.area }}</span>
-                            <span>{{ seatItem.price }}</span>
-                            <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
+                    <div class="seat" v-if="seat">
+                        <div class="seatTitle">
+                            <!-- 驗證碼 藝術老大可改耶逼 -->    
+                            <span>區域名稱</span>
+                            <span>座位價格</span>
                         </div>
-                        <select name="" id="" v-model="seatItem.selectedQuantity"
-                            v-if="seatItem.remainingTicket > 0 && buyBtn">
-                            <option value="" disabled selected hidden>請選擇張數</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                        <button class="btn" v-if="seatItem.remainingTicket > 0 && buyBtn"
-                            @click="checkVerify(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
-                        <button class="btn" v-if="seatItem.remainingTicket <= 0 && buyBtn" disabled>已售完</button>
-                        <button class="btn" v-if="!buyBtn" disabled>請登入</button>
-                    </div>
-                    <div class="verify">
-                        <span>
-                            請輸入購票驗證碼
-                        </span>
-                        <img :src="this.pic">
-                        <input type="text" v-model="codeNum">
+                        <div class="seatArea" v-for="seatItem in   this.seatList  ">
+                            <div class="areaAndPrice">
+                                <span>{{ seatItem.area }}</span>
+                                <span>{{ seatItem.price }}</span>
+                                <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
+                            </div>
+                            <select name="" id="" v-model="seatItem.selectedQuantity"
+                                v-if="seatItem.remainingTicket > 0 && buyBtn">
+                                <option value="" disabled selected hidden>請選擇張數</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                            <button class="btn" v-if="seatItem.remainingTicket > 0 && buyBtn"
+                                @click="checkVerify(seatItem.num, seatItem.area, seatItem.selectedQuantity)">購買</button>
+                            <button class="btn" v-if="seatItem.remainingTicket <= 0 && buyBtn" disabled>已售完</button>
+                            <button class="btn" v-if="!buyBtn" disabled>請登入</button>
+                        </div>
+                        <div class="verify">
+                            <span>
+                                請輸入購票驗證碼
+                            </span>
+                            <img :src="this.pic">
+                            <input type="text" v-model="codeNum">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1121,7 +1121,7 @@ export default {
 
                 // border: 1px solid black;
                 span {
-                    color: #4D5C44;
+                    color: #FAF8ED;
                     font-size: 2.5dvh;
                 }
 
@@ -1135,7 +1135,7 @@ export default {
                     // border: 1px solid black;
 
                     span {
-                        color: #c26202;
+                        color: #FAF8ED;
                         font-size: 3dvh;
                     }
                 }
@@ -1163,9 +1163,9 @@ export default {
                     // border-radius: 1.5vh;
                     // margin-left: 10%;
                     text-align: center;
-                    color: #4D5C44;
-                    background-color: #FAF8ED;
-                    border-bottom: #F5A352 solid 0.3vh;
+                    color: #FAF8ED;
+                    background-color: #F5A352;
+                    border-bottom: #FAF8ED solid 0.3vh;
                 }
 
             }
@@ -1179,7 +1179,7 @@ export default {
                 // border: 1px solid black;
 
                 span {
-                    color: #c26202;
+                    color: #FAF8ED;
                     font-size: 3dvh;
                 }
 
@@ -1191,9 +1191,9 @@ export default {
                 input {
                     width: 15%;
                     border: 0;
-                    border-bottom: #F5A352 solid 0.3vh;
-                    background-color: #FAF8ED;
-                    color: #4D5C44;
+                    border-bottom: #FAF8ED solid 0.3vh;
+                    color: #FAF8ED;
+                    background-color: #F5A352;
                     font-size: 2.5dvh;
 
                     &:focus {
