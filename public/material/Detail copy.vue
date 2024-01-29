@@ -758,7 +758,7 @@ export default {
                     background-color: #DB3A3A;
                     color: #FAF8ED;
                     border: #DB3A3A solid 0.5vh;
-                    box-shadow: 0 0 1vh #808080;
+                    box-shadow: 0 0 1vh #00000050;
 
                 }
 
@@ -766,12 +766,12 @@ export default {
                     color: #DB3A3A;
                     background-color: #FAF8ED;
                     border: #DB3A3A solid 0.5vh;
-                    box-shadow: 0 0 1vh #808080;
+                    box-shadow: 0 0 1vh #00000050;
                     
                 }
 
                 button {
-                    box-shadow: 0 0 1vh #808080;
+                    box-shadow: 0 0 1vh #00000050;
 
                     &:hover {
                         transition: 0.1s linear;

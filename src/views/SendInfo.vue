@@ -22,6 +22,7 @@
 </template>
 <script>
 import Swal from 'sweetalert2'
+import counter from '../stores/counter'
 
 
 export default {
@@ -84,6 +85,15 @@ export default {
     },
     mounted() {
         this.getSubscribeData()
+    },
+    created() {
+        // 創建頁面時設定
+        counter().setManager({});
+    },
+    beforeRouteLeave(to, from, next) {
+        // 離開頁面時清除
+        counter().setManager(null);
+        next();
     },
 }
 </script>

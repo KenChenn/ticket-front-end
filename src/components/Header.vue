@@ -16,7 +16,7 @@ export default {
       dataList: [],
     };
   },
-  computed:{
+  computed: {
 
   },
   methods: {
@@ -34,7 +34,7 @@ export default {
           if (data.rtncode == "SUCCESSFUL") {
             $cookies.remove("account");
             this.$router.push("/"),
-            counter().isLogIn = false
+              counter().isLogIn = false
           }
         })
         .catch(error => console.log(error))
@@ -98,7 +98,7 @@ export default {
           counter().isLogIn = true
         }
       })
-      console.log(counter().isLogIn);
+    console.log(counter().isLogIn);
   },
   // created() {
   //   console.log($cookies.get("account"))
@@ -114,19 +114,20 @@ export default {
     <!-- 管理者 -->
     <div class="manager" v-if="manager">
       <RouterLink to="/ActivityAndHostPage" class="managerHomePage">管理頁</RouterLink>
-      <button type="button" @click="this.signOut()" class="signOut">登出</button>
+      <button type="button" @click="this.signOut()" class="signOut">登出 <i class="fa-solid fa-right-from-bracket"></i></button>
     </div>
 
     <!-- 使用者 -->
     <div class="user" v-if="user">
-      <RouterLink to="/" class="homePage">回首頁</RouterLink>
+      <RouterLink to="/" class="homePage">首頁 <i class="fa-solid fa-house"></i></RouterLink>
 
       <!-- 已登入 -->
       <div class="isLogIn" v-if="counter().isLogIn">
-        <i class="fa-solid fa-circle-user" @click="toUserInfoPage"></i>
-        <RouterLink to="/FavoratePage" class="favoratePage">最愛清單</RouterLink>
-        <RouterLink to="/OrderTracking" class="orderTracking">訂單查詢</RouterLink>
-        <button type="button" @click="this.signOut()" class="signOut">登出</button>
+        <RouterLink to="/FavoratePage" class="favoratePage">最愛清單 <i class="fa-solid fa-heart"></i></RouterLink>
+        <RouterLink to="/OrderTracking" class="orderTracking">訂單查詢 <i class="fa-solid fa-receipt"></i></RouterLink>
+        <RouterLink to="/UserInfoPage" class="orderTracking">會員 <i class="fa-solid fa-circle-user"></i>
+        </RouterLink>
+        <button type="button" @click="this.signOut()" class="signOut">登出 <i class="fa-solid fa-right-from-bracket"></i></button>
       </div>
 
       <!-- 未登入 -->
@@ -135,17 +136,17 @@ export default {
         <RouterLink to="/LoginPage" class="loginPage">登入</RouterLink>
       </div>
     </div>
-    
+
   </div>
 </template>
 
 <style scoped lang="scss">
 .headerShow {
-  width: 35%;
+  width: 50%;
   height: 10vh;
   right: 15%;
-  background-color: #44ff00;
-  // background-color: #F9B572;
+  // background-color: #44ff00;
+  background-color: #F9B572;
   position: fixed;
   display: flex;
   justify-content: space-between;

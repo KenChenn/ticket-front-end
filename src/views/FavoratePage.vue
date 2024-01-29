@@ -307,7 +307,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 2%;
-    box-shadow: 0 0 0.3vh #808080;
+    box-shadow: 0 0 0.3vh #00000050;
     .first-item {
         background-color: #FFC68D;
     }

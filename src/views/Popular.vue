@@ -85,7 +85,7 @@ export default {
     color: #FAF8ED;
     text-decoration: none;
     border-radius: 2vh;
-    box-shadow: 0 0 1vh #808080;
+    box-shadow: 0 0 1vh #00000050;
 
     .showImg {
         height: 60%;
