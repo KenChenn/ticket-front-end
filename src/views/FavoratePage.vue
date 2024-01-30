@@ -219,6 +219,7 @@ export default {
                         }.bind(this))
                     }
                 })
+                
         }
     },
     mounted() {

@@ -136,6 +136,9 @@
                         </span>
                         <img :src="this.pic">
                         <input type="text" v-model="codeNum">
+                        <div class="codeNumHint">
+                            <span v-if="!isValidCodeNum" class="warning">驗證碼錯誤</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -326,6 +329,7 @@ export default {
             buyBtn: false,
             pic: "",
             codeNum: "",
+            isValidCodeNum: true,
         }
     },
     methods: {
@@ -363,13 +367,7 @@ export default {
                         this.buy(num, area, selectedQuantity)
                     }
                     if(data.rtncode == "VERIFICATION_CODE_EXPIRED"){
-                        Swal.fire({
-                            title: "驗證碼錯誤",
-                            icon: "error",
-                            color: "#4D5C44",
-                            background: "#FAF8ED",
-                            confirmButtonColor: "#DB3A3A"
-                        });
+                        this.isValidCodeNum = false
                     }
                 })
         },
@@ -439,13 +437,13 @@ export default {
                     }
                     if (data.rtncode == "SUCCESSFUL") {
                         // alert("新增成功")
-                        Swal.fire({
-                            title: "新增成功",
-                            icon: "success",
-                            color: "#4D5C44",
-                            background: "#FAF8ED",
-                            confirmButtonColor: "#748e63"
-                        });
+                        // Swal.fire({
+                        //     title: "新增成功",
+                        //     icon: "success",
+                        //     color: "#4D5C44",
+                        //     background: "#FAF8ED",
+                        //     confirmButtonColor: "#748e63"
+                        // });
                     }
                     this.searchFav = data.is_Track;
                     console.log(data)
@@ -466,8 +464,18 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     this.searchFav = data.is_Track;
                     console.log(this.searchFav)
+                    if (data.rtncode == "SUCCESSFUL") {
+                        // Swal.fire({
+                        //     title: "移除成功",
+                        //     icon: "success",
+                        //     color: "#4D5C44",
+                        //     background: "#FAF8ED",
+                        //     confirmButtonColor: "#748e63"
+                        // });
+                    }
                 })
                 .catch(error => console.log(error))
         },
@@ -1206,6 +1214,15 @@ export default {
 
                     &:focus {
                         outline: none;
+                    }
+                }
+                .codeNumHint{
+                    width: 8%;
+                    .warning {
+                        // width: 25%;
+                        color: #DB3A3A;
+                        font-size: 2dvh;
+                        // border: 1px black solid;
                     }
                 }
             }
