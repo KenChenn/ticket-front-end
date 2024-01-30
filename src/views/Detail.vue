@@ -106,13 +106,14 @@
                 </div>
                 <div class="seat" v-if="seat">
                     <div class="seatTitle">
-                        <!-- 驗證碼 藝術老大可改耶逼 -->
                         <span>區域名稱</span>
                         <span>座位價格</span>
                     </div>
                     <div class="seatArea" v-for="seatItem in   this.seatList  ">
                         <div class="areaAndPrice">
-                            <span>{{ seatItem.area }}</span>
+                            <span class="areaName">
+                                {{ seatItem.area }}
+                            </span>
                             <span>{{ seatItem.price }}</span>
                             <span>剩餘張數 : {{ seatItem.remainingTicket }}</span>
                         </div>
@@ -1126,7 +1127,7 @@ export default {
                 }
 
                 .seatTitle {
-                    width: 30%;
+                    width: 40%;
                     height: 10vh;
                     display: flex;
                     flex-wrap: wrap;
@@ -1154,8 +1155,17 @@ export default {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    width: 50%;
+                    width: 70%;
                     // border: 1px solid black;
+
+                    .areaName {
+                        width: 60%;
+                    }
+
+                    span {
+                        // border: 1px solid black;
+                        width: 35%;
+                    }
                 }
 
                 select {
