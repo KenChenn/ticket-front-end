@@ -637,12 +637,9 @@ export default {
                     this.sessionList = data.data;
                     // console.log(this.nowTime);
                     // console.log(data.data[(data.data.length)-1].showDateTime);
-
-                    for (const session of this.sessionList) {
-                        const sessionTime = new Date(session.showDateTime);
-                        if (sessionTime < this.nowTime) {
-                            // alert("活動已過期");
-                            Swal.fire({
+                    console.log(new Date(this.sessionList[this.sessionList.length-1].showDateTime));
+                    if(new Date(this.sessionList[this.sessionList.length-1].showDateTime) < this.nowTime ){
+                        Swal.fire({
                                 title: "活動已過期",
                                 icon: "error",
                                 color: "#4D5C44",
@@ -651,8 +648,22 @@ export default {
                             });
                             this.$router.push('/');
                             return;
-                        }
                     }
+                    // for (const session of this.sessionList) {
+                    //     const sessionTime = new Date(session.showDateTime);
+                    //     if (sessionTime < this.nowTime) {
+                    //         // alert("活動已過期");
+                    //         Swal.fire({
+                    //             title: "活動已過期",
+                    //             icon: "error",
+                    //             color: "#4D5C44",
+                    //             background: "#FAF8ED",
+                    //             confirmButtonColor: "#DB3A3A"
+                    //         });
+                    //         this.$router.push('/');
+                    //         return;
+                    //     }
+                    // }
 
 
                     this.sessionList.forEach(item => {
