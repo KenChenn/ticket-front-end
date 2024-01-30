@@ -372,6 +372,15 @@ export default {
                         console.log("test")
                         this.buy(num, area, selectedQuantity)
                     }
+                    if(data.rtncode == "VERIFICATION_CODE_EXPIRED"){
+                        Swal.fire({
+                            title: "驗證碼錯誤",
+                            icon: "error",
+                            color: "#4D5C44",
+                            background: "#FAF8ED",
+                            confirmButtonColor: "#DB3A3A"
+                        });
+                    }
                 })
         },
         codeInfo() {
