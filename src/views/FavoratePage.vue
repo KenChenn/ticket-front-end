@@ -254,30 +254,35 @@ body {
     font-size: 4dvh;
     display: flex;
     align-items: end;
-    // border: 1px solid black;
     display: flex;
     justify-content: space-between;
+    // border: 1px solid black;
 }
 
 .interest {
-    width: 40vw;
+    width: 20%;
     margin-top: 1%;
-    padding-left: 15%;
+    margin-left: 15%;
     display: flex;
     justify-content: space-between;
+    // border: 1px solid black;
 
     .area {
         width: 5vw;
-        border: 0;
-        background-color: #FFC68D;
         font-size: 3dvh;
+        border-radius: 1.5vh;   
+        border: 0.3vh solid  #FFC68D;
+        background-color: #FAF8ED;
+        color: #4D5C44;
     }
-
+    
     .noArea {
         width: 5vw;
-        border: 0;
-        background-color: #f5a352;
+        border-radius: 1.5vh;   
         font-size: 3dvh;
+        border: 0.3vh solid  #FFC68D;
+        background-color: #FFC68D;
+        color: #4D5C44;
     }
 }
 
