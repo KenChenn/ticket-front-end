@@ -195,16 +195,19 @@ export default {
 
     .searchBtn {
       font-size: 4dvh;
+      cursor: pointer;
       margin: 3%;
       color: #faf8ed;
-
+      transition: 0.1s linear;
+      
       i:hover {
-        transition: 0.1s linear;
-        scale: 1.1;
+        transition: 0.2s linear;
+        scale: 1.15;
         color: #ffffff;
       }
-
+      
       i:active {
+        transition: 0.2s linear;
         scale: 0.95;
         color: #c26202;
       }

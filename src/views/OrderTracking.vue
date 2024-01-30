@@ -57,12 +57,12 @@
                 </div>
 
                 <div class="btnArea">
-
+                    <!-- <span>{{ new Date(item.payFinalDate) }}</span>
+                    <span>{{ new Date(new Date(item.payFinalDate).getTime() + 3 * 24 * 60 * 60 * 1000) }}</span> -->
                     <button type="button" @click="this.goCencel(item.buyNum, item.payFinalDate)" v-if="item.seatData.length > 0 &&
-                        (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) &&
-                        (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString()) &&
-                        (new Date(item.payFinalDate) > new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000))"
-                        class="cancel">
+                        (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && //現在時間大於開售時間
+                        (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString()) && //結束時間大於現在時間
+                        (new Date(new Date(item.payFinalDate).getTime() + 3 * 24 * 60 * 60 * 1000).toLocaleString() > this.nowDateTime)" class="cancel">
                         取消訂單
                     </button>
                     <!-- payFinalDate+3日 小於今天按鈕隱藏 -->

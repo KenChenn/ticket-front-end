@@ -141,6 +141,11 @@ export default {
             margin-left: 15%;
             background-color: #FAF8ED;
             border: #F5A352 0.3vh solid;
+            resize: none;
+            
+            &:focus {
+                outline: none;
+            }
         }
 
         .btn {
