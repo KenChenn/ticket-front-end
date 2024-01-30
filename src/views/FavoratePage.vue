@@ -219,7 +219,7 @@ export default {
                         }.bind(this))
                     }
                 })
-                
+
         }
     },
     mounted() {
@@ -273,19 +273,50 @@ body {
     .area {
         width: 5vw;
         font-size: 3dvh;
-        border-radius: 1.5vh;   
-        border: 0.3vh solid  #FFC68D;
+        border-radius: 1.5vh;
+        border: 0.3vh solid #FFC68D;
         background-color: #FAF8ED;
         color: #4D5C44;
+        transition: 0.1s linear;
+
+
+        &:hover {
+            transition: 0.2s linear;
+            color: #FAF8ED;
+            border: 0;
+            background-color: #F5A352;
+            scale: 1.05;
+        }
+
+        &:active {
+            background-color: #c26202;
+            scale: 0.95;
+        }
     }
-    
+
     .noArea {
         width: 5vw;
-        border-radius: 1.5vh;   
+        border-radius: 1.5vh;
         font-size: 3dvh;
-        border: 0.3vh solid  #FFC68D;
+        border: 0.3vh solid #FFC68D;
         background-color: #FFC68D;
         color: #4D5C44;
+        transition: 0.1s linear;
+        
+        &:hover {
+            transition: 0.2s linear;
+            border: 0;
+            color: #F5A352;
+            border: 0.3vh solid #FFC68D;
+            background-color: #FAF8ED;
+            scale: 1.05;
+        }
+        
+        &:active {
+            border: 0.3vh solid #FFC68D;
+            background-color: #c26202;
+            scale: 0.95;
+        }
     }
 }
 
