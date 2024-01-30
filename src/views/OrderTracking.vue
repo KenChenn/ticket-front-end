@@ -10,9 +10,8 @@
                 <option value="3">已取消</option>
             </select>
         </div>
-        <div class="content" v-for="(item, index) in this.orderInfoList" :style="
-        { backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#c0c0c0' },
-        {opacity: item.seatData.length > 0 ? '1' : '0.5'}">
+        <div class="content" v-for="(item, index) in this.orderInfoList" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#c0c0c0' },
+            { opacity: item.seatData.length > 0 ? '1' : '0.5' }">
 
             <div class="left">
                 <div class="picture">
@@ -58,9 +57,13 @@
 
                 <div class="btnArea">
 
-                    <button type="button" @click="this.goCencel(item.buyNum)"
-                        v-if="item.seatData.length > 0 && (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString())"
-                        class="cancel">取消訂單</button>
+                    <button type="button" @click="this.goCencel(item.buyNum, item.payFinalDate)" v-if="item.seatData.length > 0 &&
+                        (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) &&
+                        (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString()) &&
+                        (new Date(item.payFinalDate) > new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000))" class="cancel">
+                        取消訂單
+                    </button>
+                    <!-- payFinalDate+3日 小於今天按鈕隱藏 -->
 
                     <button type="button" @click="this.goPay(item.buyNum)"
                         v-if="item.seatData.length > 0 && item.payment == false" class="payment">付款</button>
@@ -150,9 +153,12 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        goCencel(buyNum) {
+        goCencel(buyNum, payFinalDate) {
+            //payFinalDate+3日 小於 今天的話跳出通知說已過退票時間
+            console.log(payFinalDate)
             Swal.fire({
                 title: "是否取消訂單",
+                text: "如果已付款，確認後請至退票規定內點選連結填寫退票申請書",
                 icon: "warning",
                 color: "#4D5C44",
                 background: "#FAF8ED",
@@ -231,7 +237,8 @@ body {
     // border: 1px solid black;
     display: flex;
     justify-content: space-between;
-    select{
+
+    select {
         width: 10%;
         border: 0;
         background-color: #FAF8ED;
@@ -254,11 +261,12 @@ body {
     // opacity: 0.4;
     // border: 1px solid black;
     box-shadow: 0 0 0.3vh #00000050;
+
     .left {
         width: 20vw;
         height: 100%;
         // border: 1px black solid;
-        
+
         .picture {
             width: 100%;
             height: 20vh;
@@ -332,6 +340,7 @@ body {
                 color: #FAF8ED;
                 border: 0;
                 transition: 0.1s linear;
+
                 &:hover {
                     transition: 0.2s linear;
                     scale: 1.05;
@@ -350,6 +359,7 @@ body {
                 background-color: #748E63;
                 border: 0;
                 transition: 0.1s linear;
+
                 &:hover {
                     transition: 0.2s linear;
                     scale: 1.05;
