@@ -23,9 +23,9 @@
                 <span>是否為實體活動*</span><br>
                 <div class="radio">
                     <span class="yes">是</span>
-                    <input type="radio" name="radio" v-model="enity" value="true">
+                    <input type="radio" name="radio" v-model="enity1" value="true">
                     <span class="no">否</span>
-                    <input type="radio" name="radio" v-model="enity" value="false">
+                    <input type="radio" name="radio" v-model="enity2" value="false">
                 </div>
                 <p v-if="!isEntityEnity" class="warning">請選取是否為實體活動</p>
             </div>
@@ -94,7 +94,8 @@ export default {
             codename: "",
             name: "",
             introduction: "",
-            enity: false,
+            enity1: false,
+            enity2: false,
             place: "",
             organizer: "",
             keyvisualImg: "",
@@ -126,16 +127,19 @@ export default {
             } else {
                 this.fileError = false
             }
-            // console.log(this.fileError);
 
             //確認必填
             this.isEntityName = !!this.name;
             this.isEntityOrganizer = !!this.organizer;
-            this.isEntityEnity = !!this.enity
+            this.isEntityEnity = !!this.enity1 || !this.enity2
             this.isEntityPlace = !!this.place
             this.isEntityIntroduction = !!this.introduction
-            // console.log(this.enity);
 
+            if (this.enity1 == "true") {
+                this.enity = true
+            } else if (this.enity1 == "false") {
+                this.enity = false
+            }
             let array = document.querySelectorAll(".img");
             Promise.all(Array.from(array).map((item) => {
                 if (item.files[0] != undefined) {
@@ -144,6 +148,33 @@ export default {
                 return Promise.resolve();
             })).then(() => {
                 setTimeout((codename) => {
+                    //解決圖片無法帶入沿用舊檔案
+                    if (this.keyvisualImg != "" && this.map.get("visionPicture") == undefined) {
+                        this.keyvisualImg = this.keyvisualImg
+                    }
+                    else if (this.map.get("visionPicture") != undefined) {
+                        this.keyvisualImg = this.map.get("visionPicture")
+                    }
+                    else if (this.keyvisualImg == "" && this.map.get("visionPicture") == undefined) {
+                        this.keyvisualImg = this.keyvisualImg
+                    }
+
+                    if (this.introduceImg1 != "" && this.map.get("introducePicture1") == undefined) {
+                        this.introduceImg1 = this.introduceImg1
+                    } else if (this.map.get("introducePicture1") != undefined) {
+                        this.introduceImg1 = this.map.get("introducePicture1")
+                    } else if (this.introduceImg1 == "" && this.map.get("introducePicture1") == undefined) {
+                        this.introduceImg1 = this.introduceImg1
+                    }
+
+                    if (this.introduceImg2 != "" && this.map.get("introducePicture2") == undefined) {
+                        this.introduceImg2 = this.introduceImg2
+                    } else if (this.map.get("introducePicture2") != undefined) {
+                        this.introduceImg2 = this.map.get("introducePicture2")
+                    } else if (this.introduceImg2 == "" && this.map.get("introducePicture2") == undefined) {
+                        this.introduceImg2 = this.introduceImg2
+                    }
+
                     if (this.isEntityName && this.isEntityOrganizer && this.isEntityEnity && this.isEntityIntroduction && this.isEntityPlace && this.fileError) {
                         localStorage.setItem("EditActtivity", JSON.stringify({
                             id: this.id,
@@ -154,11 +185,10 @@ export default {
                             place: this.place,
                             organizer: this.organizer,
                             sessionData: [],
-                            keyvisualImg: this.map.get("visionPicture"),
-                            introduceImg1: this.map.get("introducePicture1"),
-                            introduceImg2: this.map.get("introducePicture2"),
+                            keyvisualImg: this.keyvisualImg,
+                            introduceImg1: this.introduceImg1,
+                            introduceImg2: this.introduceImg2,
                         }))
-                        // this.$router.push('/EditSessionsAndSeats');
                         this.$router.push({ name: 'EditSessionsAndSeats', params: { codename } })
                     }
                 }, 1000);
@@ -277,11 +307,16 @@ export default {
                     this.enity = res.data.entity
                     this.place = res.data.place
                     this.organizer = res.data.organizer
-                    this.keyvisualImg = res.data.keyvisualImg
-                    this.introduceImg1 = res.data.introduceImg1
-                    this.introduceImg2 = res.data.introduceImg1
+                    this.keyvisualImg = res.data.keyvisual_img
+                    this.introduceImg1 = res.data.introduce_img1
+                    this.introduceImg2 = res.data.introduce_img2
                     if (new Date(res.data.endDate) < new Date()) {
                         this.$router.push('/ActivityAndHostPage')
+                    }
+                    if (res.data.entity == true) {
+                        this.enity1 = true
+                    } else {
+                        this.enity2 = false
                     }
                 } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                     alert("請先登入")
