@@ -181,7 +181,11 @@ export default {
                             color: "#4D5C44",
                             background: "#FAF8ED",
                             confirmButtonColor: "#748e63",
-                        }).then(function(result){
+                        })
+                        then(() => {
+                            location.href = location.href;
+                        })
+                        .then(function(result){
                             if(result.isConfirmed == true){
                                 this.getAlreadySubscribeList();
                             }
@@ -210,13 +214,18 @@ export default {
                             color: "#4D5C44",
                             background: "#FAF8ED",
                             confirmButtonColor: "#748e63",
-                        }).then(function(result){
+                        })
+                        then(() => {
+                            location.href = location.href;
+                        })
+                        .then(function(result){
                             if(result.isConfirmed == true){
                                 this.getAlreadySubscribeList();
                             }
                         }.bind(this))
                     }
                 })
+                
         }
     },
     mounted() {
