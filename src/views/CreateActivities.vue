@@ -28,9 +28,9 @@
                 <span>是否為實體活動*</span><br>
                 <div class="radio">
                     <span class="yes">是</span>
-                    <input type="radio" name="radio" v-model="enity" value="true">
+                    <input type="radio" name="radio" v-model="enity1" value="true">
                     <span class="no">否</span>
-                    <input type="radio" name="radio" v-model="enity" value="false">
+                    <input type="radio" name="radio" v-model="enity2" value="false">
                 </div>
                 <p v-if="!isEntityEnity" class="warning">請選取是否為實體活動</p>
             </div>
@@ -102,7 +102,8 @@ export default {
             codename: "",
             name: "",
             introduction: "",
-            enity: false,
+            enity1: false,
+            enity2: false,
             place: "",
             organizer: "",
             keyvisualImg: "",
@@ -140,10 +141,15 @@ export default {
             this.isEntityName = !!this.name;
             this.isEntityCodeName = !!this.codename;
             this.isEntityOrganizer = !!this.organizer;
-            // this.isEntityEnity = !!this.enity
+            this.isEntityEnity = !!this.enity1 || !this.enity2
             this.isEntityPlace = !!this.place
             this.isEntityIntroduction = !!this.introduction
-            // console.log(this.enity);
+
+            if (this.enity1 == "true") {
+                this.enity = true
+            } else if(this.enity1 == "false") {
+                this.enity = false
+            }
 
             let array = document.querySelectorAll(".img");
             Promise.all(Array.from(array).map((item) => {
@@ -274,7 +280,7 @@ export default {
     },
 
     mounted() {
-        if(localStorage.getItem("acttivity")!=null){
+        if (localStorage.getItem("acttivity") != null) {
             let activity = JSON.parse(localStorage.getItem("acttivity"))
             this.codename = activity.codename
             this.name = activity.name
@@ -311,9 +317,10 @@ export default {
 }
 </script> 
 <style scoped lang="scss">
-body{
+body {
     background-color: #FAF8ED;
 }
+
 .title {
     width: 70%;
     height: 10vh;
@@ -508,6 +515,7 @@ body{
         }
     }
 }
+
 .footer {
     height: 5vh;
     width: 100%;
