@@ -9,9 +9,9 @@
         <div class="down">
             <div class="title">
                 帳號註冊
-                <p>
+                <span>
                     所有必填
-                </p>
+                </span>
             </div>
 
             <div class="signUp">
@@ -74,7 +74,7 @@
                 <div class="allP">
                     <div class="allP2">
                         <input type="checkbox" v-model="checkbox">
-                        <span>註冊前請詳閱</span>
+                        <span>我同意</span>
                         <a @click="warning">免責說明</a>
                     </div>
                     <div class="warning" v-if="!isCheckbox">
@@ -333,8 +333,9 @@ export default {
             display: flex;
             justify-content: space-between;
 
-            p {
-                font-size: 2dvh;
+            span {
+                font-size: 3dvh;
+                color: #DB3A3A;
             }
         }
 
@@ -393,19 +394,18 @@ export default {
 
         .allP2 {
             display: flex;
-            margin-top: 10%;
-
-            input {}
-
+            align-items: center;
+            margin-top: 5%;
+            // border: 1px solid black;
             span {
-                margin-left: 2%;
-                margin-top: 1%;
-                width: 40%;
+                width: 15%;
+                margin:0 2%;
             }
 
             a {
-                margin-top: 1%;
                 color: #DB3A3A;
+                text-decoration: underline;
+                cursor: pointer;
             }
         }
 
