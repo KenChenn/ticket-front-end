@@ -389,6 +389,7 @@ body {
 }
 
 .right {
+    cursor: pointer;
     i {
         color: #DB3A3A;
         font-size: 5dvh;
