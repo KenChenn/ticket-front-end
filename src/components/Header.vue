@@ -126,20 +126,20 @@ export default {
 
     <!-- 管理者 -->
     <div class="manager" v-if="manager">
-      <RouterLink to="/ActivityAndHostPage" class="managerHomePage">管理頁</RouterLink>
+      <RouterLink to="/ActivityAndHostPage" class="tag">管理頁</RouterLink>
       <button type="button" @click="this.adminSignOut()" class="signOut">登出 <i
           class="fa-solid fa-right-from-bracket"></i></button>
     </div>
 
     <!-- 使用者 -->
     <div class="user" v-if="user">
-      <RouterLink to="/" class="homePage">首頁 <i class="fa-solid fa-house"></i></RouterLink>
+      <RouterLink to="/" class="tag">首頁 <i class="fa-solid fa-house tag"></i></RouterLink>
 
       <!-- 已登入 -->
       <div class="isLogIn" v-if="counter().isLogIn">
-        <RouterLink to="/FavoratePage" class="favoratePage">最愛清單 <i class="fa-solid fa-heart"></i></RouterLink>
-        <RouterLink to="/OrderTracking" class="orderTracking">訂單查詢 <i class="fa-solid fa-receipt"></i></RouterLink>
-        <RouterLink to="/UserInfoPage" class="orderTracking">會員 <i class="fa-solid fa-circle-user"></i>
+        <RouterLink to="/FavoratePage" class="tag">最愛清單 <i class="fa-solid fa-heart"></i></RouterLink>
+        <RouterLink to="/OrderTracking" class="tag">訂單查詢 <i class="fa-solid fa-receipt"></i></RouterLink>
+        <RouterLink to="/UserInfoPage" class="tag">會員 <i class="fa-solid fa-circle-user"></i>
         </RouterLink>
         <button type="button" @click="this.signOut()" class="signOut">登出 <i
             class="fa-solid fa-right-from-bracket"></i></button>
@@ -147,8 +147,8 @@ export default {
 
       <!-- 未登入 -->
       <div class="notLogin" v-else>
-        <RouterLink to="/SignupPage" class="signupPage">註冊 <i class="fa-solid fa-user-plus"></i></RouterLink>
-        <RouterLink to="/LoginPage" class="loginPage">登入 <i class="fa-solid fa-right-to-bracket"></i></RouterLink>
+        <RouterLink to="/SignupPage" class="tag">註冊 <i class="fa-solid fa-user-plus"></i></RouterLink>
+        <RouterLink to="/LoginPage" class="tag">登入 <i class="fa-solid fa-right-to-bracket"></i></RouterLink>
       </div>
     </div>
 
@@ -175,19 +175,42 @@ export default {
     display: flex;
     align-items: center;
 
-    .managerHomePage {
-      text-decoration: none;
-      color: #FAF8ED;
-      font-size: 3dvh;
-      // border: 1px black solid;
-    }
-
     .signOut {
       color: #FAF8ED;
       background-color: transparent;
-      font-size: 3dvh;
+      font-size: 3dvh;  
+      transition: 0.1s linear;
       border: 0;
-      padding: 0;
+      &:hover {
+        transition: 0.2s linear;
+        scale: 1.15;
+        color: #ffffff;
+      }
+
+      &:active {
+        transition: 0.2s linear;
+        scale: 0.95;
+        color: #c26202;
+      }
+    }
+  }
+
+  .tag {
+    text-decoration: none;
+    color: #FAF8ED;
+    font-size: 3dvh;
+
+    // border: 1px black solid;
+    &:hover {
+      transition: 0.2s linear;
+      scale: 1.15;
+      color: #ffffff;
+    }
+
+    &:active {
+      transition: 0.2s linear;
+      scale: 0.95;
+      color: #c26202;
     }
   }
 
@@ -198,41 +221,12 @@ export default {
     align-items: center;
     justify-content: space-between;
 
-    .homePage {
-      width: 15%;
-      text-decoration: none;
-      color: #FAF8ED;
-      font-size: 3dvh;
-      // border: 1px black solid;
-    }
-
     .isLogIn {
       width: 60%;
       height: 100%;
       justify-content: space-between;
       display: flex;
       align-items: center;
-      // border: 1px black solid;
-
-      i {
-        font-size: 3dvh;
-        color: #FAF8ED;
-        cursor: pointer;
-      }
-
-      .favoratePage {
-        text-decoration: none;
-        color: #FAF8ED;
-        font-size: 3dvh;
-        // border: 1px black solid;
-      }
-
-      .orderTracking {
-        text-decoration: none;
-        color: #FAF8ED;
-        font-size: 3dvh;
-        // border: 1px black solid;
-      }
 
       .signOut {
         color: #FAF8ED;
@@ -240,6 +234,19 @@ export default {
         font-size: 3dvh;
         border: 0;
         padding: 0;
+        transition: 0.1s linear;
+        // border: 1px black solid;
+        &:hover {
+          transition: 0.2s linear;
+          scale: 1.15;
+          color: #ffffff;
+        }
+
+        &:active {
+          transition: 0.2s linear;
+          scale: 0.95;
+          color: #c26202;
+        }
       }
     }
 
@@ -250,19 +257,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       // border: 1px black solid;
-      .signupPage {
-        text-decoration: none;
-        color: #FAF8ED;
-        font-size: 3dvh;
-        // border: 1px black solid;
-      }
-
-      .loginPage {
-        text-decoration: none;
-        color: #FAF8ED;
-        font-size: 3dvh;
-        // border: 1px black solid;
-      }
     }
   }
-}</style>
+}
+</style>
