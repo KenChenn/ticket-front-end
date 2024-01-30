@@ -15,7 +15,6 @@
     </div>
 </template>
 <script>
-import Swal from 'sweetalert2'
 import counter from '../stores/counter'
 
 
@@ -63,13 +62,7 @@ export default {
             }).then(response => response.json())
                 .then(res => {
                     if (res.rtncode == "SUCCESSFUL") {
-                        Swal.fire({
-                            title: "發送成功",
-                            icon: "success",
-                            color: "#4D5C44",
-                            background: "#FAF8ED",
-                            confirmButtonColor: "#748e63",
-                        })
+                        alert("發送成功")
                     }
                 })
 
@@ -148,6 +141,11 @@ export default {
             margin-left: 15%;
             background-color: #FAF8ED;
             border: #F5A352 0.3vh solid;
+            resize: none;
+            
+            &:focus {
+                outline: none;
+            }
         }
 
         .btn {

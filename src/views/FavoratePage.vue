@@ -3,12 +3,14 @@
         <span class="titleInterest">感興趣的分類</span>
         <div class="interest">
             <div v-for="item in this.subscribeList">
-                <button type="button" class="noArea" v-if="this.alreadySubscribeList.includes(item)" @click="cancelSubscribe(item)">{{ item }}</button>
+                <button type="button" class="noArea" v-if="this.alreadySubscribeList.includes(item)"
+                    @click="cancelSubscribe(item)">{{ item }}</button>
                 <button type="button" class="area " v-else @click="subscribe(item)">{{ item }}</button>
             </div>
         </div>
         <span class="titleFavorate">最愛列表</span>
-        <div class="content" v-for="(item, index) in this.trackerList" :key="index" :class="{ 'first-item': index === 0 }">
+        <div class="content" v-for="(item, index) in this.trackerList" :key="index"
+            :class="{ 'first-item': item.startDate === trackerList[0].startDate, 'content': item.startDate !== trackerList[0].startDate }">
             <div class="left">
                 <div class="picture">
                     <img :src="item.keyvisualImg">
@@ -49,18 +51,18 @@ export default {
             // aboutToStart: true,   //開始狀態
             trackerList: [],
             myFavList: [],
-            subscribeList:[],
-            alreadySubscribeList:[]
+            subscribeList: [],
+            alreadySubscribeList: []
         }
     },
     methods: {
         japanArea() {
             this.japan = !this.japan
         },
-        koreaArea(){
+        koreaArea() {
             this.korea = !this.korea
         },
-        taiwanArea(){
+        taiwanArea() {
             this.taiwan = !this.taiwan
         },
         myFav() {
@@ -127,7 +129,7 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        getSubscribeData(){
+        getSubscribeData() {
             fetch('http://localhost:8080/api/getAllSubscribe', {
                 method: "GET",
                 headers: {
@@ -135,15 +137,15 @@ export default {
                 }
             })
                 .then(response => response.json())
-                .then(data =>{
-                    for(let i=0; i < data.typeList.length;i++){
+                .then(data => {
+                    for (let i = 0; i < data.typeList.length; i++) {
                         let str = data.typeList[i];
                         this.subscribeList.push(str.split('.')[1])
                     }
                     console.log(this.subscribeList);
                 })
         },
-        getAlreadySubscribeList(){
+        getAlreadySubscribeList() {
             fetch('http://localhost:8080/api/getSubscribeList', {
                 method: "POST",
                 headers: {
@@ -152,15 +154,15 @@ export default {
                 credentials: 'include'
             })
                 .then(response => response.json())
-                .then(data =>{
-                    this.alreadySubscribeList=[]
-                    for(let i=0; i < data.subscribeList.length;i++){
+                .then(data => {
+                    this.alreadySubscribeList = []
+                    for (let i = 0; i < data.subscribeList.length; i++) {
                         this.alreadySubscribeList.push(data.subscribeList[i].subscribe)
                     }
                     console.log(this.alreadySubscribeList);
                 })
         },
-        subscribe(item){
+        subscribe(item) {
             fetch('http://localhost:8080/api/subscribe', {
                 method: "POST",
                 headers: {
@@ -168,28 +170,28 @@ export default {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    subscribe:item
+                    subscribe: item
                 })
             })
                 .then(response => response.json())
-                .then(data =>{
+                .then(data => {
                     console.log(data);
-                    if(data.rtncode == "SUCCESSFUL"){
+                    if (data.rtncode == "SUCCESSFUL") {
                         Swal.fire({
-                            title:"訂閱成功",
+                            title: "訂閱成功",
                             icon: "success",
                             color: "#4D5C44",
                             background: "#FAF8ED",
                             confirmButtonColor: "#748e63",
-                        }).then(function(result){
-                            if(result.isConfirmed == true){
+                        }).then(function (result) {
+                            if (result.isConfirmed == true) {
                                 this.getAlreadySubscribeList();
                             }
                         }.bind(this))
                     }
                 })
         },
-        cancelSubscribe(item){
+        cancelSubscribe(item) {
             fetch('http://localhost:8080/api/cancelSubscribe', {
                 method: "POST",
                 headers: {
@@ -197,26 +199,27 @@ export default {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    subscribe:item
+                    subscribe: item
                 })
             })
                 .then(response => response.json())
-                .then(data =>{
+                .then(data => {
                     console.log(data);
-                    if(data.rtncode == "SUCCESSFUL"){
+                    if (data.rtncode == "SUCCESSFUL") {
                         Swal.fire({
-                            title:"取消訂閱成功",
+                            title: "取消訂閱成功",
                             icon: "success",
                             color: "#4D5C44",
                             background: "#FAF8ED",
                             confirmButtonColor: "#748e63",
-                        }).then(function(result){
-                            if(result.isConfirmed == true){
+                        }).then(function (result) {
+                            if (result.isConfirmed == true) {
                                 this.getAlreadySubscribeList();
                             }
                         }.bind(this))
                     }
                 })
+                
         }
     },
     mounted() {
@@ -313,6 +316,7 @@ body {
     justify-content: space-between;
     margin-top: 2%;
     box-shadow: 0 0 0.3vh #00000050;
+
     .first-item {
         background-color: #FFC68D;
     }
@@ -374,4 +378,5 @@ body {
 
 .footer {
     height: 10vh;
-}</style>
+}
+</style>

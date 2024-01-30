@@ -10,28 +10,39 @@
         <div class="down">
             <div class="title">
                 編輯資訊
+                <span>
+                    橘色為可更改
+                </span>
             </div>
             <div class="reWriteSq">
 
-                <span class="allP">使用者名稱</span>
-                <input type="text" class="allInput" v-model="editedUser">
-                <div class="warning">
-                    <span v-if="!isUsername">請輸入使用者名稱</span>
-                    <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                <div class="allP disable">帳號<br>
+                    <input type="text" class="allInput disable" v-model="editedAccount" disabled>
                 </div>
-                <span class="allP">Email</span>
-                <input type="text" class="allInput" value="" v-model="editedEmail">
-                <div class="warning">
-                    <span v-if="!isValidEmail">請輸入正確 Email 格式</span>
+                <div class="allP">使用者名稱<br>
+                    <input type="text" class="allInput" v-model="editedUser">
+                    <div class="warning">
+                        <span v-if="!isUsername">請輸入使用者名稱</span>
+                        <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                    </div>
                 </div>
-                <span class="allP">生日</span>
-                <input type="date" class="allInput" disabled v-model="editedBirth" style="text-align: center;">
-                <span class="allP">手機號碼</span>
-                <input type="text" class="allInput" value="" v-model="editedPhone" @input="filterNonNumeric">
-                <div class="warning">
-                    <span v-if="!isValidPhoneNumber">請輸入 10 碼手機格式</span>
+                <div class="allP">
+                    Email<br>
+                    <input type="text" class="allInput" value="" v-model="editedEmail">
+                    <div class="warning">
+                        <span v-if="!isValidEmail">請輸入正確 Email 格式</span>
+                    </div>
                 </div>
-                <br> <button type="button" class="btn" @click="edit()">完成</button>
+                <div class="allP disable">生日<br>
+                    <input type="date" class="allInput disable" disabled v-model="editedBirth">
+                </div>
+                <div class="allP">手機號碼<br>
+                    <input type="text" class="allInput" value="" v-model="editedPhone" @input="filterNonNumeric">
+                    <div class="warning">
+                        <span v-if="!isValidPhoneNumber">請輸入 10 碼手機格式</span>
+                    </div>
+                </div>
+                <button type="button" class="btn" @click="edit()">完成</button>
 
             </div>
         </div>
@@ -47,6 +58,7 @@ export default {
             editedEmail: "",
             editedPhone: "",
             editedBirth: "",
+            editedAccount: $cookies.get("account"),
 
             isUsername: true,
             isValidEmail: true,
@@ -91,12 +103,12 @@ export default {
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("更改成功");
                             Swal.fire({
-                            title: "更改成功",
-                            icon: "success",
-                            color: "#4D5C44",
-                            background: "#FAF8ED",
-                            confirmButtonColor: "#748e63"
-                        });
+                                title: "更改成功",
+                                icon: "success",
+                                color: "#4D5C44",
+                                background: "#FAF8ED",
+                                confirmButtonColor: "#748e63"
+                            });
                             this.$router.push('/UserInfoPage')
                         }
                         // this.user = res.data.data.username
@@ -157,10 +169,15 @@ export default {
             margin-left: 15%;
             color: #4D5C44;
             font-size: 4dvh;
-            display: flex;
-            align-items: end;
             // border: 1px solid black;
             display: flex;
+            align-items: end;
+            justify-content: space-between;
+
+            span {
+                font-size: 3dvh;
+                color: #F5A352;
+            }
         }
 
         .reWriteSq {
@@ -169,60 +186,60 @@ export default {
             border: 0.5vh solid#89A071;
             margin: auto;
             border-radius: 2vh;
-            padding: 3% 0;
+            padding: 2%;
+            display: flex;
+            flex-wrap: wrap;
 
-            .allInput {
+
+            .allP {
                 width: 50%;
-                margin-left: 25%;
-                font-size: 2.5dvh;
-                margin-bottom: 1%;
+                font-size: 3dvh;
+                color: #F5A352;
+            }
+            .allInput {
+                width: 80%;
+                font-size: 3dvh;
                 border: 0;
-                color: #4D5C44;
+                color: #F5A352;
                 background-color: #FAF8ED;
                 border-bottom: 0.3vh solid#89A071;
             }
 
-            .allP {
-                height: 5vh;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                font-size: 3dvh;
-                color: #4D5C44;
+            .disable {
+                color: #b7c4a8;
             }
 
             .warning {
-                height: 5%;
-                width: 100%;
-                display: flex;
-                justify-content: center;
+                width: 80%;
+                height: 3vh;
+                text-align: center;
                 color: #DB3A3A;
                 font-size: 2dvh;
+                // border: black solid 1px;
             }
 
             .btn {
                 width: 14%;
-                height: 7%;
-                background-color: #F9B572;
-                border: 0;
-                color: #FAF8ED;
-                border-radius: 10vh;
+                height: 10%;
+                border: 0.3vh solid #4D5C44;
+                // border: 0;
+                color: #4D5C44;
+                border-radius: 1.5vh;
                 margin-left: 43%;
-                margin-bottom: 3%;
                 font-size: 2.5dvh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 transition: 0.1s linear;
+
                 &:hover {
                     transition: 0.2s linear;
-                    scale: 1.05;
-                    background-color: #FFC68D;
+                    color: #FAF8ED;
+                    border: 0;
+                    background-color: #F5A352;
+                    scale: 1.1;
                 }
 
                 &:active {
-                    scale: 0.95;
                     background-color: #c26202;
+                    scale: 0.95;
                 }
             }
         }

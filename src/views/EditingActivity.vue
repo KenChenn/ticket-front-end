@@ -274,12 +274,15 @@ export default {
                     this.codename = res.data.codeName
                     this.name = res.data.name
                     this.introduction = res.data.introduction
-                    this.enity = res.data.enity
+                    this.enity = res.data.entity
                     this.place = res.data.place
                     this.organizer = res.data.organizer
                     this.keyvisualImg = res.data.keyvisualImg
                     this.introduceImg1 = res.data.introduceImg1
                     this.introduceImg2 = res.data.introduceImg1
+                    if (new Date(res.data.endDate) < new Date()) {
+                        this.$router.push('/ActivityAndHostPage')
+                    }
                 } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                     alert("請先登入")
                 }
@@ -293,7 +296,7 @@ export default {
                     credentials: 'include',
                 }).then(response => response.json())
                 .then(res => {
-                    console.log(res.organizer)
+                    // console.log(res.organizer)
                     res.organizer.forEach(host => {
                         this.nameList.push(host.name)
                     });

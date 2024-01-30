@@ -5,6 +5,9 @@
                 個人資料
             </div>
             <div class="info">           
+            <span class="spanP">帳號</span>
+            <span class="infoSpan">{{this.account}}</span>
+
             <span class="spanP">使用者名稱</span>
             <span class="infoSpan">{{this.user}}</span>
                         
@@ -36,6 +39,7 @@ export default {
             email: "",
             birth: "",
             phone: "",
+            account: $cookies.get("account")
         }
     },
     methods: {
@@ -75,7 +79,7 @@ export default {
         counter().setUser(null);
         next();
     },
-    
+
     // components: {
     //     UserRewritePage
     // }
@@ -83,7 +87,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
- 
+
     .down {
         width: 100%;
         height: 89%;
@@ -107,7 +111,7 @@ export default {
             border: 0.5vh solid#89A071;
             margin: auto;
             border-radius: 2vh;
-            padding: 3% 0;
+            padding: 1% 0;
         }
 
         .spanP {
@@ -130,34 +134,35 @@ export default {
         }
 
         .btnArea {
-            width: 70%;
-            height: 5vh;
-            margin-left: 15%;
+            width: 60%;
+            height: 6vh;
+            margin-left: 20%;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
 
             // border: black 1px solid;
             .btn {
-                width: 20%;
-                height: 100%;
-                background-color: #F9B572;
-                border: 0;
-                color: #FAF8ED;
-                border-radius: 10vh;
+                width: 25%;
+                border-radius: 1.5vh;
                 font-size: 2.5dvh;
+                transition: 0.1s linear;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                transition: 0.1s linear;
+                border: 0.3vh solid #4D5C44;
+                color: #4D5C44;
+
                 &:hover {
                     transition: 0.2s linear;
-                    scale: 1.05;
-                    background-color: #FFC68D;
+                    color: #FAF8ED;
+                    border: 0;
+                    background-color: #F5A352;
+                    scale: 1.1;
                 }
 
                 &:active {
-                    scale: 0.95;
                     background-color: #c26202;
+                    scale: 0.95;
                 }
             }
 

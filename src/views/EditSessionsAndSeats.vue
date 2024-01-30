@@ -4,21 +4,24 @@
             <span class="title">編輯場次及座位</span>
             <button type="button" class="completeEditing" @click="createActtivity">編輯活動完成</button>
         </div>
-        <div class="content" v-for="(item, index) in this.sessionList" :key="index">
+        <div class="content" v-for="(item, index) in this.sessionList" :key="index"
+            :style="{ opacity: item.endDisabled ? '0.5' : '1' }">
             <div class="timesArea">
 
-                <div class="timesAll">
+                <div class="timesAll" :style="{ opacity: item.startDisabled ? '0.5' : '1' }">
                     <div class="timesTitle">
                         <span>活動開始時間</span>
-                        <input type="datetime-local" class="timesInput" v-model="item.showDateTime" :min="minShowDateTime">
+                        <input type="datetime-local" class="timesInput" v-model="item.showDateTime" :min="minShowDateTime"
+                            :disabled="item.endDisabled || item.startDisabled">
                     </div>
                     <div v-if="item.isEmptyShowDateTime" class=" error">請輸入活動開始時間</div>
                 </div>
-                <div class="timesAll">
+                <div class="timesAll" :style="{ opacity: item.startDisabled ? '0.5' : '1' }">
                     <div class="timesTitle">
                         <span>開售時間</span>
                         <input type="datetime-local" class="timesInput" v-model="item.startSellDateTime"
-                            :min="minStartSellDateTime" :max="maxStartSellDateTime">
+                            :min="minStartSellDateTime" :max="maxStartSellDateTime"
+                            :disabled="item.endDisabled || item.startDisabled">
                     </div>
                     <div v-if="item.isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
                     <div v-if="item.startIsAfterShow" class="error">開售時間已晚於活動開始時間</div>
@@ -29,28 +32,36 @@
                         <span>停售時間</span>
                         <input type="datetime-local" class="timesInput" v-model="item.endSellDateTime"
                             @click="EndSellDateTime(item.startSellDateTime, item.showDateTime)" :min="minEndSellDateTime"
-                            :max="maxEndSellDateTime">
+                            :max="maxEndSellDateTime" :disabled="item.endDisabled">
                     </div>
                     <div v-if="item.isEmptyEndSellDateTime" class=" error ">請輸入停售時間</div>
                     <div v-if="item.endIsafterShow" class=" error ">停售時間已晚於活動開始時間</div>
                 </div>
             </div>
 
-            <button type="button" class="delete" @click="deleteEvent(index)">刪除場次</button>
+            <button type="button" class="delete" @click="deleteEvent(index)"
+                :disabled="item.endDisabled || item.startDisabled"
+                :style="{ opacity: item.startDisabled ? '0.5' : '1' }">刪除場次</button>
 
-            <div class="seatArea">
+            <div class="seatArea" :style="{ opacity: item.startDisabled ? '0.5' : '1' }">
                 <span>區域名稱</span>
                 <span>可出售座位數</span>
                 <span>座位價格</span>
-                <button type="button" class="addArea" @click="addArea(index)">
+                <button type="button" class="addArea" @click="addArea(index)"
+                    :disabled="item.endDisabled || item.startDisabled">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
-            <div class="inputArea" v-for="(areaItem, areaIndex) in item.seatData" :key="areaIndex">
-                <input type="text" class="areaInput" v-model="areaItem.area">
-                <input type="number" class="areaInput" v-model="areaItem.maxSeatNum">
-                <input type="number" class="areaInput" v-model="areaItem.price">
-                <button type="button" class="delete" @click="deleteArea(index, areaIndex)">
+            <div class="inputArea" v-for="(areaItem, areaIndex) in item.seatData" :key="areaIndex"
+                :style="{ opacity: item.startDisabled ? '0.5' : '1' }">
+                <input type="text" class="areaInput" v-model="areaItem.area"
+                    :disabled="item.endDisabled || item.startDisabled">
+                <input type="number" class="areaInput" v-model="areaItem.maxSeatNum"
+                    :disabled="item.endDisabled || item.startDisabled">
+                <input type="number" class="areaInput" v-model="areaItem.price"
+                    :disabled="item.endDisabled || item.startDisabled">
+                <button type="button" class="delete" @click="deleteArea(index, areaIndex)"
+                    :disabled="item.endDisabled || item.startDisabled">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
@@ -59,8 +70,8 @@
                 <div v-if="areaItem.isEmptySeat" class="error errorSeat">請輸入可出售座位數 </div>
                 <div v-if="areaItem.isEmptyPrice" class="error errorPrice">請輸入座位價格 </div>
             </div>
-
         </div>
+
         <button type="button" class="addEvent" @click="addEvent">新增場次</button>
         <div class="footer">
         </div>
@@ -120,6 +131,7 @@ export default {
                 item.commodity_codename = this.EditActtivity.codename;
             })
 
+            console.log(this.sessionList);
             for (const session of this.sessionList) {
                 const areaMap = {}; //存已出現區域名稱
                 for (const seat of session.seatData) {
@@ -203,8 +215,6 @@ export default {
                     this.startIsAfterShow = session.startIsAfterShow
                     this.endIsafterShow = session.endIsafterShow
                     this.endIsEarlyStart = session.endIsEarlyStart
-
-
                 }
             }
             if (!this.isEmptyShowDateTime && !this.isEmptyStartSellDateTime && !this.isEmptyEndSellDateTime && !this.isEmptyArea && !this.isEmptySeat && !this.isEmptyPrice && !this.isRepeatArea && !this.startIsAfterShow && !this.endIsafterShow && !this.endIsEarlyStart) {
@@ -354,9 +364,34 @@ export default {
             })
         }).then(response => response.json())
             .then(res => {
-                console.log(res.data)
                 if (res.rtncode == "SUCCESSFUL") {
+                    if (new Date(res.data.endDate) < new Date()) {
+                        this.$router.push('/ActivityAndHostPage')
+                    }
+                    // console.log(res.data)
                     this.sessionList = res.data.sessionData
+                    console.log(this.sessionList)
+                    this.sessionList.forEach(item => {
+                        var today = new Date();
+                        var startSellDateTime = new Date(item.startSellDateTime);
+                        if (startSellDateTime <= today) {
+                            item.startDisabled = true
+                            item.endDisabled = false
+                        } else {
+                            item.startDisabled = false
+                        }
+
+                        var endSellDateTime = new Date(item.endSellDateTime);
+                        endSellDateTime.setDate(endSellDateTime.getDate() - 1)
+                        endSellDateTime = new Date(endSellDateTime);
+                        // console.log(endSellDateTime);
+                        if (endSellDateTime <= today) {
+                            item.endDisabled = true
+                            item.startDisabled = false
+                        } else {
+                            item.endDisabled = false
+                        }
+                    })
                 } else if (res.rtncode == "PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST") {
                     alert("請先登入")
                 }
@@ -469,6 +504,7 @@ body {
         &:focus {
             outline: none;
         }
+
     }
 
     .error {
