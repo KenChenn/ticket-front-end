@@ -155,8 +155,6 @@ export default {
                 .catch(error => console.log(error))
         },
         goCencel(buyNum, payFinalDate) {
-            //payFinalDate+3日 小於 今天的話跳出通知說已過退票時間
-            console.log(payFinalDate)
             Swal.fire({
                 title: "是否取消訂單",
                 text: "如果已付款，確認後請至退票規定內點選連結填寫退票申請書",
