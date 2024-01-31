@@ -4,13 +4,14 @@
             <span>
                 訂單查詢
             </span>
-            <select name="" id="">
+            <select name="" id="" @change="filterOrderList">
+                <option value="0" hidden>付款狀況</option>
                 <option value="1">未付款</option>
                 <option value="2">已付款</option>
                 <option value="3">已取消</option>
             </select>
         </div>
-        <div class="content" v-for="(item, index) in this.orderInfoList" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#c0c0c0' },
+        <div class="content" v-for="(item, index) in this.filteredOrderList" :style="{ backgroundColor: item.seatData.length > 0 ? (item.payment ? '#CBDABA ' : '#FFC68D') : '#c0c0c0' },
             { opacity: item.seatData.length > 0 ? '1' : '0.5' }">
 
             <div class="left">
@@ -56,11 +57,12 @@
                 </div>
 
                 <div class="btnArea">
-
+                    <!-- <span>{{ new Date(item.payFinalDate) }}</span>
+                    <span>{{ new Date(new Date(item.payFinalDate).getTime() + 3 * 24 * 60 * 60 * 1000) }}</span> -->
                     <button type="button" @click="this.goCencel(item.buyNum, item.payFinalDate)" v-if="item.seatData.length > 0 &&
-                        (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) &&
-                        (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString()) &&
-                        (new Date(item.payFinalDate) > new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000))" class="cancel">
+                        (new Date(item.startSellDateTime).toLocaleString() < this.nowDateTime) && //現在時間大於開售時間
+                        (this.nowDateTime < new Date(item.endSellDateTime).toLocaleString()) && //結束時間大於現在時間
+                        (new Date(new Date(item.payFinalDate).getTime() + 3 * 24 * 60 * 60 * 1000).toLocaleString() > this.nowDateTime)" class="cancel">
                         取消訂單
                     </button>
                     <!-- payFinalDate+3日 小於今天按鈕隱藏 -->
@@ -89,7 +91,8 @@ export default {
             placeAbout: "",
             seatAbout: "",
             payment: true,   //付款狀態
-            orderInfoList: []
+            orderInfoList: [],
+            filteredOrderList: []
         }
     },
     methods: {
@@ -106,9 +109,10 @@ export default {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     console.log(data.data);
                     this.orderInfoList = data.data;
+                    this.filteredOrderList = data.data;
                     // console.log(this.orderInfoList)
                     this.orderInfoList.forEach(item => {
                         //時間格式調整
@@ -154,8 +158,6 @@ export default {
                 .catch(error => console.log(error))
         },
         goCencel(buyNum, payFinalDate) {
-            //payFinalDate+3日 小於 今天的話跳出通知說已過退票時間
-            console.log(payFinalDate)
             Swal.fire({
                 title: "是否取消訂單",
                 text: "如果已付款，確認後請至退票規定內點選連結填寫退票申請書",
@@ -205,6 +207,20 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
+        filterOrderList(event) {
+            const selectedValue = event.target.value;
+            console.log(selectedValue);
+            if (selectedValue == "1") {
+                // 未付款
+                this.filteredOrderList = this.orderInfoList.filter(item => !item.payment && item.seatData.length != 0);
+            } else if (selectedValue == "2") {
+                // 已付款
+                this.filteredOrderList = this.orderInfoList.filter(item => item.payment);
+            } else if (selectedValue === "3") {
+                // 已取消
+                this.filteredOrderList = this.orderInfoList.filter(item => !item.payment && item.seatData.length == 0);
+            }
+        }
     },
     mounted() {
         this.orderInfo()

@@ -52,7 +52,7 @@
                     <div class="warning">
                         <span v-if="!isBirthday">請輸入生日</span>
                         <span v-if="!isValidBirthday">請輸入有效生日</span>
-                        <span v-if="!isEnoughBirthday">未滿18歲請勿註冊</span>
+                        <span v-if="!isEnoughBirthday">未滿7歲請勿註冊</span>
                     </div>
                 </div>
                 <div class="allP">
@@ -167,16 +167,15 @@ export default {
                 this.isValidBirthday = true
             }
 
-            // 計算年齡
+            // 檢查是否已滿7歲
             var ageDifMs = Date.now() - new Date(this.birthday).getTime();
-            var ageDate = new Date(ageDifMs); // 年齡的日期差
+            // 年齡的日期差
+            var ageDate = new Date(ageDifMs); 
             // 取得年份差
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-            // 檢查是否已滿18歲
-            if (this.isBirthday && age >= 18) {
+            if (this.isBirthday && age >= 7) {
                 this.isEnoughBirthday = true
-            } else if(this.isBirthday && age < 18) {
+            } else if(this.isBirthday && age < 7) {
                 this.isEnoughBirthday = false
             }
 
