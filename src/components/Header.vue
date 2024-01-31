@@ -14,6 +14,7 @@ export default {
       //登入狀態(已登入的狀態，記得關!!)
       // isLogIn: false, 
       dataList: [],
+      username: "",
     };
   },
   computed: {
@@ -109,12 +110,14 @@ export default {
       }).then(response => response.json())
       .then(res => {
         console.log(res)
-        console.log($cookies.get("account"))
+        // console.log($cookies.get("account"))
         if (res.rtncode == "PARAM_ERROR") {
           counter().isLogIn = false
         }
         if (res.rtncode == "SUCCESSFUL") {
           counter().isLogIn = true
+          this.username = res.data.username
+          // console.log(this.username);
         }
       })
     console.log(counter().isLogIn);
@@ -139,7 +142,7 @@ export default {
       <div class="isLogIn" v-if="counter().isLogIn">
         <RouterLink to="/FavoratePage" class="tag">最愛清單 <i class="fa-solid fa-heart"></i></RouterLink>
         <RouterLink to="/OrderTracking" class="tag">訂單查詢 <i class="fa-solid fa-receipt"></i></RouterLink>
-        <RouterLink to="/UserInfoPage" class="tag">會員 <i class="fa-solid fa-circle-user"></i>
+        <RouterLink to="/UserInfoPage" class="tag">{{ username }} <i class="fa-solid fa-circle-user"></i>
         </RouterLink>
         <button type="button" @click="this.signOut()" class="signOut">登出 <i
             class="fa-solid fa-right-from-bracket"></i></button>
@@ -178,9 +181,10 @@ export default {
     .signOut {
       color: #FAF8ED;
       background-color: transparent;
-      font-size: 3dvh;  
+      font-size: 3dvh;
       transition: 0.1s linear;
       border: 0;
+
       &:hover {
         transition: 0.2s linear;
         scale: 1.15;
@@ -235,6 +239,7 @@ export default {
         border: 0;
         padding: 0;
         transition: 0.1s linear;
+
         // border: 1px black solid;
         &:hover {
           transition: 0.2s linear;

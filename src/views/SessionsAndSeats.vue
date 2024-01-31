@@ -308,12 +308,12 @@ export default {
                 this.maxEndSellDateTime = '';
             }
         },
-        StartSellDateTime(showDateTime) {
-            this.maxStartSellDateTime = showDateTime;
+        StartSellDateTime(endSellDateTime) {
+            this.maxStartSellDateTime = endSellDateTime;
         },
         updateMaxStartSellDateTime(sessionList) {
             const validDates = sessionList
-                .map(item => new Date(item.showDateTime))
+                .map(item => new Date(item.endSellDateTime))
                 .filter(date => !isNaN(date.getTime()));
 
             if (validDates.length > 0) {
