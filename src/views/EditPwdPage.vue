@@ -34,7 +34,7 @@
                 <i class="fa-solid fa-eye" v-show="showDoubleNewPassword" @click="newDoublePasswordVisibility()"></i>
                 <div class="warning">
                     <span v-if="!isAgainPwd">請確認密碼</span>
-                    <span v-if="!isCorrectAgainPwd">與新密碼輸入不一致</span>
+                    <span v-if="!isCorrectAgainPwd">兩次輸入的新密碼不一致</span>
                 </div>
                 <button type="button" class="btn" @click="changePwd()">確認</button>
             </div>
@@ -88,6 +88,7 @@ export default {
             //確認密碼
             if (this.newPwd != this.againPwd) {
                 this.isCorrectAgainPwd = false
+                return
             } else {
                 this.isCorrectAgainPwd = true
             }

@@ -132,7 +132,7 @@ export default {
       <div v-for="(item, index) in slideShowData" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
         <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
           <span>
-            {{ item.name }}已過期
+            {{ item.name }}
           </span>
           <div class="showImg" @click="this.codename = this.codename + item.codename">
             <img :src="item.keyvisualImg" class="d-block w-100" alt="...">

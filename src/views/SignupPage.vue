@@ -132,8 +132,9 @@ export default {
         },
         register() {
             console.log("註冊功能啟動");
-            console.log(this.account);
-            console.log(this.username);
+
+            this.isReapeatUsername = "";
+            this.isReapeatAccount="";
 
             if (!this.account && !this.username && !this.email && !this.birthday && !this.password && !this.phoneNumber && !this.name && !this.checkbox) {
                 Swal.fire({
@@ -186,7 +187,14 @@ export default {
             } else if (this.isBirthday && age < 7) {
                 this.isEnoughBirthday = false
             }
-
+            
+            console.log(this.isValidAccount);
+            console.log(this.isValidUsername);
+            console.log(this.isBirthday);
+            console.log(this.isValidEmail);
+            console.log(this.isCheckbox );
+            console.log(!this.isReapeatUsername );
+            console.log(!this.isReapeatAccount );
             if (this.isValidAccount && this.isValidUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday && this.isEnoughBirthday && this.isCheckbox && !this.isReapeatUsername && !this.isReapeatAccount) {
                 const account = {
                     account: this.account,
@@ -197,6 +205,7 @@ export default {
                     phoneNumber: this.phoneNumber,
                     realName: this.name
                 }
+                console.log(account);
                 // this.accountList.push(account)
                 axios({
                     url: 'http://localhost:8080/api/user_signup',

@@ -138,6 +138,7 @@
                         <input type="text" v-model="codeNum">
                         <div class="codeNumHint">
                             <span v-if="!isValidCodeNum" class="warning">驗證碼錯誤</span>
+                            <span v-if="!isValidCodeInvalid" class="warning">驗證碼已達錯誤上限</span>
                         </div>
                     </div>
                 </div>
@@ -323,6 +324,7 @@ export default {
             pic: "",
             codeNum: "",
             isValidCodeNum: true,
+            isValidCodeInvalid:true,
         }
     },
     methods: {
@@ -361,6 +363,10 @@ export default {
                     }
                     if(data.rtncode == "VERIFICATION_CODE_EXPIRED"){
                         this.isValidCodeNum = false
+                    }
+                    if(data.rtncode == "VERIFICATION_CODE_INVALID"){
+                        this.isValidCodeInvalid = false
+                        this.isValidCodeNum = true
                     }
                 })
         },
