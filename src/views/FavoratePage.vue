@@ -18,15 +18,23 @@
 
             </div>
             <div class="middle">
-                <p>活動名稱</p>
-                <p class="infoTitle">{{ item.name }}
-                </p>
-                <p>活動開始日期</p>
-                <p class="infoTitle">{{ item.startDate }}
-                </p>
-                <p>活動結束日期</p>
-                <p class="infoTitle">{{ item.endDate }}
-                </p>
+                <div class="eventTitle">
+                    <p>活動名稱</p>
+                    <p class="infoTitle">{{ item.name }}
+                    </p>
+                </div>
+                <div class="eventDate">
+                    <div class="eventStartDate">
+                        <p>活動開始日期</p>
+                        <p class="infoTitle">{{ item.startDate }}
+                        </p>
+                    </div>
+                    <div class="eventEndDate">
+                        <p>活動結束日期</p>
+                        <p class="infoTitle">{{ item.endDate }}
+                        </p>
+                    </div>
+                </div>
             </div>
             <div class="right">
                 <i class="fa-solid fa-circle-xmark" @click="this.deleteFav(item.commodityCodename)"></i>
@@ -386,6 +394,18 @@ body {
         .infoTitle {
             // color: #c26202;
             font-weight: bold;
+        }
+        .eventDate{
+            margin-top: 5%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15%;
+            .eventStartDate{
+
+            }
+            .eventEndDate{
+
+            }
         }
     }
 
