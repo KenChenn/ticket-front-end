@@ -248,7 +248,7 @@ export default {
                         width: 10%;
                         height: 20%;
                         border-radius: 1vh;
-                        font-size: 2.5dvh;
+                        font-size: 2.4dvh;
                         // color: #F5A352;
                         background-color: #FAF8ED;
                         // border: 0.3vh solid #F5A352;
