@@ -24,7 +24,7 @@
                     <div class="warning">
                         <span v-if="!isUsername">請輸入使用者名稱</span>
                         <span v-if="isReapeatUsername">此使用者名稱已被使用</span>
-                        <span v-if="!isValidUsername">請輸入1 ~ 20位使用者名稱</span>
+                        <span v-if="!isValidUsername">請輸入1 ~ 20碼的英文或數字</span>
                     </div>
                 </div>
                 <div class="allP">
