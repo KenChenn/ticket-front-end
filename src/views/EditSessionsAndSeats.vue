@@ -20,7 +20,8 @@
                     <div class="timesTitle">
                         <span>開售時間</span>
                         <input type="datetime-local" class="timesInput" v-model="item.startSellDateTime"
-                            :min="minStartSellDateTime" :max="maxStartSellDateTime"
+                            :min="minStartSellDateTime"
+                            :max="[item.endSellDateTime ? item.endSellDateTime : (item.showDateTime ? item.showDateTime : '')]"
                             :disabled="item.endDisabled || item.startDisabled">
                     </div>
                     <div v-if="item.isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
