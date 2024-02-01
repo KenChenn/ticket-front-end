@@ -42,7 +42,7 @@ import { dateEquals } from 'element-plus'
 export default {
     data() {
         return {
-            ...mapState(counter, ['isLogIn']),
+            ...mapState(counter, ['isLogIn', 'username']),
 
             loginAccount: "",
             loginPassword: "",
@@ -58,7 +58,7 @@ export default {
         },
         login() {
             let s = new Date("2024-01-01T14:18:28")
-            s = s.setDate(s.getDate()-1)
+            s = s.setDate(s.getDate() - 1)
             s = new Date(s)
             console.log(s)
             //確認輸入帳號 + 密碼
@@ -82,14 +82,28 @@ export default {
                         console.log(res)
                         if (res.rtncode == "SUCCESSFUL") {
                             console.log("登入成功");
-                            // this.isLogIn = true;
-                            counter().isLogIn = true;
+                            // counter().isLogIn = true;
+                            fetch('http://localhost:8080/api/get_user_basic_data',
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    credentials: 'include',
+                                    body: JSON.stringify({
+                                        account: $cookies.get("account"),
+                                    }),
+                                }).then(response => response.json())
+                                .then(res => {
+                                    console.log(res);
+                                    counter().username = res.data.username
+                                })
+                                counter().isLogIn = true;
                             this.$forceUpdate();
                             // 設定過期時間60分鐘的 cookie
                             const now = new Date();
                             const expires = new Date(now.getTime() + 60 * 60 * 1000);
                             document.cookie = `account=${this.loginAccount}; expires=${expires.toUTCString()}; path=/`;
-                            // $cookies.set("account", this.loginAccount)
                             this.$router.push('/');
                         } else {
                             // alert("登入失敗");
@@ -103,9 +117,6 @@ export default {
                             return;
                         }
                     })
-                // .then(
-                //     this.$router.push('/')
-                // )
             }
         },
         passwordVisibility() {
