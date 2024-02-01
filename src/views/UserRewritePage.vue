@@ -104,7 +104,21 @@ export default {
                             this.isReapeatUsername = false
                         };
                         if (res.rtncode == "SUCCESSFUL") {
-                            console.log("更改成功");
+                            console.log(res);
+                            fetch('http://localhost:8080/api/get_user_basic_data',
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    credentials: 'include',
+                                    body: JSON.stringify({
+                                        account: $cookies.get("account"),
+                                    }),
+                                }).then(response => response.json())
+                                .then(res => {
+                                    counter().username = res.data.username
+                                })
                             Swal.fire({
                                 title: "更改成功",
                                 icon: "success",
@@ -114,10 +128,6 @@ export default {
                             });
                             this.$router.push('/UserInfoPage')
                         }
-                        // this.user = res.data.data.username
-                        // this.email = res.data.data.email
-                        // this.birth = res.data.data.bornDate
-                        // this.phone = res.data.data.phone
                     })
 
             }

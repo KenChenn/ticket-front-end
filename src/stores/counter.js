@@ -10,6 +10,7 @@ export default defineStore("counter",{
         testArray:[{title:1,content:123},{title:2,content:123},{title:3,content:123}],
         test:"123",
         location:1,
+        username:""
     }),
     // state(){
     //     return{

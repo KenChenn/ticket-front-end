@@ -10,11 +10,10 @@ import { Value } from "sass";
 export default {
   data() {
     return {
-      ...mapState(counter, ['isLogIn']),
+      ...mapState(counter, ['isLogIn', 'username']),
       //登入狀態(已登入的狀態，記得關!!)
       // isLogIn: false, 
       dataList: [],
-      username: "",
     };
   },
   computed: {
@@ -116,10 +115,10 @@ export default {
         }
         if (res.rtncode == "SUCCESSFUL") {
           counter().isLogIn = true
-          this.username = res.data.username
-          // console.log(this.username);
+          counter().username = res.data.username
         }
       })
+    console.log(counter().username);
     console.log(counter().isLogIn);
   },
 };
@@ -142,7 +141,7 @@ export default {
       <div class="isLogIn" v-if="counter().isLogIn">
         <RouterLink to="/FavoratePage" class="tag">最愛清單 <i class="fa-solid fa-heart"></i></RouterLink>
         <RouterLink to="/OrderTracking" class="tag">訂單查詢 <i class="fa-solid fa-receipt"></i></RouterLink>
-        <RouterLink to="/UserInfoPage" class="tag">{{ this.username }} <i class="fa-solid fa-circle-user"></i>
+        <RouterLink to="/UserInfoPage" class="tag">{{ counter().username }} <i class="fa-solid fa-circle-user"></i>
         </RouterLink>
         <button type="button" @click="this.signOut()" class="signOut">登出 <i
             class="fa-solid fa-right-from-bracket"></i></button>
