@@ -23,7 +23,7 @@
                     <input type="text" class="allInput" v-model="editedUser">
                     <div class="warning">
                         <span v-if="!isUsername">請輸入使用者名稱</span>
-                        <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                        <span v-if="isReapeatUsername">此使用者名稱已被使用</span>
                     </div>
                 </div>
                 <div class="allP">
