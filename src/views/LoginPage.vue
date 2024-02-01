@@ -87,7 +87,7 @@ export default {
                                     },
                                     credentials: 'include',
                                     body: JSON.stringify({
-                                        account: $cookies.get("account"),
+                                        account: this.loginAccount
                                     }),
                                 }).then(response => response.json())
                                 .then(res => {

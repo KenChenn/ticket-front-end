@@ -132,7 +132,7 @@ export default {
       <div v-for="(item, index) in slideShowData" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
         <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
           <span>
-            {{ item.name }}
+            {{ item.name }}已過期
           </span>
           <div class="showImg" @click="this.codename = this.codename + item.codename">
             <img :src="item.keyvisualImg" class="d-block w-100" alt="...">
@@ -195,19 +195,16 @@ export default {
 
     .searchBtn {
       font-size: 4dvh;
-      cursor: pointer;
       margin: 3%;
       color: #faf8ed;
-      transition: 0.1s linear;
-      
+
       i:hover {
-        transition: 0.2s linear;
-        scale: 1.15;
+        transition: 0.1s linear;
+        scale: 1.1;
         color: #ffffff;
       }
-      
+
       i:active {
-        transition: 0.2s linear;
         scale: 0.95;
         color: #c26202;
       }
