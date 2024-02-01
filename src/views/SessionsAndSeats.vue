@@ -18,7 +18,7 @@
                     <div class="timesTitle">
                         <span>開售時間</span>
                         <input type="datetime-local" class="timesInput" v-model="item.startSellDateTime"
-                            :min="minStartSellDateTime" :max="maxStartSellDateTime">
+                            :min="minStartSellDateTime" :max="[item.endSellDateTime ? item.endSellDateTime:(item.showDateTime? item.showDateTime:'')]">
                     </div>
                     <div v-if="item.isEmptyStartSellDateTime" class=" error">請輸入開售時間</div>
                     <div v-if="item.startIsAfterShow" class="error">開售時間已晚於活動開始時間</div>
