@@ -187,7 +187,7 @@ export default {
                 this.isEnoughBirthday = false
             }
 
-            if (this.account && this.username && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday && this.isEnoughBirthday && this.isCheckbox && this.isValidAccount && this.isValidUsername) {
+            if (this.isValidAccount && this.isValidUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday && this.isEnoughBirthday && this.isCheckbox && !this.isReapeatUsername && !this.isReapeatAccount) {
                 const account = {
                     account: this.account,
                     username: this.username,
@@ -197,7 +197,6 @@ export default {
                     phoneNumber: this.phoneNumber,
                     realName: this.name
                 }
-                // console.log(this.accountList);
                 // this.accountList.push(account)
                 axios({
                     url: 'http://localhost:8080/api/user_signup',
