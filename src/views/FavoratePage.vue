@@ -21,8 +21,11 @@
                 <p>活動名稱</p>
                 <p class="infoTitle">{{ item.name }}
                 </p>
-                <p>演出日期</p>
+                <p>活動開始日期</p>
                 <p class="infoTitle">{{ item.startDate }}
+                </p>
+                <p>活動結束日期</p>
+                <p class="infoTitle">{{ item.endDate }}
                 </p>
             </div>
             <div class="right">
