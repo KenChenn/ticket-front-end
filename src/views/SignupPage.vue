@@ -21,7 +21,7 @@
                     <input type="text" class="allInput" v-model="account">
                     <div class="warning">
                         <span v-if="isReapeatAccount">此帳號已經註冊過</span>
-                        <span v-if="!isValidAccount">請輸入1 ~ 20位帳號</span>
+                        <span v-if="!isValidAccount">請輸入1 ~ 20碼的英文或數字</span>
                     </div>
                 </div>
                 <div class="allP">
@@ -29,7 +29,7 @@
                     <input type="text" class="allInput" v-model="username">
                     <div class="warning">
                         <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
-                        <span v-if="!isValidUsername">請輸入1 ~ 20位使用者名稱</span>
+                        <span v-if="!isValidUsername">請輸入1 ~ 20碼的英文或數字</span>
                     </div>
                 </div>
                 <div class="allP">
