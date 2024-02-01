@@ -57,10 +57,6 @@ export default {
             this.$router.push('/SignupPage')
         },
         login() {
-            let s = new Date("2024-01-01T14:18:28")
-            s = s.setDate(s.getDate() - 1)
-            s = new Date(s)
-            console.log(s)
             //確認輸入帳號 + 密碼
             this.isEntityAccount = !!this.loginAccount
             this.isEntityPassword = !!this.loginPassword

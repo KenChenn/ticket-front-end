@@ -131,6 +131,10 @@ export default {
             this.$router.push('/LoginPage')
         },
         register() {
+            console.log("註冊功能啟動");
+            console.log(this.account);
+            console.log(this.username);
+
             if (!this.account && !this.username && !this.email && !this.birthday && !this.password && !this.phoneNumber && !this.name && !this.checkbox) {
                 Swal.fire({
                     title: "請輸入註冊資訊",
@@ -171,7 +175,6 @@ export default {
             } else {
                 this.isValidBirthday = true
             }
-
             // 檢查是否已滿7歲
             var ageDifMs = Date.now() - new Date(this.birthday).getTime();
             // 年齡的日期差
@@ -184,7 +187,7 @@ export default {
                 this.isEnoughBirthday = false
             }
 
-            if (this.isAccount && this.isUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday && this.isEnoughBirthday && this.isCheckbox && this.isValidAccount && this.isValidUsername) {
+            if (this.account && this.username && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday && this.isEnoughBirthday && this.isCheckbox && this.isValidAccount && this.isValidUsername) {
                 const account = {
                     account: this.account,
                     username: this.username,
@@ -233,6 +236,8 @@ export default {
                             confirmButtonColor: "#748e63"
                         });
                         this.$router.push('/LoginPage')
+                    }else{
+                        console.log("出錯");
                     }
                 })
             }
