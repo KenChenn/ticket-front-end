@@ -22,7 +22,7 @@
                 <div class="allP">使用者名稱<br>
                     <input type="text" class="allInput" v-model="editedUser">
                     <div class="warning">
-                        <span v-if="!isUsername">請輸入使用者名稱</span>
+                        <span v-if="!isValidUsername">請輸入1 ~ 20位使用者名稱</span>
                         <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
                     </div>
                 </div>
@@ -62,6 +62,7 @@ export default {
 
             isUsername: true,
             isValidEmail: true,
+            isValidUsername: true,
             isValidPhoneNumber: true,
             isReapeatUsername: false,
 
@@ -70,7 +71,9 @@ export default {
 
     methods: {
         edit() {
-            this.isUsername = !!this.editedUser;
+            //確認使用者名稱格式
+            const username = /^[\w\p{Han}\p{P}]{1,20}$/
+            this.isValidUsername = username.test(this.editedUser);
             //確認mail格式
             const mail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
             this.isValidEmail = mail.test(this.editedEmail);
@@ -196,6 +199,7 @@ export default {
                 font-size: 3dvh;
                 color: #F5A352;
             }
+
             .allInput {
                 width: 80%;
                 font-size: 3dvh;
