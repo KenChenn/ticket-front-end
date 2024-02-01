@@ -24,6 +24,7 @@
                     <div class="warning">
                         <span v-if="!isUsername">請輸入使用者名稱</span>
                         <span v-if="isReapeatUsername">此使用者名稱已被使用</span>
+                        <span v-if="!isValidUsername">請輸入1 ~ 20位使用者名稱</span>
                     </div>
                 </div>
                 <div class="allP">
@@ -62,6 +63,7 @@ export default {
 
             isUsername: true,
             isValidEmail: true,
+            isValidUsername: true,
             isValidPhoneNumber: true,
             isReapeatUsername: false,
 
@@ -70,7 +72,9 @@ export default {
 
     methods: {
         edit() {
-            this.isUsername = !!this.editedUser;
+            //確認使用者名稱格式
+            const username = /^[\w\p{Han}\p{P}]{1,20}$/
+            this.isValidUsername = username.test(this.editedUser);
             //確認mail格式
             const mail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
             this.isValidEmail = mail.test(this.editedEmail);
@@ -101,7 +105,21 @@ export default {
                             this.isReapeatUsername = false
                         };
                         if (res.rtncode == "SUCCESSFUL") {
-                            console.log("更改成功");
+                            console.log(res);
+                            fetch('http://localhost:8080/api/get_user_basic_data',
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    credentials: 'include',
+                                    body: JSON.stringify({
+                                        account: $cookies.get("account"),
+                                    }),
+                                }).then(response => response.json())
+                                .then(res => {
+                                    counter().username = res.data.username
+                                })
                             Swal.fire({
                                 title: "更改成功",
                                 icon: "success",
@@ -111,10 +129,6 @@ export default {
                             });
                             this.$router.push('/UserInfoPage')
                         }
-                        // this.user = res.data.data.username
-                        // this.email = res.data.data.email
-                        // this.birth = res.data.data.bornDate
-                        // this.phone = res.data.data.phone
                     })
 
             }
@@ -196,6 +210,7 @@ export default {
                 font-size: 3dvh;
                 color: #F5A352;
             }
+
             .allInput {
                 width: 80%;
                 font-size: 3dvh;

@@ -20,16 +20,16 @@
                     <span>帳號</span>
                     <input type="text" class="allInput" v-model="account">
                     <div class="warning">
-                        <span v-if="!isAccount">請輸入帳號</span>
                         <span v-if="isReapeatAccount">此帳號已經註冊過</span>
+                        <span v-if="!isValidAccount">請輸入1 ~ 20位帳號</span>
                     </div>
                 </div>
                 <div class="allP">
                     <span>使用者名稱</span>
                     <input type="text" class="allInput" v-model="username">
                     <div class="warning">
-                        <span v-if="!isUsername">請輸入使用者名稱</span>
                         <span v-if="isReapeatUsername">此使用者名稱已經註冊過</span>
+                        <span v-if="!isValidUsername">請輸入1 ~ 20位使用者名稱</span>
                     </div>
                 </div>
                 <div class="allP">
@@ -73,7 +73,7 @@
                 </div>
                 <div class="allP">
                     <div class="allP2">
-                        <input type="checkbox" v-model="checkbox">
+                        <input type="checkbox" v-model="checkbox" v-if="isCheckboxOpen">
                         <span>我同意</span>
                         <a @click="warning">免責說明</a>
                     </div>
@@ -106,11 +106,11 @@ export default {
             phoneNumber: "",
             checkbox: false,
             //確認是否輸入
-            isAccount: true,
-            isUsername: true,
             isBirthday: true,
             isCheckbox: true,
             //確認輸入格式正確
+            isValidAccount: true,
+            isValidUsername: true,
             isValidEmail: true,
             isValidPassword: true,
             isValidPhoneNumber: true,
@@ -121,6 +121,7 @@ export default {
             isReapeatUsername: false,
             isReapeatAccount: false,
 
+            isCheckboxOpen: false,
             showPassword: false,
             accountList: []
         }
@@ -141,13 +142,17 @@ export default {
                 return;
             }
 
-            //確認輸入帳號 + 使用者名稱 + 生日
-            this.isUsername = !!this.username;
-            this.isAccount = !!this.account
+            //確認輸入生日 + 免責
             this.isBirthday = !!this.birthday;
             this.isCheckbox = !!this.checkbox
 
 
+            //確認帳號格式
+            const account = /^[\w\p{Han}\p{P}]{1,20}$/
+            this.isValidAccount = account.test(this.account);
+            //確認使用者名稱格式
+            const username = /^[\w\p{Han}\p{P}]{1,20}$/
+            this.isValidUsername = username.test(this.username);
             //確認mail格式
             const mail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
             this.isValidEmail = mail.test(this.email);
@@ -170,16 +175,16 @@ export default {
             // 檢查是否已滿7歲
             var ageDifMs = Date.now() - new Date(this.birthday).getTime();
             // 年齡的日期差
-            var ageDate = new Date(ageDifMs); 
+            var ageDate = new Date(ageDifMs);
             // 取得年份差
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
             if (this.isBirthday && age >= 7) {
                 this.isEnoughBirthday = true
-            } else if(this.isBirthday && age < 7) {
+            } else if (this.isBirthday && age < 7) {
                 this.isEnoughBirthday = false
             }
 
-            if (this.isAccount && this.isUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday && this.isEnoughBirthday && this.isCheckbox) {
+            if (this.isAccount && this.isUsername && this.isBirthday && this.isValidEmail && this.isValidPassword && this.isValidPhoneNumber && this.isValidName && this.isValidBirthday && this.isEnoughBirthday && this.isCheckbox && this.isValidAccount && this.isValidUsername) {
                 const account = {
                     account: this.account,
                     username: this.username,
@@ -241,6 +246,7 @@ export default {
             this.showPassword = !this.showPassword;
         },
         warning() {
+            this.isCheckboxOpen = true
             Swal.fire({
                 html: "本系統不接受未滿7歲之無行為能力人註冊會員。<br>若您是7歲以上、未滿18歲之未成年人，應由您的法定代理人閱讀、暸解、並同意服務條款之所有內容，始得開始使用或繼續使用此售票系統提供之服務。<br>如您開始使用或繼續使用本系統，即推定您的法定代理人已閱讀、暸解、並同意服務條款之所有內容",
                 icon: "warning",
@@ -395,10 +401,11 @@ export default {
             display: flex;
             align-items: center;
             margin-top: 5%;
+
             // border: 1px solid black;
             span {
                 width: 15%;
-                margin:0 2%;
+                margin: 0 2%;
             }
 
             a {
