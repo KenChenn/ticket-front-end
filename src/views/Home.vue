@@ -131,7 +131,7 @@ export default {
     <div class="carousel-inner">
       <div v-for="(item, index) in slideShowData" :key="index" :class="{ 'carousel-item': true, 'active': index === 0 }">
         <RouterLink :to="codename" class="show" @click="this.codename = this.codename + item.codename">
-          <span>
+          <span @click="this.codename = this.codename + item.codename">
             {{ item.name }}
           </span>
           <div class="showImg" @click="this.codename = this.codename + item.codename">
